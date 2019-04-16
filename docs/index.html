@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="description" content="Master System Design for the Common Architecture">
+<meta name="keywords" content="common architecture master system design">
+<meta name="author" content="TVUK System Team">
+<title>Master System Design</title>
+<link rel="stylesheet" href="./stylesheets/eoepca.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Master System Design (EOEPCA.SDD.001)</h1>
+<div class="details">
+<span id="author" class="author">TVUK System Team</span><br>
+<span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
+<span id="revnumber">version v0.1,</span>
+<span id="revdate">16/04/2019</span>
+<br><span id="revremark">In-Progress Draft</span>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock right">
+<div class="content">
+<img src="./images/telespazio.png" alt="telespazio" width="200">
+</div>
+</div>
+<div class="paragraph">
+<div class="title"><span class="big"><strong>Design Document</strong></span></div>
+<p>Master System Design for the Common Architecture</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">COMMENTS and ISSUES</dt>
+<dd>
+<p>If you would like to raise comments or issues on this document, please do so by raising an Issue at the following URL <a href="https://github.com/EOEPCA/master-system-design/issues" class="bare">https://github.com/EOEPCA/master-system-design/issues</a>.</p>
+</dd>
+<dt class="hdlist1">PDF</dt>
+<dd>
+<p>This document is available in PDF format <a href="https://eoepca.github.io/use-case-analysis/EOEPCA-master-system-design.pdf">here</a>.</p>
+</dd>
+<dt class="hdlist1">COPYRIGHT</dt>
+<dd>
+<p>Copyright © 2019 TBD (ESA or TVUK or something else ?)</p>
+</dd>
+</dl>
+</div>
+<div style="page-break-after: always;"></div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a>
+<ul class="sectlevel2">
+<li><a href="#_purpose_and_scope">1.1. Purpose and Scope</a></li>
+<li><a href="#_structure_of_the_document">1.2. Structure of the Document</a></li>
+<li><a href="#_reference_documents">1.3. Reference Documents</a></li>
+<li><a href="#_terminology">1.4. Terminology</a></li>
+<li><a href="#_glossary">1.5. Glossary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_purpose_and_scope">1.1. Purpose and Scope</h3>
+<div class="paragraph">
+<p>This document presents the Master System Design for the Common Architecture.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_structure_of_the_document">1.2. Structure of the Document</h3>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reference_documents">1.3. Reference Documents</h3>
+<div class="paragraph">
+<p>The following is a list of Reference Documents with a direct bearing on the content of this document.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<a id="EOEPCA-UC"></a>[EOEPCA-UC]
+</td>
+<td class="hdlist2">
+<p>EOEPCA - Use Case Analysis, EOEPCA.TN.005 (<a href="https://eoepca.github.io/use-case-analysis">https://eoepca.github.io/use-case-analysis</a>), Issue TBD, dd/mm/yyy</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="EP-FM"></a>[EP-FM]
+</td>
+<td class="hdlist2">
+<p>Exploitation Platform - Functional Model, ESA-EOPSDP-TN-17-050, Issue 1.0, 30/11/2017</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_terminology">1.4. Terminology</h3>
+<div class="paragraph">
+<p>The following terms are used in the Master System Design.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform (EP)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An on-line collection of products, services and tools for exploitation of EO data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An individual using the EP, of any type (Admin/Consumer/Expert/Guest)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User with administrative capability on the EP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User accessing existing services/products within the EP. Consumers may be scientific/research or commercial, and may or may not be experts of the domain</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User developing and integrating added-value to the EP (Scientific Researcher or Service Developer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scientific Researcher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to perform scientific research. Having minimal IT knowledge with no desire to acquire it, they want the effort for the translation of their algorithm into a service/product to be minimised by the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service Developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to provide a performing, stable and reliable service/product. Having deeper IT knowledge or a willingness to acquire it, they require deeper access to the platform IT functionalities for optimisation of their algorithm.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unregistered User or an unauthenticated Consumer with limited access to the EP&#8217;s services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User finds products/services of interest to them based upon search criteria.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Products</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EO data (commercial and non-commercial) and Value-added products and made available through the EP. <em>It is assumed that the Hosting Environment for the EP makes available an existing supply of EO Data</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value-added products</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Products generated from processing services of the EP (or external processing) and made available through the EP. This includes products uploaded to the EP by users and published for collaborative consumption</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A non-interactive data processing that has a well-defined set of input data types, input parameterisation, producing <em>Processing Results</em> with a well-defined output data type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On-demand Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated directly by the user on an ad-hoc basis.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Systematic Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated automatically (on behalf of a user), either according to a schedule (routine) or triggered by an event (e.g. arrival of new data).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bulk Processing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution of a <em>Processing Service</em> on large amounts of data specified by AOI and TOI.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of a <em>Processing Service</em> execution.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Research Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of some research/analysis that describes all aspects required to reproduce the analysis, including data used, processing performed etc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A stand-alone application provided within the exploitation platform for on-line hosted processing. Provides an interactive interface through which the user is able to conduct their analysis of the data, producing <em>Analysis Results</em> as output. Interactive Applications include at least the following types: console application, web application (rich browser interface), remote desktop to a hosted VM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Console Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A simple <em>Interactive Application</em> for analysis in which a console interface to a platform-hosted terminal is provided to the user. The console interface can be provided through the user&#8217;s browser session or through a remote SSH connection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Web Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a rich user interface through the user&#8217;s web browser.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Remote Desktop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a remote desktop session to an OS-session (or directly to a 'native' application) on the exploitation platform. The user will have access to a number of applications within the hosted OS. The remote desktop session is provided through the user’s web browser.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An application or script that is developed and executed outside of the Exploitation Platform, but is able to use the data/services of the EP via a programmatic interface (API).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Analysis Result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of an <em>Interactive Application</em> analysis session.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The act to start a <em>Processing Service</em> or an <em>Interactive Application</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visualisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To obtain a visual representation of any data/products held within the platform - presented to the user within their web browser session.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A set of pre-defined activities that interact to achieve a result. For the exploitation platform, comprises on-line processing to derive data products from input data, conducted by a hosted processing service execution.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Algorithm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A self-contained set of operations to be performed, typically to achieve a desired data manipulation. The algorithm must be implemented (codified) for deployment and execution on the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The codification of an algorithm performed with a given programming language - compiled to Software or directly executed (interpretted) within the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Software</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The compilation of code into a binary program to be executed within the platform on-line computing environment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Analytics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A set of activities aimed to discover, interpret and communicate meaningful patters within the data. Analytics considered here are performed manually (or in a semi-automatic way) on-line with the aid of <em>Interactive Applications</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The act of building new products/services/applications to be exposed within the platform and made available for users to conduct exploitation activities. Development may be performed inside or outside of the platform. If performed outside, an integration activity will be required to accommodate the developed service so that it is exposed within the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workspace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user-scoped 'container' in the EP, in which each user maintains their own links to resources (products and services) that have been collected by a user during their usage of the EP. The workspace acts as the hub for a user&#8217;s exploitation activities within the EP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Terms &amp; Conditions (T&amp;Cs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The obligations that the user agrees to abide by in regard of usage of products/services of the platform. T&amp;Cs are set by the provider of each product/service.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_glossary">1.5. Glossary</h3>
+<div class="paragraph">
+<p>The following acronyms and abbreviations have been used in this report.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 85.7143%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AOI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Area of Interest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Programming Interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Earth Observation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exploitation Platform</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secure Shell</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TOI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time of Interest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VNC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Network Computing</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version v0.1<br>
+Last updated 2019-04-16 10:03:53 +0100
+</div>
+</div>
+</body>
+</html>
