@@ -17,8 +17,8 @@
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version v0.1,</span>
-<span id="revdate">16/04/2019</span>
+<span id="revnumber">version v0.2,</span>
+<span id="revdate">25/04/2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
@@ -63,6 +63,62 @@
 <li><a href="#_glossary">1.5. Glossary</a></li>
 </ul>
 </li>
+<li><a href="#_context">2. Context</a>
+<ul class="sectlevel2">
+<li><a href="#_domain_areas">2.1. Domain Areas</a></li>
+</ul>
+</li>
+<li><a href="#_design_overview">3. Design Overview</a>
+<ul class="sectlevel2">
+<li><a href="#_user_management">3.1. User Management</a></li>
+<li><a href="#_processing_and_chaining">3.2. Processing and Chaining</a></li>
+<li><a href="#_resource_provisioning_and_management">3.3. Resource Provisioning and Management</a></li>
+<li><a href="#_web_portal">3.4. Web Portal</a></li>
+</ul>
+</li>
+<li><a href="#_user_management_2">4. User Management</a>
+<ul class="sectlevel2">
+<li><a href="#_identity_and_access_management_iam">4.1. Identity and Access Management (IAM)</a>
+<ul class="sectlevel3">
+<li><a href="#_iam_approach">4.1.1. IAM Approach</a></li>
+<li><a href="#_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</a></li>
+</ul>
+</li>
+<li><a href="#_authenticated_identity">4.2. Authenticated Identity</a>
+<ul class="sectlevel3">
+<li><a href="#_overview">4.2.1. Overview</a></li>
+<li><a href="#_authentication_service">4.2.2. Authentication Service</a></li>
+<li><a href="#_oidc_id_token">4.2.3. OIDC ID Token</a></li>
+<li><a href="#_oidc_clients">4.2.4. OIDC Clients</a></li>
+<li><a href="#_resource_server_pep">4.2.5. Resource Server (PEP)</a></li>
+<li><a href="#_access_token_validation">4.2.6. Access Token Validation</a></li>
+<li><a href="#_federated_user_access">4.2.7. Federated User Access</a>
+<ul class="sectlevel4">
+<li><a href="#_user_pre_authorisation">User Pre-authorisation</a></li>
+<li><a href="#_possible_use_of_oidc_jwks_federation">Possible use of OIDC JWKS Federation</a></li>
+</ul>
+</li>
+<li><a href="#_additional_oidc_capabilities">4.2.8. Additional OIDC Capabilities</a>
+<ul class="sectlevel4">
+<li><a href="#_oidc_discovery">OIDC Discovery</a></li>
+<li><a href="#_client_registration">Client Registration</a></li>
+</ul>
+</li>
+<li><a href="#_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</a>
+<ul class="sectlevel4">
+<li><a href="#_policy_decision_point_pdp">Policy Decision Point (PDP)</a></li>
+<li><a href="#_attribute_authority">Attribute Authority</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_accounting_and_billing">4.3. Accounting and Billing</a></li>
+<li><a href="#_user_profile">4.4. User Profile</a></li>
+</ul>
+</li>
+<li><a href="#_processing_and_chaining_2">5. Processing and Chaining</a></li>
+<li><a href="#_resource_management">6. Resource Management</a></li>
+<li><a href="#_web_portal_2">7. Web Portal</a></li>
 </ul>
 </div>
 <div style="page-break-after: always;"></div>
@@ -88,26 +144,79 @@
 <div class="paragraph">
 <p>The following is a list of Reference Documents with a direct bearing on the content of this document.</p>
 </div>
-<div class="hdlist">
-<table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 71.4285%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
 <tr>
-<td class="hdlist1">
-<a id="EOEPCA-UC"></a>[EOEPCA-UC]
-</td>
-<td class="hdlist2">
-<p>EOEPCA - Use Case Analysis, EOEPCA.TN.005 (<a href="https://eoepca.github.io/use-case-analysis">https://eoepca.github.io/use-case-analysis</a>), Issue TBD, dd/mm/yyy</p>
-</td>
+<th class="tableblock halign-left valign-top">Reference</th>
+<th class="tableblock halign-left valign-top">Document Details</th>
+<th class="tableblock halign-left valign-top">Version</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td class="hdlist1">
-<a id="EP-FM"></a>[EP-FM]
-</td>
-<td class="hdlist2">
-<p>Exploitation Platform - Functional Model, ESA-EOPSDP-TN-17-050, Issue 1.0, 30/11/2017</p>
-</td>
-</tr>
-</table>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="EOEPCA-UC"></a>[EOEPCA-UC]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>EOEPCA - Use Case Analysis (<a href="https://eoepca.github.io/use-case-analysis">https://eoepca.github.io/use-case-analysis</a>),<br>
+EOEPCA.TN.005</p>
 </div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Issue TBD,<br>
+dd/mm/yyy</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="EP-FM"></a>[EP-FM]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Exploitation Platform - Functional Model,<br>
+ESA-EOPSDP-TN-17-050</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Issue 1.0,<br>
+30/11/2017</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TEP-OA"></a>[TEP-OA]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Thematic Exploitation Platform Open Architecture,<br>
+EMSS-EOPS-TN-17-002</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Issue 1,<br>
+12/12/2017</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_terminology">1.4. Terminology</h3>
@@ -258,6 +367,14 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Terms &amp; Conditions (T&amp;Cs)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The obligations that the user agrees to abide by in regard of usage of products/services of the platform. T&amp;Cs are set by the provider of each product/service.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider (IdP)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The source for validating user identity in a federated identity system, (user authentication as a service).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authentication provision within the Exploitation Platform context. The Authentication Provider is an Authorization Server (OAuth) that is used purely for authentication.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -279,6 +396,14 @@
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication &amp; Authorisation Infrastructure</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ABAC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Attribute Based Access Control</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AOI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Area of Interest</p></td>
 </tr>
@@ -287,12 +412,40 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application Programming Interface</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content Management System</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EO</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Earth Observation</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EP</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exploitation Platform</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identity and Access Management</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IdP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PDP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Policy Decision Point</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PEP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Policy Enforcement Point</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Policy Information Point</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RBAC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role Based Access Control</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
@@ -306,16 +459,780 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">VNC</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Network Computing</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">XACML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eXtensible Access Control Markup Language</p></td>
+</tr>
 </tbody>
 </table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context">2. Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Master System Design provides an EO Exploitation Platform architecture that meets the service needs of current and future systems, as defined by the use cases described in <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. These use cases must be explored under 'real world' conditions by engagement with existing deployments, initiatives, user groups, stakeholders and sponsors within the user community and within overlapping communities, in order to gain a fully representative understanding of the functional requirements.</p>
+</div>
+<div class="paragraph">
+<p>The system design takes into consideration existing precursor architectures (such as the Exploitation Platform Functional Model <a href="#EP-FM]">[EP-FM]]</a> and Thematic Exploitation Platform Open Architecture <a href="#TEP-OA">[TEP-OA]</a>), including consideration of state-of-the-art technologies and approaches used by current related projects. The master system design describes functional blocks linked together by agreed standardised interfaces.</p>
+</div>
+<div class="paragraph">
+<p>The importance of the OGC in these activities is recognised as a reference for the appropriate standards and in providing mechanisms to develop and evolve standards as required in the development of the architecture. In order to meet the design challenges we must apply the applicable existing OGC standards to the full set of federated use cases in order to expose deficiencies and identify needed evolution of the standards. Standards are equally important in all areas of the Exploitation Platform, including topics such as Authentication &amp; Authorisation Infrastructure (AAI), containerisation and provisioning of virtual cloud resources to ensure portability of compute between different providers of resource layer.</p>
+</div>
+<div class="paragraph">
+<p>Data and metadata are fundamental considerations for the creation of an architecture in order to ensure full semantic interoperability between services. In this regard, data modelling and the consideration of data standards are critical activities.</p>
+</div>
+<div class="paragraph">
+<p>The system design must go beyond the provision of a standalone EO Exploitation Platform, by intrinsically supporting federation of similar EO platforms at appropriate levels of the service stack.  The Network of EO Resources seeks, ‘to unite the available - but scattered - European resources in a large federated and open environment’. In such a context, federation provides the potential to greatly enhance the utilization of data and services and provide as stimulus for research and commercial exploitation. From the end-user point of view, the federated system should present itself as a single consolidated environment in which all the federated resources are made available as an integrated system. Thus, the system design must specify federation-level interfaces that support this data and service-level interoperability in such a way that is seamless to the end users.</p>
+</div>
+<div class="paragraph">
+<p>The goal is to create an Integrated Data Exploitation Environment. Users will apply their workflows close to the hosted data, supplemented by their own data. Processing outputs may be hosted as new products that can themselves contribute to the global catalogue. This paradigm can then be extended to encompass the federated set of Exploitation Platforms within the Network of EO Resources. The result is a Federated, Integrated Data Analysis Environment.</p>
+</div>
+<div class="paragraph">
+<p>A Reference Implementation of the full architecture will be developed to prove the concepts and also to provide an off-the-shelf solution that can be instantiated by future projects to implement their EO Exploitation Platform, thus facilitating their ability to join the federated Network of EO Resources. <strong>Thus, the Reference Implementation can be regarded as a set of re-usable platform services, in the context of a re-usable platform architecture.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_domain_areas">2.1. Domain Areas</h3>
+<div class="paragraph">
+<p>The system architecture is designed to meet the use cases as defined in <a href="#EOEPCA-UC">[EOEPCA-UC]</a> and <a href="#EP-FM">[EP-FM]</a>. <a href="#EOEPCA-UC">[EOEPCA-UC]</a> makes a high-level analysis of the use-cases to identify the main system functionalities organised into domain areas: 'User Management', 'Processing &amp; Chaining' and 'Resource Management'. The high-level functionalities are often met by more than one domain area, and User Management (specifically Identification, Authentication and Authorisation) cuts across all use cases, and forms the basis of all access control restrictions that are applied to platform services and data.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User Management</dt>
+<dd>
+<p>All aspects of user identification, authentication and authorisation in a federated system-ofsystems environment.</p>
+</dd>
+<dt class="hdlist1">Processing and Chaining</dt>
+<dd>
+<p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
+</dd>
+<dt class="hdlist1">Resource Provisioning and Management</dt>
+<dd>
+<p>Storage and cataloguing of all persistent resources, including data and other supporting material such as documents. Handles and abstracts the low-level complexities of different underlying storage technologies and strategies. Facilitating the network of EO resources by providing a federated interface to other data services within the wider EO network.</p>
+</dd>
+</dl>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design_overview">3. Design Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The overall system design has been considered by taking the ‘Exploitation Platform – Functional Model’ <a href="#EP-FM">[EP-FM]</a> as a starting point and then evolving these ideas in the context of existing interface standards (with some emphasis on the OGC protocol suite) and the need for federated services.</p>
+</div>
+<div class="paragraph">
+<p><a href="#img_topLevelArchitecture">Figure 1</a> depicts the domain areas as top level component blocks in a Platform ‘A’. The arrows may be read as “uses”, each implying one or more service interfaces.</p>
+</div>
+<div id="img_topLevelArchitecture" class="imageblock text-center">
+<div class="content">
+<img src="./images/top-level-architecture.png" alt="top level architecture" width="1000">
+</div>
+<div class="title">Figure 1. Top-level Architecture</div>
+</div>
+<div class="paragraph">
+<p>A potential federation concept is represented by interactions between corresponding blocks in a collaborating Platform ‘B’. The architecture aims to minimise dependencies and is conducive to the principle of subcontracting the implementation to experts in the respective domains. The web portal integrates various client components to form a rich user-facing interface. <strong>The Web Portal is depicted as it has interfaces with the other domain areas - but it is not a priority concern for the Common Architecture. Each exploitation platform would be expected to develop its own web interfaces according to its needs.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_user_management">3.1. User Management</h3>
+<div class="paragraph">
+<p><em>Responsible for all aspects related to the user’s account, profile and identity.</em></p>
+</div>
+<div class="paragraph">
+<p>It provides authentication, authorisation and accounting services that are required to access other elements of the architecture, including the processing-oriented services and resource-oriented services. Individual resources may have an associated access and/or charging policy, but these have to be checked against the identity of the user. Resource consumption may also be controlled e.g. by credits and/or quotas associated with the user account. In the Network of EO Resources, a user should not need to create an account on multiple platforms. Therefore some interactions will be required between the User Management functions, whether directly or in directly via trusted third party.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_processing_and_chaining">3.2. Processing and Chaining</h3>
+<div class="paragraph">
+<p><em>Provides access to a variety of processing functions, tools and applications, as well as an executions environment in which to deploy them.</em></p>
+</div>
+<div class="paragraph">
+<p>The user can have a private workspace in which to upload files, and develop their own processing chains, experiments and workflows. Integrated with this environment is the facility to use the services of the Resource Provisioning and Management subsystem to discover and access relevant published datasets and processing elements. Then, subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resource_provisioning_and_management">3.3. Resource Provisioning and Management</h3>
+<div class="paragraph">
+<p><em>Responsible for storing and cataloguing a variety of resources.</em></p>
+</div>
+<div class="paragraph">
+<p>First and foremost, this will contain multidimensional geo-spatial datasets. In addition it may include a variety of heterogeneous data and other resources, such as documentation, processing services, Docker images, etc.</p>
+</div>
+<div class="paragraph">
+<p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services. Access to services and resources is controlled according to an associated policy. For identity authentication, authorisation, and accounting, this will require the services of the User Management component. Similarly, the ingestion process is controlled, in order to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue. This component may interact with corresponding peer components on other platforms, for example to synchronise catalogue entries.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_web_portal">3.4. Web Portal</h3>
+<div class="paragraph">
+<p><em>Presents the platform user interface for interacting with the local resources and processing facilities, as well as the wider network of EO resources.</em></p>
+</div>
+<div class="paragraph">
+<p>It includes a web site, themed and branded according to the owning organisation. It provides the view onto the user’s private workspace and acts as their window on the world. It provides a rich, interactive web interface for discovering and working with all kinds of resources, including EO data, processing and documentation. It includes web service clients for smart search and data visualisations. It provides a workspace for developing and deploying processing algorithms, workflows, experiments and applications, and publishing results. It includes support and collaboration tools for the community.</p>
+</div>
+<div class="paragraph">
+<p>Web Portal integrates together various web service clients that uses services provided by the specialist domains (Processing, Resource, User) on the local platform and collaborating platforms.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_user_management_2">4. User Management</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the context of the Common Architecture, User Management covers the following main functional areas:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Identity and Access Management (IAM)</dt>
+<dd>
+<p>Identification/authentication of users and authorization of access to protected resources (data/services) within the EP.</p>
+</dd>
+<dt class="hdlist1">Accounting and Billing</dt>
+<dd>
+<p>Maintaining an accounting record of all user accesses to data/services/applications, supported by appropriate systems of credits and billing.</p>
+</dd>
+<dt class="hdlist1">User Profile</dt>
+<dd>
+<p>Maintenance of details associated to the user that may be needed in support of access management and billing.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>These are explored in the following sub-sections.</p>
+</div>
+<div class="sect2">
+<h3 id="_identity_and_access_management_iam">4.1. Identity and Access Management (IAM)</h3>
+<div class="paragraph">
+<p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorisation decisions are made based upon attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sofisticated authorisations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
+</div>
+<div class="paragraph">
+<p>In achieving this there are three main concerns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Unique user identification</p>
+</li>
+<li>
+<p>Determine what attributes are required to access the protected resource</p>
+</li>
+<li>
+<p>Determine whether the user has the required attributes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms, under the policy decision of the local platform:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The identity is provided externally. The external IdP has no association to the exploitation platform, and hence is not the appropriate place to administer attributes that relate to EP resources.</p>
+</li>
+<li>
+<p>The protected resources are under the custodianship of the exploitation platform and hence the exploitation platform defines internally its rules for accessing its protected resources.</p>
+</li>
+<li>
+<p>The administrative domain for a set of attributes should not be tied to an exploitation platform, which facilitates the provision of federation and virtual organisations.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_iam_approach">4.1.1. IAM Approach</h4>
+<div class="paragraph">
+<p><a href="#img_iamOverview">Figure 2</a> presents the basic approach. At this stage it does not consider the case in which an exploitation platform accesses resources in another platform on behalf of a user, (for example a workflow step that is invoked on another platform). This is addressed in a later section. Users are authenticated by redirection to an external identity provider, (their ‘home’ IdP). This returns the authentication decision and some basic user information as required (such as name, email, etc.).</p>
+</div>
+<div id="img_iamOverview" class="imageblock text-center">
+<div class="content">
+<img src="./images/iam-overview.png" alt="iam overview" width="1000">
+</div>
+<div class="title">Figure 2. Identity and Access Management Overview</div>
+</div>
+<div class="paragraph">
+<p>Each protected resource is fronted by its Policy Enforcement Point (PEP) that will only permit access if the appropriate conditions are met. This decision is made according to a set of rules that are under the control of and configured within the exploitation platform.</p>
+</div>
+<div class="paragraph">
+<p>The Authentication Service is provided as a common component that is utilised by each PEP to perform the authentication flow with the external IdPs. In the case of an unauthenticated request, the PEP will initiate the Authentication Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. This direct connection is of particular importance in the case of significant data volumes being returned to the User. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection and thus spoiling the direct communication between end-user agent and resource server, and so introduce an inefficiency in the data path.</p>
+</div>
+<div class="paragraph">
+<p>The PEP interrogates the PDP for an authorisation decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Identity of end-user (XACML subject)</p>
+</li>
+<li>
+<p>The API (path/version etc.) being accessed (XACML resource)</p>
+</li>
+<li>
+<p>The operation (HTTP verb) being performed (XACML action)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The rules are expressed through attributes, and it is the job of the Policy Decision Point (PDP) to determine, for a given request, what attributes are required and what attributes the user possesses, in order to provide its access decision. In order to know whether a user possesses a given attribute it is necessary to interrogate the appropriate Attribute Authority for the attribute.</p>
+</div>
+<div class="paragraph">
+<p>It should be additionally noted that the decision to allow the user access depends upon dynamic 'attributes', such as whether the user has enough credits to 'pay' for their usage, or whether they have accepted the necessary Terms &amp; Conditions for a given dataset or service. Thus, the PDP must interrogate other EP-services such as 'Accounting &amp; Billing' and 'User Profile' to answer such questions.</p>
+</div>
+<div class="paragraph">
+<p>An Attribute Authority represents the administrative domain for a set of attributes - and acts as Policy Information Point (PIP) for the attributes under its governance. A given attribute is administered by a single Attribute Authority. Thus, when making its decision, the PDP must know for each attribute who is the responsible Attribute Authority (e.g. by lookup), and then interrogate that Attribute Authority to know whether the user possesses the given attribute. For any given attribute, the attribute authority can be one within the EP or administered externally.</p>
+</div>
+<div class="paragraph">
+<p>Federated access and Virtual Organisations can be effected by use of ‘Federated Attributes’ (see below) that allow common attributes to be delegated under the administrative domain of a nominated Attribute Authority. Thus, for a given attribute there is a single authoritative endpoint for associated attribute queries. The exploitation platform supports the federation/VO by using the federated-attributes in its rules, and defers to the appropriate attribute authority when making policy decisions.</p>
+</div>
+<div class="paragraph">
+<p>From the perspective of a given EP, two classes of attribute result from the above:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Local Attributes</dt>
+<dd>
+<p>Attributes that are used only internally by the EP, in which case the attributes are mapped to the local Attribute Authority.</p>
+</dd>
+<dt class="hdlist1">Federated Attributes</dt>
+<dd>
+<p>Attributes that are used to facilitate federated access to resources and in the establishment of Virtual Organisations. In this case the EP maps the attributes to the appropriate Attribute Authority – noting the fact that it could be the local EP if it happens to be the administrative domain for the attribute.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p><a href="#img_iamOverviewFlow">Figure 3</a> provides an overview of the IAM Flow.</p>
+</div>
+<div id="img_iamOverviewFlow" class="imageblock text-center">
+<div class="content">
+<img src="./images/iam-overview-flow.png" alt="iam overview flow" width="1000">
+</div>
+<div class="title">Figure 3. IAM Overview Flow</div>
+</div>
+<div class="paragraph">
+<p>Note that the interface between the Authentication Service and the External IdPs is simplified in this view. It is expanded in later sections.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</h4>
+<div class="paragraph">
+<p><a href="#img_iamInterfaces">Figure 4</a> illustrates the interfaces of the IAM architecture.</p>
+</div>
+<div id="img_iamInterfaces" class="imageblock text-center">
+<div class="content">
+<img src="./images/iam-interfaces.png" alt="iam interfaces" width="1000">
+</div>
+<div class="title">Figure 4. IAM Interfaces</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User &#8594; Protected Resource</dt>
+<dd>
+<p>The Protected Resource exposes a public API for user consumption.</p>
+</dd>
+<dt class="hdlist1">Protected Resource &#8594; PEP</dt>
+<dd>
+<p>The PEP is implemented either as an in-process component of the Protected Resource, or as an out-of-process shim. Either way, the PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
+</dd>
+<dt class="hdlist1">PEP &#8594; Authentication Service</dt>
+<dd>
+<p>The PEP uses a redirect to delegate the authentication flow to the Authentication Service.</p>
+</dd>
+<dt class="hdlist1">Authentication Service &#8594; External IdP</dt>
+<dd>
+<p>In order to support multiple external identity suppliers, the Authentication Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Authentication Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
+</dd>
+<dt class="hdlist1">PEP &#8594; AuthZ Rules Engine (PDP)</dt>
+<dd>
+<p>Possible use of XACML requests for this interface.</p>
+</dd>
+<dt class="hdlist1">PDP &#8594; Attribute Authority</dt>
+<dd>
+<p>Possible use of SAML attribute queries for this interface.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authenticated_identity">4.2. Authenticated Identity</h3>
+<div class="paragraph">
+<p>The approach to user identity and authentication centres around the use of OpenID Connect. Each Exploitation Platform maintains their own OIDC Provider through which tokens can be issued to permit access to protected resources within the EP. The authentication itself is delegated to external Identity Providers at the preference of the end-user wishing to reuse their existing identity provision.</p>
+</div>
+<div class="sect3">
+<h4 id="_overview">4.2.1. Overview</h4>
+<div class="paragraph">
+<p>The Authentication Service is an OpenID Connect Provider that provides a ‘Login With’ service that allows the platform to support multiple external identity providers.</p>
+</div>
+<div class="paragraph">
+<p>The Authentication Service presents an OIDC Provider interface to its clients, through which the OIDC clients can obtain Access Tokens to resources. The access tokens are presented by the clients in their requests to resource servers (intercepted by PEP). The PEP (acting on behalf of the resource server) relies upon the access token to establish the authenticated identity of the users making the requests. Once the user identity is established, then the PEP can continue with its policy decision (deferred to the PDP).</p>
+</div>
+<div class="paragraph">
+<p>Thus, clients of the EP must act as OIDC Clients in order to authenticate their users to the platform, before invoking its services. Clients include the web applications that provide the UI of the exploitation platform, as well as other external applications/systems (including other exploitation platforms) wishing to use the services of the EP.</p>
+</div>
+<div class="paragraph">
+<p>The Authentication Service must act as client to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Authentication Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represents the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Authentication Service to issue the requested access tokens (depending on the flow used).</p>
+</div>
+<div class="paragraph">
+<p><a href="#img_iamAuthenticationFlow">Figure 5</a> illustrates the basic user access flow, invoked through a web browser.</p>
+</div>
+<div id="img_iamAuthenticationFlow" class="imageblock text-center">
+<div class="content">
+<img src="./images/iam-authentication-flow.png" alt="iam authentication flow" width="1000">
+</div>
+<div class="title">Figure 5. IAM Authentication Flow (Browser)</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_authentication_service">4.2.2. Authentication Service</h4>
+<div class="paragraph">
+<p>The Authentication Provider is an OIDC Provider that provides a ‘Login With’ service that allows the end-user to select their Identity Provider for purposes of authentication.</p>
+</div>
+<div class="paragraph">
+<p>The Authentication Provider is designed to support the onward forwarding of the authentication request through external identify services, which should be expected to include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>EduGain</p>
+</li>
+<li>
+<p>GitHub</p>
+</li>
+<li>
+<p>Google</p>
+</li>
+<li>
+<p>Twitter</p>
+</li>
+<li>
+<p>Facebook</p>
+</li>
+<li>
+<p>LinkedIn</p>
+</li>
+<li>
+<p>Others TBD</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Authentication Provider must establish itself as a client of all supported external IdPs, with appropriate trust relationships and support for their authentication flows.</p>
+</div>
+<div class="paragraph">
+<p>The primary endpoints required to support the OIDC flows are as follows (these endpoints are taken, by example, from OKTA OIDC discovery metadata, <a href="https://micah.okta.com/oauth2/aus2yrcz7aMrmDAKZ1t7/.well-known/openid-configuration" class="bare">https://micah.okta.com/oauth2/aus2yrcz7aMrmDAKZ1t7/.well-known/openid-configuration</a>):</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">authorization_endpoint (/authorize)</dt>
+<dd>
+<p>To initiate the authentication, and to return the access tokens / code grant (depending on flow).</p>
+</dd>
+<dt class="hdlist1">token_endpoint (/token)</dt>
+<dd>
+<p>To exchange the code grant for the access tokens.</p>
+</dd>
+<dt class="hdlist1">userinfo_endpoint (/userinfo)</dt>
+<dd>
+<p>To obtain the user information ID token in accordance with the scopes requested in the authorisation request.</p>
+</dd>
+<dt class="hdlist1">jwks_uri (/keys)</dt>
+<dd>
+<p>To obtain signing keys for Token validation purposes.</p>
+</dd>
+<dt class="hdlist1">end_session_endpoint (/logout)</dt>
+<dd>
+<p>To logout the user from the Authentication Provider, i.e. clear session cookies etc. Although, given that the actual IdP is externalised from the Authentication Provider, it would remain the case that any session cookies maintained by the external IdP would still be in place for a future authentication flow.</p>
+</dd>
+<dt class="hdlist1">introspection_endpoint (/introspect)</dt>
+<dd>
+<p>Used by clients to verify access tokens.</p>
+</dd>
+<dt class="hdlist1">revocation_endpoint (/revoke)</dt>
+<dd>
+<p>Used for (refresh) token revocation.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As described in section ‘Discovery’, the following endpoints relate to Discovery:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">OIDC Discovery (/.well-known/openid-configuration)</dt>
+<dd>
+<p>Dynamic discovery of OIDC endpoints by clients.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As described in section ‘Client Registration’, the following endpoints relate to Dynamic Client Registration:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">registration_endpoint (/clients)</dt>
+<dd>
+<p>Dynamic registration of clients (Authentication Agents).</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As described in section ‘Federation’, the following endpoints relate to the establishment of a federation of collaborating Exploitation Platforms through a dynamic trust model:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">/.well-known/openid-federation</dt>
+<dd>
+<p>OIDC Federation API endpoint through which Entity Statements are published about itself and other entities (such as other Exploitation Platforms). See section ‘Federation’.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oidc_id_token">4.2.3. OIDC ID Token</h4>
+<div class="paragraph">
+<p>The ID Token is a JWT that is returned to from the /userinfo endpoint of the Authentication Service. The returned OIDC ID Token has been signed (JWS) by the Authentication Service and thus results in a token that asserts a user’s authenticated identity with integrity, and non-repudiation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oidc_clients">4.2.4. OIDC Clients</h4>
+<div class="paragraph">
+<p>Clients act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
+</div>
+<div class="paragraph">
+<p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases (TBD) the Authorisation Code Flow would be preferred.</p>
+</div>
+<div class="paragraph">
+<p>The OIDC flows are initiated with the appropriate response_type (‘id_token token’ for Implicit Flow, ‘code’ for Authorisation Code Flow) and scope of ‘oidc profile’.</p>
+</div>
+<div class="paragraph">
+<p>At the successful conclusion of the flow the client receives the Access Token and ID Token. The Access Token is then used by the client as a Bearer token in its subsequent calls to access the EP resources.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resource_server_pep">4.2.5. Resource Server (PEP)</h4>
+<div class="paragraph">
+<p>The PEP (acting on behalf of the resource server) receives the client request to access the protected resource, with the expectation that the request includes a valid access token.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the PEP follows the logic:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the access token is not present then no user is logged in, so the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
+</li>
+<li>
+<p>If the access token is present, then it should be validated with the Authentication Service (direct call), as described below</p>
+</li>
+<li>
+<p>If the access token validation completes successfully then the request can continue (pending authorisation), with the user identity provided by the ID Token received during token validation</p>
+</li>
+<li>
+<p>If the token is invalid, then the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_access_token_validation">4.2.6. Access Token Validation</h4>
+<div class="paragraph">
+<p>The PEP validates the access token by using it as a Bearer token in a request to the Authentication Service’s /userinfo endpoint. A successful response has two outcomes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Confirms the validity of the access token from the point-of-view of the Authentication Service that issued it</p>
+</li>
+<li>
+<p>Provides an ID Token for the user that provides the information required to uniquely identify the user within the EP and utilise this identity within the subsequent policy decision made by the PDP</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The ID Token is a JWT that has been signed by the Authentication Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Authentication Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_federated_user_access">4.2.7. Federated User Access</h4>
+<div class="paragraph">
+<p>Based upon the above authentication model, an EP could access the resources of another EP by obtaining an access token through OIDC flows. However, considering that these EP&#8594;EP invocations will typically be Machine-to-machine (M2M), then we need to consider how the end-user (resource owner) is able to compete their consent. Two possibilities are explored in the subsequent sections:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user pre-authorises the EP&#8594;EP access in advance of the operation</p>
+</li>
+<li>
+<p>Use of OIDC JWKS for trusted federation of identity between platforms</p>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="_user_pre_authorisation">User Pre-authorisation</h5>
+<div class="paragraph">
+<p>Using the facilities of the Exploitation Platform, the user (perhaps via their User Profile management console) initiates the authorisation flow from one EP to another. The end result is that the originating EP obtains delegated access to another EP on behalf of the user - with the resulting access tokens being maintained within the user&#8217;s profile on the EP.</p>
+</div>
+<div class="paragraph">
+<p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorisation is long-lived.</p>
+</div>
+<div class="paragraph">
+<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorisation by invalidating the refresh token. This would invole interface with the Authentication Service.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_possible_use_of_oidc_jwks_federation">Possible use of OIDC JWKS Federation</h5>
+<div class="paragraph">
+<p>OIDC provides a distributed key-hierarchy that could be used to support federated user access between collaborating exploitation platforms. The concept is explored in this section.</p>
+</div>
+<div class="paragraph">
+<p>Reference: <a href="https://openid.net/specs/openid-connect-federation-1_0.html" class="bare">https://openid.net/specs/openid-connect-federation-1_0.html</a></p>
+</div>
+<div class="paragraph">
+<p>OIDC provides a framework in which RPs and OPs can dynamically establish verifiable trust chains, and so share keys to support signing and validation of JWTs.</p>
+</div>
+<div class="paragraph">
+<p>Dedicated ‘federation’ endpoints are defined that allow an entity (such as RP or OP) to publish their own Entity Statements, and to obtain Statements for other entities that are issued by trusted third-parties within the federation. The metadata/signatures within the Entity Statements establish a chain of trust that can be followed to known (trusted) Trust Anchors, and so the Entity Statements and the included entity public keys can be trusted.</p>
+</div>
+<div class="paragraph">
+<p>Thus, through this mechanism public keys can be shared to underpin the signing and validation of JWTs.</p>
+</div>
+<div class="paragraph">
+<p>Within an EP, when a resource server is executing a user’s request, it may need to invoke a resource in another EP with which it is collaborating. The resource access to the other EP must be made on behalf of the originating user.</p>
+</div>
+<div class="paragraph">
+<p>The nominal solution is for the originating EP to act as an OIDC Client to interface with the Authentication Service of the other EP, and so obtain the access token required to access the other resource. In this case, we should consider the fact that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent. Therefore, we should explore possibilities (flows) provided by OIDC/OAuth that support this type of access.</p>
+</div>
+<div class="paragraph">
+<p>One possibility is to make use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>Thus, using the trusted ID Token, it may be possible follow an OIDC/OAuth flow from one EP to another, in which the user is deemed to have a-priori authorised the third-party access. At this point it is only the user’s identity that has been established, with the authorisation decision subject to the rules of the PDP/PEP of the remote system. The identified user must have appropriate a-priori permissions (attributes) on the target resources to be granted access, (ref. ‘Federated Attributes’).</p>
+</div>
+<div class="paragraph">
+<p>Thus, it is the ID of the user that has been passed machine-to-machine to facilitate the service federation. This effectively achieves cross-EP single sign-on, without relying upon the user agent of the end-user providing cookies to the other EP.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additional_oidc_capabilities">4.2.8. Additional OIDC Capabilities</h4>
+<div class="paragraph">
+<p>OpenID Connect provides some additional functionalities that are of interest in the context of the Common Architecture.</p>
+</div>
+<div class="sect4">
+<h5 id="_oidc_discovery">OIDC Discovery</h5>
+<div class="paragraph">
+<p>Reference: <a href="https://openid.net/specs/openid-connect-discovery-1_0.html" class="bare">https://openid.net/specs/openid-connect-discovery-1_0.html</a></p>
+</div>
+<div class="paragraph">
+<p>OpenID Connect makes provision for two types of discovery:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Discovery of the OpenID Provider Issuer based upon the user’s identifier</p>
+</li>
+<li>
+<p>Discovery of the OpenID Provider Configuration Information</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the case of our usage within the Exploitation Platform, type 1) is not application since the user’s ID comes from their ‘Home’ organisation and is not (necessarily) tied to an OpenID Connect Provider. Instead the Authentication Service must implement a discovery ‘flow’ in which the user is able to select the provider of their identity, as one that is supported by the Authentication Service deployment.</p>
+</div>
+<div class="paragraph">
+<p>Regarding discovery type 2), the Authentication Service exposes an OIDC Provider interface, and this should support retrieval of OIDC Provider Configuration Information. Thus, OIDC Clients can utilise the discovery interface of the Authentication Service to exploit its services.</p>
+</div>
+<div class="paragraph">
+<p>This is of most interest in the case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Authentication Service in another EP – in which case auto-discovery might be more attractive.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_client_registration">Client Registration</h5>
+<div class="paragraph">
+<p>Reference: <a href="https://openid.net/specs/openid-connect-registration-1_0.html" class="bare">https://openid.net/specs/openid-connect-registration-1_0.html</a></p>
+</div>
+<div class="paragraph">
+<p>The possibility exists for the OIDC Client (Relying Party) to perform auto-registration with the Authentication Service, using OIDC Client Registration. In doing so the OIDC client obtains its Client ID and Secret.</p>
+</div>
+<div class="paragraph">
+<p>This may be of interest in a couple of cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Authentication Service in another EP – in which case auto-client-registration might be of interest.</p>
+</li>
+<li>
+<p>The case where a common Authentication Service is deployed outside of the context of a given Exploitation Platform, acting as an IdP Proxy. In this case, the local Authentication Service deployed in each EP would register as an OIDC Client of the IdP Proxy.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+<div class="sect4">
+<h5 id="_policy_decision_point_pdp">Policy Decision Point (PDP)</h5>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_attribute_authority">Attribute Authority</h5>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_accounting_and_billing">4.3. Accounting and Billing</h3>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_user_profile">4.4. User Profile</h3>
+<div class="paragraph">
+<p>The User Profile is a system resource that maintains a set of data for each user including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>User details</p>
+</li>
+<li>
+<p>Terms and conditions accepted by the user</p>
+</li>
+<li>
+<p>License keys held by the user</p>
+</li>
+<li>
+<p>User API key management</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_processing_and_chaining_2">5. Processing and Chaining</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TBD</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resource_management">6. Resource Management</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TBD</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_portal_2">7. Web Portal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform, and the public web-API that supports mobile and third-party (programmatic) access to services of the platform.</p>
+</div>
+<div class="paragraph">
+<p>The Web Portal is not a domain area in its own right – it is contributed to by the collaborative developments of the defined domain areas. The user’s view of the platform is consolidated through the browser-based user interface, and hence it is convenient to present all aspects of this view together. Thus, the Web Portal provides the user facing ‘front’ of the system and interfaces to the services provided by the domain areas identified in the system design.</p>
+</div>
+<div class="paragraph">
+<p>The Web Portal must provide a consistent and cohesive user experience that aggregates data and processing services of the EO Exploitation Platform. In doing so it must provide the following main functionalities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>User login</p>
+</li>
+<li>
+<p>Marketplace, that provides a federated system search for discovery of data and processing capabilities</p>
+</li>
+<li>
+<p>User workspace to support scientific analysis and collaboration</p>
+</li>
+<li>
+<p>Data discovery and download of data</p>
+</li>
+<li>
+<p>In-browser visualisation of data and processing/analysis results</p>
+</li>
+<li>
+<p>Discovery, execution and monitoring of processing jobs</p>
+</li>
+<li>
+<p>Definition of workflows from discovered data/processing resources</p>
+</li>
+<li>
+<p>Hosting of user defined applications with interactive user interfaces</p>
+</li>
+<li>
+<p>Web Application Programming Interface (API) providing user’s external access to the platform’s services outside of the browser interface, ( expected to be a thin wrapper around the service end-points offered by other domain areas)</p>
+</li>
+<li>
+<p>Hosting of rich media content that is linked to catalogued resources. Such content ranges from documents &amp; manuals to tutorials and i nstructional *media.</p>
+</li>
+<li>
+<p>Hosting of community and collaboration tools such as Wikis, FAQs and forums</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 6</a> presents these functional areas, organised within their respective domain areas.</p>
+</div>
+<div id="img_webPortal" class="imageblock text-center">
+<div class="content">
+<img src="./images/web-portal.png" alt="web portal" width="1000">
+</div>
+<div class="title">Figure 6. Web Portal: Overview</div>
+</div>
+<div class="paragraph">
+<p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
+</div>
+<div class="paragraph">
+<p>Optionally, a <strong>Content Management System (CMS)</strong> can provide a framework within which the platform’s web presence is hosted. It facilitates the creation of user content that can be linked to data and processing resources in the Resource Catalogue. In addition, the CMS provides out-of-the-box facilities for Wikis, FAQs, forums etc.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>Marketplace</strong> builds a user experience on top of the Resource Catalogue that provides a consolidated inventory of all services and data published within the federated system. The user is presented with the ability to browse and to perform rich search queries to discover items of specific interest. The Marketplace content for a data item can include interactive Data Visualisation, such as providing a WMS viewer that exploits the WMS service provided with the platform’s resource service. This <strong>Data Visualisation</strong> component is re-usable such that it can be used elsewhere in the user experience, for example from the user’s workspace to visualise some processing results.</p>
+</div>
+<div class="paragraph">
+<p>The *User Workspace *provides the environment where users are able to organise data and processing they are interested in, and to manage asynchronous ‘tasks’ they have submitted into the platform. Thus, they are able to monitor data retrieval and processing requests and obtain the outputs at completion. The facility is also provided for them to publish derived ‘added-value’ outcomes from their workspace into the Resource Catalogue, and so present them in the marketplace.</p>
+</div>
+<div class="paragraph">
+<p>Experts use the <strong>Workflow Composition</strong> interface to chain and combine multiple processing functions and input data into reusable workflows. The interface allows them to select these resources discovered via the Marketplace, architect and execute their workflow, and ultimately publish it as a reusable processing function that is available to others in the Marketplace.</p>
+</div>
+<div class="paragraph">
+<p>Experts are able to develop and submit to the EO Exploitation Platform their own custom processing algorithms, tools and applications. The <strong>Processor Development Environment</strong> provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.</p>
+</div>
+<div class="paragraph">
+<p><strong>User Management</strong> provides the functionality associated with user profiles. New users will have the ability to self-register and then manage all aspects of their profile interactively - noting that the intention in the Common Architecture is to delegate User Identity management to external IdPs.</p>
+</div>
+<div class="paragraph">
+<p><strong>Operators</strong> will have access to management interfaces for system monitoring and administration.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v0.1<br>
-Last updated 2019-04-16 10:03:53 +0100
+Version v0.2<br>
+Last updated 2019-04-25 10:54:22 +0100
 </div>
 </div>
 </body>
