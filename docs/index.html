@@ -2129,7 +2129,88 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <h2 id="_resource_management">6. Resource Management</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TBD</p>
+<p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets.</p>
+</div>
+<div class="paragraph">
+<p>Storage is largely taken care of by the Resource Tier upon which the Exploitation Platform is hosted. The role of the Exploitation Platform is to ensure that the data can be accessed through common data access protocols based upon open standards.</p>
+</div>
+<div class="paragraph">
+<p>This is important for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the end-user wishing to access data directly</p>
+</li>
+<li>
+<p>processing services accessing data for input/output</p>
+</li>
+<li>
+<p>other federated Exploitation Platforms accessing each other’s data and services through well understood interfaces</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To exploit the services of the Platform, users need to discover available data, obtain detailed collection/product information, including the ability to visualise the data in the platform. This applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.</p>
+</div>
+<div class="paragraph">
+<p>Processing services and applications are also platform resources that must be discoverable by users, including the information required by users to exploit the service.</p>
+</div>
+<div class="paragraph">
+<p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
+</div>
+<div class="paragraph">
+<p>Access to resources must be controlled according to the privileges afforded to the logged in user, and appropriate hooks must be established into the EPs accounting and billing subsystems. Thus, the Resource Management services must be implemented according to the approach defined by User Management for authorisation, accounting and billing.</p>
+</div>
+<div class="paragraph">
+<p>In addition to the resource holding of the underlying resource tier, the EP maintains a User Workspace in which each user is able to maintain specific data/services of interest to them, and also provides a place to hold results of processing operations. The User Workspace should be provided as a building block of the system that provides this personal inventory. Moreover, the concept can be extended to define Group Workspaces to create a place for sharing and collaboration.</p>
+</div>
+<div class="paragraph">
+<p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the main components comprising the Resource Management domain are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Data Catalogue</p>
+</li>
+<li>
+<p>Application Catalogue</p>
+</li>
+<li>
+<p>Data Access Services</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS S3 Object Store</p>
+</li>
+<li>
+<p>Swift Object Store (OpenStack)</p>
+</li>
+<li>
+<p>OGC Web Map Service (WMS)</p>
+</li>
+<li>
+<p>OGC Web Coverage Service (WCS)</p>
+</li>
+<li>
+<p>OGC Web Feature Service (WFS)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Data Ingestion</p>
+</li>
+<li>
+<p>User Workspace</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
