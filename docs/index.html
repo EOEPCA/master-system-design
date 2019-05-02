@@ -17,8 +17,8 @@
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version v0.2,</span>
-<span id="revdate">25/04/2019</span>
+<span id="revnumber">version v0.3,</span>
+<span id="revdate">dd/mm/yyyy</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
@@ -116,7 +116,24 @@
 <li><a href="#_user_profile">4.4. User Profile</a></li>
 </ul>
 </li>
-<li><a href="#_processing_and_chaining_2">5. Processing and Chaining</a></li>
+<li><a href="#_processing_and_chaining_2">5. Processing and Chaining</a>
+<ul class="sectlevel2">
+<li><a href="#_solution_overview">5.1. Solution Overview</a></li>
+<li><a href="#procK8s">5.2. Resource Layer (Infrastructure) Interface</a></li>
+<li><a href="#_application_packaging">5.3. Application Packaging</a></li>
+<li><a href="#_execution_management_service_ems">5.4. Execution Management Service (EMS)</a></li>
+<li><a href="#_application_deployment_and_execution_service_ades">5.5. Application Deployment and Execution Service (ADES)</a>
+<ul class="sectlevel3">
+<li><a href="#_container_execution">5.5.1. Container Execution</a></li>
+<li><a href="#_data_stage_inout">5.5.2. Data Stage-in/out</a></li>
+<li><a href="#_user_authorisation_context">5.5.3. User Authorisation Context</a></li>
+</ul>
+</li>
+<li><a href="#_wps_t_restjson">5.6. WPS-T REST/JSON</a></li>
+<li><a href="#_interactive_graphical_applications">5.7. Interactive (Graphical) Applications</a></li>
+<li><a href="#_parallel_processing">5.8. Parallel Processing</a></li>
+</ul>
+</li>
 <li><a href="#_resource_management">6. Resource Management</a></li>
 <li><a href="#_web_portal_2">7. Web Portal</a></li>
 </ul>
@@ -215,6 +232,118 @@ EMSS-EOPS-TN-17-002</p>
 </div>
 </div></div></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="WPS-T"></a>[WPS-T]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Cauchy, A.: OpenGIS® WPS2.0 Transactional Extension Implementation Standard, Open Geospatial Consortium,<br>
+OGC 13-071r2, <a href="http://www.opengeospatial.org/docs/discussion-papers" class="bare">http://www.opengeospatial.org/docs/discussion-papers</a> (2013)</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>13-071r2</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CWL"></a>[CWL]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Common Workflow Language Specifications,<br>
+<a href="https://www.commonwl.org/v1.0/" class="bare">https://www.commonwl.org/v1.0/</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.0.2</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB13-AP"></a>[TB13-AP]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Testbed-13, EP Application Package Engineering Report,<br>
+OGC 17-023, <a href="http://docs.opengeospatial.org/per/17-023.html" class="bare">http://docs.opengeospatial.org/per/17-023.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>17-023,<br>
+30/01/2018</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB13-ADES"></a>[TB13-ADES]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Testbed-13, Application Deployment and Execution Service Engineering Report,<br>
+OGC 17-024, <a href="http://docs.opengeospatial.org/per/17-024.html" class="bare">http://docs.opengeospatial.org/per/17-024.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>17-024,<br>
+11/01/2018</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB14-AP"></a>[TB14-AP]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Testbed-14, Application Package Engineering Report,<br>
+OGC 18-049r1, <a href="http://docs.opengeospatial.org/per/18-049r1.html" class="bare">http://docs.opengeospatial.org/per/18-049r1.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>18-049r1,<br>
+07/02/2019</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB14-ADES"></a>[TB14-ADES]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Testbed-14, ADES &amp; EMS Results and Best Practices Engineering Report,<br>
+OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="bare">http://docs.opengeospatial.org/per/18-050r1.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>18-050r1,<br>
+08/02/2019</p>
+</div>
+</div>
+</div></div></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -236,72 +365,84 @@ EMSS-EOPS-TN-17-002</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Platform (EP)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An on-line collection of products, services and tools for exploitation of EO data</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An individual using the EP, of any type (Admin/Consumer/Expert/Guest)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Admin</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User with administrative capability on the EP</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User accessing existing services/products within the EP. Consumers may be scientific/research or commercial, and may or may not be experts of the domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Algorithm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A self-contained set of operations to be performed, typically to achieve a desired data manipulation. The algorithm must be implemented (codified) for deployment and execution on the platform.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expert</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User developing and integrating added-value to the EP (Scientific Researcher or Service Developer)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Analysis Result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of an <em>Interactive Application</em> analysis session.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Scientific Researcher</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to perform scientific research. Having minimal IT knowledge with no desire to acquire it, they want the effort for the translation of their algorithm into a service/product to be minimised by the platform.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Analytics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A set of activities aimed to discover, interpret and communicate meaningful patters within the data. Analytics considered here are performed manually (or in a semi-automatic way) on-line with the aid of <em>Interactive Applications</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service Developer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to provide a performing, stable and reliable service/product. Having deeper IT knowledge or a willingness to acquire it, they require deeper access to the platform IT functionalities for optimisation of their algorithm.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Artefact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The 'software' component that provides the execution unit of the <em>Application Package</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Guest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An unregistered User or an unauthenticated Consumer with limited access to the EP&#8217;s services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Deployment and Execution Service (ADES)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User finds products/services of interest to them based upon search criteria.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Descriptor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A file that provides the metadata part of the <em>Application Package</em>. Provides all the metadata required to accommodate the processor within the WPS service and make it available for execution.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Products</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EO data (commercial and non-commercial) and Value-added products and made available through the EP. <em>It is assumed that the Hosting Environment for the EP makes available an existing supply of EO Data</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Comprises the <em>Application Descriptor</em> and the <em>Application Artefact</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Value-added products</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Products generated from processing services of the EP (or external processing) and made available through the EP. This includes products uploaded to the EP by users and published for collaborative consumption</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A non-interactive data processing that has a well-defined set of input data types, input parameterisation, producing <em>Processing Results</em> with a well-defined output data type.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">On-demand Processing Service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated directly by the user on an ad-hoc basis.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Systematic Processing Service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated automatically (on behalf of a user), either according to a schedule (routine) or triggered by an event (e.g. arrival of new data).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authentication provision within the Exploitation Platform context. The Authentication Provider is an Authorization Server (OAuth) that is used purely for authentication.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bulk Processing</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execution of a <em>Processing Service</em> on large amounts of data specified by AOI and TOI.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Result</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of a <em>Processing Service</em> execution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The codification of an algorithm performed with a given programming language - compiled to Software or directly executed (interpretted) within the platform.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Research Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of some research/analysis that describes all aspects required to reproduce the analysis, including data used, processing performed etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User accessing existing services/products within the EP. Consumers may be scientific/research or commercial, and may or may not be experts of the domain</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The act of building new products/services/applications to be exposed within the platform and made available for users to conduct exploitation activities. Development may be performed inside or outside of the platform. If performed outside, an integration activity will be required to accommodate the developed service so that it is exposed within the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User finds products/services of interest to them based upon search criteria.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The act to start a <em>Processing Service</em> or an <em>Interactive Application</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution Management Service (EMS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User developing and integrating added-value to the EP (Scientific Researcher or Service Developer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An application or script that is developed and executed outside of the Exploitation Platform, but is able to use the data/services of the EP via a programmatic interface (API).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unregistered User or an unauthenticated Consumer with limited access to the EP&#8217;s services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider (IdP)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The source for validating user identity in a federated identity system, (user authentication as a service).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Application</p></td>
@@ -312,68 +453,100 @@ EMSS-EOPS-TN-17-002</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A simple <em>Interactive Application</em> for analysis in which a console interface to a platform-hosted terminal is provided to the user. The console interface can be provided through the user&#8217;s browser session or through a remote SSH connection.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Web Application</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a rich user interface through the user&#8217;s web browser.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Remote Desktop</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a remote desktop session to an OS-session (or directly to a 'native' application) on the exploitation platform. The user will have access to a number of applications within the hosted OS. The remote desktop session is provided through the user’s web browser.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">External Application</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An application or script that is developed and executed outside of the Exploitation Platform, but is able to use the data/services of the EP via a programmatic interface (API).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interactive Web Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a rich user interface through the user&#8217;s web browser.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Analysis Result</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of an <em>Interactive Application</em> analysis session.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes (K8s)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container orchestration system for automating application deployment, scaling and management.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Execution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The act to start a <em>Processing Service</em> or an <em>Interactive Application</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">On-demand Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated directly by the user on an ad-hoc basis.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Visualisation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">To obtain a visual representation of any data/products held within the platform - presented to the user within their web browser session.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform (EP)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An on-line collection of products, services and tools for exploitation of EO data</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Processing</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A set of pre-defined activities that interact to achieve a result. For the exploitation platform, comprises on-line processing to derive data products from input data, conducted by a hosted processing service execution.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Algorithm</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A self-contained set of operations to be performed, typically to achieve a desired data manipulation. The algorithm must be implemented (codified) for deployment and execution on the platform.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <em>Products</em> produced as output of a <em>Processing Service</em> execution.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Code</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The codification of an algorithm performed with a given programming language - compiled to Software or directly executed (interpretted) within the platform.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A non-interactive data processing that has a well-defined set of input data types, input parameterisation, producing <em>Processing Results</em> with a well-defined output data type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Products</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EO data (commercial and non-commercial) and Value-added products and made available through the EP. <em>It is assumed that the Hosting Environment for the EP makes available an existing supply of EO Data</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Research Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of some research/analysis that describes all aspects required to reproduce the analysis, including data used, processing performed etc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scientific Researcher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to perform scientific research. Having minimal IT knowledge with no desire to acquire it, they want the effort for the translation of their algorithm into a service/product to be minimised by the platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service Developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert user with the objective to provide a performing, stable and reliable service/product. Having deeper IT knowledge or a willingness to acquire it, they require deeper access to the platform IT functionalities for optimisation of their algorithm.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Software</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The compilation of code into a binary program to be executed within the platform on-line computing environment.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Analytics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A set of activities aimed to discover, interpret and communicate meaningful patters within the data. Analytics considered here are performed manually (or in a semi-automatic way) on-line with the aid of <em>Interactive Applications</em>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The act of building new products/services/applications to be exposed within the platform and made available for users to conduct exploitation activities. Development may be performed inside or outside of the platform. If performed outside, an integration activity will be required to accommodate the developed service so that it is exposed within the platform.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Workspace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user-scoped 'container' in the EP, in which each user maintains their own links to resources (products and services) that have been collected by a user during their usage of the EP. The workspace acts as the hub for a user&#8217;s exploitation activities within the EP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Systematic Processing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <em>Processing Service</em> whose execution is initiated automatically (on behalf of a user), either according to a schedule (routine) or triggered by an event (e.g. arrival of new data).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Terms &amp; Conditions (T&amp;Cs)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The obligations that the user agrees to abide by in regard of usage of products/services of the platform. T&amp;Cs are set by the provider of each product/service.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider (IdP)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The source for validating user identity in a federated identity system, (user authentication as a service).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transactional Web Processing Service (WPS-T)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transactional extension to WPS that allows adhoc deployment / undeployment of user-provided processors.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Provider</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authentication provision within the Exploitation Platform context. The Authentication Provider is an Authorization Server (OAuth) that is used purely for authentication.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An individual using the EP, of any type (Admin/Consumer/Expert/Guest)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value-added products</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Products generated from processing services of the EP (or external processing) and made available through the EP. This includes products uploaded to the EP by users and published for collaborative consumption</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visualisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To obtain a visual representation of any data/products held within the platform - presented to the user within their web browser session.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Coverage Service (WCS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that provides an open specification for sharing raster datasets on the web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Feature Service (WFS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that makes geographic feature data (vector geospatial datasets) available on the web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Service (WMS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that provides a simple HTTP interface for requesting geo-registered map images from one or more distributed geospatial databases.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Processing Services (WPS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that defines how a client can request the execution of a process, and how the output from the process is handled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workspace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user-scoped 'container' in the EP, in which each user maintains their own links to resources (products and services) that have been collected by a user during their usage of the EP. The workspace acts as the hub for a user&#8217;s exploitation activities within the EP</p></td>
 </tr>
 </tbody>
 </table>
@@ -404,6 +577,10 @@ EMSS-EOPS-TN-17-002</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Attribute Based Access Control</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADES</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Deployment and Execution Service</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AOI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Area of Interest</p></td>
 </tr>
@@ -416,6 +593,14 @@ EMSS-EOPS-TN-17-002</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Content Management System</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CWL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Workflow Language</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution Management Service</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EO</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Earth Observation</p></td>
 </tr>
@@ -424,12 +609,32 @@ EMSS-EOPS-TN-17-002</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exploitation Platform</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FUSE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filesystem in Userspace</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IAM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identity and Access Management</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IdP</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript Object Notation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">K8s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M2M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine-to-machine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open Geospatial Consortium</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PDP</p></td>
@@ -448,6 +653,10 @@ EMSS-EOPS-TN-17-002</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Role Based Access Control</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Representational State Transfer</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Secure Shell</p></td>
 </tr>
@@ -458,6 +667,26 @@ EMSS-EOPS-TN-17-002</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VNC</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Network Computing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WCS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Coverage Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WFS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Feature Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Processing Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WPS-T</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transactional Web Processing Service</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">XACML</p></td>
@@ -1130,9 +1359,770 @@ EMSS-EOPS-TN-17-002</p>
 <h2 id="_processing_and_chaining_2">5. Processing and Chaining</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TBD</p>
+<p>The Processing &amp; Chaining domain area must provide an extensible repository of processing functions, tools and applications (referred here generically as ‘processing services’) that can be discovered by search query, invoked individually, and utilised in workflows.</p>
+</div>
+<div class="paragraph">
+<p>Processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery. Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation.</p>
+</div>
+<div class="paragraph">
+<p>Users must be able to define and execute workflows that chain processing steps, in which the input(s) of a step are provided by the output of preceding step(s). Users can publish workflows as new processing services, and so the possibility of workflow nesting.</p>
+</div>
+<div class="paragraph">
+<p>A workflow comprises multiple steps (processing service invocations), each of which can be executed on the platform that is closest to the data. Thus, the workflow must be orchestrated to invoke the steps on the appropriate platform and stage in/out the data between platforms along the execution pipeline. Thus, processing services should be relocatable between federated EO platforms, such that they can be deployed and instantiated for execution ‘close to the data’. This implies that applications are packaged in a way that is self-contained, standardised and agnostic of the underlying hosting technology.</p>
+</div>
+<div class="paragraph">
+<p>Users must be able to develop and integrate their own processing services into the platform. Once integrated the user can publish their processing service so that it is discoverable by search query and available in the federated marketplace – and hence available for exploitation by other users, including use in workflows. In support of this, an integrated development environment should be provided that allows users to develop, test and debug their applications before submission.</p>
+</div>
+<div class="paragraph">
+<p>The interface between the Processing Framework and the compute resource should be abstract so that the solution is not tied to any particular provider (cloud, DIAS, etc.).</p>
+</div>
+<div class="paragraph">
+<p>In meeting these requirements the following key challenges are identified:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Processing and data interoperability must be established through clear and consistent metadata definitions, to ensure that type mismatches are avoided. This is particularly challenging across federated systems where it becomes more difficult to enforce use of common profiles and vocabularies</p>
+</li>
+<li>
+<p>Defining an application packaging approach whose paradigm is easy to work with, whilst providing a rich environment that allows expert users to exploit the full compute capability of the platform</p>
+</li>
+<li>
+<p>Federation of processing services across the network of EO resources, such that processing implementations can be made available ‘on-demand’ amongst federated platforms, to facilitate the movement of the “processing to the data”. Use of a common packaging format that is agnostic of underlying host characteristics is key to this challenge</p>
+</li>
+<li>
+<p>Enforcement of access controls to processing and data resources through multi-step federated workflows requires the user’s ‘request context’ to be carried through all layers of the request fulfilment. At each point of resource access, the user’s identify and access rights must be asserted. The service interface standards, (such as WPS, CSW and WCS), must be evaluated and necessary enhancements identified to ensure that the user’s access envelope is respected</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_solution_overview">5.1. Solution Overview</h3>
+<div class="paragraph">
+<p>The Processing &amp; Chaining solution is based upon the work performed in the OGC Testbeds, described by the following Engineering Reports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OGC 17-023 - OGC Testbed-13, EP Application Package ER <a href="#TB13-AP">[TB13-AP]</a></p>
+</li>
+<li>
+<p>OGC 17-024 - OGC Testbed-13, Application Deployment and Execution Service ER <a href="#TB13-ADES">[TB13-ADES]</a></p>
+</li>
+<li>
+<p>OGC 18-049r1 – OGC Testbed-14, Application Package Engineering Report <a href="#TB14-AP">[TB14-AP]</a></p>
+</li>
+<li>
+<p>OGC 18-050r1 - ADES &amp; EMS Results and Best Practices Engineering Report <a href="#TB14-ADES">[TB14-ADES]</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additionally, the current OGC Testbed-15 Thread-2 Earth Observation Process and Application Discovery (EOPAD).</p>
+</div>
+<div class="paragraph">
+<p>Processing-services are packaged as Docker images, which can then be deployed as self-contained applications within the Exploitation Platform’s processing framework. OGC-WPS provides a standard interface to expose all processing services (and workflows) for invocation by WPS clients.</p>
+</div>
+<div class="paragraph">
+<p>Each processing service is described by an Application Descriptor, which is a file that accompanies its deployment to the processing framework of the EP. The Application Descriptor provides all the metadata required to accommodate the processor within the WPS service and make it available for execution.</p>
+</div>
+<div class="paragraph">
+<p>The architecture is defined by the following main components:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Execution Management Service (EMS)</dt>
+<dd>
+<p>WPS-T (REST/JSON) service that provides an umbrella orchestration service to deploy/invoke processing services within the ADES of the appropriate (close to data) Exploitation Platform. Thus, the EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.</p>
+</dd>
+<dt class="hdlist1">Application Deployment and Execution Service (ADES)</dt>
+<dd>
+<p>WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.</p>
+</dd>
+<dt class="hdlist1">Application Catalogue</dt>
+<dd>
+<p>An Application Catalogue provides an inventory of processing services that acts as a Marketplace for the discovery and browse for processing services. The Application Catalogue provides a service that can be searched by facet/keyword and provides supporting metadata and information.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should additionally include an EMS.</p>
+</div>
+<div class="paragraph">
+<p><a href="#img_procOverview">Figure 6</a> illustrates the main architecture components and their interfaces.</p>
+</div>
+<div id="img_procOverview" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-overview.png" alt="processing overview" width="1000">
+</div>
+<div class="title">Figure 6. Processing &amp; Chaining Overview</div>
+</div>
+<div class="paragraph">
+<p>In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs &#8594; inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.</p>
+</div>
+<div class="paragraph">
+<p>The Application Catalogue is the subject of the current Testbed-15 through which the Data Model and catalogue Service Interface are being explored.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="procK8s">5.2. Resource Layer (Infrastructure) Interface</h3>
+<div class="paragraph">
+<p>The Processing &amp; Chaining has significant points of interface with the hosting infrastructure for provision of scalable compute resource and access to data for input/output. The definition of this interface should be agnostic of the infrastructure provider onto which the Exploitation Platform is deployed.</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes provides an infrastructure abstraction layer that allows the EP to be architected in a way that is agnostic to the underlying hosting infrastructure – the only requirement being the existence of a K8s cluster in which to deploy and run the platform. This abstraction provides points of interface for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>System deployment</p>
+</li>
+<li>
+<p>Access to back-end data</p>
+</li>
+<li>
+<p>Execution of processing services and applications</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thus, the Processing &amp; Chaining solution is designed to utilise a Kubernetes Cluster, whose API provides the means to invoke the WPS processing services as docker containers, and also provides the means to support stage-in/out of data for the process execution.</p>
+</div>
+<div class="paragraph">
+<p>This has particular impact on the ADES, as described in <a href="#ADES">[ADES]</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_packaging">5.3. Application Packaging</h3>
+<div class="paragraph">
+<p>The Application Package provides a platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Typically, in the context of the exploitation platform, the application is an EO data processing algorithm or a workflow.</p>
+</div>
+<div class="paragraph">
+<p>The Application Package allows the application to be exchanged in an interoperable way on any platform within the EP ecosystem. Additionally, the developer of the package need only concern themselves with conformance to the package specification and need not concern themselves with the infrastructure details of any particular EP.</p>
+</div>
+<div class="paragraph">
+<p>The Application Package comprises two main parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application Descriptor - metadata descriptor file</p>
+</li>
+<li>
+<p>Application Artefact – i.e. the ‘software’ component that represents to the execution unit</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In accordance with the approach advocated in OGC Testbed-14 (ref. zzzER), the Application Descriptor is encoded in accordance with the WPS-T DeployProcess document defined by WPS-T JSON encodings (ref. zzz). In this way, the Application Descriptor broadly provides the following details:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A link to the application execution unit</p>
+</li>
+<li>
+<p>A description of the application’s inputs and outputs</p>
+</li>
+<li>
+<p>Other auxiliary information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Currently supported are two types of application execution unit:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Docker container</p>
+</li>
+<li>
+<p>Workflow, expressed in CWL</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>…but the design of the application package should be extensible to support future types.</p>
+</div>
+<div class="paragraph">
+<p>The Application Descriptor must address the needs of at least two types of users:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Application Developers</dt>
+<dd>
+<p>Who may not be IT experts (such as scientists), requiring an encoding that is simple enough for them to create for themselves</p>
+</dd>
+<dt class="hdlist1">Machine-To-Machine (M2M)</dt>
+<dd>
+<p>Requiring all the information to ensure that the application is fully portable and will behave the same on all supporting platforms</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p><a href="#img_procAppDescriptor">Figure 7</a> provides an illustration of the Application Descriptor structure.</p>
+</div>
+<div id="img_procAppDescriptor" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="1000">
+</div>
+<div class="title">Figure 7. Structure of Application Descriptor data model</div>
+</div>
+<div class="paragraph">
+<p>Thus, the WPS-T DeployDocument comprises the following parts:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">processDescription (WPS Process Description (WPD))</dt>
+<dd>
+<p>Corresponds to a WPS Process Description document encoded in JSON, including details such as process ID, name, title, etc. as well as options to describe the job invocation and the output handling.<br>
+Additional points of note:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cwlDescriptor<br>
+The cwlDescriptor provides a CWL formatted (YAML) workflow definition of the application. This aids the stage-in/out of data by providing a CWL definition of the input/outputs of the application, and is given in addition to the inputs/outputs included in the body of the WPD. This entry is included as an extension to the WPD via an owsContext offering.<br>
+<em>Note that this is not required for the Execution Unit type of ‘workflow’ which already carries its CWL file in its executionUnit parameter.</em></p>
+</li>
+<li>
+<p>inputs/outputs<br>
+Specifies the number and types of the data input/outputs. Provided as part of the WPD, and in addition to the contents of cwlDescriptor.<br>
+The inputs can be provided as references to data, accessible through data access service endpoints, or can be specified as query parameters collection/AOI/TOI.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">executionUnit</dt>
+<dd>
+<p>Specifies the ‘software’ item to be executed, with the context of the deploymentProfileName, as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>dockerizedApplication<br>
+executionUnit specifies the URL of the docker image to run.</p>
+</li>
+<li>
+<p>workflow<br>
+executionUnit specfies the URL of the CWL file that defines the workflow.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">deploymentProfileName</dt>
+<dd>
+<p>Enumerates the type of the executionUnit. Currently supported:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker image (<a href="http://www.opengis.net/profiles/eoc/dockerizedApplication" class="bare">http://www.opengis.net/profiles/eoc/dockerizedApplication</a>)</p>
+</li>
+<li>
+<p>CWL Workflow (<a href="http://www.opengis.net/profiles/eoc/workflow" class="bare">http://www.opengis.net/profiles/eoc/workflow</a>)</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>An example Application Descriptor follows…</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+    "processDescription": {
+        "process": {
+            "id": "EoepcaProcessor",
+            "title": "EOEPCA Processor",
+            "owsContext": {
+                "offering": {
+                    "code": "http://www.opengis.net/eoc/applicationContext/cwl",
+                    "content": {
+                        "href": "https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl"
+                    }
+                }
+            },
+            "abstract": "",
+            "keywords": [],
+            "inputs": [
+                {
+                    "id": "images",
+                    "title": "Input Images",
+                    "formats": [
+                        {
+                            "mimeType": "application/zip",
+                            "default": true
+                        }
+                    ],
+                    "minOccurs": 1,
+                    "maxOccurs": "unbounded",
+                    "additionalParameters": [
+                        {
+                            "role": "http://www.opengis.net/eoc/applicationContext/inputMetadata",
+                            "parameters": [
+                                {
+                                    "name": "EOImage",
+                                    "values": [
+                                        "true"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "id": "output",
+                    "title": "Stacked Image",
+                    "formats": [
+                        {
+                            "mimeType": "image/tiff",
+                            "default": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "processVersion": "1.0.0",
+        "jobControlOptions": [
+            "async-execute"
+        ],
+        "outputTransmission": [
+            "reference"
+        ]
+    },
+    "executionUnit": [
+        {
+            "href": "hub.docker.com/eoepca/processor:latest"
+        }
+    ],
+    "deploymentProfileName": "http://www.opengis.net/profiles/eoc/dockerizedApplication"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execution_management_service_ems">5.4. Execution Management Service (EMS)</h3>
+<div class="paragraph">
+<p>The EMS provides a Transaction WPS 2.0 (WPS-T) interface, with REST/JSON encodings, as described in section <a href="#_wps_t_restjson">WPS-T REST/JSON</a>.</p>
+</div>
+<div class="paragraph">
+<p>WPS-T extends standard WPS by adding DeployProcess and UndeployProcess operations. Once a process has been deployed to a WPS then the existing wps:Execute operation remains applicable for execution in the standard way.</p>
+</div>
+<div class="paragraph">
+<p>The EMS provides a WPS-T (REST/JSON) interface that provides an umbrella orchestration service to deploy/invoke processing services within the ADES of the appropriate (close to data) Exploitation Platform. Thus, the EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.</p>
+</div>
+<div class="paragraph">
+<p>The description in this section refers to the WPS operations: GetCapabilities, DescribeProcess, Execute, GetStatus, GetResult, DeployProcess, UndeployProcess. See <a href="#_wps_t_restjson">WPS-T REST/JSON</a> for a mapping of these operations into the REST/JSON encoding.</p>
+</div>
+<div class="paragraph">
+<p>The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.</p>
+</div>
+<div class="paragraph">
+<p><a href="#img_procEmsDeploy">Figure 8</a> illustrates the deployment of applications and workflows to the EMS.</p>
+</div>
+<div id="img_procEmsDeploy" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="1000">
+</div>
+<div class="title">Figure 8. EMS Deployment</div>
+</div>
+<div class="paragraph">
+<p>Applications are deployed to the EMS so that they are available for inclusion in workflows.</p>
+</div>
+<div class="paragraph">
+<p>Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.</p>
+</div>
+<div class="paragraph">
+<p>As illustrated in <a href="#img_procEmsExecute">Figure 9</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
+</div>
+<div id="img_procEmsExecute" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="1000">
+</div>
+<div class="title">Figure 9. EMS Workflow Execution</div>
+</div>
+<div class="paragraph">
+<p>At time of <code>wps:Execute</code> the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Direct URL references to specific data products, accessible through data access service endpoints (such as WCS, WFS, etc.)</p>
+</li>
+<li>
+<p>OpenSearch query parameters that identify the data characteristics as a combination of Collection/AOI/TOI</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In case 1) the EMS can simply pass-through the input arguments to the ADES WPS-T.</p>
+</div>
+<div class="paragraph">
+<p>In case 2) the EMS must resolve the input data by OpenSearch catalogue queries with the provided parameters. The OpenSearch catalogue end-point can either be defined by the application (in its Application Descriptor), or defined as a parameter of the <code>wps:Execute</code>.</p>
+</div>
+<div class="paragraph">
+<p>In either case, the end result is that the EMS resolves the input specification to a set of data products URLs that can be passed on to the ADES for execution.</p>
+</div>
+<div class="paragraph">
+<p>The EMS requires a means to determine the target platform (ADES) for the execution, i.e. typically the one closest to the data. In the case of the OGC Testbeds, this determination was made as a one-to-one mapping from the collection identified in the input data specification. If collections are identified to be globally unique, e.g. with a namespace prefix that identifies the hosting platform, then this assertion can be reliably made and the target ADES can be derived from the collection ID. Otherwise, the <code>wps:Execute</code> must be parameterised suitably to identify the target ADES.</p>
+</div>
+<div class="paragraph">
+<p>Performing the orchestration between steps, the EMS must handle the stage-in and stage-out of data. In the simple case, the result URL returned from a step can be directly used as an input URL for the subsequent step. Use of CWL and the accompanying <code>cwl-runner</code> tool should facilitate this orchestration.</p>
+</div>
+<div class="paragraph">
+<p>The end result of the successful execution is to present the output result to the invoking user. The EMS establishes the location of the results within the storage provision of the Exploitation Platform, and interfaces with the EP Workspace component (<a href="#User Workspace">[User Workspace]</a>) to register the result in the user’s workspace. At this point the WPS execution is complete as reported by the <code>wps:GetStatus</code> and <code>wps:GetResult</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_deployment_and_execution_service_ades">5.5. Application Deployment and Execution Service (ADES)</h3>
+<div class="paragraph">
+<p>The ADES provides a WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.</p>
+</div>
+<div class="paragraph">
+<p>The main responsibilities of the ADES are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the user is authorised to access the requested data</p>
+</li>
+<li>
+<p>Perform stage-in of data before execution</p>
+</li>
+<li>
+<p>Invoke the container from the Docker image in accordance with the ApplicationDescriptor and the <code>wps:Execute</code> request</p>
+</li>
+<li>
+<p>Monitor the status of the job and obtain the results</p>
+</li>
+<li>
+<p>Perform stage-out of results at execution conclusion</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#procK8s">Resource Layer (Infrastructure) Interface</a> introduces the use of Kubernetes (K8s) as the provider agnostic interface to the Resource Layer. The ADES has touch-points with the Resource Layer for access to data and compute resource. The following sub-section elaborate the approach.</p>
+</div>
+<div class="sect3">
+<h4 id="_container_execution">5.5.1. Container Execution</h4>
+<div class="paragraph">
+<p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
+</div>
+<div class="paragraph">
+<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 10</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
+</div>
+<div id="img_procAdesExecute" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="1000">
+</div>
+<div class="title">Figure 10. EMS Process Execution</div>
+</div>
+<div class="paragraph">
+<p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
+</div>
+<div class="paragraph">
+<p>Pods are the atomic unit on the Kubernetes platform. A Pod is a Kubernetes abstraction that represents a group of one or more application containers. A Pod always runs on a Node. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
+</div>
+<div class="paragraph">
+<p>Each WPS processing task will be constructed as a Pod and invoked as a dedicated K8s Job. A Job creates one or more Pods to perform a given task. The Job object takes the responsibility of Pod failures. It makes sure that the given task is completed successfully. Once the task is over, all the Pods are terminated automatically.</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes provides Namespaces, which are an abstraction that supports multiple virtual clusters on the same physical cluster. It may be interesting to explore the use of K8s Namespaces for the purpose of establishing a sandboxed execution environment for each task execution.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_data_stage_inout">5.5.2. Data Stage-in/out</h4>
+<div class="paragraph">
+<p>There is need for the Processing Framework (ADES) to prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration.</p>
+</div>
+<div class="paragraph">
+<p>The work carried out in the OGC Testbeds 13/14 relied upon use of mounted volumes within the processing task docker container. These mounted volumes present the input data, and receive the output data, as ‘local’ file system access from the point of view of the running container and the processor running within. Use of mounted volumes is equivalently supported by K8s, and is an approach that is relied upon for many (existing) applications that are capable only of accessing data through POSIX file-system interfaces.</p>
+</div>
+<div class="paragraph">
+<p>Thus, for Mounted Volumes, the approach is to use standard container volumes that present as well-identified directories within the container. The input data is provided in a read-only input directory that mounts into the container hosting infrastructure. Similarly, an empty writable directory is presented for the processing to write is outputs, to be collected by the Processing Framework.</p>
+</div>
+<div class="paragraph">
+<p>Nevertheless, we might envisage that additional data access approaches need to be supported, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS S3 Object Store</p>
+</li>
+<li>
+<p>Swift Object Store (OpenStack)</p>
+</li>
+<li>
+<p>OGC data access services: Web Map Service (WMS), Web Coverage Service (WCS), Web Feature Service (WFS)</p>
+</li>
+<li>
+<p>Mounted Volume (local storage)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>With the exception of local storage, the above-mentioned data access technologies rely upon HTTP-based protocol access. Regarding these HTTP-based interfaces there are two possibilities that need to be handled by the Processing Framework:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
+</li>
+<li>
+<p>The processing service / application only supports local storage (mounted volume), in which case the Processing Framework must perform the data retrieval to stage-in the data. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. object store.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Use of Filesystem in Userspace (FUSE)</strong></p>
+</div>
+<div class="paragraph">
+<p>Regarding case 2), another possibility exists that requires further investigation. Access to the back-end data storage (e.g. HTTP-based) is provided through a user-space driver that presents the remote data as if it were a local directory. For example, access to data in an S3 object store is provided through a FUSE mounted directory. Thus, from the perspective of the processing task, inputs (read) and outputs (write) are accessed through the local file-system interface – satisfying the constraints of the processor.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_user_authorisation_context">5.5.3. User Authorisation Context</h4>
+<div class="paragraph">
+<p>The stage-in/out of data must operate within the context of the user’s ‘account’. Thus, the security context of the user must be passed through all aspects performed by the Processing Framework on behalf of the user. This is necessary to ensure that the user is only able to access data to which they are entitled and accounting &amp; billing considerations are properly maintained.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wps_t_restjson">5.6. WPS-T REST/JSON</h3>
+<div class="paragraph">
+<p>This interface specification is used for both the Client &lt;&#8594; EMS, and the EMS &lt;&#8594; ADES interfaces.</p>
+</div>
+<div class="paragraph">
+<p>WPS-T extends standard WPS by adding <em>DeployProcess</em> and <em>UndeployProcess</em> operations. Once a process has been deployed to a WPS then the existing <code>wps:Execute</code> operation remains applicable for execution in the standard way.</p>
+</div>
+<div class="paragraph">
+<p>The following table is reproduced from <a href="#TB14-ADES">[TB14-ADES]</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 10%;">
+<col style="width: 30%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">HTTP Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">WPS operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The landing page provides links to the API definition, the Conformance statements and the metadata about the processes offered by this API</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve available processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetCapabilities</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy a process</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeployProcess</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve a process description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DescribeProcess</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undeploy a process</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UndeployProcess</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of jobs for a process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute a process</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the status of a job</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetStatus</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dismiss a job</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}/result</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the result(s) of a job</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetResult</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of quotation ids for a given process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request a quotation for a given process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations/{quotationID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve quotation information</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations/{quotationID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute a quoted process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/visibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the visibility status for a process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/visibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change the visibility status for a process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/quotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of all quotation ids</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/quotations/{quotationID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve quotation information</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/quotations/{quotationID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute a quoted process</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/bills</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of all bill identifiers</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/bills/{billID}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve bill information</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/conformance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list all requirements classes specified in the standard (WPS REST/JSON Binding Core) that the server conforms to</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_interactive_graphical_applications">5.7. Interactive (Graphical) Applications</h3>
+<div class="paragraph">
+<p>The work carried out in the OGC Testbeds focused on non-graphical applications, i.e. non-interactive processing functions executing algorithms without intervention. It is also noted that WPS does not facilitate the invocation of GUI-based interactive applications which offer a synchronous experience to the end-user.</p>
+</div>
+<div class="paragraph">
+<p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Native applications</dt>
+<dd>
+<p>A remote desktop (RDP) approach is used to present the interface to the user, typically rendered through a web page presented in the user’s browser</p>
+</dd>
+<dt class="hdlist1">Web applications</dt>
+<dd>
+<p>The web application is delivered through the portal interface of the hosting exploitation platform.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>In both cases, docker containers offer a good solution to package and deploy the application. At execution time it is necessary to ensure that the appropriate ports are exposed from the running container.</p>
+</div>
+<div class="paragraph">
+<p>The Application Descriptor needs to be extended to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce additional <code>deploymentProfileNames</code> and <code>executionUnit</code> types</p>
+</li>
+<li>
+<p>Provide parameterisation to support the delivery of the GUI to the end-user</p>
+</li>
+<li>
+<p>Ensure that data access is presented within the container in a way that is compatible with the GUI application (the mechanisms provided for non-interactive applications may be sufficient).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parallel_processing">5.8. Parallel Processing</h3>
+<div class="paragraph">
+<p>The OGC Testbeds 13/14 only consider serial processing jobs running in a single Docker container. Here we consider how this approach can be extended to accommodate job requiring parallelisation.</p>
+</div>
+<div class="paragraph">
+<p>One possible approach, is to invoke the processing task as a docker container (as described above), but then within the implementation of this task it makes subordinate invocations that exploit some specific data processing clustering infrastructure available within the platform. For example, the invoked process executes some Python code that then invokes a dask or SLURM cluster to perform the processing work.</p>
+</div>
+<div class="paragraph">
+<p>In this case, the processing task would have a dependency that the Exploitation Platform provides the required data processing technology. In order to resolve this capability dependency the following approach can be made:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The processing service declares within its Application Deployment Package, that it ‘requires’ a particular service</p>
+</li>
+<li>
+<p>The Exploitation Platform declares within the capabilities document output from its WPS endpoint, that it ‘provides’ particular services</p>
+</li>
+<li>
+<p>The EMS must ensure that the target EP provides the required service of the processing task to be invoked</p>
+</li>
+<li>
+<p>The parameterisation for the ‘required’ service are passed to the processing task at invocation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A consistent vocabulary of services must be defined to unambiguously express the ‘required’ and ‘provides’ declarations.</p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1194,13 +2184,13 @@ EMSS-EOPS-TN-17-002</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 6</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 11</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="1000">
 </div>
-<div class="title">Figure 6. Web Portal: Overview</div>
+<div class="title">Figure 11. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -1231,8 +2221,8 @@ EMSS-EOPS-TN-17-002</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v0.2<br>
-Last updated 2019-04-25 10:54:22 +0100
+Version v0.3<br>
+Last updated 2019-04-25 11:01:19 +0100
 </div>
 </div>
 </body>
