@@ -2129,7 +2129,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <h2 id="_resource_management">6. Resource Management</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets.</p>
+<p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets. The concerns of processing assets are addressed in the ‘Processing &amp; Chaining’ domain area. Thus, Resource Management focuses primarily on the provision of data within the EP.</p>
 </div>
 <div class="paragraph">
 <p>Storage is largely taken care of by the Resource Tier upon which the Exploitation Platform is hosted. The role of the Exploitation Platform is to ensure that the data can be accessed through common data access protocols based upon open standards.</p>
@@ -2154,7 +2154,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>To exploit the services of the Platform, users need to discover available data, obtain detailed collection/product information, including the ability to visualise the data in the platform. This applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.</p>
 </div>
 <div class="paragraph">
-<p>Processing services and applications are also platform resources that must be discoverable by users, including the information required by users to exploit the service.</p>
+<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#section zzz">[section zzz]</a> for more details.</p>
 </div>
 <div class="paragraph">
 <p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
@@ -2177,29 +2177,10 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Data Catalogue</p>
 </li>
 <li>
-<p>Application Catalogue</p>
-</li>
-<li>
 <p>Data Access Services</p>
-<div class="ulist">
-<ul>
-<li>
-<p>AWS S3 Object Store</p>
 </li>
 <li>
-<p>Swift Object Store (OpenStack)</p>
-</li>
-<li>
-<p>OGC Web Map Service (WMS)</p>
-</li>
-<li>
-<p>OGC Web Coverage Service (WCS)</p>
-</li>
-<li>
-<p>OGC Web Feature Service (WFS)</p>
-</li>
-</ul>
-</div>
+<p>Data Access Gateway</p>
 </li>
 <li>
 <p>Data Ingestion</p>
