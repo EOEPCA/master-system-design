@@ -87,10 +87,10 @@
 <li><a href="#_authenticated_identity">4.2. Authenticated Identity</a>
 <ul class="sectlevel3">
 <li><a href="#_overview">4.2.1. Overview</a></li>
-<li><a href="#_authentication_service">4.2.2. Authentication Service</a></li>
+<li><a href="#_login_service">4.2.2. Login Service</a></li>
 <li><a href="#_oidc_id_token">4.2.3. OIDC ID Token</a></li>
 <li><a href="#_oidc_clients">4.2.4. OIDC Clients</a></li>
-<li><a href="#_resource_server_pep">4.2.5. Resource Server (PEP)</a></li>
+<li><a href="#_pep_resource_server_filter">4.2.5. PEP (Resource Server filter)</a></li>
 <li><a href="#_access_token_validation">4.2.6. Access Token Validation</a></li>
 <li><a href="#_federated_user_access">4.2.7. Federated User Access</a>
 <ul class="sectlevel4">
@@ -104,12 +104,7 @@
 <li><a href="#_client_registration">Client Registration</a></li>
 </ul>
 </li>
-<li><a href="#_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</a>
-<ul class="sectlevel4">
-<li><a href="#_policy_decision_point_pdp">Policy Decision Point (PDP)</a></li>
-<li><a href="#_attribute_authority">Attribute Authority</a></li>
-</ul>
-</li>
+<li><a href="#_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</a></li>
 </ul>
 </li>
 <li><a href="#_accounting_and_billing">4.3. Accounting and Billing</a></li>
@@ -397,8 +392,8 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <td class="tableblock halign-left valign-top"><p class="tableblock">A platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Comprises the <em>Application Descriptor</em> and the <em>Application Artefact</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Provider</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authentication provision within the Exploitation Platform context. The Authentication Provider is an Authorization Server (OAuth) that is used purely for authentication.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authenticated Login provision within the Exploitation Platform context. The Login Service is an Authorization Server (OAuth) that is used purely for authentication. It acts as a Relying Party in flows with external IdPs to obtain access to the user&#8217;s identity.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bulk Processing</p></td>
@@ -411,6 +406,10 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Consumer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User accessing existing services/products within the EP. Consumers may be scientific/research or commercial, and may or may not be experts of the domain</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Access Library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An abstraction of the interface to the data layer of the resource tier. The library provides bindings for common languages (including python, Javascript) and presents a common object model to the code.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
@@ -595,6 +594,10 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CWL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Common Workflow Language</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Access Library</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EMS</p></td>
@@ -838,7 +841,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="sect2">
 <h3 id="_identity_and_access_management_iam">4.1. Identity and Access Management (IAM)</h3>
 <div class="paragraph">
-<p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorisation decisions are made based upon attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sofisticated authorisations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
+<p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorisation decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sofisticated authorisations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
 </div>
 <div class="paragraph">
 <p>In achieving this there are three main concerns:</p>
@@ -849,26 +852,36 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <p>Unique user identification</p>
 </li>
 <li>
-<p>Determine what attributes are required to access the protected resource</p>
+<p>Determine the access policy applicable to the resource</p>
 </li>
 <li>
-<p>Determine whether the user has the required attributes</p>
+<p>From the access policy determine:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what attributes are required to access the protected resource</p>
+</li>
+<li>
+<p>whether the user has the required attributes</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms, under the policy decision of the local platform:</p>
+<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms. Authorisation policy is enforced within the platform at point of access, but the access policy can be federated within the network of EO resources, leading to a system of <em>federated authorisation</em>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The identity is provided externally. The external IdP has no association to the exploitation platform, and hence is not the appropriate place to administer attributes that relate to EP resources.</p>
+<p>The identity is provided externally. The external IdP has no association to the exploitation platform, and hence is not the appropriate place to administer attributes that relate to EP resources</p>
 </li>
 <li>
-<p>The protected resources are under the custodianship of the exploitation platform and hence the exploitation platform defines internally its rules for accessing its protected resources.</p>
+<p>The protected resources are under the custodianship of the exploitation platform and hence the exploitation platform enforces the access policy decision</p>
 </li>
 <li>
-<p>The administrative domain for a set of attributes should not be tied to an exploitation platform, which facilitates the provision of federation and virtual organisations.</p>
+<p>The administrative domain for an access policy should should not be tied to an exploitation platform, which facilitates the provision of federation and virtual organisations</p>
 </li>
 </ul>
 </div>
@@ -884,10 +897,10 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="title">Figure 2. Identity and Access Management Overview</div>
 </div>
 <div class="paragraph">
-<p>Each protected resource is fronted by its Policy Enforcement Point (PEP) that will only permit access if the appropriate conditions are met. This decision is made according to a set of rules that are under the control of and configured within the exploitation platform.</p>
+<p>Each protected resource is fronted by its Policy Enforcement Point (PEP), which acts as filter that will only permit access if the appropriate conditions are met. This decision is made according to a set of rules that are under the control of and configured within the exploitation platform.</p>
 </div>
 <div class="paragraph">
-<p>The Authentication Service is provided as a common component that is utilised by each PEP to perform the authentication flow with the external IdPs. In the case of an unauthenticated request, the PEP will initiate the Authentication Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. This direct connection is of particular importance in the case of significant data volumes being returned to the User. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection and thus spoiling the direct communication between end-user agent and resource server, and so introduce an inefficiency in the data path.</p>
+<p>The Login Service is provided as a common component that is utilised by each PEP to perform the authentication flow with the external IdPs. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.</p>
 </div>
 <div class="paragraph">
 <p>The PEP interrogates the PDP for an authorisation decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:</p>
@@ -895,42 +908,24 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="ulist">
 <ul>
 <li>
-<p>Identity of end-user (XACML subject)</p>
+<p>Identity of end-user (subject)</p>
 </li>
 <li>
-<p>The API (path/version etc.) being accessed (XACML resource)</p>
+<p>The API (path/version etc.) being accessed (resource)</p>
 </li>
 <li>
-<p>The operation (HTTP verb) being performed (XACML action)</p>
+<p>The operation (HTTP verb) being performed (action)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The rules are expressed through attributes, and it is the job of the Policy Decision Point (PDP) to determine, for a given request, what attributes are required and what attributes the user possesses, in order to provide its access decision. In order to know whether a user possesses a given attribute it is necessary to interrogate the appropriate Attribute Authority for the attribute.</p>
+<p>The Policy Decision Point (PDP) returns an authorisation decision based upon details provided in the request, and the applicable authorisation policy. The authorisation policy may delegate all or part of the decision to external PDP(s) within the federated network. This represents a Federated Authorisation model and facilitates a model of shared resources and virtual organisations.</p>
+</div>
+<div class="paragraph">
+<p>The authorisation policy defines a set of rules and how they should be evaluated to determine the policy decision. The rules are expressed through attributes. The policy is evaluated to determine what attributes are required, and what attributes the user possesses. This evaluation extends through external PDPs according to any federated authorisation defined in the policy.</p>
 </div>
 <div class="paragraph">
 <p>It should be additionally noted that the decision to allow the user access depends upon dynamic 'attributes', such as whether the user has enough credits to 'pay' for their usage, or whether they have accepted the necessary Terms &amp; Conditions for a given dataset or service. Thus, the PDP must interrogate other EP-services such as 'Accounting &amp; Billing' and 'User Profile' to answer such questions.</p>
-</div>
-<div class="paragraph">
-<p>An Attribute Authority represents the administrative domain for a set of attributes - and acts as Policy Information Point (PIP) for the attributes under its governance. A given attribute is administered by a single Attribute Authority. Thus, when making its decision, the PDP must know for each attribute who is the responsible Attribute Authority (e.g. by lookup), and then interrogate that Attribute Authority to know whether the user possesses the given attribute. For any given attribute, the attribute authority can be one within the EP or administered externally.</p>
-</div>
-<div class="paragraph">
-<p>Federated access and Virtual Organisations can be effected by use of ‘Federated Attributes’ (see below) that allow common attributes to be delegated under the administrative domain of a nominated Attribute Authority. Thus, for a given attribute there is a single authoritative endpoint for associated attribute queries. The exploitation platform supports the federation/VO by using the federated-attributes in its rules, and defers to the appropriate attribute authority when making policy decisions.</p>
-</div>
-<div class="paragraph">
-<p>From the perspective of a given EP, two classes of attribute result from the above:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Local Attributes</dt>
-<dd>
-<p>Attributes that are used only internally by the EP, in which case the attributes are mapped to the local Attribute Authority.</p>
-</dd>
-<dt class="hdlist1">Federated Attributes</dt>
-<dd>
-<p>Attributes that are used to facilitate federated access to resources and in the establishment of Virtual Organisations. In this case the EP maps the attributes to the appropriate Attribute Authority – noting the fact that it could be the local EP if it happens to be the administrative domain for the attribute.</p>
-</dd>
-</dl>
 </div>
 <div class="paragraph">
 <p><a href="#img_iamOverviewFlow">Figure 3</a> provides an overview of the IAM Flow.</p>
@@ -942,7 +937,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="title">Figure 3. IAM Overview Flow</div>
 </div>
 <div class="paragraph">
-<p>Note that the interface between the Authentication Service and the External IdPs is simplified in this view. It is expanded in later sections.</p>
+<p>Note that the interface between the Login Service and the External IdPs is simplified in this view. It is expanded in later sections.</p>
 </div>
 </div>
 <div class="sect3">
@@ -964,25 +959,26 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </dd>
 <dt class="hdlist1">Protected Resource &#8594; PEP</dt>
 <dd>
-<p>The PEP is implemented either as an in-process component of the Protected Resource, or as an out-of-process shim. Either way, the PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
+<p>The PEP acts as a filter on the access request to the resource. The PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
 </dd>
-<dt class="hdlist1">PEP &#8594; Authentication Service</dt>
+<dt class="hdlist1">PEP &#8594; Login Service</dt>
 <dd>
-<p>The PEP uses a redirect to delegate the authentication flow to the Authentication Service.</p>
+<p>The PEP uses a redirect to delegate the authentication flow to the Login Service.</p>
 </dd>
-<dt class="hdlist1">Authentication Service &#8594; External IdP</dt>
+<dt class="hdlist1">Login Service &#8594; External IdP</dt>
 <dd>
-<p>In order to support multiple external identity suppliers, the Authentication Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Authentication Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
+<p>In order to support multiple external identity suppliers, the Login Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Login Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
 </dd>
-<dt class="hdlist1">PEP &#8594; AuthZ Rules Engine (PDP)</dt>
+<dt class="hdlist1">PEP &#8594; PDP</dt>
 <dd>
-<p>Possible use of XACML requests for this interface.</p>
-</dd>
-<dt class="hdlist1">PDP &#8594; Attribute Authority</dt>
-<dd>
-<p>Possible use of SAML attribute queries for this interface.</p>
+<p>Request carries the user identification, the URI of the resource, and the action.<br>
+Response returns the authorisation decision.</p>
 </dd>
 </dl>
+</div>
+<div class="paragraph">
+<p>PDP &#8594; Other PDP<br>
+Same interface characteristics as PEP&#8594;PDP.</p>
 </div>
 </div>
 </div>
@@ -994,16 +990,16 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="sect3">
 <h4 id="_overview">4.2.1. Overview</h4>
 <div class="paragraph">
-<p>The Authentication Service is an OpenID Connect Provider that provides a ‘Login With’ service that allows the platform to support multiple external identity providers.</p>
+<p>The Login Service is an OpenID Connect Provider that provides a ‘Login With’ service that allows the platform to support multiple external identity providers. The Login Service acts as a Relying Party in its interactions with the external IdPs to establish the authenticated identity of the user through delegated authentication.</p>
 </div>
 <div class="paragraph">
-<p>The Authentication Service presents an OIDC Provider interface to its clients, through which the OIDC clients can obtain Access Tokens to resources. The access tokens are presented by the clients in their requests to resource servers (intercepted by PEP). The PEP (acting on behalf of the resource server) relies upon the access token to establish the authenticated identity of the users making the requests. Once the user identity is established, then the PEP can continue with its policy decision (deferred to the PDP).</p>
+<p>The Login Service presents an OIDC Provider interface to its clients, through which the OIDC clients can obtain Access Tokens to resources. The access tokens are presented by the clients in their requests to resource servers (intercepted by PEP). The PEP (acting on behalf of the resource server) relies upon the access token to establish the authenticated identity of the users making the requests. Once the user identity is established, then the PEP can continue with its policy decision (deferred to the PDP).</p>
 </div>
 <div class="paragraph">
 <p>Thus, clients of the EP must act as OIDC Clients in order to authenticate their users to the platform, before invoking its services. Clients include the web applications that provide the UI of the exploitation platform, as well as other external applications/systems (including other exploitation platforms) wishing to use the services of the EP.</p>
 </div>
 <div class="paragraph">
-<p>The Authentication Service must act as client to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Authentication Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represents the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Authentication Service to issue the requested access tokens (depending on the flow used).</p>
+<p>The Login Service must act as client (Relying Party) to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Login Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represents the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Login Service to issue the requested access tokens (depending on the flow used).</p>
 </div>
 <div class="paragraph">
 <p><a href="#img_iamAuthenticationFlow">Figure 5</a> illustrates the basic user access flow, invoked through a web browser.</p>
@@ -1016,12 +1012,12 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </div>
 </div>
 <div class="sect3">
-<h4 id="_authentication_service">4.2.2. Authentication Service</h4>
+<h4 id="_login_service">4.2.2. Login Service</h4>
 <div class="paragraph">
-<p>The Authentication Provider is an OIDC Provider that provides a ‘Login With’ service that allows the end-user to select their Identity Provider for purposes of authentication.</p>
+<p>The Login Service is an OIDC Provider that provides a ‘Login With’ service that allows the end-user to select their Identity Provider for purposes of authentication.</p>
 </div>
 <div class="paragraph">
-<p>The Authentication Provider is designed to support the onward forwarding of the authentication request through external identify services, which should be expected to include:</p>
+<p>The Login Service is designed to support the onward forwarding of the authentication request through external identity services, which should be expected to include:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1049,7 +1045,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </ul>
 </div>
 <div class="paragraph">
-<p>The Authentication Provider must establish itself as a client of all supported external IdPs, with appropriate trust relationships and support for their authentication flows.</p>
+<p>The Login Service must establish itself as a client (Relying Party) of all supported external IdPs, with appropriate trust relationships and support for their authentication flows.</p>
 </div>
 <div class="paragraph">
 <p>The primary endpoints required to support the OIDC flows are as follows (these endpoints are taken, by example, from OKTA OIDC discovery metadata, <a href="https://micah.okta.com/oauth2/aus2yrcz7aMrmDAKZ1t7/.well-known/openid-configuration" class="bare">https://micah.okta.com/oauth2/aus2yrcz7aMrmDAKZ1t7/.well-known/openid-configuration</a>):</p>
@@ -1074,7 +1070,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </dd>
 <dt class="hdlist1">end_session_endpoint (/logout)</dt>
 <dd>
-<p>To logout the user from the Authentication Provider, i.e. clear session cookies etc. Although, given that the actual IdP is externalised from the Authentication Provider, it would remain the case that any session cookies maintained by the external IdP would still be in place for a future authentication flow.</p>
+<p>To logout the user from the Login Service, i.e. clear session cookies etc. Although, given that the actual IdP is externalised from the Login Service, it would remain the case that any session cookies maintained by the external IdP would still be in place for a future authentication flow.</p>
 </dd>
 <dt class="hdlist1">introspection_endpoint (/introspect)</dt>
 <dd>
@@ -1123,13 +1119,13 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="sect3">
 <h4 id="_oidc_id_token">4.2.3. OIDC ID Token</h4>
 <div class="paragraph">
-<p>The ID Token is a JWT that is returned to from the /userinfo endpoint of the Authentication Service. The returned OIDC ID Token has been signed (JWS) by the Authentication Service and thus results in a token that asserts a user’s authenticated identity with integrity, and non-repudiation.</p>
+<p>The ID Token is a JWT that is returned to from the /userinfo endpoint of the Login Service. The returned OIDC ID Token has been signed (JWS) by the Login Service and thus results in a token that asserts a user’s authenticated identity with integrity, and non-repudiation.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_oidc_clients">4.2.4. OIDC Clients</h4>
 <div class="paragraph">
-<p>Clients act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
+<p>Clients are Relying Parties that act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
 </div>
 <div class="paragraph">
 <p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases (TBD) the Authorisation Code Flow would be preferred.</p>
@@ -1142,9 +1138,9 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resource_server_pep">4.2.5. Resource Server (PEP)</h4>
+<h4 id="_pep_resource_server_filter">4.2.5. PEP (Resource Server filter)</h4>
 <div class="paragraph">
-<p>The PEP (acting on behalf of the resource server) receives the client request to access the protected resource, with the expectation that the request includes a valid access token.</p>
+<p>The PEP (acting on behalf of the resource server) receives the client request to access the protected resource. In the case that the access requires an authenticated user, then the PEP expects that the request includes a valid access token.</p>
 </div>
 <div class="paragraph">
 <p>Thus, the PEP follows the logic:</p>
@@ -1152,10 +1148,20 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="ulist">
 <ul>
 <li>
+<p>The PEP checks with the PDP whether an authenticated user is required for access</p>
+</li>
+<li>
+<p>If no authenticated user is required then the request can continue (pending authorisation) as an 'anonymous' user</p>
+</li>
+<li>
+<p>If access requires an authenticated user then</p>
+<div class="ulist">
+<ul>
+<li>
 <p>If the access token is not present then no user is logged in, so the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
 </li>
 <li>
-<p>If the access token is present, then it should be validated with the Authentication Service (direct call), as described below</p>
+<p>If the access token is present, then it should be validated with the Login Service (direct call), as described below</p>
 </li>
 <li>
 <p>If the access token validation completes successfully then the request can continue (pending authorisation), with the user identity provided by the ID Token received during token validation</p>
@@ -1165,16 +1171,19 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_access_token_validation">4.2.6. Access Token Validation</h4>
 <div class="paragraph">
-<p>The PEP validates the access token by using it as a Bearer token in a request to the Authentication Service’s /userinfo endpoint. A successful response has two outcomes:</p>
+<p>The PEP validates the access token by using it as a Bearer token in a request to the Login Service’s /userinfo endpoint. A successful response has two outcomes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Confirms the validity of the access token from the point-of-view of the Authentication Service that issued it</p>
+<p>Confirms the validity of the access token from the point-of-view of the Login Service that issued it</p>
 </li>
 <li>
 <p>Provides an ID Token for the user that provides the information required to uniquely identify the user within the EP and utilise this identity within the subsequent policy decision made by the PDP</p>
@@ -1182,7 +1191,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </ul>
 </div>
 <div class="paragraph">
-<p>The ID Token is a JWT that has been signed by the Authentication Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Authentication Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.</p>
+<p>The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1209,7 +1218,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorisation is long-lived.</p>
 </div>
 <div class="paragraph">
-<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorisation by invalidating the refresh token. This would invole interface with the Authentication Service.</p>
+<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorisation by invalidating the refresh token. This would invole interface with the Login Service.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1233,7 +1242,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <p>Within an EP, when a resource server is executing a user’s request, it may need to invoke a resource in another EP with which it is collaborating. The resource access to the other EP must be made on behalf of the originating user.</p>
 </div>
 <div class="paragraph">
-<p>The nominal solution is for the originating EP to act as an OIDC Client to interface with the Authentication Service of the other EP, and so obtain the access token required to access the other resource. In this case, we should consider the fact that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent. Therefore, we should explore possibilities (flows) provided by OIDC/OAuth that support this type of access.</p>
+<p>The nominal solution is for the originating EP to act as an OIDC Client to interface with the Login Service of the other EP, and so obtain the access token required to access the other resource. In this case, we should consider the fact that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent. Therefore, we should explore possibilities (flows) provided by OIDC/OAuth that support this type of access.</p>
 </div>
 <div class="paragraph">
 <p>One possibility is to make use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.</p>
@@ -1270,13 +1279,13 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 </ol>
 </div>
 <div class="paragraph">
-<p>In the case of our usage within the Exploitation Platform, type 1) is not application since the user’s ID comes from their ‘Home’ organisation and is not (necessarily) tied to an OpenID Connect Provider. Instead the Authentication Service must implement a discovery ‘flow’ in which the user is able to select the provider of their identity, as one that is supported by the Authentication Service deployment.</p>
+<p>In the case of our usage within the Exploitation Platform, type 1) is not application since the user’s ID comes from their ‘Home’ organisation and is not (necessarily) tied to an OpenID Connect Provider. Instead the Login Service must implement a discovery ‘flow’ in which the user is able to select the provider of their identity, as one that is supported by the Login Service deployment.</p>
 </div>
 <div class="paragraph">
-<p>Regarding discovery type 2), the Authentication Service exposes an OIDC Provider interface, and this should support retrieval of OIDC Provider Configuration Information. Thus, OIDC Clients can utilise the discovery interface of the Authentication Service to exploit its services.</p>
+<p>Regarding discovery type 2), the Login Service exposes an OIDC Provider interface, and this should support retrieval of OIDC Provider Configuration Information. Thus, OIDC Clients can utilise the discovery interface of the Login Service to exploit its services.</p>
 </div>
 <div class="paragraph">
-<p>This is of most interest in the case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Authentication Service in another EP – in which case auto-discovery might be more attractive.</p>
+<p>This is of most interest in the case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Login Service in another EP – in which case auto-discovery might be more attractive.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1285,7 +1294,7 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <p>Reference: <a href="https://openid.net/specs/openid-connect-registration-1_0.html" class="bare">https://openid.net/specs/openid-connect-registration-1_0.html</a></p>
 </div>
 <div class="paragraph">
-<p>The possibility exists for the OIDC Client (Relying Party) to perform auto-registration with the Authentication Service, using OIDC Client Registration. In doing so the OIDC client obtains its Client ID and Secret.</p>
+<p>The possibility exists for the OIDC Client (Login Service) to perform auto-registration with the Login Service, using OIDC Client Registration. In doing so the OIDC client obtains its Client ID and Secret.</p>
 </div>
 <div class="paragraph">
 <p>This may be of interest in a couple of cases:</p>
@@ -1293,10 +1302,10 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="ulist">
 <ul>
 <li>
-<p>The case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Authentication Service in another EP – in which case auto-client-registration might be of interest.</p>
+<p>The case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Login Service in another EP – in which case auto-client-registration might be of interest.</p>
 </li>
 <li>
-<p>The case where a common Authentication Service is deployed outside of the context of a given Exploitation Platform, acting as an IdP Proxy. In this case, the local Authentication Service deployed in each EP would register as an OIDC Client of the IdP Proxy.</p>
+<p>The case where a common Login Service is deployed outside of the context of a given Exploitation Platform, acting as an IdP Proxy. In this case, the local Login Service deployed in each EP would register as an OIDC Client of the IdP Proxy.</p>
 </li>
 </ul>
 </div>
@@ -1306,18 +1315,6 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <h4 id="_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</h4>
 <div class="paragraph">
 <p>TBD</p>
-</div>
-<div class="sect4">
-<h5 id="_policy_decision_point_pdp">Policy Decision Point (PDP)</h5>
-<div class="paragraph">
-<p>TBD</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_attribute_authority">Attribute Authority</h5>
-<div class="paragraph">
-<p>TBD</p>
-</div>
 </div>
 </div>
 </div>
@@ -1817,7 +1814,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="content">
 <img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="1000">
 </div>
-<div class="title">Figure 10. EMS Process Execution</div>
+<div class="title">Figure 10. ADES Process Execution</div>
 </div>
 <div class="paragraph">
 <p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
@@ -1868,12 +1865,19 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
+<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#Data Access Library">[Data Access Library]</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
 </li>
 <li>
 <p>The processing service / application only supports local storage (mounted volume), in which case the Processing Framework must perform the data retrieval to stage-in the data. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. object store.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>[[Data Access Library]]<br>
+<strong>Use of Data Access Library</strong></p>
+</div>
+<div class="paragraph">
+<p>The above case 1) is facilitated by the provision of a Data Access Library (DAL) that provides an abstraction of the interface to the data. The library provides bindings for common languages (including python, Javascript) and presents a common object model to the processing code. Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The Processing Framework must support the ability to 'plugin' an alternative implementation of the DAL at processor execution time.</p>
 </div>
 <div class="paragraph">
 <p><strong>Use of Filesystem in Userspace (FUSE)</strong></p>
@@ -2284,7 +2288,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div id="footer">
 <div id="footer-text">
 Version v0.3<br>
-Last updated 2019-04-25 11:01:19 +0100
+Last updated 2019-05-09 09:12:09 +0100
 </div>
 </div>
 </body>
