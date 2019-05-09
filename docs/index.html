@@ -1865,14 +1865,14 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#Data Access Library">[Data Access Library]</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
+<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#procDAL">Data Access Library</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
 </li>
 <li>
 <p>The processing service / application only supports local storage (mounted volume), in which case the Processing Framework must perform the data retrieval to stage-in the data. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. object store.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
+<div id="procDAL" class="paragraph">
 <p><strong>Use of Data Access Library</strong></p>
 </div>
 <div class="paragraph">
