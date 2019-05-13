@@ -18,7 +18,7 @@
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
 <span id="revnumber">version v0.3,</span>
-<span id="revdate">dd/mm/yyyy</span>
+<span id="revdate">13/05/2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
@@ -127,9 +127,29 @@
 <li><a href="#_wps_t_restjson">5.6. WPS-T REST/JSON</a></li>
 <li><a href="#_interactive_graphical_applications">5.7. Interactive (Graphical) Applications</a></li>
 <li><a href="#_parallel_processing">5.8. Parallel Processing</a></li>
+<li><a href="#procAppCatalogue">5.9. Application Catalogue</a></li>
 </ul>
 </li>
-<li><a href="#_resource_management">6. Resource Management</a></li>
+<li><a href="#_resource_management">6. Resource Management</a>
+<ul class="sectlevel2">
+<li><a href="#_data_catalogue">6.1. Data Catalogue</a>
+<ul class="sectlevel3">
+<li><a href="#_metadata_organisation">6.1.1. Metadata Organisation</a></li>
+<li><a href="#_example_usage_with_opensearch">6.1.2. Example Usage with OpenSearch</a></li>
+<li><a href="#_opensearch">6.1.3. OpenSearch</a></li>
+<li><a href="#_resource_types">6.1.4. Resource Types</a></li>
+<li><a href="#_data_access">6.1.5. Data Access</a></li>
+<li><a href="#_ep_catalogue_vs_infrastructure_catalogue">6.1.6. EP Catalogue vs Infrastructure Catalogue</a></li>
+<li><a href="#_federated_discovery">6.1.7. Federated Discovery</a></li>
+</ul>
+</li>
+<li><a href="#_data_access_services">6.2. Data Access Services</a></li>
+<li><a href="#_data_access_gateway">6.3. Data Access Gateway</a></li>
+<li><a href="#_data_access_library">6.4. Data Access Library</a></li>
+<li><a href="#_data_ingestion">6.5. Data Ingestion</a></li>
+<li><a href="#_workspace">6.6. Workspace</a></li>
+</ul>
+</li>
 <li><a href="#_web_portal_2">7. Web Portal</a></li>
 </ul>
 </div>
@@ -158,9 +178,9 @@
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 71.4285%;">
-<col style="width: 14.2858%;">
+<col style="width: 20%;">
+<col style="width: 70%;">
+<col style="width: 10%;">
 </colgroup>
 <thead>
 <tr>
@@ -175,8 +195,9 @@
 <td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>EOEPCA - Use Case Analysis (<a href="https://eoepca.github.io/use-case-analysis">https://eoepca.github.io/use-case-analysis</a>),<br>
-EOEPCA.TN.005</p>
+<p>EOEPCA - Use Case Analysis<br>
+EOEPCA.TN.005<br>
+<a href="https://eoepca.github.io/use-case-analysis" class="bare">https://eoepca.github.io/use-case-analysis</a></p>
 </div>
 </div>
 </div></div></td>
@@ -233,7 +254,8 @@ EMSS-EOPS-TN-17-002</p>
 <div class="content">
 <div class="paragraph">
 <p>OGC Testbed-14: WPS-T Engineering Report,<br>
-OGC 18-036r1, <a href="http://docs.opengeospatial.org/per/18-036r1.html" class="bare">http://docs.opengeospatial.org/per/18-036r1.html</a></p>
+OGC 18-036r1,<br>
+<a href="http://docs.opengeospatial.org/per/18-036r1.html" class="bare">http://docs.opengeospatial.org/per/18-036r1.html</a></p>
 </div>
 </div>
 </div></div></td>
@@ -270,7 +292,8 @@ OGC 18-036r1, <a href="http://docs.opengeospatial.org/per/18-036r1.html" class="
 <div class="content">
 <div class="paragraph">
 <p>OGC Testbed-13, EP Application Package Engineering Report,<br>
-OGC 17-023, <a href="http://docs.opengeospatial.org/per/17-023.html" class="bare">http://docs.opengeospatial.org/per/17-023.html</a></p>
+OGC 17-023,<br>
+<a href="http://docs.opengeospatial.org/per/17-023.html" class="bare">http://docs.opengeospatial.org/per/17-023.html</a></p>
 </div>
 </div>
 </div></div></td>
@@ -289,7 +312,8 @@ OGC 17-023, <a href="http://docs.opengeospatial.org/per/17-023.html" class="bare
 <div class="content">
 <div class="paragraph">
 <p>OGC Testbed-13, Application Deployment and Execution Service Engineering Report,<br>
-OGC 17-024, <a href="http://docs.opengeospatial.org/per/17-024.html" class="bare">http://docs.opengeospatial.org/per/17-024.html</a></p>
+OGC 17-024,<br>
+<a href="http://docs.opengeospatial.org/per/17-024.html" class="bare">http://docs.opengeospatial.org/per/17-024.html</a></p>
 </div>
 </div>
 </div></div></td>
@@ -308,7 +332,8 @@ OGC 17-024, <a href="http://docs.opengeospatial.org/per/17-024.html" class="bare
 <div class="content">
 <div class="paragraph">
 <p>OGC Testbed-14, Application Package Engineering Report,<br>
-OGC 18-049r1, <a href="http://docs.opengeospatial.org/per/18-049r1.html" class="bare">http://docs.opengeospatial.org/per/18-049r1.html</a></p>
+OGC 18-049r1,<br>
+<a href="http://docs.opengeospatial.org/per/18-049r1.html" class="bare">http://docs.opengeospatial.org/per/18-049r1.html</a></p>
 </div>
 </div>
 </div></div></td>
@@ -336,6 +361,101 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <div class="paragraph">
 <p>18-050r1,<br>
 08/02/2019</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OS-GEO-TIME"></a>[OS-GEO-TIME]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OpenSearch GEO: OpenSearch Geo and Time Extensions,<br>
+OGC 10-032r8,<br>
+<a href="http://www.opengeospatial.org/standards/opensearchgeo" class="bare">http://www.opengeospatial.org/standards/opensearchgeo</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>10-032r8,<br>
+14/04/2014</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OS-EO"></a>[OS-EO]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OpenSearch EO: OGC OpenSearch Extension for Earth Observation,<br>
+OGC 13-026r9,<br>
+<a href="http://docs.opengeospatial.org/is/13-026r8/13-026r8.html" class="bare">http://docs.opengeospatial.org/is/13-026r8/13-026r8.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>13-026r9,<br>
+16/12/2016</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="GEOJSON-LD"></a>[GEOJSON-LD]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC EO Dataset Metadata GeoJSON(-LD) Encoding Standard,<br>
+OGC 17-003r1/17-084</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>17-003r1/17-084</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="GEOJSON-LD-RESP"></a>[GEOJSON-LD-RESP]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard,<br>
+OGC 17-047</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>17-047</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CEOS-OS-BP"></a>[CEOS-OS-BP]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>CEOS OpenSearch Best Practise,<br>
+<a href="http://ceos.org/ourwork/workinggroups/wgiss/access/opensearch/" class="bare">http://ceos.org/ourwork/workinggroups/wgiss/access/opensearch/</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.2,<br>
+13/06/2017</p>
 </div>
 </div>
 </div></div></td>
@@ -975,11 +1095,11 @@ OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="
 <p>Request carries the user identification, the URI of the resource, and the action.<br>
 Response returns the authorisation decision.</p>
 </dd>
+<dt class="hdlist1">PDP &#8594; Other PDP</dt>
+<dd>
+<p>Same interface characteristics as PEP&#8594;PDP.</p>
+</dd>
 </dl>
-</div>
-<div class="paragraph">
-<p>PDP &#8594; Other PDP<br>
-Same interface characteristics as PEP&#8594;PDP.</p>
 </div>
 </div>
 </div>
@@ -1374,6 +1494,12 @@ Same interface characteristics as PEP&#8594;PDP.</p>
 <div class="paragraph">
 <p>The interface between the Processing Framework and the compute resource should be abstract so that the solution is not tied to any particular provider (cloud, DIAS, etc.).</p>
 </div>
+<div id="img_processingUseCase" class="imageblock text-center">
+<div class="content">
+<img src="./images/use-cases-processing.png" alt="use cases processing" width="1000">
+</div>
+<div class="title">Figure 6. Processing &amp; Chaining Use Case</div>
+</div>
 <div class="paragraph">
 <p>In meeting these requirements the following key challenges are identified:</p>
 </div>
@@ -1446,13 +1572,13 @@ Same interface characteristics as PEP&#8594;PDP.</p>
 <p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should additionally include an EMS.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procOverview">Figure 6</a> illustrates the main architecture components and their interfaces.</p>
+<p><a href="#img_procOverview">Figure 7</a> illustrates the main architecture components and their interfaces.</p>
 </div>
 <div id="img_procOverview" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-overview.png" alt="processing overview" width="1000">
 </div>
-<div class="title">Figure 6. Processing &amp; Chaining Overview</div>
+<div class="title">Figure 7. Processing &amp; Chaining Overview</div>
 </div>
 <div class="paragraph">
 <p>In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs &#8594; inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.</p>
@@ -1558,13 +1684,13 @@ Same interface characteristics as PEP&#8594;PDP.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p><a href="#img_procAppDescriptor">Figure 7</a> provides an illustration of the Application Descriptor structure.</p>
+<p><a href="#img_procAppDescriptor">Figure 8</a> provides an illustration of the Application Descriptor structure.</p>
 </div>
 <div id="img_procAppDescriptor" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="1000">
 </div>
-<div class="title">Figure 7. Structure of Application Descriptor data model</div>
+<div class="title">Figure 8. Structure of Application Descriptor data model</div>
 </div>
 <div class="paragraph">
 <p>Thus, the WPS-T DeployDocument comprises the following parts:</p>
@@ -1718,13 +1844,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procEmsDeploy">Figure 8</a> illustrates the deployment of applications and workflows to the EMS.</p>
+<p><a href="#img_procEmsDeploy">Figure 9</a> illustrates the deployment of applications and workflows to the EMS.</p>
 </div>
 <div id="img_procEmsDeploy" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="1000">
 </div>
-<div class="title">Figure 8. EMS Deployment</div>
+<div class="title">Figure 9. EMS Deployment</div>
 </div>
 <div class="paragraph">
 <p>Applications are deployed to the EMS so that they are available for inclusion in workflows.</p>
@@ -1733,13 +1859,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.</p>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_procEmsExecute">Figure 9</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
+<p>As illustrated in <a href="#img_procEmsExecute">Figure 10</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
 </div>
 <div id="img_procEmsExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="1000">
 </div>
-<div class="title">Figure 9. EMS Workflow Execution</div>
+<div class="title">Figure 10. EMS Workflow Execution</div>
 </div>
 <div class="paragraph">
 <p>At time of <code>wps:Execute</code> the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:</p>
@@ -1809,13 +1935,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
 </div>
 <div class="paragraph">
-<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 10</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
+<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 11</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
 </div>
 <div id="img_procAdesExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="1000">
 </div>
-<div class="title">Figure 10. ADES Process Execution</div>
+<div class="title">Figure 11. ADES Process Execution</div>
 </div>
 <div class="paragraph">
 <p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
@@ -2060,6 +2186,12 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="paragraph">
 <p>The work carried out in the OGC Testbeds focused on non-graphical applications, i.e. non-interactive processing functions executing algorithms without intervention. It is also noted that WPS does not facilitate the invocation of GUI-based interactive applications which offer a synchronous experience to the end-user.</p>
 </div>
+<div id="img_applicationsUseCase" class="imageblock text-center">
+<div class="content">
+<img src="./images/use-cases-applications.png" alt="use cases applications" width="1000">
+</div>
+<div class="title">Figure 12. Interactive Applications Use Case</div>
+</div>
 <div class="paragraph">
 <p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
 </div>
@@ -2125,6 +2257,38 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="paragraph">
 <p>A consistent vocabulary of services must be defined to unambiguously express the ‘required’ and ‘provides’ declarations.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="procAppCatalogue">5.9. Application Catalogue</h3>
+<div class="paragraph">
+<p>The Application Catalogue provides an inventory of applications/services that can be presented as a ‘Marketplace’ for users to discover and browse for processing services to use with EP data.</p>
+</div>
+<div class="paragraph">
+<p>The metadata for each application record describes what data an application can be applied to, and how it can be chained in a workflow.</p>
+</div>
+<div class="paragraph">
+<p>The current current OGC Testbed-15 (EOPAD)</p>
+</div>
+<div class="paragraph">
+<p>The Application Catalogue is the subject of the current OGC Testbed-15 EOPAD Thread, through which the Data Model and catalogue Service Interface are being explored:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <a href="#GEOJSON-LD">[GEOJSON-LD]</a></dt>
+<dd>
+<p>Explore the capabilities of OGC 17-084 to encode application metadata</p>
+</dd>
+<dt class="hdlist1">OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></dt>
+<dd>
+<p>Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)<br>
+Use of multi-step discovery and faceted search</p>
+</dd>
+<dt class="hdlist1">Registration</dt>
+<dd>
+<p>Explore transactional extension to OGC-CSW for application registration.</p>
+</dd>
+</dl>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2157,8 +2321,14 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="paragraph">
 <p>To exploit the services of the Platform, users need to discover available data, obtain detailed collection/product information, including the ability to visualise the data in the platform. This applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.</p>
 </div>
+<div id="img_resourceUseCase" class="imageblock text-center">
+<div class="content">
+<img src="./images/use-cases-data.png" alt="use cases data" width="1000">
+</div>
+<div class="title">Figure 13. Resource Management Use Case</div>
+</div>
 <div class="paragraph">
-<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#section zzz">[section zzz]</a> for more details.</p>
+<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#procAppCatalogue">Application Catalogue</a> for more details.</p>
 </div>
 <div class="paragraph">
 <p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
@@ -2173,7 +2343,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
 </div>
 <div class="paragraph">
-<p>Thus, the main components comprising the Resource Management domain are:</p>
+<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 14</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2187,17 +2357,393 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Data Access Gateway</p>
 </li>
 <li>
+<p>Data Access Library</p>
+</li>
+<li>
 <p>Data Ingestion</p>
 </li>
 <li>
-<p>User Workspace</p>
+<p>Workspace</p>
 </li>
 </ul>
+</div>
+<div id="img_resourceOverview" class="imageblock text-center">
+<div class="content">
+<img src="./images/resource-overview.png" alt="resource overview" width="1000">
+</div>
+<div class="title">Figure 14. Resource Management Overview</div>
 </div>
 <div class="paragraph">
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
 </div>
+<div class="sect2">
+<h3 id="_data_catalogue">6.1. Data Catalogue</h3>
+<div class="paragraph">
+<p>The Catalogue provides the user the capability to discover data/products by browse/search, and to obtain details on specific data/products discovered.</p>
+</div>
+<div class="sect3">
+<h4 id="_metadata_organisation">6.1.1. Metadata Organisation</h4>
+<div class="paragraph">
+<p>The data is organised into Collections, typically representing a dataset. Each collection is composed of multiple granules as files. The catalogue metadata follows a similar organisation and allows the user to discover the data in natural sympathy with this data organisation. Hence, the metadata is presented at the following levels:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Browse Metadata (collection)</dt>
+<dd>
+<p>Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial<strong>/temporal coverage, list of variables available, access rights, T&amp;Cs, etc.<br>
+</strong>For collections, the spatial coverage is often full-earth.</p>
+</dd>
+<dt class="hdlist1">Discovery Metadata (product)</dt>
+<dd>
+<p>Discovery metadata is defined for each granule (file) comprising the collection. This typically includes information such as file-type(s), spatial/temporal coverage, variable, data access (download) method(s). Much of this information can be obtained from the headers of the individual files – depending on file-type. Thus, the Discovery metadata can in-part be populated automatically from the underlying files.</p>
+</dd>
+<dt class="hdlist1">Archive Metadata (file)</dt>
+<dd>
+<p>Archive metadata refers to the information that is available in the file header. As described above this can be extracted and published into the Discovery metadata of the catalogue.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_usage_with_opensearch">6.1.2. Example Usage with OpenSearch</h4>
+<div class="paragraph">
+<p>This metadata model can be exploited, for example, using OpenSearch:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial search is made at the collection level to discover collections/dataset of interest.</p>
+</li>
+<li>
+<p>Subsequent OpenSearch requests can then be made to drill-down into a specific collection to discover and obtain details regarding the granules.</p>
+</li>
+<li>
+<p>Once discovered, the granules can then be exploited by the user, for example as input to a processing request, or downloaded.</p>
+</li>
+<li>
+<p>Facets can be applied to both the Browse and Discovery metadata, to supported facetted search at both levels.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_opensearch">6.1.3. OpenSearch</h4>
+<div class="paragraph">
+<p>For the Exploitation Platform, OpenSearch is used with the OGC extensions and recommendations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenSearch GEO: OpenSearch Geo and Time Extensions <a href="#OS-GEO-TIME">[OS-GEO-TIME]</a></p>
+</li>
+<li>
+<p>OpenSearch EO: OGC OpenSearch Extension for Earth Observation <a href="#OS-EO">[OS-EO]</a></p>
+</li>
+<li>
+<p>OGC EO Dataset Metadata GeoJSON(-LD) Encoding Standard <a href="#GEOJSON-LD">[GEOJSON-LD]</a></p>
+</li>
+<li>
+<p>OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The CEOS OpenSearch Best Practise <a href="#CEOS-OS-BP">[CEOS-OS-BP]</a> provides a blueprint – this is the approach adopted by the FedEO project.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resource_types">6.1.4. Resource Types</h4>
+<div class="paragraph">
+<p>Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a proper match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_data_access">6.1.5. Data Access</h4>
+<div class="paragraph">
+<p>There is also a link between the way the data is described in the Catalogue and how it is accessed by the consumers of the data. This links to the Data Access Services (e.g. WMS. WCS, WFS, etc.) provided by the EP, and the way in which the access links are encoded into the Catalogue. These links must be usable by the data consumers which could be processing services, or users downloading the data.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ep_catalogue_vs_infrastructure_catalogue">6.1.6. EP Catalogue vs Infrastructure Catalogue</h4>
+<div class="paragraph">
+<p>The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies.</p>
+</div>
+<div class="paragraph">
+<p>The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within. However, the Resource-tier catalogue may not present a Catalogue interface that is in accordance with the approach advocated by the Exploitation Platform Common Architecture, or it may not provide a data catalogue at all. It is therefore incumbent upon the EP to define a catalogue architecture that takes account of these possibilities. Additionally, the EP will maintain its own ‘value-added’ and user contributed data that must be catalogued at the level of the exploitation platform. <a href="#img_catalogueAggregation">Figure 15</a> illustrates.</p>
+</div>
+<div id="img_catalogueAggregation" class="imageblock text-center">
+<div class="content">
+<img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="1000">
+</div>
+<div class="title">Figure 15. Catalogue Aggregation</div>
+</div>
+<div class="paragraph">
+<p>We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the case where the Resource-tier provides these in a way that is conformant with the architecture then these can be relied upon directly for the exploitation platform</p>
+</li>
+<li>
+<p>In the case where the Resource-tier provides only a suitable Product catalogue, then the Collection catalogue must be provided by the EP, with the granule queries being directed to the back-end catalogue. Alternatively, this could be achieved by harvesting the Resource-tier product catalogue into the EP catalogue.</p>
+</li>
+<li>
+<p>Alternatively, the EP may provide a Catalogue-shim to ensure that an existing Resource-tier catalogue conforms to the interface demands of the open architecture</p>
+</li>
+<li>
+<p>Otherwise, the EP must provide all catalogue aspects.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The important point is to ensure that the EP presents interfaces that conform to its defined open standards, and is able to take measures to ensure this is the case. From the perspective of the user of the Exploitation Platform a single Data Catalogue end-point is most desirable. The EP web interface can present a consolidated user view in the case of multiple catalogue end-points. A similar consolidation approach can be applied by the EP programmatic API, which can present a single end-point on behalf of the back-end data catalogues.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_federated_discovery">6.1.7. Federated Discovery</h4>
+<div class="paragraph">
+<p>In order that a user is able to discover data/services of interest in a federated network of Exploitation Platforms, an approach to Catalogue federation must be established between collaborating platforms.</p>
+</div>
+<div id="img_catalogueFederation" class="imageblock text-center">
+<div class="content">
+<img src="./images/catalogue-federation.png" alt="catalogue federation" width="1000">
+</div>
+<div class="title">Figure 16. Catalogue Federation</div>
+</div>
+<div class="paragraph">
+<p>As illustrated in <a href="#img_catalogueFederation">Figure 16</a> there are a number of possible approaches:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gateway – A central proxy</p>
+</li>
+<li>
+<p>Centralised – Central mirror</p>
+</li>
+<li>
+<p>Distributed - Catalogues mirror each other</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Further analysis is required to understand these options, their applicability and impact on the Common Architecture.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_access_services">6.2. Data Access Services</h3>
+<div class="paragraph">
+<p>The Exploitation Platform provides access to data through public services based upon Open Standards, for the consumption by end-users and other federated platforms.</p>
+</div>
+<div class="paragraph">
+<p>The primary services provided by an Exploitation Platform should include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OGC Web Map Service (WMS)</p>
+</li>
+<li>
+<p>OGC Web Coverage Service (WCS)</p>
+</li>
+<li>
+<p>OGC Web Feature Service (WFS)</p>
+</li>
+<li>
+<p>Services provided by Resource Tier:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS S3 Object Store</p>
+</li>
+<li>
+<p>Swift Object Store (OpenStack)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other services that may also be considered include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WebDAV</p>
+</li>
+<li>
+<p>FTP</p>
+</li>
+<li>
+<p>CDMI</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The integration of these services into the data-layer of the hosting Resource Tier relies upon the Data Access Gateway providing an infrastructure agnostic interface for accessing the underlying data holding.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_access_gateway">6.3. Data Access Gateway</h3>
+<div class="paragraph">
+<p>The EO datasets are stored according to the underlying storage technology of the infrastructure Resource Tier. The storage interface presented is not under the control of the Exploitation Platform.</p>
+</div>
+<div class="paragraph">
+<p>The role of the Data Access Gateway is to provide an abstraction layer on top of the underlying storage to present a well-defined storage interface to the other components of the Exploitation Platform.</p>
+</div>
+<div class="paragraph">
+<p>The main EP components that require data access are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Processing services and applications: stage-in/out of data/results</p>
+</li>
+<li>
+<p>Platform Data Access Services (WMS,WCS,etc.): access to datasets</p>
+</li>
+<li>
+<p>Ingestion: storage of ingested data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the EP system design, these services are designed to be deployed as containers through Kubernetes. This presents the possibility that some aspects of the Data Access Gateway can be met by the facilities offered by Kubernetes volumes. Access to underlying data is provided through volumes that are mounted into the container. Kubernetes volumes have native support for a number of common storage technologies (such as AWS EBS, Cinder), however these tend to be block rather than object storage.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the Data Access Gateway must implement the data access interface to the infrastructure Resource Tier storage, and present a standard internal interface to other EP components. The internal interface must be sufficient to support the needs of the EP components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stage-in / out of processing service data</p>
+</li>
+<li>
+<p>Data respository for Data Access services (WMS, WCS, WFS, etc.)</p>
+</li>
+<li>
+<p>Data storage for ingestion of data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>At minimum, it would be expected to support Resource Tier interfaces for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS S3 Object Store</p>
+</li>
+<li>
+<p>Swift Object Store (OpenStack)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The gateway provides a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_access_library">6.4. Data Access Library</h3>
+<div class="paragraph">
+<p>In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library is provided specifically as a point of integration for processing services and applications.</p>
+</div>
+<div class="paragraph">
+<p>The Data Access Library provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Common Data Model for library language bindings, e.g. python, javascript</p>
+</li>
+<li>
+<p>Platform independence: Alternative deployment-specific implementations can be ‘plugged-in’ to processing services and applications. Handled by the execution engine at runtime</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Processing service/applications are implemented against an object model that is well defined within the bindings for their development language. The object model hides the details of the underlying files/storage. Thus, processing services and applications can be implemented in a ‘portable’ way that is agnostic to the platform resource-tier storage technology.</p>
+</div>
+<div class="paragraph">
+<p>The library offered to the processing service at runtime must implement the interface to the data access to the resource-tier storage. Hence, the library should not be ‘hard-coded’ into the processor application package (Docker image), but should instead be provided dynamically by the platform processing framework.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_ingestion">6.5. Data Ingestion</h3>
+<div class="paragraph">
+<p>Presents a standard interface to the EP components, whilst transparently interfacing with the infrastructure Resource Tier.</p>
+</div>
+<div class="paragraph">
+<p>Performs the following steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Authorisation check</p>
+</li>
+<li>
+<p>Quota check</p>
+</li>
+<li>
+<p>Metadata extraction</p>
+</li>
+<li>
+<p>Preview generation</p>
+</li>
+<li>
+<p>Format conversion</p>
+</li>
+<li>
+<p>Storage PUT</p>
+</li>
+<li>
+<p>Catalogue PUT</p>
+</li>
+<li>
+<p>Trigger notifications</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ingestion raises notifications for the following events:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Raise indicators to users (visual, emails, etc.)</p>
+</li>
+<li>
+<p>Trigger systematic actions in other EP services (e.g. systematic processing)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_workspace">6.6. Workspace</h3>
+<div class="paragraph">
+<p>The Workspace provides a service to users through which they can organise data/processing-services that are of current interest to them, they are currently working on, and to organise results of processing executed, Research Objects, etc.</p>
+</div>
+<div class="paragraph">
+<p>This concept can be extended to create a Group Workspace for sharing and collaboration.</p>
+</div>
+<div class="paragraph">
+<p>It may be possible to model the Workspace as a Catalogue, in which the browse/discover access privilege is limited either to an individual user (personal workspace) or a group of collaborating users (group workspace):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenSearch interface for read</p>
+</li>
+<li>
+<p>What interface for add, update, delete ?</p>
+</li>
+</ul>
+</div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2250,13 +2796,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 11</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 17</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="1000">
 </div>
-<div class="title">Figure 11. Web Portal: Overview</div>
+<div class="title">Figure 17. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -2288,7 +2834,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div id="footer">
 <div id="footer-text">
 Version v0.3<br>
-Last updated 2019-05-09 09:12:09 +0100
+Last updated 2019-05-13 16:12:54 +0100
 </div>
 </div>
 </body>
