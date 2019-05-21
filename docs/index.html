@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.9">
 <meta name="description" content="Master System Design for the Common Architecture">
 <meta name="keywords" content="common architecture master system design">
 <meta name="author" content="TVUK System Team">
 <title>Master System Design</title>
-<link rel="stylesheet" href="./stylesheets/eoepca.css">
+<link rel="stylesheet" href="stylesheets/eoepca.css">
 </head>
-<body class="article">
+<body class="book">
 <div id="header">
 <h1>Master System Design (EOEPCA.SDD.001)</h1>
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version v0.3,</span>
-<span id="revdate">13/05/2019</span>
+<span id="revnumber">version v0.4,</span>
+<span id="revdate">dd/mm/yyyy</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
@@ -42,7 +42,7 @@
 </dd>
 <dt class="hdlist1">PDF</dt>
 <dd>
-<p>This document is available in PDF format <a href="https://eoepca.github.io/master-system-design/EOEPCA-master-system-design.pdf">here</a>.</p>
+<p>This document is available in PDF format <a href="EOEPCA-master-system-design.pdf" target="_blank" rel="noopener">here</a>.</p>
 </dd>
 <dt class="hdlist1">COPYRIGHT</dt>
 <dd>
@@ -1753,41 +1753,41 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
-    "processDescription": {
-        "process": {
-            "id": "EoepcaProcessor",
-            "title": "EOEPCA Processor",
-            "owsContext": {
-                "offering": {
-                    "code": "http://www.opengis.net/eoc/applicationContext/cwl",
-                    "content": {
-                        "href": "https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl"
+<pre class="CodeRay highlight"><code data-lang="json">{
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">processDescription</span><span class="delimiter">&quot;</span></span>: {
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">process</span><span class="delimiter">&quot;</span></span>: {
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EoepcaProcessor</span><span class="delimiter">&quot;</span></span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOEPCA Processor</span><span class="delimiter">&quot;</span></span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">owsContext</span><span class="delimiter">&quot;</span></span>: {
+                <span class="key"><span class="delimiter">&quot;</span><span class="content">offering</span><span class="delimiter">&quot;</span></span>: {
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">code</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/cwl</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">content</span><span class="delimiter">&quot;</span></span>: {
+                        <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl</span><span class="delimiter">&quot;</span></span>
                     }
                 }
             },
-            "abstract": "",
-            "keywords": [],
-            "inputs": [
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">abstract</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">keywords</span><span class="delimiter">&quot;</span></span>: [],
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">inputs</span><span class="delimiter">&quot;</span></span>: [
                 {
-                    "id": "images",
-                    "title": "Input Images",
-                    "formats": [
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">images</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Input Images</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
                         {
-                            "mimeType": "application/zip",
-                            "default": true
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">application/zip</span><span class="delimiter">&quot;</span></span>,
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
                         }
                     ],
-                    "minOccurs": 1,
-                    "maxOccurs": "unbounded",
-                    "additionalParameters": [
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">minOccurs</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">maxOccurs</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">additionalParameters</span><span class="delimiter">&quot;</span></span>: [
                         {
-                            "role": "http://www.opengis.net/eoc/applicationContext/inputMetadata",
-                            "parameters": [
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/inputMetadata</span><span class="delimiter">&quot;</span></span>,
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">parameters</span><span class="delimiter">&quot;</span></span>: [
                                 {
-                                    "name": "EOImage",
-                                    "values": [
-                                        "true"
+                                    <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOImage</span><span class="delimiter">&quot;</span></span>,
+                                    <span class="key"><span class="delimiter">&quot;</span><span class="content">values</span><span class="delimiter">&quot;</span></span>: [
+                                        <span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
                                     ]
                                 }
                             ]
@@ -1795,33 +1795,33 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
                     ]
                 }
             ],
-            "outputs": [
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">outputs</span><span class="delimiter">&quot;</span></span>: [
                 {
-                    "id": "output",
-                    "title": "Stacked Image",
-                    "formats": [
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Stacked Image</span><span class="delimiter">&quot;</span></span>,
+                    <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
                         {
-                            "mimeType": "image/tiff",
-                            "default": true
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">image/tiff</span><span class="delimiter">&quot;</span></span>,
+                            <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
                         }
                     ]
                 }
             ]
         },
-        "processVersion": "1.0.0",
-        "jobControlOptions": [
-            "async-execute"
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">processVersion</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">1.0.0</span><span class="delimiter">&quot;</span></span>,
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">jobControlOptions</span><span class="delimiter">&quot;</span></span>: [
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">async-execute</span><span class="delimiter">&quot;</span></span>
         ],
-        "outputTransmission": [
-            "reference"
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">outputTransmission</span><span class="delimiter">&quot;</span></span>: [
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">reference</span><span class="delimiter">&quot;</span></span>
         ]
     },
-    "executionUnit": [
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">executionUnit</span><span class="delimiter">&quot;</span></span>: [
         {
-            "href": "hub.docker.com/eoepca/processor:latest"
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">hub.docker.com/eoepca/processor:latest</span><span class="delimiter">&quot;</span></span>
         }
     ],
-    "deploymentProfileName": "http://www.opengis.net/profiles/eoc/dockerizedApplication"
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">deploymentProfileName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/profiles/eoc/dockerizedApplication</span><span class="delimiter">&quot;</span></span>
 }</code></pre>
 </div>
 </div>
@@ -2833,9 +2833,10 @@ Use of multi-step discovery and faceted search</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v0.3<br>
-Last updated 2019-05-13 16:12:54 +0100
+Version v0.4<br>
+Last updated 2019-05-21 12:48:06 UTC
 </div>
 </div>
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
 </body>
 </html>
