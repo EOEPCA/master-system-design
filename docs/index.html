@@ -63,22 +63,23 @@
 <li><a href="#_glossary">1.5. Glossary</a></li>
 </ul>
 </li>
-<li><a href="#_context">2. Context</a>
-<ul class="sectlevel2">
-<li><a href="#_domain_areas">2.1. Domain Areas</a></li>
-</ul>
-</li>
+<li><a href="#_context">2. Context</a></li>
 <li><a href="#_design_overview">3. Design Overview</a>
 <ul class="sectlevel2">
-<li><a href="#_user_management">3.1. User Management</a></li>
-<li><a href="#_processing_and_chaining">3.2. Processing and Chaining</a></li>
-<li><a href="#_resource_provisioning_and_management">3.3. Resource Provisioning and Management</a></li>
-<li><a href="#_web_portal">3.4. Web Portal</a></li>
+<li><a href="#_domain_areas">3.1. Domain Areas</a>
+<ul class="sectlevel3">
+<li><a href="#_user_management">3.1.1. User Management</a></li>
+<li><a href="#_processing_and_chaining">3.1.2. Processing and Chaining</a></li>
+<li><a href="#_resource_provisioning_and_management">3.1.3. Resource Provisioning and Management</a></li>
+<li><a href="#_web_portal">3.1.4. Web Portal</a></li>
 </ul>
 </li>
-<li><a href="#_user_management_2">4. User Management</a>
+<li><a href="#_architecture_layers">3.2. Architecture Layers</a></li>
+</ul>
+</li>
+<li><a href="#mainUserManagement">4. User Management</a>
 <ul class="sectlevel2">
-<li><a href="#_identity_and_access_management_iam">4.1. Identity and Access Management (IAM)</a>
+<li><a href="#IAM">4.1. Identity and Access Management (IAM)</a>
 <ul class="sectlevel3">
 <li><a href="#_iam_approach">4.1.1. IAM Approach</a></li>
 <li><a href="#_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</a></li>
@@ -111,7 +112,7 @@
 <li><a href="#_user_profile">4.4. User Profile</a></li>
 </ul>
 </li>
-<li><a href="#_processing_and_chaining_2">5. Processing and Chaining</a>
+<li><a href="#mainProcessingAndChaining">5. Processing and Chaining</a>
 <ul class="sectlevel2">
 <li><a href="#_solution_overview">5.1. Solution Overview</a></li>
 <li><a href="#procK8s">5.2. Resource Layer (Infrastructure) Interface</a></li>
@@ -121,7 +122,8 @@
 <ul class="sectlevel3">
 <li><a href="#_container_execution">5.5.1. Container Execution</a></li>
 <li><a href="#_data_stage_inout">5.5.2. Data Stage-in/out</a></li>
-<li><a href="#_user_authorisation_context">5.5.3. User Authorisation Context</a></li>
+<li><a href="#procDataAccess">5.5.3. Data Access</a></li>
+<li><a href="#_user_authorisation_context">5.5.4. User Authorisation Context</a></li>
 </ul>
 </li>
 <li><a href="#_wps_t_restjson">5.6. WPS-T REST/JSON</a></li>
@@ -130,7 +132,7 @@
 <li><a href="#procAppCatalogue">5.9. Application Catalogue</a></li>
 </ul>
 </li>
-<li><a href="#_resource_management">6. Resource Management</a>
+<li><a href="#mainResourceManagement">6. Resource Management</a>
 <ul class="sectlevel2">
 <li><a href="#_data_catalogue">6.1. Data Catalogue</a>
 <ul class="sectlevel3">
@@ -144,8 +146,8 @@
 </ul>
 </li>
 <li><a href="#_data_access_services">6.2. Data Access Services</a></li>
-<li><a href="#_data_access_gateway">6.3. Data Access Gateway</a></li>
-<li><a href="#_data_access_library">6.4. Data Access Library</a></li>
+<li><a href="#resourcesDataAccessGateway">6.3. Data Access Gateway</a></li>
+<li><a href="#resourcesDAL">6.4. Data Access Library (DAL)</a></li>
 <li><a href="#_data_ingestion">6.5. Data Ingestion</a></li>
 <li><a href="#_workspace">6.6. Workspace</a></li>
 </ul>
@@ -846,29 +848,7 @@ OGC 17-047</p>
 <div class="paragraph">
 <p>A Reference Implementation of the full architecture will be developed to prove the concepts and also to provide an off-the-shelf solution that can be instantiated by future projects to implement their EO Exploitation Platform, thus facilitating their ability to join the federated Network of EO Resources. <strong>Thus, the Reference Implementation can be regarded as a set of re-usable platform services, in the context of a re-usable platform architecture.</strong></p>
 </div>
-<div class="sect2">
-<h3 id="_domain_areas">2.1. Domain Areas</h3>
-<div class="paragraph">
-<p>The system architecture is designed to meet the use cases as defined in <a href="#EOEPCA-UC">[EOEPCA-UC]</a> and <a href="#EP-FM">[EP-FM]</a>. <a href="#EOEPCA-UC">[EOEPCA-UC]</a> makes a high-level analysis of the use-cases to identify the main system functionalities organised into domain areas: 'User Management', 'Processing &amp; Chaining' and 'Resource Management'. The high-level functionalities are often met by more than one domain area, and User Management (specifically Identification, Authentication and Authorisation) cuts across all use cases, and forms the basis of all access control restrictions that are applied to platform services and data.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">User Management</dt>
-<dd>
-<p>All aspects of user identification, authentication and authorisation in a federated system-ofsystems environment.</p>
-</dd>
-<dt class="hdlist1">Processing and Chaining</dt>
-<dd>
-<p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
-</dd>
-<dt class="hdlist1">Resource Provisioning and Management</dt>
-<dd>
-<p>Storage and cataloguing of all persistent resources, including data and other supporting material such as documents. Handles and abstracts the low-level complexities of different underlying storage technologies and strategies. Facilitating the network of EO resources by providing a federated interface to other data services within the wider EO network.</p>
-</dd>
-</dl>
-</div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -876,6 +856,11 @@ OGC 17-047</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The overall system design has been considered by taking the ‘Exploitation Platform – Functional Model’ <a href="#EP-FM">[EP-FM]</a> as a starting point and then evolving these ideas in the context of existing interface standards (with some emphasis on the OGC protocol suite) and the need for federated services.</p>
+</div>
+<div class="sect2">
+<h3 id="_domain_areas">3.1. Domain Areas</h3>
+<div class="paragraph">
+<p>The system architecture is designed to meet the use cases as defined in <a href="#EOEPCA-UC">[EOEPCA-UC]</a> and <a href="#EP-FM">[EP-FM]</a>. <a href="#EOEPCA-UC">[EOEPCA-UC]</a> makes a high-level analysis of the use-cases to identify the main system functionalities organised into domain areas: 'User Management', 'Processing &amp; Chaining' and 'Resource Management'. The high-level functionalities are often met by more than one domain area, and User Management (specifically Identity &amp; Access Management) cuts across all use cases, and forms the basis of all access control restrictions that are applied to platform services and data.</p>
 </div>
 <div class="paragraph">
 <p><a href="#img_topLevelArchitecture">Figure 1</a> depicts the domain areas as top level component blocks in a Platform ‘A’. The arrows may be read as “uses”, each implying one or more service interfaces.</p>
@@ -889,38 +874,46 @@ OGC 17-047</p>
 <div class="paragraph">
 <p>A potential federation concept is represented by interactions between corresponding blocks in a collaborating Platform ‘B’. The architecture aims to minimise dependencies and is conducive to the principle of subcontracting the implementation to experts in the respective domains. The web portal integrates various client components to form a rich user-facing interface. <strong>The Web Portal is depicted as it has interfaces with the other domain areas - but it is not a priority concern for the Common Architecture. Each exploitation platform would be expected to develop its own web interfaces according to its needs.</strong></p>
 </div>
-<div class="sect2">
-<h3 id="_user_management">3.1. User Management</h3>
+<div class="sect3">
+<h4 id="_user_management">3.1.1. User Management</h4>
 <div class="paragraph">
-<p><em>Responsible for all aspects related to the user’s account, profile and identity.</em></p>
+<p><em>Responsible for all aspects related to the user’s account, profile, identity and access management in a federated system-of-systems environment.</em></p>
 </div>
 <div class="paragraph">
 <p>It provides authentication, authorisation and accounting services that are required to access other elements of the architecture, including the processing-oriented services and resource-oriented services. Individual resources may have an associated access and/or charging policy, but these have to be checked against the identity of the user. Resource consumption may also be controlled e.g. by credits and/or quotas associated with the user account. In the Network of EO Resources, a user should not need to create an account on multiple platforms. Therefore some interactions will be required between the User Management functions, whether directly or in directly via trusted third party.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_processing_and_chaining">3.2. Processing and Chaining</h3>
+<div class="sect3">
+<h4 id="_processing_and_chaining">3.1.2. Processing and Chaining</h4>
 <div class="paragraph">
-<p><em>Provides access to a variety of processing functions, tools and applications, as well as an executions environment in which to deploy them.</em></p>
+<p><em>Provides access to a variety of processing functions, tools and applications, as well as an execution environments in which to deploy them.</em></p>
 </div>
 <div class="paragraph">
-<p>The user can have a private workspace in which to upload files, and develop their own processing chains, experiments and workflows. Integrated with this environment is the facility to use the services of the Resource Provisioning and Management subsystem to discover and access relevant published datasets and processing elements. Then, subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
+<p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
+</div>
+<div class="paragraph">
+<p>The user has a personal workspace in which to upload files, and develop their own processing chains, experiments and workflows. Shared workspaces for collaboration can similarly be provisioned. The platform catalogue services (for data, processing servics and applications) are integrated with this environment to discover and access relevant published datasets and processing elements. Then, subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_resource_provisioning_and_management">3.3. Resource Provisioning and Management</h3>
+<div class="sect3">
+<h4 id="_resource_provisioning_and_management">3.1.3. Resource Provisioning and Management</h4>
 <div class="paragraph">
 <p><em>Responsible for storing and cataloguing a variety of resources.</em></p>
 </div>
-<div class="paragraph">
-<p>First and foremost, this will contain multidimensional geo-spatial datasets. In addition it may include a variety of heterogeneous data and other resources, such as documentation, processing services, Docker images, etc.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resource Provisioning and Management</dt>
+<dd>
+<p>Storage and cataloguing of all persistent resources. First and foremost, this will contain multidimensional geo-spatial datasets. In addition it may include a variety of heterogeneous data and other resources, such as documentation, Docker images, processing workflows, etc. Handles and abstracts the low-level complexities of different underlying storage technologies and strategies. Facilitating the network of EO resources by providing a federated interface to other data services within the wider EO network.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services. Access to services and resources is controlled according to an associated policy. For identity authentication, authorisation, and accounting, this will require the services of the User Management component. Similarly, the ingestion process is controlled, in order to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue. This component may interact with corresponding peer components on other platforms, for example to synchronise catalogue entries.</p>
+<p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services. Access to services and resources is controlled according to an associated policy - ref <a href="#IAM">Identity and Access Management</a>. Similarly, the ingestion process is controlled, in order to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue. This component may interact with corresponding peer components on other platforms - for example to synchronise catalogue entries.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_web_portal">3.4. Web Portal</h3>
+<div class="sect3">
+<h4 id="_web_portal">3.1.4. Web Portal</h4>
 <div class="paragraph">
 <p><em>Presents the platform user interface for interacting with the local resources and processing facilities, as well as the wider network of EO resources.</em></p>
 </div>
@@ -933,9 +926,85 @@ OGC 17-047</p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_architecture_layers">3.2. Architecture Layers</h3>
+<div class="paragraph">
+<p><a href="#img_architectureLayers">Figure 2</a> provides a simplified view that illustrates the broad architecture layes of the Exploitation Platform, in the context of the infrastructure in which it is hosted and the end-users performing exploitation activities.</p>
+</div>
+<div id="img_architectureLayers" class="imageblock text-center">
+<div class="content">
+<img src="./images/architecture-layers.png" alt="architecture layers" width="1000">
+</div>
+<div class="title">Figure 2. Architecture Layers</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resource Tier</dt>
+<dd>
+<p>The Resource Layer represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation is deployed.</p>
+</dd>
+<dt class="hdlist1">Platform Tier</dt>
+<dd>
+<p>The Platform Tier represents the Exploitation Platform and the services it offers to end-users. The layers comprising the Platform Tier are further described below.</p>
+</dd>
+<dt class="hdlist1">Exploitation Tier</dt>
+<dd>
+<p>The Exploitation Tier represents the end-users who exploit the services of the platform to perform analysis, or using high-level applications built-in on top of the platform&#8217;s services.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The Exploitation Platform builds upon the services provided by the hosting infrastructure - specifically accessing its data holding and using its compute resources. The components providing the EP services are deployed within the compute offering, with additional compute resources being provisioned on-demand to support end-user analysis activities.</p>
+</div>
+<div class="paragraph">
+<p>The EP&#8217;s services access the data resources through a Data Access Gateway that provides an abstraction of the data access interface provided by the resource tier. This abstraction provides a 'standard' data access semantic that can be relied upon by other EP services - thus isolating specific data access concerns of the resource tier to a single EP component.</p>
+</div>
+<div class="paragraph">
+<p>The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisiaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting library.</p>
+</div>
+<div class="paragraph">
+<p>The EP provides a Data Catalogue, so that its end-users can discover and browse the data available for inclusion in their analysis. Similarly an Application Catalogue provides this discovery service for processing services and applications available within the platform.</p>
+</div>
+<div class="paragraph">
+<p>Data Services based upon open standards serve the clients of the Exploitation Platform for data access and data visualisation. Access to the underlying data is made via the Data Access Gateway.</p>
+</div>
+<div class="paragraph">
+<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+</div>
+<div class="paragraph">
+<p>The Exploitation Tier hosts the web clients with which the end-user interacts to conduct their analysis/exploitation activities. These clients would typically utilise the Client Library in their implementation. The Web IDE is an interactive web application that Experts use to perform interactive research and to develop algorithms. The Command-line Client builds upon the Client Library to provide a command-line tool that can be used, for example, to automate EP interactions through scripts.</p>
+</div>
+<div class="paragraph">
+<p>The Web Portal provides the main user interface for the Exploitation Platform. It would be expected that each platform would provide its own bespoke portal implementation, and so is beyond the scope of the Common Architecture. Nevertheless, the architecture and its service interface must meet the needs anticipated by future exploitation platform implementations. Similarly, the External Application represents web applications (external to the hosting environment of the exploitation platform) that use the services of the EP via its Service API and Client Library.</p>
+</div>
+<div class="paragraph">
+<p>All user interactions with the services of the EP are executed within the context of a given user and their rights to access resources, with associated resource usage billing. Thus, the Identity and Access Management component covers all tiers in this layered model.</p>
+</div>
+<div class="paragraph">
+<p>The focus of this design document is the Platform Tier, which is elaborated in subsequent sections of the document:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Section <a href="#mainUserManagement">User Management</a></dt>
+<dd>
+<p>TBD</p>
+</dd>
+<dt class="hdlist1">Section <a href="#mainProcessingAndChaining">Processing and Chaining</a></dt>
+<dd>
+<p>TBD</p>
+</dd>
+<dt class="hdlist1">Section <a href="#mainResourceManagement">Resource Management</a></dt>
+<dd>
+<p>TBD</p>
+</dd>
+</dl>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_user_management_2">4. User Management</h2>
+<h2 id="mainUserManagement">4. User Management</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the context of the Common Architecture, User Management covers the following main functional areas:</p>
@@ -960,7 +1029,7 @@ OGC 17-047</p>
 <p>These are explored in the following sub-sections.</p>
 </div>
 <div class="sect2">
-<h3 id="_identity_and_access_management_iam">4.1. Identity and Access Management (IAM)</h3>
+<h3 id="IAM">4.1. Identity and Access Management (IAM)</h3>
 <div class="paragraph">
 <p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorisation decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sofisticated authorisations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
 </div>
@@ -1009,13 +1078,13 @@ OGC 17-047</p>
 <div class="sect3">
 <h4 id="_iam_approach">4.1.1. IAM Approach</h4>
 <div class="paragraph">
-<p><a href="#img_iamOverview">Figure 2</a> presents the basic approach. At this stage it does not consider the case in which an exploitation platform accesses resources in another platform on behalf of a user, (for example a workflow step that is invoked on another platform). This is addressed in a later section. Users are authenticated by redirection to an external identity provider, (their ‘home’ IdP). This returns the authentication decision and some basic user information as required (such as name, email, etc.).</p>
+<p><a href="#img_iamOverview">Figure 3</a> presents the basic approach. At this stage it does not consider the case in which an exploitation platform accesses resources in another platform on behalf of a user, (for example a workflow step that is invoked on another platform). This is addressed in a later section. Users are authenticated by redirection to an external identity provider, (their ‘home’ IdP). This returns the authentication decision and some basic user information as required (such as name, email, etc.).</p>
 </div>
 <div id="img_iamOverview" class="imageblock text-center">
 <div class="content">
 <img src="./images/iam-overview.png" alt="iam overview" width="1000">
 </div>
-<div class="title">Figure 2. Identity and Access Management Overview</div>
+<div class="title">Figure 3. Identity and Access Management Overview</div>
 </div>
 <div class="paragraph">
 <p>Each protected resource is fronted by its Policy Enforcement Point (PEP), which acts as filter that will only permit access if the appropriate conditions are met. This decision is made according to a set of rules that are under the control of and configured within the exploitation platform.</p>
@@ -1049,13 +1118,13 @@ OGC 17-047</p>
 <p>It should be additionally noted that the decision to allow the user access depends upon dynamic 'attributes', such as whether the user has enough credits to 'pay' for their usage, or whether they have accepted the necessary Terms &amp; Conditions for a given dataset or service. Thus, the PDP must interrogate other EP-services such as 'Accounting &amp; Billing' and 'User Profile' to answer such questions.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_iamOverviewFlow">Figure 3</a> provides an overview of the IAM Flow.</p>
+<p><a href="#img_iamOverviewFlow">Figure 4</a> provides an overview of the IAM Flow.</p>
 </div>
 <div id="img_iamOverviewFlow" class="imageblock text-center">
 <div class="content">
 <img src="./images/iam-overview-flow.png" alt="iam overview flow" width="1000">
 </div>
-<div class="title">Figure 3. IAM Overview Flow</div>
+<div class="title">Figure 4. IAM Overview Flow</div>
 </div>
 <div class="paragraph">
 <p>Note that the interface between the Login Service and the External IdPs is simplified in this view. It is expanded in later sections.</p>
@@ -1064,13 +1133,13 @@ OGC 17-047</p>
 <div class="sect3">
 <h4 id="_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</h4>
 <div class="paragraph">
-<p><a href="#img_iamInterfaces">Figure 4</a> illustrates the interfaces of the IAM architecture.</p>
+<p><a href="#img_iamInterfaces">Figure 5</a> illustrates the interfaces of the IAM architecture.</p>
 </div>
 <div id="img_iamInterfaces" class="imageblock text-center">
 <div class="content">
 <img src="./images/iam-interfaces.png" alt="iam interfaces" width="1000">
 </div>
-<div class="title">Figure 4. IAM Interfaces</div>
+<div class="title">Figure 5. IAM Interfaces</div>
 </div>
 <div class="dlist">
 <dl>
@@ -1123,13 +1192,13 @@ Response returns the authorisation decision.</p>
 <p>The Login Service must act as client (Relying Party) to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Login Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represents the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Login Service to issue the requested access tokens (depending on the flow used).</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_iamAuthenticationFlow">Figure 5</a> illustrates the basic user access flow, invoked through a web browser.</p>
+<p><a href="#img_iamAuthenticationFlow">Figure 6</a> illustrates the basic user access flow, invoked through a web browser.</p>
 </div>
 <div id="img_iamAuthenticationFlow" class="imageblock text-center">
 <div class="content">
 <img src="./images/iam-authentication-flow.png" alt="iam authentication flow" width="1000">
 </div>
-<div class="title">Figure 5. IAM Authentication Flow (Browser)</div>
+<div class="title">Figure 6. IAM Authentication Flow (Browser)</div>
 </div>
 </div>
 <div class="sect3">
@@ -1474,7 +1543,7 @@ Response returns the authorisation decision.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_processing_and_chaining_2">5. Processing and Chaining</h2>
+<h2 id="mainProcessingAndChaining">5. Processing and Chaining</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Processing &amp; Chaining domain area must provide an extensible repository of processing functions, tools and applications (referred here generically as ‘processing services’) that can be discovered by search query, invoked individually, and utilised in workflows.</p>
@@ -1498,7 +1567,7 @@ Response returns the authorisation decision.</p>
 <div class="content">
 <img src="./images/use-cases-processing.png" alt="use cases processing" width="1000">
 </div>
-<div class="title">Figure 6. Processing &amp; Chaining Use Case</div>
+<div class="title">Figure 7. Processing &amp; Chaining Use Case</div>
 </div>
 <div class="paragraph">
 <p>In meeting these requirements the following key challenges are identified:</p>
@@ -1572,13 +1641,13 @@ Response returns the authorisation decision.</p>
 <p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should additionally include an EMS.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procOverview">Figure 7</a> illustrates the main architecture components and their interfaces.</p>
+<p><a href="#img_procOverview">Figure 8</a> illustrates the main architecture components and their interfaces.</p>
 </div>
 <div id="img_procOverview" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-overview.png" alt="processing overview" width="1000">
 </div>
-<div class="title">Figure 7. Processing &amp; Chaining Overview</div>
+<div class="title">Figure 8. Processing &amp; Chaining Overview</div>
 </div>
 <div class="paragraph">
 <p>In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs &#8594; inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.</p>
@@ -1684,13 +1753,13 @@ Response returns the authorisation decision.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p><a href="#img_procAppDescriptor">Figure 8</a> provides an illustration of the Application Descriptor structure.</p>
+<p><a href="#img_procAppDescriptor">Figure 9</a> provides an illustration of the Application Descriptor structure.</p>
 </div>
 <div id="img_procAppDescriptor" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="1000">
 </div>
-<div class="title">Figure 8. Structure of Application Descriptor data model</div>
+<div class="title">Figure 9. Structure of Application Descriptor data model</div>
 </div>
 <div class="paragraph">
 <p>Thus, the WPS-T DeployDocument comprises the following parts:</p>
@@ -1844,13 +1913,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procEmsDeploy">Figure 9</a> illustrates the deployment of applications and workflows to the EMS.</p>
+<p><a href="#img_procEmsDeploy">Figure 10</a> illustrates the deployment of applications and workflows to the EMS.</p>
 </div>
 <div id="img_procEmsDeploy" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="1000">
 </div>
-<div class="title">Figure 9. EMS Deployment</div>
+<div class="title">Figure 10. EMS Deployment</div>
 </div>
 <div class="paragraph">
 <p>Applications are deployed to the EMS so that they are available for inclusion in workflows.</p>
@@ -1859,13 +1928,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.</p>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_procEmsExecute">Figure 10</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
+<p>As illustrated in <a href="#img_procEmsExecute">Figure 11</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
 </div>
 <div id="img_procEmsExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="1000">
 </div>
-<div class="title">Figure 10. EMS Workflow Execution</div>
+<div class="title">Figure 11. EMS Workflow Execution</div>
 </div>
 <div class="paragraph">
 <p>At time of <code>wps:Execute</code> the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:</p>
@@ -1935,13 +2004,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
 </div>
 <div class="paragraph">
-<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 11</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
+<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 12</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
 </div>
 <div id="img_procAdesExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="1000">
 </div>
-<div class="title">Figure 11. ADES Process Execution</div>
+<div class="title">Figure 12. ADES Process Execution</div>
 </div>
 <div class="paragraph">
 <p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
@@ -1968,7 +2037,32 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Thus, for Mounted Volumes, the approach is to use standard container volumes that present as well-identified directories within the container. The input data is provided in a read-only input directory that mounts into the container hosting infrastructure. Similarly, an empty writable directory is presented for the processing to write is outputs, to be collected by the Processing Framework.</p>
 </div>
 <div class="paragraph">
-<p>Nevertheless, we might envisage that additional data access approaches need to be supported, including:</p>
+<p>Nevertheless, we might envisage that access to the underlying data will be provided by the hosting platform through a variety of data access protocols, including: Object Store (S3/Swift), OGC (WMS, WCS, WFS), OPeNDAP, plus local file-system as mentioned above.</p>
+</div>
+<div class="paragraph">
+<p>The processing framework must establish an environment in which the data access capabilities of the processing service are matched to the data access offering of the platform. There are two possibilities that need to be handled by the Processing Framework:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#procDAL">Data Access Library</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
+</li>
+<li>
+<p>The processing service / application does not natively support the data access protocol(s) offered by the underlying platform storage, e.g. the processing service only supports local storage (mounted volume), in which case the Processing Framework must facilitate access to the data on behalf of the processing service.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Solutions to the above are explored in the following <a href="#procDataAccess">section</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="procDataAccess">5.5.3. Data Access</h4>
+<div class="paragraph">
+<p>In cases where the processing service does not natively support the data access protocols offered by the underlying platform, the processing framework must facilitate acces to platform data in a form that can be consumed by the processing service.</p>
+</div>
+<div class="paragraph">
+<p>To support this, the service/application should declare the data access protocol that it requires. This declaration should be made in the Application Descriptor (ref. Application Package), and is selected from a standard set of protocols, including:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1982,38 +2076,47 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>OGC data access services: Web Map Service (WMS), Web Coverage Service (WCS), Web Feature Service (WFS)</p>
 </li>
 <li>
+<p>OPeNDAP</p>
+</li>
+<li>
 <p>Mounted Volume (local storage)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>With the exception of local storage, the above-mentioned data access technologies rely upon HTTP-based protocol access. Regarding these HTTP-based interfaces there are two possibilities that need to be handled by the Processing Framework:</p>
+<p>The platform implementation must then ensure that the data interface is presented to the processing container in accordance with its descriptor. It is the job of the platform implementation to translate from the back-end data access protocol to that required by the container. There are a number of techniques that can be employed by the processing framework to facilitate this data access mediation:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#procDAL">Data Access Library</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
-</li>
-<li>
-<p>The processing service / application only supports local storage (mounted volume), in which case the Processing Framework must perform the data retrieval to stage-in the data. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. object store.</p>
-</li>
-</ol>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Local File-system Stage-in/out</dt>
+<dd>
+<p>The processing framework must perform the data retrieval to stage-in the data for presentation through a mounted volume as local file-system access. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. push to object store.<br>
+The approach can be facilitated by use of a FUSE file-system driver to achieve the mediation.</p>
+</dd>
+<dt class="hdlist1">Use of Filesystem in Userspace (FUSE)</dt>
+<dd>
+<p>Access to the back-end data storage (e.g. HTTP-based) is provided through a user-space driver that presents the remote data as if it were a local directory. For example, using s3fs-fuse (<a href="https://github.com/s3fs-fuse/s3fs-fuse" class="bare">https://github.com/s3fs-fuse/s3fs-fuse</a>), access to data in an S3 object store is provided through a FUSE mounted directory. Thus, from the perspective of the processing task, inputs (read) and outputs (write) are accessed through the local file-system interface – satisfying the constraints of the processor.</p>
+</dd>
+</dl>
 </div>
-<div id="procDAL" class="paragraph">
-<p><strong>Use of Data Access Library</strong></p>
-</div>
-<div class="paragraph">
-<p>The above case 1) is facilitated by the provision of a Data Access Library (DAL) that provides an abstraction of the interface to the data. The library provides bindings for common languages (including python, Javascript) and presents a common object model to the processing code. Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The Processing Framework must support the ability to 'plugin' an alternative implementation of the DAL at processor execution time.</p>
-</div>
-<div class="paragraph">
-<p><strong>Use of Filesystem in Userspace (FUSE)</strong></p>
-</div>
-<div class="paragraph">
-<p>Regarding case 2), another possibility exists that requires further investigation. Access to the back-end data storage (e.g. HTTP-based) is provided through a user-space driver that presents the remote data as if it were a local directory. For example, access to data in an S3 object store is provided through a FUSE mounted directory. Thus, from the perspective of the processing task, inputs (read) and outputs (write) are accessed through the local file-system interface – satisfying the constraints of the processor.</p>
+<div id="procDAL" class="dlist">
+<dl>
+<dt class="hdlist1">Use of Data Access Library</dt>
+<dd>
+<p>A Data Access Library (DAL) provides an abstraction of the interface to the data. The library provides bindings for common languages (including python, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase. Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The Processing Framework must support the ability to 'plugin' an alternative implementation of the DAL at processor execution time.<br>
+See section <a href="#resourcesDAL">Data Access Library</a>.</p>
+</dd>
+<dt class="hdlist1">Data Access Gateway</dt>
+<dd>
+<p>Access to the underlying platform data is provided through a common service layer that provides standard data access interfaces that are translated (gateway) to those of the underlying data tier.<br>
+For example, to satisfy a processing service that requires an S3 interface, but is executed in an environment where the data is available through a POSIX file system. Minio (<a href="https://github.com/minio/minio" class="bare">https://github.com/minio/minio</a>) is an open source object store implementation that overlays an S3 interface over a POSIX file system.<br>
+See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_user_authorisation_context">5.5.3. User Authorisation Context</h4>
+<h4 id="_user_authorisation_context">5.5.4. User Authorisation Context</h4>
 <div class="paragraph">
 <p>The stage-in/out of data must operate within the context of the user’s ‘account’. Thus, the security context of the user must be passed through all aspects performed by the Processing Framework on behalf of the user. This is necessary to ensure that the user is only able to access data to which they are entitled and accounting &amp; billing considerations are properly maintained.</p>
 </div>
@@ -2190,7 +2293,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="content">
 <img src="./images/use-cases-applications.png" alt="use cases applications" width="1000">
 </div>
-<div class="title">Figure 12. Interactive Applications Use Case</div>
+<div class="title">Figure 13. Interactive Applications Use Case</div>
 </div>
 <div class="paragraph">
 <p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
@@ -2294,7 +2397,7 @@ Use of multi-step discovery and faceted search</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_resource_management">6. Resource Management</h2>
+<h2 id="mainResourceManagement">6. Resource Management</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets. The concerns of processing assets are addressed in the ‘Processing &amp; Chaining’ domain area. Thus, Resource Management focuses primarily on the provision of data within the EP.</p>
@@ -2325,7 +2428,7 @@ Use of multi-step discovery and faceted search</p>
 <div class="content">
 <img src="./images/use-cases-data.png" alt="use cases data" width="1000">
 </div>
-<div class="title">Figure 13. Resource Management Use Case</div>
+<div class="title">Figure 14. Resource Management Use Case</div>
 </div>
 <div class="paragraph">
 <p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#procAppCatalogue">Application Catalogue</a> for more details.</p>
@@ -2343,7 +2446,7 @@ Use of multi-step discovery and faceted search</p>
 <p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
 </div>
 <div class="paragraph">
-<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 14</a>:</p>
+<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 15</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2371,7 +2474,7 @@ Use of multi-step discovery and faceted search</p>
 <div class="content">
 <img src="./images/resource-overview.png" alt="resource overview" width="1000">
 </div>
-<div class="title">Figure 14. Resource Management Overview</div>
+<div class="title">Figure 15. Resource Management Overview</div>
 </div>
 <div class="paragraph">
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
@@ -2469,13 +2572,13 @@ Use of multi-step discovery and faceted search</p>
 <p>The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies.</p>
 </div>
 <div class="paragraph">
-<p>The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within. However, the Resource-tier catalogue may not present a Catalogue interface that is in accordance with the approach advocated by the Exploitation Platform Common Architecture, or it may not provide a data catalogue at all. It is therefore incumbent upon the EP to define a catalogue architecture that takes account of these possibilities. Additionally, the EP will maintain its own ‘value-added’ and user contributed data that must be catalogued at the level of the exploitation platform. <a href="#img_catalogueAggregation">Figure 15</a> illustrates.</p>
+<p>The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within. However, the Resource-tier catalogue may not present a Catalogue interface that is in accordance with the approach advocated by the Exploitation Platform Common Architecture, or it may not provide a data catalogue at all. It is therefore incumbent upon the EP to define a catalogue architecture that takes account of these possibilities. Additionally, the EP will maintain its own ‘value-added’ and user contributed data that must be catalogued at the level of the exploitation platform. <a href="#img_catalogueAggregation">Figure 16</a> illustrates.</p>
 </div>
 <div id="img_catalogueAggregation" class="imageblock text-center">
 <div class="content">
 <img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="1000">
 </div>
-<div class="title">Figure 15. Catalogue Aggregation</div>
+<div class="title">Figure 16. Catalogue Aggregation</div>
 </div>
 <div class="paragraph">
 <p>We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:</p>
@@ -2509,10 +2612,10 @@ Use of multi-step discovery and faceted search</p>
 <div class="content">
 <img src="./images/catalogue-federation.png" alt="catalogue federation" width="1000">
 </div>
-<div class="title">Figure 16. Catalogue Federation</div>
+<div class="title">Figure 17. Catalogue Federation</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_catalogueFederation">Figure 16</a> there are a number of possible approaches:</p>
+<p>As illustrated in <a href="#img_catalogueFederation">Figure 17</a> there are a number of possible approaches:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2587,7 +2690,7 @@ Use of multi-step discovery and faceted search</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_access_gateway">6.3. Data Access Gateway</h3>
+<h3 id="resourcesDataAccessGateway">6.3. Data Access Gateway</h3>
 <div class="paragraph">
 <p>The EO datasets are stored according to the underlying storage technology of the infrastructure Resource Tier. The storage interface presented is not under the control of the Exploitation Platform.</p>
 </div>
@@ -2614,23 +2717,7 @@ Use of multi-step discovery and faceted search</p>
 <p>In the EP system design, these services are designed to be deployed as containers through Kubernetes. This presents the possibility that some aspects of the Data Access Gateway can be met by the facilities offered by Kubernetes volumes. Access to underlying data is provided through volumes that are mounted into the container. Kubernetes volumes have native support for a number of common storage technologies (such as AWS EBS, Cinder), however these tend to be block rather than object storage.</p>
 </div>
 <div class="paragraph">
-<p>Thus, the Data Access Gateway must implement the data access interface to the infrastructure Resource Tier storage, and present a standard internal interface to other EP components. The internal interface must be sufficient to support the needs of the EP components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Stage-in / out of processing service data</p>
-</li>
-<li>
-<p>Data respository for Data Access services (WMS, WCS, WFS, etc.)</p>
-</li>
-<li>
-<p>Data storage for ingestion of data</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>At minimum, it would be expected to support Resource Tier interfaces for:</p>
+<p>The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. Thus, the Gateway should provide a standard set of service interfaces to include:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2640,35 +2727,40 @@ Use of multi-step discovery and faceted search</p>
 <li>
 <p>Swift Object Store (OpenStack)</p>
 </li>
+<li>
+<p>OGC data access services: Web Map Service (WMS), Web Coverage Service (WCS), Web Feature Service (WFS)</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The gateway provides a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation.</p>
+<p>In providing these standard services to the other EP components, the Data Access Gateway must implement the data access interface to the infrastructure Resource Tier storage.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_access_library">6.4. Data Access Library</h3>
+<h3 id="resourcesDAL">6.4. Data Access Library (DAL)</h3>
 <div class="paragraph">
-<p>In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library is provided specifically as a point of integration for processing services and applications.</p>
+<p>In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library (DAL) is provided specifically as a point of integration for processing services and applications. The Data Access Library provides an abstraction of the interface to the data, with bindings for common languages (including python, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase.</p>
 </div>
 <div class="paragraph">
-<p>The Data Access Library provides:</p>
+<p>The Data Access Library can provide an abstraction at two levels:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Common Data Model for library language bindings, e.g. python, javascript</p>
-</li>
-<li>
-<p>Platform independence: Alternative deployment-specific implementations can be ‘plugged-in’ to processing services and applications. Handled by the execution engine at runtime</p>
-</li>
-</ul>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Protocol abstraction</dt>
+<dd>
+<p>Standard programmatic semantics are provided for accessing the data (i.e. CRUD operations on data granules), that is agnostic of the underlying platform storage data access protocols. This is a lower level interface that should be applicable to all use cases.</p>
+</dd>
+<dt class="hdlist1">Data Model abstraction</dt>
+<dd>
+<p>A common object model is defined with programmatic semantics, which provides a higher-level abstraction of the data that hides the details of the underlying storage, files and file-formats. The abstraction accesses and parses the underlying data to present data structure representations within the language bindings. Such an object model would likely be applicable to some, but not all, use cases. In cases where this approach is not applicable, then protocol abstraction provides the fall-back option.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>Processing service/applications are implemented against an object model that is well defined within the bindings for their development language. The object model hides the details of the underlying files/storage. Thus, processing services and applications can be implemented in a ‘portable’ way that is agnostic to the platform resource-tier storage technology.</p>
+<p>Thus, processing services and applications can be implemented in a ‘portable’ way that is agnostic to the platform resource-tier storage technology.</p>
 </div>
 <div class="paragraph">
-<p>The library offered to the processing service at runtime must implement the interface to the data access to the resource-tier storage. Hence, the library should not be ‘hard-coded’ into the processor application package (Docker image), but should instead be provided dynamically by the platform processing framework.</p>
+<p>Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The library offered to the processing service at runtime must implement the specific data access interface to the resource-tier storage. Hence, the library should not be ‘hard-coded’ into the processor application package (Docker image). The Processing Framework must support the ability to 'plugin' an alternative (platform-specific) implementation of the DAL dynamically at processor execution time. It may be possible to develop a 'generic' Data Access Library by implementation against the standard (internal) interface provided by the Data Access Gateway. In this case, the platform-specifics regarding data access are borne entirely by the Data Access Gateway.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2796,13 +2888,13 @@ Use of multi-step discovery and faceted search</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 17</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 18</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="1000">
 </div>
-<div class="title">Figure 17. Web Portal: Overview</div>
+<div class="title">Figure 18. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -2834,7 +2926,7 @@ Use of multi-step discovery and faceted search</p>
 <div id="footer">
 <div id="footer-text">
 Version v0.4<br>
-Last updated 2019-05-21 12:48:06 UTC
+Last updated 2019-05-31 11:44:06 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
