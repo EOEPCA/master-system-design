@@ -18,7 +18,7 @@
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
 <span id="revnumber">version v0.4,</span>
-<span id="revdate">dd/mm/yyyy</span>
+<span id="revdate">21.06.2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
@@ -88,7 +88,7 @@
 <li><a href="#_authenticated_identity">4.2. Authenticated Identity</a>
 <ul class="sectlevel3">
 <li><a href="#_overview">4.2.1. Overview</a></li>
-<li><a href="#_login_service">4.2.2. Login Service</a></li>
+<li><a href="#mainLoginService">4.2.2. Login Service</a></li>
 <li><a href="#_oidc_id_token">4.2.3. OIDC ID Token</a></li>
 <li><a href="#_oidc_clients">4.2.4. OIDC Clients</a></li>
 <li><a href="#_pep_resource_server_filter">4.2.5. PEP (Resource Server filter)</a></li>
@@ -108,7 +108,7 @@
 <li><a href="#_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</a></li>
 </ul>
 </li>
-<li><a href="#_accounting_and_billing">4.3. Accounting and Billing</a></li>
+<li><a href="#mainBilling">4.3. Accounting and Billing</a></li>
 <li><a href="#_user_profile">4.4. User Profile</a></li>
 </ul>
 </li>
@@ -134,14 +134,14 @@
 </li>
 <li><a href="#mainResourceManagement">6. Resource Management</a>
 <ul class="sectlevel2">
-<li><a href="#_data_catalogue">6.1. Data Catalogue</a>
+<li><a href="#mainDataCatalogue">6.1. Data Catalogue</a>
 <ul class="sectlevel3">
 <li><a href="#_metadata_organisation">6.1.1. Metadata Organisation</a></li>
 <li><a href="#_example_usage_with_opensearch">6.1.2. Example Usage with OpenSearch</a></li>
-<li><a href="#_opensearch">6.1.3. OpenSearch</a></li>
+<li><a href="#mainOpenSearch">6.1.3. OpenSearch</a></li>
 <li><a href="#_resource_types">6.1.4. Resource Types</a></li>
 <li><a href="#_data_access">6.1.5. Data Access</a></li>
-<li><a href="#_ep_catalogue_vs_infrastructure_catalogue">6.1.6. EP Catalogue vs Infrastructure Catalogue</a></li>
+<li><a href="#_catalogue_compositionaggregation">6.1.6. Catalogue Composition/Aggregation</a></li>
 <li><a href="#_federated_discovery">6.1.7. Federated Discovery</a></li>
 </ul>
 </li>
@@ -152,7 +152,31 @@
 <li><a href="#_workspace">6.6. Workspace</a></li>
 </ul>
 </li>
-<li><a href="#_web_portal_2">7. Web Portal</a></li>
+<li><a href="#mainPlatformApi">7. Platform API</a>
+<ul class="sectlevel2">
+<li><a href="#mainServiceApi">7.1. Service API</a>
+<ul class="sectlevel3">
+<li><a href="#_platform_capabilities">7.1.1. Platform Capabilities</a></li>
+<li><a href="#_authentication">7.1.2. authentication</a></li>
+<li><a href="#_billing">7.1.3. billing</a></li>
+<li><a href="#_data_search">7.1.4. data_search</a></li>
+<li><a href="#_data_catalogue">7.1.5. data_catalogue</a></li>
+<li><a href="#_app_search">7.1.6. app_search</a></li>
+<li><a href="#_map">7.1.7. map</a></li>
+<li><a href="#_tile">7.1.8. tile</a></li>
+<li><a href="#_feature">7.1.9. feature</a></li>
+<li><a href="#_coverage">7.1.10. coverage</a></li>
+<li><a href="#_datacube">7.1.11. datacube</a></li>
+<li><a href="#_object_store">7.1.12. object_store</a></li>
+<li><a href="#_ems">7.1.13. ems</a></li>
+<li><a href="#_ades">7.1.14. ades</a></li>
+<li><a href="#_workspace_2">7.1.15. workspace</a></li>
+</ul>
+</li>
+<li><a href="#mainClientLibrary">7.2. Client Library</a></li>
+</ul>
+</li>
+<li><a href="#_web_portal_2">8. Web Portal</a></li>
 </ul>
 </div>
 <div style="page-break-after: always;"></div>
@@ -462,6 +486,105 @@ OGC 17-047</p>
 </div>
 </div></div></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OIDC"></a>[OIDC]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OpenID Connect Core 1.0,<br>
+<a href="https://openid.net/specs/openid-connect-core-1_0.html" class="bare">https://openid.net/specs/openid-connect-core-1_0.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.0,<br>
+08/11/2014</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-CSW"></a>[OGC-CSW]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Catalogue Services 3.0 Specification - HTTP Protocol Binding (Catalogue Services for the Web),<br>
+OGC 12-176r7,<br>
+<a href="http://docs.opengeospatial.org/is/12-176r7/12-176r7.html" class="bare">http://docs.opengeospatial.org/is/12-176r7/12-176r7.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v3.0,<br>
+10/06/2016</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WMS"></a>[OGC-WMS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Web Map Server Implementation Specification,<br>
+OGC 06-042,<br>
+<a href="http://portal.opengeospatial.org/files/?artifact_id=14416" class="bare">http://portal.opengeospatial.org/files/?artifact_id=14416</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.3.0,<br>
+05/03/2006</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WMTS"></a>[OGC-WMTS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Web Map Tile Service Implementation Standard,<br>
+OGC 07-057r7,<br>
+<a href="http://portal.opengeospatial.org/files/?artifact_id=35326" class="bare">http://portal.opengeospatial.org/files/?artifact_id=35326</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.0.0,<br>
+06/04/2010</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WFS"></a>[OGC-WFS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC® Web Feature Service 2.0 Interface Standard – With Corrigendum,<br>
+OGC 09-025r2,<br>
+<a href="http://docs.opengeospatial.org/is/09-025r2/09-025r2.html" class="bare">http://docs.opengeospatial.org/is/09-025r2/09-025r2.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v2.0.2,<br>
+10/07/2014</p>
+</div>
+</div>
+</div></div></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -655,12 +778,20 @@ OGC 17-047</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that provides an open specification for sharing raster datasets on the web.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Coverage Processing Service (WCPS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that defines a protocol-independent language for the extraction, processing, and analysis of multi-dimentional coverages representing sensor, image, or statistics data.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Feature Service (WFS)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that makes geographic feature data (vector geospatial datasets) available on the web.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Service (WMS)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that provides a simple HTTP interface for requesting geo-registered map images from one or more distributed geospatial databases.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Tile Service (WMTS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OGC standard that provides a simple HTTP interface for requesting map tiles of spatially referenced data using the images with predefined content, extent, and resolution.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Processing Services (WPS)</p></td>
@@ -799,12 +930,20 @@ OGC 17-047</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Coverage Service</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WCPS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Coverage Processing Service</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WFS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Feature Service</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WMS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WMTS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Map Tile Service</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WPS</p></td>
@@ -886,13 +1025,13 @@ OGC 17-047</p>
 <div class="sect3">
 <h4 id="_processing_and_chaining">3.1.2. Processing and Chaining</h4>
 <div class="paragraph">
-<p><em>Provides access to a variety of processing functions, tools and applications, as well as an execution environments in which to deploy them.</em></p>
+<p><em>Provides access to a variety of processing functions, tools and applications, as well as execution environments in which to deploy them.</em></p>
 </div>
 <div class="paragraph">
 <p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
 </div>
 <div class="paragraph">
-<p>The user has a personal workspace in which to upload files, and develop their own processing chains, experiments and workflows. Shared workspaces for collaboration can similarly be provisioned. The platform catalogue services (for data, processing servics and applications) are integrated with this environment to discover and access relevant published datasets and processing elements. Then, subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
+<p>The user has a personal workspace in which to upload files, and develop their own processing chains, experiments and workflows. Shared workspaces for collaboration can similarly be provisioned. The development and analysis environment integrates with platform catalogue services (for data, processing servics and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
 </div>
 </div>
 <div class="sect3">
@@ -918,7 +1057,7 @@ OGC 17-047</p>
 <p><em>Presents the platform user interface for interacting with the local resources and processing facilities, as well as the wider network of EO resources.</em></p>
 </div>
 <div class="paragraph">
-<p>It includes a web site, themed and branded according to the owning organisation. It provides the view onto the user’s private workspace and acts as their window on the world. It provides a rich, interactive web interface for discovering and working with all kinds of resources, including EO data, processing and documentation. It includes web service clients for smart search and data visualisations. It provides a workspace for developing and deploying processing algorithms, workflows, experiments and applications, and publishing results. It includes support and collaboration tools for the community.</p>
+<p>The Web Portal provides the user interface (themed and branded according to the owning organisation) through which the user discovers the data/services available within the platform, and the analysis environemtn through which they can exploit these resources. It provides a rich, interactive web interface for discovering and working with all kinds of resources, including EO data, processing and documentation. It includes web service clients for smart search and data visualisations. It provides a workspace for developing and deploying processing algorithms, workflows, experiments and applications, and publishing results. It includes support and collaboration tools for the community.</p>
 </div>
 <div class="paragraph">
 <p>Web Portal integrates together various web service clients that uses services provided by the specialist domains (Processing, Resource, User) on the local platform and collaborating platforms.</p>
@@ -929,7 +1068,7 @@ OGC 17-047</p>
 <div class="sect2">
 <h3 id="_architecture_layers">3.2. Architecture Layers</h3>
 <div class="paragraph">
-<p><a href="#img_architectureLayers">Figure 2</a> provides a simplified view that illustrates the broad architecture layes of the Exploitation Platform, in the context of the infrastructure in which it is hosted and the end-users performing exploitation activities.</p>
+<p><a href="#img_architectureLayers">Figure 2</a> provides a simplified architectural view that illustrates the broad architecture layes of the Exploitation Platform, presented in the context of the infrastructure in which it is hosted and the end-users performing exploitation activities.</p>
 </div>
 <div id="img_architectureLayers" class="imageblock text-center">
 <div class="content">
@@ -941,7 +1080,7 @@ OGC 17-047</p>
 <dl>
 <dt class="hdlist1">Resource Tier</dt>
 <dd>
-<p>The Resource Layer represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation is deployed.</p>
+<p>The Resource Tier represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation is deployed.</p>
 </dd>
 <dt class="hdlist1">Platform Tier</dt>
 <dd>
@@ -960,10 +1099,10 @@ OGC 17-047</p>
 <p>The EP&#8217;s services access the data resources through a Data Access Gateway that provides an abstraction of the data access interface provided by the resource tier. This abstraction provides a 'standard' data access semantic that can be relied upon by other EP services - thus isolating specific data access concerns of the resource tier to a single EP component.</p>
 </div>
 <div class="paragraph">
-<p>The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisiaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting library.</p>
+<p>The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisiaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting Data Access Library.</p>
 </div>
 <div class="paragraph">
-<p>The EP provides a Data Catalogue, so that its end-users can discover and browse the data available for inclusion in their analysis. Similarly an Application Catalogue provides this discovery service for processing services and applications available within the platform.</p>
+<p>The EP provides a Data Catalogue, so that end-users can discover and browse the data available for inclusion in their analysis. Similarly an Application Catalogue provides this discovery service for processing services and applications available within the platform.</p>
 </div>
 <div class="paragraph">
 <p>Data Services based upon open standards serve the clients of the Exploitation Platform for data access and data visualisation. Access to the underlying data is made via the Data Access Gateway.</p>
@@ -987,15 +1126,19 @@ OGC 17-047</p>
 <dl>
 <dt class="hdlist1">Section <a href="#mainUserManagement">User Management</a></dt>
 <dd>
-<p>TBD</p>
+<p>This section adresses the main concerns of User Management which are user identity, access to resources and billing for resource usage.</p>
 </dd>
 <dt class="hdlist1">Section <a href="#mainProcessingAndChaining">Processing and Chaining</a></dt>
 <dd>
-<p>TBD</p>
+<p>This section covers service/application discovery (Application Catalogue), application packaging and the Processing Framework through which services/applications can be deployed in federated workflows.</p>
 </dd>
 <dt class="hdlist1">Section <a href="#mainResourceManagement">Resource Management</a></dt>
 <dd>
-<p>TBD</p>
+<p>This section covers data discovery (Data Catalogue), provision (Gateway) of data access to the processing framework, and public data services to visualise and consume platform data.</p>
+</dd>
+<dt class="hdlist1">Section <a href="#mainPlatformApi">Platform API</a></dt>
+<dd>
+<p>The section provides a consolidated decription of the service interface of the EP and its associated client library, which together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
 </dd>
 </dl>
 </div>
@@ -1202,7 +1345,7 @@ Response returns the authorisation decision.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_login_service">4.2.2. Login Service</h4>
+<h4 id="mainLoginService">4.2.2. Login Service</h4>
 <div class="paragraph">
 <p>The Login Service is an OIDC Provider that provides a ‘Login With’ service that allows the end-user to select their Identity Provider for purposes of authentication.</p>
 </div>
@@ -1509,9 +1652,97 @@ Response returns the authorisation decision.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_accounting_and_billing">4.3. Accounting and Billing</h3>
+<h3 id="mainBilling">4.3. Accounting and Billing</h3>
 <div class="paragraph">
 <p>TBD</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Chargeable Resource</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Underlying resources (Resource Tier):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Storage</p>
+</li>
+<li>
+<p>Compute</p>
+</li>
+<li>
+<p>Network bandwidth</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Service/Data consumption (Platform Tier)</p>
+</li>
+<li>
+<p>Application Usage (Exploitation Tier)</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Service Plans</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Subscription</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Monthly / Yearly / Lifetime</p>
+</li>
+<li>
+<p>Unlimited or capped usage profiles</p>
+</li>
+<li>
+<p>Charges for consumption beyond subscription</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Pay-per-usage</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Monthly: Pay by monthly invoice (i.e. in arears)</p>
+</li>
+<li>
+<p>Pre-pay: Pay in advance (e.g. credits)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Billing Actors</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Sellers (Application Providers)<br>
+Provide their services/applications/value-added-data, for possible remuneration.</p>
+</li>
+<li>
+<p>Customers (Application Consumers)<br>
+Paying users of the EP.</p>
+</li>
+<li>
+<p>End-users<br>
+Customers of the EP Customers (maybe unknown to the EP).</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect2">
@@ -1584,7 +1815,7 @@ Response returns the authorisation decision.</p>
 <p>Federation of processing services across the network of EO resources, such that processing implementations can be made available ‘on-demand’ amongst federated platforms, to facilitate the movement of the “processing to the data”. Use of a common packaging format that is agnostic of underlying host characteristics is key to this challenge</p>
 </li>
 <li>
-<p>Enforcement of access controls to processing and data resources through multi-step federated workflows requires the user’s ‘request context’ to be carried through all layers of the request fulfilment. At each point of resource access, the user’s identify and access rights must be asserted. The service interface standards, (such as WPS, CSW and WCS), must be evaluated and necessary enhancements identified to ensure that the user’s access envelope is respected</p>
+<p>Enforcement of access controls to processing and data resources through multi-step federated workflows requires the user’s ‘request context’ to be carried through all layers of the request fulfilment. At each point of resource access, the user’s identify and access rights must be asserted. The service interface standards, (such as WPS, CSW, WCS, etc.), must be evaluated and necessary enhancements identified to ensure that the user’s access envelope is respected</p>
 </li>
 </ul>
 </div>
@@ -1654,6 +1885,26 @@ Response returns the authorisation decision.</p>
 </div>
 <div class="paragraph">
 <p>The Application Catalogue is the subject of the current Testbed-15 through which the Data Model and catalogue Service Interface are being explored.</p>
+</div>
+<div class="paragraph">
+<p>For the Expert User with a service/application to execute in the EP, we might consider three levels of integration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Importing</strong><br>
+The service/application is packaged (unchanged) as a black-box.<br>
+Relies upon the stage-in/out of data to the applications existing data access expectations by the Processing Framework.</p>
+</li>
+<li>
+<p><strong>Adapting</strong><br>
+The service/application is adapted (modified) to use the data access interfaces offered by the Common Architecture.</p>
+</li>
+<li>
+<p><strong>Porting</strong><br>
+The service/application is ported to use the services of the EP intrinsically - typically by use of the <a href="#mainClientLibrary">Client Library</a> defined by the common architecture.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -2037,7 +2288,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Thus, for Mounted Volumes, the approach is to use standard container volumes that present as well-identified directories within the container. The input data is provided in a read-only input directory that mounts into the container hosting infrastructure. Similarly, an empty writable directory is presented for the processing to write is outputs, to be collected by the Processing Framework.</p>
 </div>
 <div class="paragraph">
-<p>Nevertheless, we might envisage that access to the underlying data will be provided by the hosting platform through a variety of data access protocols, including: Object Store (S3/Swift), OGC (WMS, WCS, WFS), OPeNDAP, plus local file-system as mentioned above.</p>
+<p>Nevertheless, we might envisage that access to the underlying data will be provided by the hosting platform through a variety of data access protocols, including: Object Store (S3/Swift), OGC (WMS, WMTS, WFS, WCS, WCPS), OPeNDAP, plus local file-system as mentioned above.</p>
 </div>
 <div class="paragraph">
 <p>The processing framework must establish an environment in which the data access capabilities of the processing service are matched to the data access offering of the platform. There are two possibilities that need to be handled by the Processing Framework:</p>
@@ -2073,7 +2324,26 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Swift Object Store (OpenStack)</p>
 </li>
 <li>
-<p>OGC data access services: Web Map Service (WMS), Web Coverage Service (WCS), Web Feature Service (WFS)</p>
+<p>OGC data access services:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Web Map Service (WMS)</p>
+</li>
+<li>
+<p>Web Map Tile Service (WMTS)</p>
+</li>
+<li>
+<p>Web Feature Service (WFS)</p>
+</li>
+<li>
+<p>Web Coverage Service (WCS)</p>
+</li>
+<li>
+<p>Web Coverage Processing Service (WCPS)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>OPeNDAP</p>
@@ -2364,6 +2634,9 @@ See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
 <div class="sect2">
 <h3 id="procAppCatalogue">5.9. Application Catalogue</h3>
 <div class="paragraph">
+<p>TBDzzz - Ref. CEOS OpenSearch Best Practice</p>
+</div>
+<div class="paragraph">
 <p>The Application Catalogue provides an inventory of applications/services that can be presented as a ‘Marketplace’ for users to discover and browse for processing services to use with EP data.</p>
 </div>
 <div class="paragraph">
@@ -2480,7 +2753,7 @@ Use of multi-step discovery and faceted search</p>
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
 </div>
 <div class="sect2">
-<h3 id="_data_catalogue">6.1. Data Catalogue</h3>
+<h3 id="mainDataCatalogue">6.1. Data Catalogue</h3>
 <div class="paragraph">
 <p>The Catalogue provides the user the capability to discover data/products by browse/search, and to obtain details on specific data/products discovered.</p>
 </div>
@@ -2530,7 +2803,10 @@ Use of multi-step discovery and faceted search</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_opensearch">6.1.3. OpenSearch</h4>
+<h4 id="mainOpenSearch">6.1.3. OpenSearch</h4>
+<div class="paragraph">
+<p>TBDzzz - Ref. CEOS OpenSearch Best Practice</p>
+</div>
 <div class="paragraph">
 <p>For the Exploitation Platform, OpenSearch is used with the OGC extensions and recommendations:</p>
 </div>
@@ -2563,16 +2839,19 @@ Use of multi-step discovery and faceted search</p>
 <div class="sect3">
 <h4 id="_data_access">6.1.5. Data Access</h4>
 <div class="paragraph">
-<p>There is also a link between the way the data is described in the Catalogue and how it is accessed by the consumers of the data. This links to the Data Access Services (e.g. WMS. WCS, WFS, etc.) provided by the EP, and the way in which the access links are encoded into the Catalogue. These links must be usable by the data consumers which could be processing services, or users downloading the data.</p>
+<p>There is a direct link between the way the data is described in the Catalogue and how it is accessed by the consumers of the data. This links to the Data Access Services (e.g. WMS. WCS, WFS, etc.) provided by the EP, and the way in which the access links are encoded into the Catalogue. These links must be usable by the data consumers which could be processing services, or users downloading the data.</p>
+</div>
+<div class="paragraph">
+<p>Hence the contents of the Catalogue reflects the data services offered by the platform, including the underlying resource tier services. Each data Collection is presented in the Catalogue as accessible through one or more data access services, as applicable to the specfic data. The Catalogue must present the data access URLs is such a way that the URL resolves correctly to the underlying data via the providing data access service.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ep_catalogue_vs_infrastructure_catalogue">6.1.6. EP Catalogue vs Infrastructure Catalogue</h4>
+<h4 id="_catalogue_compositionaggregation">6.1.6. Catalogue Composition/Aggregation</h4>
 <div class="paragraph">
-<p>The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies.</p>
+<p>The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies. The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within.</p>
 </div>
 <div class="paragraph">
-<p>The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within. However, the Resource-tier catalogue may not present a Catalogue interface that is in accordance with the approach advocated by the Exploitation Platform Common Architecture, or it may not provide a data catalogue at all. It is therefore incumbent upon the EP to define a catalogue architecture that takes account of these possibilities. Additionally, the EP will maintain its own ‘value-added’ and user contributed data that must be catalogued at the level of the exploitation platform. <a href="#img_catalogueAggregation">Figure 16</a> illustrates.</p>
+<p>In order to ensure a coherent link between data discovery and access, the Exploitation Platform provides its own Catalogue that presents the data holding to be accessed through the available data access services. In doing so it must aggregate the catalogue records of the underlying resource tier, the records of other 'federated' platforms, and the value-added data that is contributed through the actions of users on the EP. Thus the EP provides a Catalgue that is tailored to its service offering to ensure a consistent data access interface that can be relied upon by other EP services, in particular by the executing user analysis functions running within the Processing &amp; Chaining context.</p>
 </div>
 <div id="img_catalogueAggregation" class="imageblock text-center">
 <div class="content">
@@ -2649,10 +2928,16 @@ Use of multi-step discovery and faceted search</p>
 <p>OGC Web Map Service (WMS)</p>
 </li>
 <li>
-<p>OGC Web Coverage Service (WCS)</p>
+<p>OGC Web Map Tile Service (WMTS)</p>
 </li>
 <li>
 <p>OGC Web Feature Service (WFS)</p>
+</li>
+<li>
+<p>OGC Web Coverage Service (WCS)</p>
+</li>
+<li>
+<p>OGC Web Coverage Processing Service (WCPS)</p>
 </li>
 <li>
 <p>Services provided by Resource Tier:</p>
@@ -2717,23 +3002,17 @@ Use of multi-step discovery and faceted search</p>
 <p>In the EP system design, these services are designed to be deployed as containers through Kubernetes. This presents the possibility that some aspects of the Data Access Gateway can be met by the facilities offered by Kubernetes volumes. Access to underlying data is provided through volumes that are mounted into the container. Kubernetes volumes have native support for a number of common storage technologies (such as AWS EBS, Cinder), however these tend to be block rather than object storage.</p>
 </div>
 <div class="paragraph">
-<p>The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. Thus, the Gateway should provide a standard set of service interfaces to include:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>AWS S3 Object Store</p>
-</li>
-<li>
-<p>Swift Object Store (OpenStack)</p>
-</li>
-<li>
-<p>OGC data access services: Web Map Service (WMS), Web Coverage Service (WCS), Web Feature Service (WFS)</p>
-</li>
-</ul>
+<p>The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. We might regard the lowest-common-denominator for data access to be a combination of:<br>
+* Local filesystem access<br>
+* AWS S3 Object Store</p>
 </div>
 <div class="paragraph">
-<p>In providing these standard services to the other EP components, the Data Access Gateway must implement the data access interface to the infrastructure Resource Tier storage.</p>
+<p>Through docker/kubernetes we can use mounted 'volumes' to present data through a local filesystem interface.<br>
+Through s3fs-fuse we can establish local filesytem mount points to S3 object stores.<br>
+The Processing Framework makes use of these capabilities to ensure that data is presented to processing services/applications in a form that they can consume.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the Data Access Gateway presents an S3 interface as an internal data access abstraction, whilst implementing the data access interface to the infrastructure Resource Tier storage.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2839,7 +3118,209 @@ Use of multi-step discovery and faceted search</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_web_portal_2">7. Web Portal</h2>
+<h2 id="mainPlatformApi">7. Platform API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Platform API defines standard interfaces at both service and programmatic levels, with the goal of encouraging interroperation between platforms and providing a consistent and portable programming paradigm for expert users. The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
+</div>
+<div class="paragraph">
+<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+</div>
+<div id="img_clientPortability" class="imageblock text-center">
+<div class="content">
+<img src="./images/client-portability.png" alt="client portability" width="1000">
+</div>
+<div class="title">Figure 18. Client Portability</div>
+</div>
+<div class="paragraph">
+<p>As illustrated in <a href="#img_clientPortability">Figure 18</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</p>
+</div>
+<div class="sect2">
+<h3 id="mainServiceApi">7.1. Service API</h3>
+<div class="paragraph">
+<p>The Service API presented by the Exploitation Platform is largely defined and met by the fundamental data/processing services it offers. There are some additional meta-services that support the clients in the discovery and usage of these core services. The Service API defined in this section seeks to define a standard set of interfaces against which the Client Library can be developed and that can be relied upon for platform-to-platform interroperability.</p>
+</div>
+<div class="sect3">
+<h4 id="_platform_capabilities">7.1.1. Platform Capabilities</h4>
+<div class="paragraph">
+<p>Bootstrap URL to discover the service endpoints of the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>/.well-known/eoepca-platform</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">services</span><span class="delimiter">&quot;</span></span>: [
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">oidc</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">authentication</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/connect</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;tbd&gt;</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">billing</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/billing</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">opensearch</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">data_search</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/search</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">csw</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">data_catalogue</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/catalogue</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">opensearch</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">app_search</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/applications</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wms</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">map</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/map</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wmts</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">tile</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/tile</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wfs</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">feature</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/feature</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wcs</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">coverage</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/coverage</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wcps</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">datacube</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/datacube</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">s3</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">object_store</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/storage</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wps-t</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">ems</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/ems</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">wps-t</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">ades</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/ades</span><span class="delimiter">&quot;</span></span> },
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;tbd&gt;</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">workspace</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/workspace</span><span class="delimiter">&quot;</span></span> },
+    ],
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">extended_capabilities</span><span class="delimiter">&quot;</span></span>: [
+        { <span class="key"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">dask</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">cluster</span><span class="delimiter">&quot;</span></span>, <span class="key"><span class="delimiter">&quot;</span><span class="content">details</span><span class="delimiter">&quot;</span></span>: {} },
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The endpoints referenced in eoepca-platform are described in the following sections.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_authentication">7.1.2. authentication</h4>
+<div class="paragraph">
+<p>The URL of the OpenID Connect Provider that implements the <a href="#mainLoginService">Login Service</a> for user authentication.</p>
+</div>
+<div class="paragraph">
+<p><strong>/connect</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements the OpenID Connect protocol as described in <a href="#OIDC">[OIDC]</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_billing">7.1.3. billing</h4>
+<div class="paragraph">
+<p>The URL of the endpoint of the Billing service in the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>/billing</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>The Billing service provides a cenrtralised point of contact within the platform responsible for tracking and billing for usage of resources and services. The approach to billing is currently not defined, but will be documented in section <a href="#mainBilling">Accounting and Billing</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_data_search">7.1.4. data_search</h4>
+<div class="paragraph">
+<p>The URL of the OpenSearch interface to the <a href="#mainDataCatalogue">Data Catalogue</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/search</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OpenSearch interface in accordance with section <a href="#mainOpenSearch">Open Search</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_data_catalogue">7.1.5. data_catalogue</h4>
+<div class="paragraph">
+<p>The URL of the OGC CSW (Catalogue Services for the Web) interface to the <a href="#mainDataCatalogue">Data Catalogue</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/catalogue</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC CSW catalogue in accordance with standard <strong>OGC Catalogue Services 3.0 Specification - HTTP Protocol Binding</strong> as defined in <a href="#OGC-CSW">[OGC-CSW]</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_app_search">7.1.6. app_search</h4>
+<div class="paragraph">
+<p>The URL of the OpenSearch interface to the <a href="#procAppCatalogue">Application Catalogue</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/applications</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OpenSearch interface in accordance with section <a href="#procAppCatalogue">Application Catalogue</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_map">7.1.7. map</h4>
+<div class="paragraph">
+<p>The URL of the OGC WMS (Web Map Service) interface that supports the data maintained in the <a href="#mainDataCatalogue">Data Catalogue</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/map</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC WMS service in accordance with standard <strong>OGC Web Map Server Implementation Specification</strong> as defined in <a href="#OGC-WMS">[OGC-WMS]</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tile">7.1.8. tile</h4>
+<div class="paragraph">
+<p>The URL of the OGC WMTS (Web Map Tile Service) interface that supports the data maintained in the <a href="#mainDataCatalogue">Data Catalogue</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/tile</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC WMTS service in accordance with standard <strong>OGC Web Map Tile Service Implementation Standard</strong> as defined in <a href="#OGC-WMTS">[OGC-WMTS]</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_feature">7.1.9. feature</h4>
+<div class="paragraph">
+<p>The URL of the OGC WFS (Web Feature Service) interface that provides a <em>Feature-oriented</em> access to the underlying data holding of the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>/feature</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC WFS service in accordance with standard <strong>OGC Web Feature Service 2.0 Interface Standard – With Corrigendum</strong> as defined in <a href="#OGC-WFS">[OGC-WFS]</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_coverage">7.1.10. coverage</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_datacube">7.1.11. datacube</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_object_store">7.1.12. object_store</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ems">7.1.13. ems</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ades">7.1.14. ades</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_workspace_2">7.1.15. workspace</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mainClientLibrary">7.2. Client Library</h3>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_portal_2">8. Web Portal</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform, and the public web-API that supports mobile and third-party (programmatic) access to services of the platform.</p>
@@ -2888,13 +3369,13 @@ Use of multi-step discovery and faceted search</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 18</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 19</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="1000">
 </div>
-<div class="title">Figure 18. Web Portal: Overview</div>
+<div class="title">Figure 19. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -2926,7 +3407,7 @@ Use of multi-step discovery and faceted search</p>
 <div id="footer">
 <div id="footer-text">
 Version v0.4<br>
-Last updated 2019-05-31 11:44:06 UTC
+Last updated 2019-06-21 13:04:36 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
