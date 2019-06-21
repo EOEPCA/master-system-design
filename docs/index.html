@@ -17,7 +17,7 @@
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version v0.4,</span>
+<span id="revnumber">version v0.4.1,</span>
 <span id="revdate">21.06.2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
@@ -123,6 +123,7 @@
 <li><a href="#_federated_commercial_services_without_inter_platform_payments_direct_payments">4.3.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</a></li>
 <li><a href="#_estimating_inter_platform_costs">4.3.8. Estimating Inter-platform Costs</a></li>
 <li><a href="#_relationship_to_system_components">4.3.9. Relationship to System Components</a></li>
+<li><a href="#_payment_processing_systems">4.3.10. Payment Processing Systems</a></li>
 </ul>
 </li>
 <li><a href="#_user_profile">4.4. User Profile</a></li>
@@ -479,6 +480,24 @@ OGC 17-047</p>
 <div class="content">
 <div class="paragraph">
 <p>17-047</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="PCI-DSS"></a>[PCI-DSS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The Payment Card Industry Data Security Standard,<br>
+<a href="https://www.pcisecuritystandards.org/document_library?category=pcidss&amp;document=pci_dss" class="bare">https://www.pcisecuritystandards.org/document_library?category=pcidss&amp;document=pci_dss</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v3.2.1</p>
 </div>
 </div>
 </div></div></td>
@@ -1795,7 +1814,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>A billing identity is a user identity for a user who has established a billing relationship with the platform. A billing user may delegate chargeable service access to other users within the system, permitting that user to use resources billed to the billing identity.</p>
 </div>
 <div class="paragraph">
-<p>Inidividual platforms may choose models with varying complexity. For example, one platform may require that the billing and user identity are always the same, whilst another may permit a user working on multiple cross-organizational projects to choose the billing identity to use. Identities may be related to organizations, projects, etc, for access control and credit control purposes - but these relationships are not required by the architecture.</p>
+<p>Individual platforms may choose models with varying complexity. For example, one platform may require that the billing and user identity are always the same, whilst another may permit a user working on multiple cross-organizational projects to choose the billing identity to use. Identities may be related to organizations, projects, etc, for access control and credit control purposes - but these relationships are not required by the architecture.</p>
 </div>
 <div class="paragraph">
 <p>As required by their purpose, cross-platform messaging will include both the user id and the relevant billing identity.</p>
@@ -2003,6 +2022,12 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>The host platform sends a payment clearing message to the home platform Billing Service to clear the entire authorization.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_payment_processing_systems">4.3.10. Payment Processing Systems</h4>
+<div class="paragraph">
+<p>Payment processing itself, in particular card payment processing, may be initiated by the Billing Service but should be strictly separate from it. <a href="#PCI-DSS">[PCI-DSS]</a> imposes many onerous requirements not just on the software and hardware used for payment processing, but also on the wider organization and its processes (for example, for formal change reviews and code reviews, the use of specialist cryptographic hardware security modules, the separation of duties between staff and requirements in recruitment and training). For these reasons some implementers will need to avoid card processing within the system entirely and redirect users to externally hosted payment servers. This may constrain them to an account credit-based model whilst other providers may be able to initiate an authorization or full payment on-demand.</p>
 </div>
 </div>
 </div>
@@ -3667,8 +3692,8 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v0.4<br>
-Last updated 2019-06-21 13:04:36 UTC
+Version v0.4.1<br>
+Last updated 2019-06-21 13:17:22 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
