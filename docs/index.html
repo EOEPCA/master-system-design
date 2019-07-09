@@ -4,35 +4,31 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.9">
+<meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="description" content="Master System Design for the Common Architecture">
 <meta name="keywords" content="common architecture master system design">
 <meta name="author" content="TVUK System Team">
-<title>Master System Design</title>
+<title>Master System Design Document</title>
 <link rel="stylesheet" href="stylesheets/eoepca.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="book">
 <div id="header">
-<h1>Master System Design (EOEPCA.SDD.001)</h1>
+<h1>Master System Design Document</h1>
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version v0.4.2,</span>
-<span id="revdate">21.06.2019</span>
+<span id="revnumber">version 0.5,</span>
+<span id="revdate">09.07.2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="imageblock right">
-<div class="content">
-<img src="./images/telespazio.png" alt="telespazio" width="200">
-</div>
-</div>
 <div class="paragraph">
-<div class="title"><span class="big"><strong>Design Document</strong></span></div>
-<p>Master System Design for the Common Architecture</p>
+<p>EO Exploitation Platform Common Architecture<br>
+<em>Master System Design Document</em></p>
 </div>
 <div class="dlist">
 <dl>
@@ -46,7 +42,7 @@
 </dd>
 <dt class="hdlist1">COPYRIGHT</dt>
 <dd>
-<p>Copyright © 2019 TBD (ESA or TVUK or something else ?)</p>
+<p>Copyright © 2019 <mark>TBD (ESA or TVUK or something else ?)</mark></p>
 </dd>
 </dl>
 </div>
@@ -85,7 +81,7 @@
 <li><a href="#_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</a></li>
 </ul>
 </li>
-<li><a href="#_authenticated_identity">4.2. Authenticated Identity</a>
+<li><a href="#mainAuthenticatedIdentity">4.2. Authenticated Identity</a>
 <ul class="sectlevel3">
 <li><a href="#_overview">4.2.1. Overview</a></li>
 <li><a href="#mainLoginService">4.2.2. Login Service</a></li>
@@ -126,27 +122,36 @@
 <li><a href="#_payment_processing_systems">4.3.10. Payment Processing Systems</a></li>
 </ul>
 </li>
-<li><a href="#_user_profile">4.4. User Profile</a></li>
+<li><a href="#_user_profile">4.4. User Profile</a>
+<ul class="sectlevel3">
+<li><a href="#_licence_and_tc_management">4.4.1. Licence and T&amp;C Management</a>
+<ul class="sectlevel4">
+<li><a href="#_licence_requirement_checks">Licence Requirement Checks</a></li>
+<li><a href="#_licence_acquisition">Licence Acquisition</a></li>
+<li><a href="#_licence_administration">Licence Administration</a></li>
+<li><a href="#_porting_licences_within_the_federation">Porting Licences Within the Federation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#mainProcessingAndChaining">5. Processing and Chaining</a>
 <ul class="sectlevel2">
 <li><a href="#_solution_overview">5.1. Solution Overview</a></li>
 <li><a href="#procK8s">5.2. Resource Layer (Infrastructure) Interface</a></li>
-<li><a href="#_application_packaging">5.3. Application Packaging</a></li>
-<li><a href="#_execution_management_service_ems">5.4. Execution Management Service (EMS)</a></li>
-<li><a href="#_application_deployment_and_execution_service_ades">5.5. Application Deployment and Execution Service (ADES)</a>
+<li><a href="#mainAppPackage">5.3. Application Packaging</a></li>
+<li><a href="#mainProcEMS">5.4. Execution Management Service (EMS)</a></li>
+<li><a href="#mainProcADES">5.5. Application Deployment and Execution Service (ADES)</a></li>
+<li><a href="#procServiceDataAccess">5.6. Processing Service Data Access</a>
 <ul class="sectlevel3">
-<li><a href="#_container_execution">5.5.1. Container Execution</a></li>
-<li><a href="#_data_stage_inout">5.5.2. Data Stage-in/out</a></li>
-<li><a href="#procDataAccess">5.5.3. Data Access</a></li>
-<li><a href="#_user_authorisation_context">5.5.4. User Authorisation Context</a></li>
+<li><a href="#_user_authorisation_context">5.6.1. User Authorisation Context</a></li>
 </ul>
 </li>
-<li><a href="#_wps_t_restjson">5.6. WPS-T REST/JSON</a></li>
-<li><a href="#_interactive_graphical_applications">5.7. Interactive (Graphical) Applications</a></li>
-<li><a href="#_parallel_processing">5.8. Parallel Processing</a></li>
-<li><a href="#procAppCatalogue">5.9. Application Catalogue</a></li>
+<li><a href="#_wps_t_restjson">5.7. WPS-T REST/JSON</a></li>
+<li><a href="#_interactive_graphical_applications">5.8. Interactive (Graphical) Applications</a></li>
+<li><a href="#_parallel_processing">5.9. Parallel Processing</a></li>
+<li><a href="#mainAppCatalogue">5.10. Application Catalogue</a></li>
 </ul>
 </li>
 <li><a href="#mainResourceManagement">6. Resource Management</a>
@@ -163,17 +168,17 @@
 </ul>
 </li>
 <li><a href="#_data_access_services">6.2. Data Access Services</a></li>
-<li><a href="#resourcesDataAccessGateway">6.3. Data Access Gateway</a></li>
-<li><a href="#resourcesDAL">6.4. Data Access Library (DAL)</a></li>
+<li><a href="#mainDataAccessGateway">6.3. Data Access Gateway</a></li>
+<li><a href="#mainDataAccessLib">6.4. Data Access Library (DAL)</a></li>
 <li><a href="#_data_ingestion">6.5. Data Ingestion</a></li>
-<li><a href="#_workspace">6.6. Workspace</a></li>
+<li><a href="#mainWorkspace">6.6. Workspace</a></li>
 </ul>
 </li>
 <li><a href="#mainPlatformApi">7. Platform API</a>
 <ul class="sectlevel2">
 <li><a href="#mainServiceApi">7.1. Service API</a>
 <ul class="sectlevel3">
-<li><a href="#_platform_capabilities">7.1.1. Platform Capabilities</a></li>
+<li><a href="#platformCapabilities">7.1.1. Platform Capabilities</a></li>
 <li><a href="#_authentication">7.1.2. authentication</a></li>
 <li><a href="#_billing">7.1.3. billing</a></li>
 <li><a href="#_data_search">7.1.4. data_search</a></li>
@@ -187,10 +192,14 @@
 <li><a href="#_object_store">7.1.12. object_store</a></li>
 <li><a href="#_ems">7.1.13. ems</a></li>
 <li><a href="#_ades">7.1.14. ades</a></li>
-<li><a href="#_workspace_2">7.1.15. workspace</a></li>
+<li><a href="#_workspace">7.1.15. workspace</a></li>
 </ul>
 </li>
-<li><a href="#mainClientLibrary">7.2. Client Library</a></li>
+<li><a href="#mainClientLibrary">7.2. Client Library</a>
+<ul class="sectlevel3">
+<li><a href="#_client_library_concept_illustration">7.2.1. Client Library Concept Illustration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_web_portal_2">8. Web Portal</a></li>
@@ -211,7 +220,7 @@
 <div class="sect2">
 <h3 id="_structure_of_the_document">1.2. Structure of the Document</h3>
 <div class="paragraph">
-<p>TBD</p>
+<p><mark>TBD</mark></p>
 </div>
 </div>
 <div class="sect2">
@@ -247,7 +256,7 @@ EOEPCA.TN.005<br>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>Issue TBD,<br>
+<p>Issue <mark>TBD</mark>,<br>
 dd/mm/yyy</p>
 </div>
 </div>
@@ -307,6 +316,25 @@ OGC 18-036r1,<br>
 <div class="paragraph">
 <p>18-036r1,<br>
 07/02/2019</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="WPS-REST-JSON"></a>[WPS-REST-JSON]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC WPS 2.0 REST/JSON Binding Extension, Draft,<br>
+OGC 18-062,<br>
+<a href="https://raw.githubusercontent.com/opengeospatial/wps-rest-binding/develop/docs/18-062.pdf" class="bare">https://raw.githubusercontent.com/opengeospatial/wps-rest-binding/develop/docs/18-062.pdf</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>1.0-draft</p>
 </div>
 </div>
 </div></div></td>
@@ -620,6 +648,64 @@ OGC 09-025r2,<br>
 </div>
 </div></div></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WCS"></a>[OGC-WCS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>OGC Web Coverage Service (WCS) 2.1 Interface Standard - Core,<br>
+OGC 17-089r1,<br>
+<a href="http://docs.opengeospatial.org/is/17-089r1/17-089r1.html" class="bare">http://docs.opengeospatial.org/is/17-089r1/17-089r1.html</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v2.1,<br>
+16/08/2018</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WCPS"></a>[OGC-WCPS]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Web Coverage Processing Service (WCPS) Language Interface Standard,<br>
+OGC 08-068r2,<br>
+<a href="http://portal.opengeospatial.org/files/?artifact_id=32319" class="bare">http://portal.opengeospatial.org/files/?artifact_id=32319</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>v1.0.0,<br>
+25/03/2009</p>
+</div>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="AWS-S3"></a>[AWS-S3]</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Amazon Simple Storage Service REST API,<br>
+<a href="https://docs.aws.amazon.com/AmazonS3/latest/API" class="bare">https://docs.aws.amazon.com/AmazonS3/latest/API</a></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>API Version 2006-03-01</p>
+</div>
+</div>
+</div></div></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -685,6 +771,10 @@ OGC 09-025r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The codification of an algorithm performed with a given programming language - compiled to Software or directly executed (interpretted) within the platform.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Platform on which execution occurs (this may differ from the Host or Home platform where federated processing is happening)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Consumer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User accessing existing services/products within the EP. Consumers may be scientific/research or commercial, and may or may not be experts of the domain</p></td>
 </tr>
@@ -721,6 +811,14 @@ OGC 09-025r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An unregistered User or an unauthenticated Consumer with limited access to the EP&#8217;s services</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Home Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Platform on which a User is based or from which an action was initiated by a User</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Platform through which a Resource has been published</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identity Provider (IdP)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The source for validating user identity in a federated identity system, (user authentication as a service).</p></td>
 </tr>
@@ -741,8 +839,16 @@ OGC 09-025r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An Interactive Application for analysis provided as a rich user interface through the user&#8217;s web browser.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key-Value Pair</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A key-value pair (KVP) is an abstract data type that includes a group of key identifiers and a set of associated values. Key-value pairs are frequently used in lookup tables, hash tables and configuration files.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes (K8s)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Container orchestration system for automating application deployment, scaling and management.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object Store</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A computer data storage architecture that manages data as objects. Each object typically includes the data itself, a variable amount of metadata, and a globally unique identifier.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">On-demand Processing Service</p></td>
@@ -925,6 +1031,10 @@ OGC 09-025r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">KVP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key-value Pair</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">M2M</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Machine-to-machine</p></td>
 </tr>
@@ -1045,7 +1155,7 @@ OGC 09-025r2,<br>
 </div>
 <div id="img_topLevelArchitecture" class="imageblock text-center">
 <div class="content">
-<img src="./images/top-level-architecture.png" alt="top level architecture" width="1000">
+<img src="./images/top-level-architecture.png" alt="top level architecture" width="70%">
 </div>
 <div class="title">Figure 1. Top-level Architecture</div>
 </div>
@@ -1070,7 +1180,7 @@ OGC 09-025r2,<br>
 <p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
 </div>
 <div class="paragraph">
-<p>The user has a personal workspace in which to upload files, and develop their own processing chains, experiments and workflows. Shared workspaces for collaboration can similarly be provisioned. The development and analysis environment integrates with platform catalogue services (for data, processing servics and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
+<p>The development and analysis environment provides a platform for the expert user to develop their own processing chains, experiments and workflows. It integrates with platform catalogue services (for data, processing servics and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1089,6 +1199,9 @@ OGC 09-025r2,<br>
 <div class="paragraph">
 <p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services. Access to services and resources is controlled according to an associated policy - ref <a href="#IAM">Identity and Access Management</a>. Similarly, the ingestion process is controlled, in order to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue. This component may interact with corresponding peer components on other platforms - for example to synchronise catalogue entries.</p>
 </div>
+<div class="paragraph">
+<p>The user has a personal workspace in which to upload files, organise links to resources of interest (services/application/data), and receive/manage results output from processing executions. Shared workspaces for collaboration can similarly be provisioned.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_web_portal">3.1.4. Web Portal</h4>
@@ -1096,7 +1209,7 @@ OGC 09-025r2,<br>
 <p><em>Presents the platform user interface for interacting with the local resources and processing facilities, as well as the wider network of EO resources.</em></p>
 </div>
 <div class="paragraph">
-<p>The Web Portal provides the user interface (themed and branded according to the owning organisation) through which the user discovers the data/services available within the platform, and the analysis environemtn through which they can exploit these resources. It provides a rich, interactive web interface for discovering and working with all kinds of resources, including EO data, processing and documentation. It includes web service clients for smart search and data visualisations. It provides a workspace for developing and deploying processing algorithms, workflows, experiments and applications, and publishing results. It includes support and collaboration tools for the community.</p>
+<p>The Web Portal provides the user interface (themed and branded according to the owning organisation) through which the user discovers the data/services available within the platform, and the analysis environment through which they can exploit these resources. It provides a rich, interactive web interface for discovering and working with all kinds of resources, including EO data, processing and documentation. It includes web service clients for smart search and data visualisations. It provides a workspace for developing and deploying processing algorithms, workflows, experiments and applications, and publishing results. It includes support and collaboration tools for the community.</p>
 </div>
 <div class="paragraph">
 <p>Web Portal integrates together various web service clients that uses services provided by the specialist domains (Processing, Resource, User) on the local platform and collaborating platforms.</p>
@@ -1111,7 +1224,7 @@ OGC 09-025r2,<br>
 </div>
 <div id="img_architectureLayers" class="imageblock text-center">
 <div class="content">
-<img src="./images/architecture-layers.png" alt="architecture layers" width="1000">
+<img src="./images/architecture-layers.png" alt="architecture layers" width="80%">
 </div>
 <div class="title">Figure 2. Architecture Layers</div>
 </div>
@@ -1119,7 +1232,7 @@ OGC 09-025r2,<br>
 <dl>
 <dt class="hdlist1">Resource Tier</dt>
 <dd>
-<p>The Resource Tier represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation is deployed.</p>
+<p>The Resource Tier represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation platform is deployed.</p>
 </dd>
 <dt class="hdlist1">Platform Tier</dt>
 <dd>
@@ -1177,7 +1290,7 @@ OGC 09-025r2,<br>
 </dd>
 <dt class="hdlist1">Section <a href="#mainPlatformApi">Platform API</a></dt>
 <dd>
-<p>The section provides a consolidated decription of the service interface of the EP and its associated client library, which together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
+<p>This section provides a consolidated decription of the service interface of the EP and its associated client library, which together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
 </dd>
 </dl>
 </div>
@@ -1264,7 +1377,7 @@ OGC 09-025r2,<br>
 </div>
 <div id="img_iamOverview" class="imageblock text-center">
 <div class="content">
-<img src="./images/iam-overview.png" alt="iam overview" width="1000">
+<img src="./images/iam-overview.png" alt="iam overview" width="100%">
 </div>
 <div class="title">Figure 3. Identity and Access Management Overview</div>
 </div>
@@ -1300,16 +1413,16 @@ OGC 09-025r2,<br>
 <p>It should be additionally noted that the decision to allow the user access depends upon dynamic 'attributes', such as whether the user has enough credits to 'pay' for their usage, or whether they have accepted the necessary Terms &amp; Conditions for a given dataset or service. Thus, the PDP must interrogate other EP-services such as 'Accounting &amp; Billing' and 'User Profile' to answer such questions.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_iamOverviewFlow">Figure 4</a> provides an overview of the IAM Flow.</p>
+<p><a href="#img_iamOverviewFlow">Figure 4</a> provides an overview of the IAM Flow, (success case).</p>
 </div>
 <div id="img_iamOverviewFlow" class="imageblock text-center">
 <div class="content">
-<img src="./images/iam-overview-flow.png" alt="iam overview flow" width="1000">
+<img src="./images/iam-overview-flow.png" alt="iam overview flow" width="100%">
 </div>
 <div class="title">Figure 4. IAM Overview Flow</div>
 </div>
 <div class="paragraph">
-<p>Note that the interface between the Login Service and the External IdPs is simplified in this view. It is expanded in later sections.</p>
+<p><strong>Flows marked &lt;&lt;redirect&gt;&gt; should be interpreted as flows between services that are made by redirection through the User Agent.</strong> For brevity, the interface between the Login Service, the User Agent and the External IdPs is simplified in <a href="#img_iamOverviewFlow">Figure 4</a> - they are expanded in section <a href="#mainAuthenticatedIdentity">Authenticated Identity</a>. It should also be noted that the flows with the External IdP will vary according to the protocol required by the External IdP, (e.g. OAuth, SAML, etc.).</p>
 </div>
 </div>
 <div class="sect3">
@@ -1319,43 +1432,45 @@ OGC 09-025r2,<br>
 </div>
 <div id="img_iamInterfaces" class="imageblock text-center">
 <div class="content">
-<img src="./images/iam-interfaces.png" alt="iam interfaces" width="1000">
+<img src="./images/iam-interfaces.png" alt="iam interfaces" width="80%">
 </div>
 <div class="title">Figure 5. IAM Interfaces</div>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">User &#8594; Protected Resource</dt>
+<dt class="hdlist1">User Agent &#8594; PEP</dt>
 <dd>
-<p>The Protected Resource exposes a public API for user consumption.</p>
+<p>The PEP acts as a HTTP filter on the access request to the API of the Protected Resource. The PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
 </dd>
-<dt class="hdlist1">Protected Resource &#8594; PEP</dt>
+<dt class="hdlist1">PEP &#8594; Protected Resource</dt>
 <dd>
-<p>The PEP acts as a filter on the access request to the resource. The PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
+<p>The Protected Resource exposes a public API for user consumption. The user&#8217;s access to the protected resource is only granted once the request has passed the authorisation decision, which may or may not require user authentication.</p>
 </dd>
 <dt class="hdlist1">PEP &#8594; Login Service</dt>
 <dd>
 <p>The PEP uses a redirect to delegate the authentication flow to the Login Service.</p>
 </dd>
-<dt class="hdlist1">Login Service &#8594; External IdP</dt>
+<dt class="hdlist1">Login Service &#8594; User Agent &#8594; External IdP</dt>
 <dd>
-<p>In order to support multiple external identity suppliers, the Login Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Login Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
+<p>The Login Service and External IdP interface via redirects through the User Agent. In order to support multiple external identity suppliers, the Login Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Login Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
 </dd>
 <dt class="hdlist1">PEP &#8594; PDP</dt>
 <dd>
-<p>Request carries the user identification, the URI of the resource, and the action.<br>
-Response returns the authorisation decision.</p>
+<p>The PEP defers to the PDP to establish the authorisation status of the incoming access attempt.<br>
+The request to the PDP carries the user identification, the URI of the resource, and the action requested.<br>
+The PDP-response returns the authorisation decision.</p>
 </dd>
 <dt class="hdlist1">PDP &#8594; Other PDP</dt>
 <dd>
-<p>Same interface characteristics as PEP&#8594;PDP.</p>
+<p>This interface represents federated authorisation.<br>
+It has the same interface characteristics as PEP&#8594;PDP.</p>
 </dd>
 </dl>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_authenticated_identity">4.2. Authenticated Identity</h3>
+<h3 id="mainAuthenticatedIdentity">4.2. Authenticated Identity</h3>
 <div class="paragraph">
 <p>The approach to user identity and authentication centres around the use of OpenID Connect. Each Exploitation Platform maintains their own OIDC Provider through which tokens can be issued to permit access to protected resources within the EP. The authentication itself is delegated to external Identity Providers at the preference of the end-user wishing to reuse their existing identity provision.</p>
 </div>
@@ -1378,7 +1493,7 @@ Response returns the authorisation decision.</p>
 </div>
 <div id="img_iamAuthenticationFlow" class="imageblock text-center">
 <div class="content">
-<img src="./images/iam-authentication-flow.png" alt="iam authentication flow" width="1000">
+<img src="./images/iam-authentication-flow.png" alt="iam authentication flow" width="100%">
 </div>
 <div class="title">Figure 6. IAM Authentication Flow (Browser)</div>
 </div>
@@ -1412,7 +1527,7 @@ Response returns the authorisation decision.</p>
 <p>LinkedIn</p>
 </li>
 <li>
-<p>Others TBD</p>
+<p>Others (to be defined)</p>
 </li>
 </ul>
 </div>
@@ -1500,7 +1615,7 @@ Response returns the authorisation decision.</p>
 <p>Clients are Relying Parties that act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
 </div>
 <div class="paragraph">
-<p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases (TBD) the Authorisation Code Flow would be preferred.</p>
+<p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases, where possible, the Authorisation Code Flow would be preferred.</p>
 </div>
 <div class="paragraph">
 <p>The OIDC flows are initiated with the appropriate response_type (‘id_token token’ for Implicit Flow, ‘code’ for Authorisation Code Flow) and scope of ‘oidc profile’.</p>
@@ -1686,100 +1801,12 @@ Response returns the authorisation decision.</p>
 <div class="sect3">
 <h4 id="_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p><mark>TBD</mark></p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="mainBilling">4.3. Accounting and Billing</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Chargeable Resource</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>Underlying resources (Resource Tier):</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Storage</p>
-</li>
-<li>
-<p>Compute</p>
-</li>
-<li>
-<p>Network bandwidth</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Service/Data consumption (Platform Tier)</p>
-</li>
-<li>
-<p>Application Usage (Exploitation Tier)</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Service Plans</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>Subscription</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Monthly / Yearly / Lifetime</p>
-</li>
-<li>
-<p>Unlimited or capped usage profiles</p>
-</li>
-<li>
-<p>Charges for consumption beyond subscription</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Pay-per-usage</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Monthly: Pay by monthly invoice (i.e. in arears)</p>
-</li>
-<li>
-<p>Pre-pay: Pay in advance (e.g. credits)</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Billing Actors</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>Sellers (Application Providers)<br>
-Provide their services/applications/value-added-data, for possible remuneration.</p>
-</li>
-<li>
-<p>Customers (Application Consumers)<br>
-Paying users of the EP.</p>
-</li>
-<li>
-<p>End-users<br>
-Customers of the EP Customers (maybe unknown to the EP).</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
 <div class="paragraph">
 <p>The platform must account for resource use both within the platform and in other platforms via federation. In additional, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
 </div>
@@ -1792,7 +1819,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>Charges are the result of discrete 'billing events' occuring within a particular 'billing window'. Pricing must consider all events within the window, not events individually (to support, for example, tiered pricing).</p>
 </li>
 <li>
-<p>Different platforms may follow completely different pricing and billing models. The architecture and federation messaging can not assume any particular method of calculation or for describing prices.</p>
+<p>Different platforms may follow completely different pricing and billing models. The architecture and federation messaging cannot assume any particular method of calculation or for describing prices.</p>
 </li>
 <li>
 <p>Only the platform hosting it can accurately price the use of a licensed Resource or compute resource.</p>
@@ -1818,6 +1845,18 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 </div>
 <div class="paragraph">
 <p>As required by their purpose, cross-platform messaging will include both the user id and the relevant billing identity.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Both the billing and user identities, and other information such as the location of each one and the type of organization involved, may be relevant to determining prices. This is because the place of supply for VAT purposes must be determined, plus any discounts for, for example, academic use. Note that 'location' means more than 'country' (eg, the Canary Islands have lower VAT than Madrid). Also, some organizations may be treated differently such as international organizations exempt from all tax.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -1874,7 +1913,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>Where a platform wished to provide such a service to users, return price information and estimated prices in response to API requests.</p>
 </li>
 <li>
-<p>Given a commercial license billing event, calculate the charge to the user, the credit to the Licenser and the platform fee.</p>
+<p>Given a commercial licence billing event, calculate the charge to the user, the credit to the Licenser and the platform fee.</p>
 </li>
 </ul>
 </div>
@@ -1885,19 +1924,19 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>Users may publish Resources which are licensed to others on commercial terms and use the platform to collect payments. There are two types of charges which require support within User Management: time-based and volume-based.</p>
 </div>
 <div class="paragraph">
-<p>Time-based charges occur when a user requests a licence which costs a fixed price for a fixed time, regardless of the accesses made to the Resource. The Data Access Services and Execution Management Services determine when such a licence is required and manage the process for buying one. However, once complete, the purchase must be reported as a billing event and the licence stored in the User Profile. The Billing Service has the opportunity to reject the purchase at this step.</p>
+<p>Time-based charges occur when a user requests a licence which costs a fixed price for a fixed time (or is permanent), regardless of the accesses made to the Resource. The Data Access Services and Execution Management Services determine when such a licence is required and the licence manager manages the process for buying one, including emitting a billing event. This typically will happen in advance of a request. The licence manager may give the billing service an opportunity to reject the request, if applicable to the platform&#8217;s billing model.</p>
 </div>
 <div class="paragraph">
-<p>Volume-based charges occur as access to a licensed Resource proceeds or completes (for example, on first access to a specific satellite image or for each input image passed to a commercial machine learning model). Again, the DAS or EMS must report these as billing events.</p>
+<p>Volume-based charges occur as access to a licensed Resource proceeds or completes (for example, on first access to a specific satellite image or for each input image passed to a commercial machine learning model). Again, the licence manager reports these as billing events when a licence requirements check is made.</p>
 </div>
 <div class="paragraph">
-<p>Pricing is specified by the Licenser (in a particular form supported by the platform) and stored by the Resource Manager. The DAS/EMS must supply the pricing data in the billing event. The Billing Service then stores three billing events: a charge to the user, a credit to the Licenser and a charge to the Licenser representing the platform fee for handling payment processing.</p>
+<p>Pricing is specified by the Licenser (in a particular form supported by the platform) and stored by the pricing engine (quantity to price mapping) and licence manager (method for determining which licences and 'quantity'). The licence manager must emit three billing events when license grants are bought: a charge to the user, a credit to the Licenser and a charge to the Licenser representing the platform fee for handling payment processing.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_budgets">4.3.5. Budgets</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p><mark>TBD</mark></p>
 </div>
 </div>
 <div class="sect3">
@@ -1965,7 +2004,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <div class="sect3">
 <h4 id="_estimating_inter_platform_costs">4.3.8. Estimating Inter-platform Costs</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p><mark>TBD</mark></p>
 </div>
 </div>
 <div class="sect3">
@@ -2045,7 +2084,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <p>Terms and conditions accepted by the user</p>
 </li>
 <li>
-<p>License keys held by the user</p>
+<p>Licence keys held by the user</p>
 </li>
 <li>
 <p>User API key management</p>
@@ -2055,7 +2094,105 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 <div class="paragraph">
 <p>The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process.</p>
 </div>
+<div class="sect3">
+<h4 id="_licence_and_tc_management">4.4.1. Licence and T&amp;C Management</h4>
+<div class="paragraph">
+<p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degress off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
+</div>
+<div class="paragraph">
+<p>Some concepts applicable within the licence manager must be established:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A licence consist of the legal text itself, a name and version, a description of pricing where appropiate and other metadata.</p>
+</li>
+<li>
+<p>A licence terms acceptance is the acceptance by a particular user (and organization) of the licence terms and conditions.</p>
+</li>
+<li>
+<p>A licence grant grants a users access to particular parts of a resource or for particular purposes. This is only applicable to commercial licensed resources. A licence grant is signed by the licenser.</p>
+</li>
+<li>
+<p>The licence manager does not know which resources require which licences. It only knows data about identified licences and about which users have which acceptances and grants.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The licence manager does not formally know how to calculate the price of a commercial licence grant. Instead, it produces an identifier for a particular type of grant and a quantity. The billing engine turns this in to a price, which may involve applying any user-specific or volume-based discounts. The quantity may be in, for example, square kilometres. Alternatively, the licences may be priced at €1/unit, effectively transferring responsibility to the licence manager&#8217;s configuration.</p>
+</div>
+<div class="paragraph">
+<p>Note that licencers must ensure that their licences are uniquely identified across the whole federation. That is, if they use the same licence on multiple platforms they must give it the same ID and must not otherwise reuse IDs.</p>
+</div>
+<div class="sect4">
+<h5 id="_licence_requirement_checks">Licence Requirement Checks</h5>
+<div class="paragraph">
+<p>At the request planning stage the EMS determines the licences required (as far as is possible in advance). This results in a list of licence requirement specifications. These may vary in complexity, from simply identifying a dataset to specifying an AoI, ToI and additional attributes, depending on platform support and on any knowledge the EMS has about which request fields are licence-relevant. The licence manager, however, only performs matching of these against rules or configuration using no or limited knowledge of the specific meaning of fields.</p>
+</div>
+<div class="paragraph">
+<p>On receiving licence requirement specifications, the licence manager must compare them against the licences and grants possessed by the user and determine what licences, if any, must be obtained by the user before the action is permitted. On failure, the result should contain something the user can act on, such as a URL for viewing and agreeing to dataset terms or for buying licences. On success, the licence manager may return information on which fields were used so that the EMS can avoid repeated checks.</p>
+</div>
+<div class="paragraph">
+<p>The licence manager should also be able to determine when additional commercial licence grants should be added (and charged for) automatically. The user must have previously agreed to the license terms and pricing. When a new licence grant is added it should record it and issue a billing event.</p>
+</div>
+<div class="paragraph">
+<p>Licence grants may also be managed by an external service operated by the licenser. This communication is managed entirely by the licence manager.</p>
+</div>
+<div class="paragraph">
+<p>Processing may cross platform boundaries within the federation. A platform executing processing or supplying a resource must be able to determine that the processing is running in a context in which any required licences are available. To support this, the context must include enough information to identify the licence manager of the originating platform. When a licence manager receives a licence requirement specification which can&#8217;t be satisfied locally it should use this endpoint to perform a licence requirement check. The originating platform may fail this request, may accept it based on existing data (returning signed licence grants if appropriate) or may perform an automated licence grant acquisition. The host/compute platform may then store these licence grants against the user ID for use in future checks.</p>
+</div>
+<div class="paragraph">
+<p>Note that cross-platform executions may involve running, for example, a processing chain initiated from platform A with a component involving a commercially licenced compute service from platform B running on platform C. In these cases platform B may check that the user has accepted its platform acceptable use policy by contacting platform A, fetch the compute service from platform C which will then also directly contact platform A to ensure that licences are available before returning the container ot platform B.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Diagrams!</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_licence_acquisition">Licence Acquisition</h5>
+<div class="paragraph">
+<p>Unless managed by an external service, users must be able to view and accept terms and purchase licence grants using the licence manager. For licences where no licence grants must be bought this is very simple - for example, the licence manager may provide APIs enabling the UI to fetch licence text and submit acceptance. This can be done from a resource information display page or following a refused request.</p>
+</div>
+<div class="paragraph">
+<p>Where a licence grant must be bought the flow for the user is managed by other components. A user interface may be used to choose licence attributes or particular subsets of data, for example, or a user may have the option to allow automatic purchases as data is accessed. This licence manager must support this functionality in the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A human-readable description of the pricing model and prices is included with the licence metadata. This should be displayed to the user.</p>
+</li>
+<li>
+<p>The licence manager can accept a licence requirement specification and turn it in to either a product code and quantity (which the caller can then pass to the pricing engine) or information on which additional fields are required. The field names, types and UI information is supplied by other services as part of the resource definition.</p>
+</li>
+<li>
+<p>The licence manager can accept a command to buy a specified licence. It will then emit a billing event. This may happen synchronously or asynchronously depending on the needs of the platform&#8217;s billing model.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When federated access is involved, such as when a processing chain runs some components on another platform or when data or processing services are transferred to run locally, a user may need to accept licence terms or acquire a licence grant for a resource which is not published via the home platform. This must always be initiated from the home platform, either in advance of the execution or in response to an event returned by a host platform. For terms acceptance the licence manager must contact the host platform and transfer the necessary T&amp;C data. For a (commercial) licence grant, the licence manager must ask the billing manager to authorize a payment to the host platform and then make a request to the host licence manager to buy the licence (specifying the payment ID). The host licence manager must verify the price before asking its own billing manager to clear the payment. It should then record the licence grant as well as returning it to the home platform.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_licence_administration">Licence Administration</h5>
+<div class="paragraph">
+<p>Resource owners must be able to configure licences. The UIs and APIs allowing them to do this must interact with the licence manager (and the pricing engine) to configure their licences. This includes only the licences themselves - assignment of licence requirements to resources is out of the licence manager&#8217;s scope.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_porting_licences_within_the_federation">Porting Licences Within the Federation</h5>
+<div class="paragraph">
+<p>In some cases users may have multiple home platforms, initiating some workloads from different locations. To ensure that users can use their licences for workloads initiated across all locations licence 'porting' may be used.</p>
+</div>
+<div class="paragraph">
+<p>A user 'ports' a licence from one platform to another by using oAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
+</div>
+<div class="paragraph">
+<p>This mechanism may be used for two purposes. In the first, a publisher a has publshed his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
+</div>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2082,7 +2219,7 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 </div>
 <div id="img_processingUseCase" class="imageblock text-center">
 <div class="content">
-<img src="./images/use-cases-processing.png" alt="use cases processing" width="1000">
+<img src="./images/use-cases-processing.png" alt="use cases processing" width="100%">
 </div>
 <div class="title">Figure 7. Processing &amp; Chaining Use Case</div>
 </div>
@@ -2140,29 +2277,29 @@ Customers of the EP Customers (maybe unknown to the EP).</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Execution Management Service (EMS)</dt>
+<dt class="hdlist1"><a href="#mainProcEMS">Execution Management Service (EMS)</a></dt>
 <dd>
 <p>WPS-T (REST/JSON) service that provides an umbrella orchestration service to deploy/invoke processing services within the ADES of the appropriate (close to data) Exploitation Platform. Thus, the EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.</p>
 </dd>
-<dt class="hdlist1">Application Deployment and Execution Service (ADES)</dt>
+<dt class="hdlist1"><a href="#mainProcADES">Application Deployment and Execution Service (ADES)</a></dt>
 <dd>
 <p>WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.</p>
 </dd>
-<dt class="hdlist1">Application Catalogue</dt>
+<dt class="hdlist1"><a href="#mainAppCatalogue">Application Catalogue</a></dt>
 <dd>
 <p>An Application Catalogue provides an inventory of processing services that acts as a Marketplace for the discovery and browse for processing services. The Application Catalogue provides a service that can be searched by facet/keyword and provides supporting metadata and information.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should additionally include an EMS.</p>
+<p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should include an EMS.</p>
 </div>
 <div class="paragraph">
 <p><a href="#img_procOverview">Figure 8</a> illustrates the main architecture components and their interfaces.</p>
 </div>
 <div id="img_procOverview" class="imageblock text-center">
 <div class="content">
-<img src="./images/processing-overview.png" alt="processing overview" width="1000">
+<img src="./images/processing-overview.png" alt="processing overview" width="100%">
 </div>
 <div class="title">Figure 8. Processing &amp; Chaining Overview</div>
 </div>
@@ -2191,6 +2328,9 @@ The service/application is adapted (modified) to use the data access interfaces 
 The service/application is ported to use the services of the EP intrinsically - typically by use of the <a href="#mainClientLibrary">Client Library</a> defined by the common architecture.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong><em>Section <a href="#procServiceDataAccess">Processing Service Data Access</a> provides further discussion regarding the data stage-in/out approach for processing services.</em></strong></p>
 </div>
 </div>
 <div class="sect2">
@@ -2222,7 +2362,7 @@ The service/application is ported to use the services of the EP intrinsically - 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_application_packaging">5.3. Application Packaging</h3>
+<h3 id="mainAppPackage">5.3. Application Packaging</h3>
 <div class="paragraph">
 <p>The Application Package provides a platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Typically, in the context of the exploitation platform, the application is an EO data processing algorithm or a workflow.</p>
 </div>
@@ -2243,7 +2383,7 @@ The service/application is ported to use the services of the EP intrinsically - 
 </ul>
 </div>
 <div class="paragraph">
-<p>In accordance with the approach advocated in OGC Testbed-14 (ref. zzzER), the Application Descriptor is encoded in accordance with the WPS-T DeployProcess document defined by WPS-T JSON encodings (ref. zzz). In this way, the Application Descriptor broadly provides the following details:</p>
+<p>In accordance with the approach advocated in OGC Testbed-14 (ref. <a href="#TB14-ADES">[TB14-ADES]</a>), the Application Descriptor is encoded in accordance with the WPS-T DeployProcess document defined by WPS-T JSON encodings (ref. <a href="#WPS-REST-JSON">[WPS-REST-JSON]</a>). In this way, the Application Descriptor broadly provides the following details:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2294,7 +2434,7 @@ The service/application is ported to use the services of the EP intrinsically - 
 </div>
 <div id="img_procAppDescriptor" class="imageblock text-center">
 <div class="content">
-<img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="1000">
+<img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="70%">
 </div>
 <div class="title">Figure 9. Structure of Application Descriptor data model</div>
 </div>
@@ -2324,7 +2464,7 @@ The inputs can be provided as references to data, accessible through data access
 </dd>
 <dt class="hdlist1">executionUnit</dt>
 <dd>
-<p>Specifies the ‘software’ item to be executed, with the context of the deploymentProfileName, as follows:</p>
+<p>Specifies the ‘software’ item to be executed, within the context of the deploymentProfileName, as follows:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2354,86 +2494,84 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>An example Application Descriptor follows…</p>
-</div>
 <div class="listingblock">
+<div class="title">Example Application Descriptor</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">processDescription</span><span class="delimiter">&quot;</span></span>: {
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">process</span><span class="delimiter">&quot;</span></span>: {
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EoepcaProcessor</span><span class="delimiter">&quot;</span></span>,
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOEPCA Processor</span><span class="delimiter">&quot;</span></span>,
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">owsContext</span><span class="delimiter">&quot;</span></span>: {
-                <span class="key"><span class="delimiter">&quot;</span><span class="content">offering</span><span class="delimiter">&quot;</span></span>: {
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">code</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/cwl</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">content</span><span class="delimiter">&quot;</span></span>: {
-                        <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl</span><span class="delimiter">&quot;</span></span>
-                    }
-                }
-            },
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">abstract</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>,
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">keywords</span><span class="delimiter">&quot;</span></span>: [],
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">inputs</span><span class="delimiter">&quot;</span></span>: [
-                {
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">images</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Input Images</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
-                        {
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">application/zip</span><span class="delimiter">&quot;</span></span>,
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
-                        }
-                    ],
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">minOccurs</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">maxOccurs</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">additionalParameters</span><span class="delimiter">&quot;</span></span>: [
-                        {
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/inputMetadata</span><span class="delimiter">&quot;</span></span>,
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">parameters</span><span class="delimiter">&quot;</span></span>: [
-                                {
-                                    <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOImage</span><span class="delimiter">&quot;</span></span>,
-                                    <span class="key"><span class="delimiter">&quot;</span><span class="content">values</span><span class="delimiter">&quot;</span></span>: [
-                                        <span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">outputs</span><span class="delimiter">&quot;</span></span>: [
-                {
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Stacked Image</span><span class="delimiter">&quot;</span></span>,
-                    <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
-                        {
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">image/tiff</span><span class="delimiter">&quot;</span></span>,
-                            <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
-                        }
-                    ]
-                }
-            ]
-        },
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">processVersion</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">1.0.0</span><span class="delimiter">&quot;</span></span>,
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">jobControlOptions</span><span class="delimiter">&quot;</span></span>: [
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">async-execute</span><span class="delimiter">&quot;</span></span>
-        ],
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">outputTransmission</span><span class="delimiter">&quot;</span></span>: [
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">reference</span><span class="delimiter">&quot;</span></span>
-        ]
-    },
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">executionUnit</span><span class="delimiter">&quot;</span></span>: [
-        {
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">hub.docker.com/eoepca/processor:latest</span><span class="delimiter">&quot;</span></span>
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">processDescription</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">process</span><span class="delimiter">&quot;</span></span>: {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EoepcaProcessor</span><span class="delimiter">&quot;</span></span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOEPCA Processor</span><span class="delimiter">&quot;</span></span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">owsContext</span><span class="delimiter">&quot;</span></span>: {
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">offering</span><span class="delimiter">&quot;</span></span>: {
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">code</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/cwl</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">content</span><span class="delimiter">&quot;</span></span>: {
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl</span><span class="delimiter">&quot;</span></span>
+          }
         }
+      },
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">abstract</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">keywords</span><span class="delimiter">&quot;</span></span>: [],
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">inputs</span><span class="delimiter">&quot;</span></span>: [
+        {
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">images</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Input Images</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
+            {
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">application/zip</span><span class="delimiter">&quot;</span></span>,
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
+            }
+          ],
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">minOccurs</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">maxOccurs</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">additionalParameters</span><span class="delimiter">&quot;</span></span>: [
+            {
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">role</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/eoc/applicationContext/inputMetadata</span><span class="delimiter">&quot;</span></span>,
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">parameters</span><span class="delimiter">&quot;</span></span>: [
+                {
+                  <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">EOImage</span><span class="delimiter">&quot;</span></span>,
+                  <span class="key"><span class="delimiter">&quot;</span><span class="content">values</span><span class="delimiter">&quot;</span></span>: [
+                    <span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">outputs</span><span class="delimiter">&quot;</span></span>: [
+        {
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">title</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Stacked Image</span><span class="delimiter">&quot;</span></span>,
+          <span class="key"><span class="delimiter">&quot;</span><span class="content">formats</span><span class="delimiter">&quot;</span></span>: [
+            {
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">mimeType</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">image/tiff</span><span class="delimiter">&quot;</span></span>,
+              <span class="key"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>: <span class="value">true</span>
+            }
+          ]
+        }
+      ]
+    },
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">processVersion</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">1.0.0</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">jobControlOptions</span><span class="delimiter">&quot;</span></span>: [
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">async-execute</span><span class="delimiter">&quot;</span></span>
     ],
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">deploymentProfileName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/profiles/eoc/dockerizedApplication</span><span class="delimiter">&quot;</span></span>
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">outputTransmission</span><span class="delimiter">&quot;</span></span>: [
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">reference</span><span class="delimiter">&quot;</span></span>
+    ]
+  },
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">executionUnit</span><span class="delimiter">&quot;</span></span>: [
+    {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">href</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">hub.docker.com/eoepca/processor:latest</span><span class="delimiter">&quot;</span></span>
+    }
+  ],
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">deploymentProfileName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.opengis.net/profiles/eoc/dockerizedApplication</span><span class="delimiter">&quot;</span></span>
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_execution_management_service_ems">5.4. Execution Management Service (EMS)</h3>
+<h3 id="mainProcEMS">5.4. Execution Management Service (EMS)</h3>
 <div class="paragraph">
 <p>The EMS provides a Transaction WPS 2.0 (WPS-T) interface, with REST/JSON encodings, as described in section <a href="#_wps_t_restjson">WPS-T REST/JSON</a>.</p>
 </div>
@@ -2454,7 +2592,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </div>
 <div id="img_procEmsDeploy" class="imageblock text-center">
 <div class="content">
-<img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="1000">
+<img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="90%">
 </div>
 <div class="title">Figure 10. EMS Deployment</div>
 </div>
@@ -2469,7 +2607,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </div>
 <div id="img_procEmsExecute" class="imageblock text-center">
 <div class="content">
-<img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="1000">
+<img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="100%">
 </div>
 <div class="title">Figure 11. EMS Workflow Execution</div>
 </div>
@@ -2502,11 +2640,11 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Performing the orchestration between steps, the EMS must handle the stage-in and stage-out of data. In the simple case, the result URL returned from a step can be directly used as an input URL for the subsequent step. Use of CWL and the accompanying <code>cwl-runner</code> tool should facilitate this orchestration.</p>
 </div>
 <div class="paragraph">
-<p>The end result of the successful execution is to present the output result to the invoking user. The EMS establishes the location of the results within the storage provision of the Exploitation Platform, and interfaces with the EP Workspace component (<a href="#User Workspace">[User Workspace]</a>) to register the result in the user’s workspace. At this point the WPS execution is complete as reported by the <code>wps:GetStatus</code> and <code>wps:GetResult</code>.</p>
+<p>The end result of the successful execution is to present the output result to the invoking user. The EMS establishes the location of the results within the storage provision of the Exploitation Platform, and interfaces with the EP Workspace component (<a href="#mainWorkspace">Workspace</a>) to register the result in the user’s workspace. At this point the WPS execution is complete as reported by the <code>wps:GetStatus</code> and <code>wps:GetResult</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_application_deployment_and_execution_service_ades">5.5. Application Deployment and Execution Service (ADES)</h3>
+<h3 id="mainProcADES">5.5. Application Deployment and Execution Service (ADES)</h3>
 <div class="paragraph">
 <p>The ADES provides a WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.</p>
 </div>
@@ -2533,10 +2671,8 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><a href="#procK8s">Resource Layer (Infrastructure) Interface</a> introduces the use of Kubernetes (K8s) as the provider agnostic interface to the Resource Layer. The ADES has touch-points with the Resource Layer for access to data and compute resource. The following sub-section elaborate the approach.</p>
+<p><a href="#procK8s">Resource Layer (Infrastructure) Interface</a> introduces the use of Kubernetes (K8s) as the provider agnostic interface to the Resource Layer. The ADES has touch-points with the Resource Layer for access to data and compute resource. The following sub-sections elaborate the approach.</p>
 </div>
-<div class="sect3">
-<h4 id="_container_execution">5.5.1. Container Execution</h4>
 <div class="paragraph">
 <p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
 </div>
@@ -2545,12 +2681,12 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </div>
 <div id="img_procAdesExecute" class="imageblock text-center">
 <div class="content">
-<img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="1000">
+<img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="85%">
 </div>
 <div class="title">Figure 12. ADES Process Execution</div>
 </div>
 <div class="paragraph">
-<p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
+<p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling of the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
 </div>
 <div class="paragraph">
 <p>Pods are the atomic unit on the Kubernetes platform. A Pod is a Kubernetes abstraction that represents a group of one or more application containers. A Pod always runs on a Node. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
@@ -2562,10 +2698,45 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Kubernetes provides Namespaces, which are an abstraction that supports multiple virtual clusters on the same physical cluster. It may be interesting to explore the use of K8s Namespaces for the purpose of establishing a sandboxed execution environment for each task execution.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_data_stage_inout">5.5.2. Data Stage-in/out</h4>
+<div class="sect2">
+<h3 id="procServiceDataAccess">5.6. Processing Service Data Access</h3>
 <div class="paragraph">
-<p>There is need for the Processing Framework (ADES) to prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration.</p>
+<p>The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <a href="#img_procDataAccess">Figure 13</a> illustrates.</p>
+</div>
+<div id="img_procDataAccess" class="imageblock text-center">
+<div class="content">
+<img src="./images/processing-data-access.png" alt="processing data access" width="50%">
+</div>
+<div class="title">Figure 13. Processing Framework Data Access</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Data Input Sources</dt>
+<dd>
+<p>The data input sources may be the local exploitation platform, or output from a previous workflow step (local or other platform).</p>
+</dd>
+<dt class="hdlist1">Data Input Protocol</dt>
+<dd>
+<p>The data input protocol may be natively supported by the processing service - otherwise it will need to be staged-in by the Processing Frameowkr.</p>
+</dd>
+<dt class="hdlist1">Data Stage-in</dt>
+<dd>
+<p>In order to stage-in the data, the Processing Framework must support the data access protocol through which the input data is provided, and it must know the capabilities of the processing service to be invoked. <strong>This represents a two-way contract between the Platform (on behalf of the Processing Framework) and the service/application being executed.</strong> Options for staging-in the data include local file-system access (e.g. via s3fs-fuse mount), or it may be more optimal for the service to access the data directly via HTTP-based interfaces, e.g. to exploit the efficiencies offered by cloud-optimised file formats.</p>
+</dd>
+<dt class="hdlist1">Data Stage-out</dt>
+<dd>
+<p>The ADES stages-out the results from the service/application.<br>
+The EMS orchestrates the outputs to the next workflow step, or makes available the results to the end-user.</p>
+</dd>
+<dt class="hdlist1">Data Output Protocol</dt>
+<dd>
+<p>The data output protocol must be supported by the data destination. The retrieval of the output data is facilitated by use of simple approaches that can be encoded in an HTTP-base URL, such as HTTP GET/KVP or Object Store.</p>
+</dd>
+<dt class="hdlist1">Data Output Destination</dt>
+<dd>
+<p>The data output destination is either the EMS/next-process for a workflow, or the end-user receiving their results. The two-way Platform (Processing Framework) &lt;&#8594; Service/Application contract informs this data flow, with the workflow construction/orchestration taking into account the respective capabilities of the service/application and the platform in which it is being invoked.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
 <p>The work carried out in the OGC Testbeds 13/14 relied upon use of mounted volumes within the processing task docker container. These mounted volumes present the input data, and receive the output data, as ‘local’ file system access from the point of view of the running container and the processor running within. Use of mounted volumes is equivalently supported by K8s, and is an approach that is relied upon for many (existing) applications that are capable only of accessing data through POSIX file-system interfaces.</p>
@@ -2582,19 +2753,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#procDAL">Data Access Library</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
+<p>The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <a href="#procDataAccessLib">Data Access Library</a> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.</p>
 </li>
 <li>
 <p>The processing service / application does not natively support the data access protocol(s) offered by the underlying platform storage, e.g. the processing service only supports local storage (mounted volume), in which case the Processing Framework must facilitate access to the data on behalf of the processing service.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>Solutions to the above are explored in the following <a href="#procDataAccess">section</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="procDataAccess">5.5.3. Data Access</h4>
 <div class="paragraph">
 <p>In cases where the processing service does not natively support the data access protocols offered by the underlying platform, the processing framework must facilitate acces to platform data in a form that can be consumed by the processing service.</p>
 </div>
@@ -2640,6 +2805,33 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>Building upon the work of OGC Testbed-14 (ref. <a href="#TB14-AP">[TB14-AP]</a>), the Application Descriptor described in section <a href="#mainAppPackage">Application Packaging</a> can be enhanced to include additional application capabilities, as illustrated in <a href="#img_procAppDescriptorUpdated">Figure 14</a>.</p>
+</div>
+<div id="img_procAppDescriptorUpdated" class="imageblock text-center">
+<div class="content">
+<img src="./images/application-descriptor-updated.png" alt="application descriptor updated" width="70%">
+</div>
+<div class="title">Figure 14. Application Descriptor (Enhanced)</div>
+</div>
+<div class="paragraph">
+<p>The Application Descriptor is enhanced with additional components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Capabilities</strong><br>
+Containing, for example, data access protocols supported, (implicitly 'local filesystem' for OGC Testbeds 13/14).</p>
+</li>
+<li>
+<p><strong>Dependencies</strong><br>
+Specifying, for example, required interfaces to a specific processing, such as dask/Spark etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong><em>The 'Platform Capabilities' are elaborated in section <a href="#platformCapabilities">Platform Capabilities</a>.</em></strong></p>
+</div>
+<div class="paragraph">
 <p>The platform implementation must then ensure that the data interface is presented to the processing container in accordance with its descriptor. It is the job of the platform implementation to translate from the back-end data access protocol to that required by the container. There are a number of techniques that can be employed by the processing framework to facilitate this data access mediation:</p>
 </div>
 <div class="dlist">
@@ -2655,31 +2847,30 @@ The approach can be facilitated by use of a FUSE file-system driver to achieve t
 </dd>
 </dl>
 </div>
-<div id="procDAL" class="dlist">
+<div id="procDataAccessLib" class="dlist">
 <dl>
 <dt class="hdlist1">Use of Data Access Library</dt>
 <dd>
 <p>A Data Access Library (DAL) provides an abstraction of the interface to the data. The library provides bindings for common languages (including python, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase. Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The Processing Framework must support the ability to 'plugin' an alternative implementation of the DAL at processor execution time.<br>
-See section <a href="#resourcesDAL">Data Access Library</a>.</p>
+See section <a href="#mainDataAccessLib">Data Access Library</a>.</p>
 </dd>
 <dt class="hdlist1">Data Access Gateway</dt>
 <dd>
 <p>Access to the underlying platform data is provided through a common service layer that provides standard data access interfaces that are translated (gateway) to those of the underlying data tier.<br>
 For example, to satisfy a processing service that requires an S3 interface, but is executed in an environment where the data is available through a POSIX file system. Minio (<a href="https://github.com/minio/minio" class="bare">https://github.com/minio/minio</a>) is an open source object store implementation that overlays an S3 interface over a POSIX file system.<br>
-See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
+See section <a href="#mainDataAccessGateway">Data Access Gateway</a>.</p>
 </dd>
 </dl>
 </div>
-</div>
 <div class="sect3">
-<h4 id="_user_authorisation_context">5.5.4. User Authorisation Context</h4>
+<h4 id="_user_authorisation_context">5.6.1. User Authorisation Context</h4>
 <div class="paragraph">
 <p>The stage-in/out of data must operate within the context of the user’s ‘account’. Thus, the security context of the user must be passed through all aspects performed by the Processing Framework on behalf of the user. This is necessary to ensure that the user is only able to access data to which they are entitled and accounting &amp; billing considerations are properly maintained.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_wps_t_restjson">5.6. WPS-T REST/JSON</h3>
+<h3 id="_wps_t_restjson">5.7. WPS-T REST/JSON</h3>
 <div class="paragraph">
 <p>This interface specification is used for both the Client &lt;&#8594; EMS, and the EMS &lt;&#8594; ADES interfaces.</p>
 </div>
@@ -2841,15 +3032,15 @@ See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_interactive_graphical_applications">5.7. Interactive (Graphical) Applications</h3>
+<h3 id="_interactive_graphical_applications">5.8. Interactive (Graphical) Applications</h3>
 <div class="paragraph">
 <p>The work carried out in the OGC Testbeds focused on non-graphical applications, i.e. non-interactive processing functions executing algorithms without intervention. It is also noted that WPS does not facilitate the invocation of GUI-based interactive applications which offer a synchronous experience to the end-user.</p>
 </div>
 <div id="img_applicationsUseCase" class="imageblock text-center">
 <div class="content">
-<img src="./images/use-cases-applications.png" alt="use cases applications" width="1000">
+<img src="./images/use-cases-applications.png" alt="use cases applications" width="100%">
 </div>
-<div class="title">Figure 13. Interactive Applications Use Case</div>
+<div class="title">Figure 15. Interactive Applications Use Case</div>
 </div>
 <div class="paragraph">
 <p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
@@ -2887,7 +3078,7 @@ See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parallel_processing">5.8. Parallel Processing</h3>
+<h3 id="_parallel_processing">5.9. Parallel Processing</h3>
 <div class="paragraph">
 <p>The OGC Testbeds 13/14 only consider serial processing jobs running in a single Docker container. Here we consider how this approach can be extended to accommodate job requiring parallelisation.</p>
 </div>
@@ -2918,9 +3109,9 @@ See section <a href="#resourcesDataAccessGateway">Data Access Gateway</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="procAppCatalogue">5.9. Application Catalogue</h3>
+<h3 id="mainAppCatalogue">5.10. Application Catalogue</h3>
 <div class="paragraph">
-<p>TBDzzz - Ref. CEOS OpenSearch Best Practice</p>
+<p><mark>TBD - Ref. CEOS OpenSearch Best Practice</mark></p>
 </div>
 <div class="paragraph">
 <p>The Application Catalogue provides an inventory of applications/services that can be presented as a ‘Marketplace’ for users to discover and browse for processing services to use with EP data.</p>
@@ -2970,10 +3161,13 @@ Use of multi-step discovery and faceted search</p>
 <div class="ulist">
 <ul>
 <li>
-<p>the end-user wishing to access data directly</p>
+<p>the end-user wishing to access data directly, and accessing their results after processing</p>
 </li>
 <li>
 <p>processing services accessing data for input/output</p>
+</li>
+<li>
+<p>processing workflow steps accessing intermediate outputs from prior steps</p>
 </li>
 <li>
 <p>other federated Exploitation Platforms accessing each other’s data and services through well understood interfaces</p>
@@ -2985,12 +3179,12 @@ Use of multi-step discovery and faceted search</p>
 </div>
 <div id="img_resourceUseCase" class="imageblock text-center">
 <div class="content">
-<img src="./images/use-cases-data.png" alt="use cases data" width="1000">
+<img src="./images/use-cases-data.png" alt="use cases data" width="100%">
 </div>
-<div class="title">Figure 14. Resource Management Use Case</div>
+<div class="title">Figure 16. Resource Management Use Case</div>
 </div>
 <div class="paragraph">
-<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#procAppCatalogue">Application Catalogue</a> for more details.</p>
+<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#mainAppCatalogue">Application Catalogue</a> for more details.</p>
 </div>
 <div class="paragraph">
 <p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
@@ -3005,7 +3199,7 @@ Use of multi-step discovery and faceted search</p>
 <p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
 </div>
 <div class="paragraph">
-<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 15</a>:</p>
+<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 17</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3031,9 +3225,9 @@ Use of multi-step discovery and faceted search</p>
 </div>
 <div id="img_resourceOverview" class="imageblock text-center">
 <div class="content">
-<img src="./images/resource-overview.png" alt="resource overview" width="1000">
+<img src="./images/resource-overview.png" alt="resource overview" width="85%">
 </div>
-<div class="title">Figure 15. Resource Management Overview</div>
+<div class="title">Figure 17. Resource Management Overview</div>
 </div>
 <div class="paragraph">
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
@@ -3091,7 +3285,7 @@ Use of multi-step discovery and faceted search</p>
 <div class="sect3">
 <h4 id="mainOpenSearch">6.1.3. OpenSearch</h4>
 <div class="paragraph">
-<p>TBDzzz - Ref. CEOS OpenSearch Best Practice</p>
+<p><mark>TBD - Ref. CEOS OpenSearch Best Practice</mark></p>
 </div>
 <div class="paragraph">
 <p>For the Exploitation Platform, OpenSearch is used with the OGC extensions and recommendations:</p>
@@ -3119,7 +3313,7 @@ Use of multi-step discovery and faceted search</p>
 <div class="sect3">
 <h4 id="_resource_types">6.1.4. Resource Types</h4>
 <div class="paragraph">
-<p>Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a proper match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.</p>
+<p>Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a correct match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3141,9 +3335,9 @@ Use of multi-step discovery and faceted search</p>
 </div>
 <div id="img_catalogueAggregation" class="imageblock text-center">
 <div class="content">
-<img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="1000">
+<img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="100%">
 </div>
-<div class="title">Figure 16. Catalogue Aggregation</div>
+<div class="title">Figure 18. Catalogue Aggregation</div>
 </div>
 <div class="paragraph">
 <p>We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:</p>
@@ -3175,12 +3369,12 @@ Use of multi-step discovery and faceted search</p>
 </div>
 <div id="img_catalogueFederation" class="imageblock text-center">
 <div class="content">
-<img src="./images/catalogue-federation.png" alt="catalogue federation" width="1000">
+<img src="./images/catalogue-federation.png" alt="catalogue federation" width="70%">
 </div>
-<div class="title">Figure 17. Catalogue Federation</div>
+<div class="title">Figure 19. Catalogue Federation</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_catalogueFederation">Figure 17</a> there are a number of possible approaches:</p>
+<p>As illustrated in <a href="#img_catalogueFederation">Figure 19</a> there are a number of possible approaches:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3261,7 +3455,7 @@ Use of multi-step discovery and faceted search</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="resourcesDataAccessGateway">6.3. Data Access Gateway</h3>
+<h3 id="mainDataAccessGateway">6.3. Data Access Gateway</h3>
 <div class="paragraph">
 <p>The EO datasets are stored according to the underlying storage technology of the infrastructure Resource Tier. The storage interface presented is not under the control of the Exploitation Platform.</p>
 </div>
@@ -3288,9 +3482,17 @@ Use of multi-step discovery and faceted search</p>
 <p>In the EP system design, these services are designed to be deployed as containers through Kubernetes. This presents the possibility that some aspects of the Data Access Gateway can be met by the facilities offered by Kubernetes volumes. Access to underlying data is provided through volumes that are mounted into the container. Kubernetes volumes have native support for a number of common storage technologies (such as AWS EBS, Cinder), however these tend to be block rather than object storage.</p>
 </div>
 <div class="paragraph">
-<p>The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. We might regard the lowest-common-denominator for data access to be a combination of:<br>
-* Local filesystem access<br>
-* AWS S3 Object Store</p>
+<p>The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. We might regard the lowest-common-denominator for data access to be a combination of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Local filesystem access</p>
+</li>
+<li>
+<p>AWS S3 Object Store</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Through docker/kubernetes we can use mounted 'volumes' to present data through a local filesystem interface.<br>
@@ -3302,9 +3504,12 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </div>
 </div>
 <div class="sect2">
-<h3 id="resourcesDAL">6.4. Data Access Library (DAL)</h3>
+<h3 id="mainDataAccessLib">6.4. Data Access Library (DAL)</h3>
 <div class="paragraph">
-<p>In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library (DAL) is provided specifically as a point of integration for processing services and applications. The Data Access Library provides an abstraction of the interface to the data, with bindings for common languages (including python, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase.</p>
+<p>In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library (DAL) is provided specifically as a point of integration for processing services and applications. The Data Access Library provides an abstraction of the interface to the data, with bindings for common languages (including python. R, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>The Data Access Library can be seen as a subset of the facilities offered by the <a href="#mainClientLibrary">Client Library</a>.</em></strong></p>
 </div>
 <div class="paragraph">
 <p>The Data Access Library can provide an abstraction at two levels:</p>
@@ -3327,14 +3532,17 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="paragraph">
 <p>Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The library offered to the processing service at runtime must implement the specific data access interface to the resource-tier storage. Hence, the library should not be ‘hard-coded’ into the processor application package (Docker image). The Processing Framework must support the ability to 'plugin' an alternative (platform-specific) implementation of the DAL dynamically at processor execution time. It may be possible to develop a 'generic' Data Access Library by implementation against the standard (internal) interface provided by the Data Access Gateway. In this case, the platform-specifics regarding data access are borne entirely by the Data Access Gateway.</p>
 </div>
+<div class="paragraph">
+<p><strong>See also section <a href="#procServiceDataAccess">Processing Service Data Access</a> which provides a discussion of data access approaches for processing services and the stage-in/out of data.</strong></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_data_ingestion">6.5. Data Ingestion</h3>
 <div class="paragraph">
-<p>Presents a standard interface to the EP components, whilst transparently interfacing with the infrastructure Resource Tier.</p>
+<p>Data Ingestion presents a standard interface to the EP components, whilst transparently interfacing with the infrastructure Resource Tier.</p>
 </div>
 <div class="paragraph">
-<p>Performs the following steps:</p>
+<p>During data ingestion the following steps may be performed:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3379,7 +3587,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_workspace">6.6. Workspace</h3>
+<h3 id="mainWorkspace">6.6. Workspace</h3>
 <div class="paragraph">
 <p>The Workspace provides a service to users through which they can organise data/processing-services that are of current interest to them, they are currently working on, and to organise results of processing executed, Research Objects, etc.</p>
 </div>
@@ -3392,10 +3600,10 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="ulist">
 <ul>
 <li>
-<p>OpenSearch interface for read</p>
+<p>READ access: OpenSearch should provide a good fit for this interface</p>
 </li>
 <li>
-<p>What interface for add, update, delete ?</p>
+<p>CREATE/UPDATE/DELETE: Interface semantics must be defined</p>
 </li>
 </ul>
 </div>
@@ -3414,27 +3622,53 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </div>
 <div id="img_clientPortability" class="imageblock text-center">
 <div class="content">
-<img src="./images/client-portability.png" alt="client portability" width="1000">
+<img src="./images/client-portability.png" alt="client portability" width="100%">
 </div>
-<div class="title">Figure 18. Client Portability</div>
+<div class="title">Figure 20. Client Portability</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_clientPortability">Figure 18</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</p>
+<p>As illustrated in <a href="#img_clientPortability">Figure 20</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. <strong>It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</strong></p>
 </div>
 <div class="sect2">
 <h3 id="mainServiceApi">7.1. Service API</h3>
 <div class="paragraph">
-<p>The Service API presented by the Exploitation Platform is largely defined and met by the fundamental data/processing services it offers. There are some additional meta-services that support the clients in the discovery and usage of these core services. The Service API defined in this section seeks to define a standard set of interfaces against which the Client Library can be developed and that can be relied upon for platform-to-platform interroperability.</p>
+<p>The Service API presented by the Exploitation Platform is largely defined and met by the fundamental data/processing services it offers. There are some additional meta-services that support the clients in the discovery and usage of these core services. The Service API defined in this section seeks to define a standard set of interfaces against which the Client Library can be developed and that can be relied upon for platform-to-platform interoperability.</p>
 </div>
 <div class="sect3">
-<h4 id="_platform_capabilities">7.1.1. Platform Capabilities</h4>
+<h4 id="platformCapabilities">7.1.1. Platform Capabilities</h4>
 <div class="paragraph">
-<p>Bootstrap URL to discover the service endpoints of the platform.</p>
+<p>Provides a single well-known 'bootstrap' URL through which the service capabilities and their endpoints can be discovered:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Declare platform capabilities</p>
+</li>
+<li>
+<p>Discover service endpoints</p>
+</li>
+<li>
+<p>Core platform data/processing services</p>
+</li>
+<li>
+<p>Additional meta-services to support clients</p>
+</li>
+<li>
+<p>Used by <a href="#mainClientLibrary">Client Library</a> to initialise its platform interfaces</p>
+</li>
+<li>
+<p>Used by <a href="#mainProcEMS">EMS</a> to match service/application dependencies with platform capabilities</p>
+</li>
+<li>
+<p>Used by other platforms to establish interoperability</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>/.well-known/eoepca-platform</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">Example Platform Capabilities</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
     <span class="key"><span class="delimiter">&quot;</span><span class="content">services</span><span class="delimiter">&quot;</span></span>: [
@@ -3460,7 +3694,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </div>
 </div>
 <div class="paragraph">
-<p>The endpoints referenced in eoepca-platform are described in the following sections.</p>
+<p><strong>The endpoints referenced in eoepca-platform are described in the following sections.</strong></p>
 </div>
 </div>
 <div class="sect3">
@@ -3514,13 +3748,13 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="sect3">
 <h4 id="_app_search">7.1.6. app_search</h4>
 <div class="paragraph">
-<p>The URL of the OpenSearch interface to the <a href="#procAppCatalogue">Application Catalogue</a>.</p>
+<p>The URL of the OpenSearch interface to the <a href="#mainAppCatalogue">Application Catalogue</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>/applications</strong> (example)</p>
 </div>
 <div class="paragraph">
-<p>Implements an OpenSearch interface in accordance with section <a href="#procAppCatalogue">Application Catalogue</a>.</p>
+<p>Implements an OpenSearch interface in accordance with section <a href="#mainAppCatalogue">Application Catalogue</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3562,46 +3796,232 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="sect3">
 <h4 id="_coverage">7.1.10. coverage</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the OGC WCS (Web Coverage Service) interface that provides a <em>Coverage-oriented</em> access to the underlying data holding of the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>/coverage</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC WCS service in accordance with standard <strong>OGC Web Coverage Service (WCS) 2.1 Interface Standard - Core</strong> as defined in <a href="#OGC-WCS">[OGC-WCS]</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_datacube">7.1.11. datacube</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the OGC WCPS (Web Coverage Processing Service) interface that provides a queryable 'data cube' interface to multi-dimensional coverage data.</p>
+</div>
+<div class="paragraph">
+<p><strong>/datacube</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an OGC WCPS service in accordance with standard <strong>Web Coverage Processing Service (WCPS) Language Interface Standard</strong> as defined in <a href="#OGC-WCPS">[OGC-WCPS]</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_object_store">7.1.12. object_store</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the <em>Amazon S3</em> interface that provides object storage access to the underlying data holding of the platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>/object_store</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an Amazon S3 service in accordance with <strong>Amazon Simple Storage Service REST API</strong> as defined in <a href="#AWS-S3">[AWS-S3]</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Amazon S3 Compatibility Subset</div>
+<div class="paragraph">
+<p>For the purposes of this interface, a subset of the full Amazon S3 REST API will be defined as mandatory. The motivation is to define a consistent interface that is supported by third-party object storage implementations that provide an S3-compatible API, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ceph (<a href="https://ceph.com/ceph-storage/" class="bare">https://ceph.com/ceph-storage/</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>CEPH OBJECT GATEWAY S3 API (<a href="http://docs.ceph.com/docs/mimic/radosgw/s3/" class="bare">http://docs.ceph.com/docs/mimic/radosgw/s3/</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>OpenStack Swift (<a href="https://docs.openstack.org/swift" class="bare">https://docs.openstack.org/swift</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>S3/Swift REST API Comparison Matrix (<a href="https://docs.openstack.org/swift/latest/s3_compat.html" class="bare">https://docs.openstack.org/swift/latest/s3_compat.html</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_ems">7.1.13. ems</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the <a href="#mainProcEMS">Execution Management Service</a> service.</p>
+</div>
+<div class="paragraph">
+<p><strong>/ems</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an <strong>EMS service</strong> as described in section <a href="#mainProcEMS">Execution Management Service</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_ades">7.1.14. ades</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the <a href="#mainProcADES">Application Deployment and Execution Service</a> service.</p>
+</div>
+<div class="paragraph">
+<p><strong>/ades</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>Implements an <strong>ADES service</strong> as described in section <a href="#mainProcADES">Application Deployment and Execution Service</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_workspace_2">7.1.15. workspace</h4>
+<h4 id="_workspace">7.1.15. workspace</h4>
 <div class="paragraph">
-<p>TBD</p>
+<p>The URL of the 'user workspace' service as described in section <a href="#mainWorkspace">Workspace</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>/workspace</strong> (example)</p>
+</div>
+<div class="paragraph">
+<p>The interface for the workspace is currently <mark>TBD</mark>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="mainClientLibrary">7.2. Client Library</h3>
 <div class="paragraph">
-<p>TBD</p>
+<p>The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
+</div>
+<div class="paragraph">
+<p>The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+</div>
+<div id="img_clientLibServiceInterfaces" class="imageblock text-center">
+<div class="content">
+<img src="./images/client-lib-service-interfaces.png" alt="client lib service interfaces" width="100%">
+</div>
+<div class="title">Figure 21. Client Library Service Interfaces</div>
+</div>
+<div class="paragraph">
+<p>As illustrated in <a href="#img_clientLibServiceInterfaces">Figure 21</a>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).</p>
+</div>
+<div class="sect3">
+<h4 id="_client_library_concept_illustration">7.2.1. Client Library Concept Illustration</h4>
+<div class="paragraph">
+<p>The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<a href="#TB14-ADES">[TB14-ADES]</a>). The scenario is shown in <a href="#img_ndviStacker">Figure 22</a>.</p>
+</div>
+<div id="img_ndviStacker" class="imageblock text-center">
+<div class="content">
+<img src="./images/ndvi-stacker.png" alt="ndvi stacker" width="80%">
+</div>
+<div class="title">Figure 22. OGC Testbed-14 Workflow Scenario (NDVI Stacker)</div>
+</div>
+<div class="paragraph">
+<p>Four platforms are involved in the scenario:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Platforms A/B/C</dt>
+<dd>
+<p>These platforms perform the local execution (ADES) of the MultiSensorNDVI processor on a collection in their local data holding. These executions are managed under the orchestration (EMS) of the Primary Platform.</p>
+</dd>
+<dt class="hdlist1">Primary Platform</dt>
+<dd>
+<p>The Primary Platform is in charge of the workflow. Thus, the orchestration (EMS) is conducted from this platform, which interfaces to the 'subordinate' platforms (A/B/C) for the execution of the steps 'close-to-the-data', and then completes the workflow by execution (ADES) of the NDVIStacker processor to produce the final result.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>In response to this scenario we might envisage a client application implemented against the Client Library as follows&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="title">Example python program using Client Library</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="python"><span class="keyword">import</span> <span class="include">eoepca</span>
+
+<span class="comment"># Connect to primary platform - e.g. when running on own desktop</span>
+primaryPlatform = eoepca.platform(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://primary.platform.eo</span><span class="delimiter">&quot;</span></span>) <i class="conum" data-value="1"></i><b>(1)</b>
+primaryPlatform = primaryPlatform.authenticate(<span class="string"><span class="delimiter">&quot;</span><span class="content">bob@home.org</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;&lt;MY-API-KEY&gt;&gt;</span><span class="delimiter">&quot;</span></span>) <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="comment"># Or, use the 'local' hosting platform - e.g. when running in 'cloud' platform</span>
+primaryPlatform = eoepca.platform().authenticate(<span class="string"><span class="delimiter">&quot;</span><span class="content">bob@home.org</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;&lt;MY-API-KEY&gt;&gt;</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+
+<span class="comment"># Init supporting platforms</span>
+platA = eoepca.platform(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://platform-a.eo</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+platB = eoepca.platform(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://platform-b.eo</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+platC = eoepca.platform(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://platform-c.eo</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+
+<span class="comment"># Specify extent</span>
+extent = { <span class="string"><span class="delimiter">&quot;</span><span class="content">bbox</span><span class="delimiter">&quot;</span></span>: [ -<span class="float">0.489</span>, <span class="float">51.28</span>, <span class="float">0.236</span>, <span class="float">51.686</span> ], <span class="string"><span class="delimiter">&quot;</span><span class="content">time</span><span class="delimiter">&quot;</span></span>: [ <span class="string"><span class="delimiter">&quot;</span><span class="content">2018-01-01</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">2018-12-31</span><span class="delimiter">&quot;</span></span> ] }
+
+<span class="comment"># Specify processes</span>
+coverage1 = platA.collection(<span class="string"><span class="delimiter">&quot;</span><span class="content">PLAT_A_DATA</span><span class="delimiter">&quot;</span></span>).coverage(extent) <i class="conum" data-value="5"></i><b>(5)</b>
+proc1 = coverage1.process(<span class="string"><span class="delimiter">&quot;</span><span class="content">MultiSensorNDVI</span><span class="delimiter">&quot;</span></span>) <i class="conum" data-value="6"></i><b>(6)</b>
+proc2 = platB.collection(<span class="string"><span class="delimiter">&quot;</span><span class="content">PLAT_B_DATA</span><span class="delimiter">&quot;</span></span>).coverage(extent).process(<span class="string"><span class="delimiter">&quot;</span><span class="content">MultiSensorNDVI</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="5"></i><b>(5)</b> <i class="conum" data-value="6"></i><b>(6)</b>
+proc3 = platC.collection(<span class="string"><span class="delimiter">&quot;</span><span class="content">PLAT_C_DATA</span><span class="delimiter">&quot;</span></span>).coverage(extent).process(<span class="string"><span class="delimiter">&quot;</span><span class="content">MultiSensorNDVI</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="5"></i><b>(5)</b> <i class="conum" data-value="6"></i><b>(6)</b>
+
+<span class="comment"># Specify workflow</span>
+workflow = primaryPlatform.parallel([proc1, proc2, proc3]).process(<span class="string"><span class="delimiter">&quot;</span><span class="content">NDVIStacker</span><span class="delimiter">&quot;</span></span>) <i class="conum" data-value="7"></i><b>(7)</b>
+
+<span class="comment"># Get result - initiates 'lazy' execution</span>
+result = workflow.retrieve(format=<span class="string"><span class="delimiter">&quot;</span><span class="content">geotiff</span><span class="delimiter">&quot;</span></span>, options={}) <i class="conum" data-value="8"></i><b>(8)</b>
+print(result)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>When each platform object is initialised, its endpoint <a href="#platformCapabilities"><code>${platform-url}/.well-known/eoepca-platform</code></a> is interrogated, to understand its capabilities and learn its service endpoints.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The user must authenticate to the primary platform (that 'executes' the workflow), using their API key.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>In the case where the client is <strong>running on the primary platform</strong> then the platform URL is not required in the initialisation (implying 'local' platform). Examples of this case include: code running in a hosted Jupyter notebook, or a deployed processing service that chooses to use the Client Library.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Subordinate platforms are initialised (for capabilities) without authentication, on the basis that the primary platform authentication can be carried through the workflow 'call-stack' through delegated/federated IAM solution - ref. section <a href="#IAM">Identity and Access Management</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>At each platform the collection is selected through its unique collection identifier, and a data coverage subset is specified through a definition of the required spatial/temporal extent.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>At each platform the processing task to be exectued against the selected coverage is specified.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>The workflow is defined by requesting the parallel execution of the <code>MultiSensorNDVI</code> processor on each of the three platforms, with these results providing input to the <code>NDVIStacker</code> process executed on the primary platform.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>The call to <code>retrieve</code> the outcome of the workflow initiates its <strong>'lazy' execution</strong>. Prior to this point the Client Library has been operating on <strong>'proxy'</strong> objects that record the <strong>specification of the workflow</strong> requested by the code. At this point the Client Library converts the workflow specification into a CWL definition suitable for deployment and execution at the <a href="#mainProcEMS">EMS</a> of the primary platform. In response the EMS will interface with the <a href="#mainProcADES">ADES</a> of each subordinate platform to ensure the <code>MultiSensorNDVI</code> is deployed and executed against the requested coverage. Subsequently the EMS interfaces with the ADES of the local platform to ensure the <code>NDVIStacker</code> is deployed and executed against the outputs of the three <code>MultiSensorNDVI</code> process executions.</td>
+</tr>
+</table>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -3609,7 +4029,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <h2 id="_web_portal_2">8. Web Portal</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform, and the public web-API that supports mobile and third-party (programmatic) access to services of the platform.</p>
+<p>The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform.</p>
 </div>
 <div class="paragraph">
 <p>The Web Portal is not a domain area in its own right – it is contributed to by the collaborative developments of the defined domain areas. The user’s view of the platform is consolidated through the browser-based user interface, and hence it is convenient to present all aspects of this view together. Thus, the Web Portal provides the user facing ‘front’ of the system and interfaces to the services provided by the domain areas identified in the system design.</p>
@@ -3644,10 +4064,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p>Hosting of user defined applications with interactive user interfaces</p>
 </li>
 <li>
-<p>Web Application Programming Interface (API) providing user’s external access to the platform’s services outside of the browser interface, ( expected to be a thin wrapper around the service end-points offered by other domain areas)</p>
-</li>
-<li>
-<p>Hosting of rich media content that is linked to catalogued resources. Such content ranges from documents &amp; manuals to tutorials and i nstructional *media.</p>
+<p>Hosting of rich media content that is linked to catalogued resources. Such content ranges from documents &amp; manuals to tutorials and instructional media.</p>
 </li>
 <li>
 <p>Hosting of community and collaboration tools such as Wikis, FAQs and forums</p>
@@ -3655,13 +4072,13 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 19</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 23</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
-<img src="./images/web-portal.png" alt="web portal" width="1000">
+<img src="./images/web-portal.png" alt="web portal" width="90%">
 </div>
-<div class="title">Figure 19. Web Portal: Overview</div>
+<div class="title">Figure 23. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -3670,16 +4087,16 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p>Optionally, a <strong>Content Management System (CMS)</strong> can provide a framework within which the platform’s web presence is hosted. It facilitates the creation of user content that can be linked to data and processing resources in the Resource Catalogue. In addition, the CMS provides out-of-the-box facilities for Wikis, FAQs, forums etc.</p>
 </div>
 <div class="paragraph">
-<p>The <strong>Marketplace</strong> builds a user experience on top of the Resource Catalogue that provides a consolidated inventory of all services and data published within the federated system. The user is presented with the ability to browse and to perform rich search queries to discover items of specific interest. The Marketplace content for a data item can include interactive Data Visualisation, such as providing a WMS viewer that exploits the WMS service provided with the platform’s resource service. This <strong>Data Visualisation</strong> component is re-usable such that it can be used elsewhere in the user experience, for example from the user’s workspace to visualise some processing results.</p>
+<p>The <strong>Marketplace</strong> builds a user experience on top of the Application &amp; Data Catalogues that provides a consolidated inventory of all services, applications and data published within the federated system. The user is presented with the ability to browse and to perform rich search queries to discover items of specific interest. The Marketplace content for a data item can include interactive Data Visualisation, such as providing a WMS viewer that exploits the WMS service provided with the platform’s resource service. This <strong>Data Visualisation</strong> component is re-usable such that it can be used elsewhere in the user experience, for example from the user’s workspace to visualise some processing results.</p>
 </div>
 <div class="paragraph">
-<p>The *User Workspace *provides the environment where users are able to organise data and processing they are interested in, and to manage asynchronous ‘tasks’ they have submitted into the platform. Thus, they are able to monitor data retrieval and processing requests and obtain the outputs at completion. The facility is also provided for them to publish derived ‘added-value’ outcomes from their workspace into the Resource Catalogue, and so present them in the marketplace.</p>
+<p>The <strong>User Workspace</strong> provides the environment where users are able to organise data and processing they are interested in, and to manage asynchronous ‘tasks’ they have submitted into the platform. Thus, they are able to monitor data retrieval and processing requests and obtain the outputs at completion. The facility is also provided for them to publish derived ‘added-value’ outcomes from their workspace into the Resource Catalogue, and so present them in the marketplace.</p>
 </div>
 <div class="paragraph">
 <p>Experts use the <strong>Workflow Composition</strong> interface to chain and combine multiple processing functions and input data into reusable workflows. The interface allows them to select these resources discovered via the Marketplace, architect and execute their workflow, and ultimately publish it as a reusable processing function that is available to others in the Marketplace.</p>
 </div>
 <div class="paragraph">
-<p>Experts are able to develop and submit to the EO Exploitation Platform their own custom processing algorithms, tools and applications. The <strong>Processor Development Environment</strong> provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.</p>
+<p>Experts are provided with an <strong>Interactive Analysis Tool</strong> that presents a hosted coding environment through which they can interact directly with the data and services of the platform. Additionally, Experts are able to develop and submit to the EO Exploitation Platform their own custom processing algorithms, tools and applications. The <strong>Processor Development Environment</strong> provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.</p>
 </div>
 <div class="paragraph">
 <p><strong>User Management</strong> provides the functionality associated with user profiles. New users will have the ability to self-register and then manage all aspects of their profile interactively - noting that the intention in the Common Architecture is to delegate User Identity management to external IdPs.</p>
@@ -3687,13 +4104,17 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="paragraph">
 <p><strong>Operators</strong> will have access to management interfaces for system monitoring and administration.</p>
 </div>
+<hr>
+<div class="paragraph large">
+<p>&lt;&lt; End of Document &gt;&gt;</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version v0.4.2<br>
-Last updated 2019-06-21 15:21:45 UTC
+Version 0.5<br>
+Last updated 2019-07-09 15:09:52 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
