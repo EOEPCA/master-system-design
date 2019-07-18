@@ -8,47 +8,22 @@
 <meta name="description" content="Master System Design for the Common Architecture">
 <meta name="keywords" content="common architecture master system design">
 <meta name="author" content="TVUK System Team">
-<title>Master System Design Document</title>
+<title>Master System Design Document: EOEPCA.SDD.001</title>
 <link rel="stylesheet" href="stylesheets/eoepca.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="book">
+<body class="book toc2 toc-left">
 <div id="header">
-<h1>Master System Design Document</h1>
+<h1>Master System Design Document: EOEPCA.SDD.001</h1>
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version 0.5,</span>
-<span id="revdate">09.07.2019</span>
+<span id="revnumber">version 0.6,</span>
+<span id="revdate">18.07.2019</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>EO Exploitation Platform Common Architecture<br>
-<em>Master System Design Document</em></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">COMMENTS and ISSUES</dt>
-<dd>
-<p>If you would like to raise comments or issues on this document, please do so by raising an Issue at the following URL <a href="https://github.com/EOEPCA/master-system-design/issues" class="bare">https://github.com/EOEPCA/master-system-design/issues</a>.</p>
-</dd>
-<dt class="hdlist1">PDF</dt>
-<dd>
-<p>This document is available in PDF format <a href="EOEPCA-master-system-design.pdf" target="_blank" rel="noopener">here</a>.</p>
-</dd>
-<dt class="hdlist1">COPYRIGHT</dt>
-<dd>
-<p>Copyright © 2019 <mark>TBD (ESA or TVUK or something else ?)</mark></p>
-</dd>
-</dl>
-</div>
-<div style="page-break-after: always;"></div>
-<div id="toc" class="toc">
-<div id="toctitle" class="title">Table of Contents</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Master System Design</div>
 <ul class="sectlevel1">
 <li><a href="#_introduction">1. Introduction</a>
 <ul class="sectlevel2">
@@ -59,8 +34,8 @@
 <li><a href="#_glossary">1.5. Glossary</a></li>
 </ul>
 </li>
-<li><a href="#_context">2. Context</a></li>
-<li><a href="#_design_overview">3. Design Overview</a>
+<li><a href="#mainContext">2. Context</a></li>
+<li><a href="#mainDesignOverview">3. Design Overview</a>
 <ul class="sectlevel2">
 <li><a href="#_domain_areas">3.1. Domain Areas</a>
 <ul class="sectlevel3">
@@ -91,45 +66,61 @@
 <li><a href="#_access_token_validation">4.2.6. Access Token Validation</a></li>
 <li><a href="#_federated_user_access">4.2.7. Federated User Access</a>
 <ul class="sectlevel4">
-<li><a href="#_user_pre_authorisation">User Pre-authorisation</a></li>
-<li><a href="#_possible_use_of_oidc_jwks_federation">Possible use of OIDC JWKS Federation</a></li>
+<li><a href="#_user_pre_authorization">4.2.7.1. User Pre-authorization</a></li>
+<li><a href="#_possible_use_of_oidc_jwks_federation">4.2.7.2. Possible use of OIDC JWKS Federation</a></li>
 </ul>
 </li>
 <li><a href="#_additional_oidc_capabilities">4.2.8. Additional OIDC Capabilities</a>
 <ul class="sectlevel4">
-<li><a href="#_oidc_discovery">OIDC Discovery</a></li>
-<li><a href="#_client_registration">Client Registration</a></li>
+<li><a href="#_oidc_discovery">4.2.8.1. OIDC Discovery</a></li>
+<li><a href="#_client_registration">4.2.8.2. Client Registration</a></li>
 </ul>
 </li>
-<li><a href="#_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</a></li>
 </ul>
 </li>
-<li><a href="#mainBilling">4.3. Accounting and Billing</a>
+<li><a href="#_authorization_policy_decision">4.3. Authorization (Policy Decision)</a>
 <ul class="sectlevel3">
-<li><a href="#_billing_identities">4.3.1. Billing Identities</a></li>
-<li><a href="#_billing_service">4.3.2. Billing Service</a></li>
-<li><a href="#_pricing_engine">4.3.3. Pricing Engine</a></li>
-<li><a href="#_commercially_licensed_resources">4.3.4. Commercially Licensed Resources</a></li>
-<li><a href="#_budgets">4.3.5. Budgets</a></li>
-<li><a href="#_inter_platform_payments">4.3.6. Inter-platform Payments</a>
+<li><a href="#_xacml_extensible_access_control_markup_language">4.3.1. XACML (eXtensible Access Control Markup Language)</a>
 <ul class="sectlevel4">
-<li><a href="#_inter_platform_payment_model_and_process">Inter-platform Payment Model and Process</a></li>
+<li><a href="#_xacml_3_0">4.3.1.1. XACML 3.0</a></li>
+<li><a href="#_geoxacml">4.3.1.2. GeoXACML</a></li>
+<li><a href="#_alfa_abbreviated_language_for_authorization">4.3.1.3. ALFA (Abbreviated Language For Authorization)</a></li>
+<li><a href="#_xacml_related_technologies">4.3.1.4. XACML Related Technologies</a></li>
 </ul>
 </li>
-<li><a href="#_federated_commercial_services_without_inter_platform_payments_direct_payments">4.3.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</a></li>
-<li><a href="#_estimating_inter_platform_costs">4.3.8. Estimating Inter-platform Costs</a></li>
-<li><a href="#_relationship_to_system_components">4.3.9. Relationship to System Components</a></li>
-<li><a href="#_payment_processing_systems">4.3.10. Payment Processing Systems</a></li>
+<li><a href="#_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</a>
+<ul class="sectlevel4">
+<li><a href="#_uma_related_technologies">4.3.2.1. UMA Related Technologies</a></li>
 </ul>
 </li>
-<li><a href="#_user_profile">4.4. User Profile</a>
+</ul>
+</li>
+<li><a href="#mainBilling">4.4. Accounting and Billing</a>
 <ul class="sectlevel3">
-<li><a href="#_licence_and_tc_management">4.4.1. Licence and T&amp;C Management</a>
+<li><a href="#_billing_identities">4.4.1. Billing Identities</a></li>
+<li><a href="#_billing_service">4.4.2. Billing Service</a></li>
+<li><a href="#_pricing_engine">4.4.3. Pricing Engine</a></li>
+<li><a href="#_commercially_licensed_resources">4.4.4. Commercially Licensed Resources</a></li>
+<li><a href="#_budgets">4.4.5. Budgets</a></li>
+<li><a href="#_inter_platform_payments">4.4.6. Inter-platform Payments</a>
 <ul class="sectlevel4">
-<li><a href="#_licence_requirement_checks">Licence Requirement Checks</a></li>
-<li><a href="#_licence_acquisition">Licence Acquisition</a></li>
-<li><a href="#_licence_administration">Licence Administration</a></li>
-<li><a href="#_porting_licences_within_the_federation">Porting Licences Within the Federation</a></li>
+<li><a href="#_inter_platform_payment_model_and_process">4.4.6.1. Inter-platform Payment Model and Process</a></li>
+</ul>
+</li>
+<li><a href="#_federated_commercial_services_without_inter_platform_payments_direct_payments">4.4.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</a></li>
+<li><a href="#_estimating_inter_platform_costs">4.4.8. Estimating Inter-platform Costs</a></li>
+<li><a href="#_relationship_to_system_components">4.4.9. Relationship to System Components</a></li>
+<li><a href="#_payment_processing_systems">4.4.10. Payment Processing Systems</a></li>
+</ul>
+</li>
+<li><a href="#_user_profile">4.5. User Profile</a>
+<ul class="sectlevel3">
+<li><a href="#_licence_and_tc_management">4.5.1. Licence and T&amp;C Management</a>
+<ul class="sectlevel4">
+<li><a href="#_licence_requirement_checks">4.5.1.1. Licence Requirement Checks</a></li>
+<li><a href="#_licence_acquisition">4.5.1.2. Licence Acquisition</a></li>
+<li><a href="#_licence_administration">4.5.1.3. Licence Administration</a></li>
+<li><a href="#_porting_licences_within_the_federation">4.5.1.4. Porting Licences Within the Federation</a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +136,7 @@
 <li><a href="#mainProcADES">5.5. Application Deployment and Execution Service (ADES)</a></li>
 <li><a href="#procServiceDataAccess">5.6. Processing Service Data Access</a>
 <ul class="sectlevel3">
-<li><a href="#_user_authorisation_context">5.6.1. User Authorisation Context</a></li>
+<li><a href="#_user_authorization_context">5.6.1. User Authorization Context</a></li>
 </ul>
 </li>
 <li><a href="#_wps_t_restjson">5.7. WPS-T REST/JSON</a></li>
@@ -202,9 +193,99 @@
 </li>
 </ul>
 </li>
-<li><a href="#_web_portal_2">8. Web Portal</a></li>
+<li><a href="#mainWebPortal">8. Web Portal</a></li>
 </ul>
 </div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>EO Exploitation Platform Common Architecture<br>
+<em>Master System Design Document</em><br>
+EOEPCA.SDD.001</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>COMMENTS and ISSUES</strong><br>
+If you would like to raise comments or issues on this document, please do so by raising an Issue at the following URL <a href="https://github.com/EOEPCA/master-system-design/issues" class="bare">https://github.com/EOEPCA/master-system-design/issues</a>.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>PDF</strong><br>
+This document is available in PDF format <a href="EOEPCA-master-system-design.pdf" target="_blank" rel="noopener">here</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>EUROPEAN SPACE AGENCY CONTRACT REPORT</strong><br>
+The work described in this report was done under ESA contract. Responsibility for the contents resides in the author or organisation that prepared it.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>TELESPAZIO VEGA UK Ltd</strong><br>
+350 Capability Green, Luton, Bedfordshire, LU1 3LU, United Kingdom.<br>
+Tel: +44 (0)1582 399000<br>
+<a href="http://telespazio-vega.com/">www.telespazio-vega.com</a></p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">AMENDMENT HISTORY</dt>
+<dd>
+<p>This document shall be amended by releasing a new edition of the document in its entirety.<br>
+The Amendment Record Sheet below records the history and issue status of this document.</p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Amendment Record Sheet</caption>
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">ISSUE</th>
+<th class="tableblock halign-center valign-top">DATE</th>
+<th class="tableblock halign-left valign-top">REASON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.6</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">18/07/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added XACML description + PDF template modifications</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.5</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">09/07/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added Client Library + Billing</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.4</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">21/06/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added Platform API</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.3</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">13/05/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added content for Processing &amp; Chaining and Resource Management</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.2</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">25/04/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Re-work IAM approach</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">0.1</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">24/04/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial in-progress draft</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -219,8 +300,37 @@
 </div>
 <div class="sect2">
 <h3 id="_structure_of_the_document">1.2. Structure of the Document</h3>
-<div class="paragraph">
-<p><mark>TBD</mark></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Section 2 - <a href="#mainContext">Context</a></dt>
+<dd>
+<p>Provides the context for Exploitation Platforms within the ecosystem of EO analysis.</p>
+</dd>
+<dt class="hdlist1">Section 3 - <a href="#mainDesignOverview">Design Overview</a></dt>
+<dd>
+<p>Provides an overview of the Common Architecture and the domain areas.</p>
+</dd>
+<dt class="hdlist1">Section 4 - <a href="#mainUserManagement">User Management</a></dt>
+<dd>
+<p>Describes the User Management domain area.</p>
+</dd>
+<dt class="hdlist1">Section 5 - <a href="#mainProcessingAndChaining">Processing and Chaining</a></dt>
+<dd>
+<p>Describes the Processing &amp; Chaining domain area.</p>
+</dd>
+<dt class="hdlist1">Section 6 - <a href="#mainResourceManagement">Resource Management</a></dt>
+<dd>
+<p>Describes the Resource Management domain area.</p>
+</dd>
+<dt class="hdlist1">Section 7 - <a href="#mainPlatformApi">Platform API</a></dt>
+<dd>
+<p>Describes the Platform API, covering all domain areas.</p>
+</dd>
+<dt class="hdlist1">Section 8 - <a href="#mainWebPortal">Web Portal</a></dt>
+<dd>
+<p>Describes the Web Portal, covering all domain areas.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect2">
@@ -230,9 +340,9 @@
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 70%;">
-<col style="width: 10%;">
+<col style="width: 18.1818%;">
+<col style="width: 63.6363%;">
+<col style="width: 18.1819%;">
 </colgroup>
 <thead>
 <tr>
@@ -244,466 +354,274 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="EOEPCA-UC"></a>[EOEPCA-UC]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>EOEPCA - Use Case Analysis<br>
 EOEPCA.TN.005<br>
 <a href="https://eoepca.github.io/use-case-analysis" class="bare">https://eoepca.github.io/use-case-analysis</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Issue <mark>TBD</mark>,<br>
 dd/mm/yyy</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="EP-FM"></a>[EP-FM]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Exploitation Platform - Functional Model,<br>
 ESA-EOPSDP-TN-17-050</p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Issue 1.0,<br>
 30/11/2017</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TEP-OA"></a>[TEP-OA]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Thematic Exploitation Platform Open Architecture,<br>
 EMSS-EOPS-TN-17-002</p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Issue 1,<br>
 12/12/2017</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="WPS-T"></a>[WPS-T]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Testbed-14: WPS-T Engineering Report,<br>
 OGC 18-036r1,<br>
 <a href="http://docs.opengeospatial.org/per/18-036r1.html" class="bare">http://docs.opengeospatial.org/per/18-036r1.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>18-036r1,<br>
 07/02/2019</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="WPS-REST-JSON"></a>[WPS-REST-JSON]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC WPS 2.0 REST/JSON Binding Extension, Draft,<br>
 OGC 18-062,<br>
 <a href="https://raw.githubusercontent.com/opengeospatial/wps-rest-binding/develop/docs/18-062.pdf" class="bare">https://raw.githubusercontent.com/opengeospatial/wps-rest-binding/develop/docs/18-062.pdf</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>1.0-draft</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CWL"></a>[CWL]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Common Workflow Language Specifications,<br>
 <a href="https://www.commonwl.org/v1.0/" class="bare">https://www.commonwl.org/v1.0/</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.0.2</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB13-AP"></a>[TB13-AP]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Testbed-13, EP Application Package Engineering Report,<br>
 OGC 17-023,<br>
 <a href="http://docs.opengeospatial.org/per/17-023.html" class="bare">http://docs.opengeospatial.org/per/17-023.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>17-023,<br>
 30/01/2018</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB13-ADES"></a>[TB13-ADES]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Testbed-13, Application Deployment and Execution Service Engineering Report,<br>
 OGC 17-024,<br>
 <a href="http://docs.opengeospatial.org/per/17-024.html" class="bare">http://docs.opengeospatial.org/per/17-024.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>17-024,<br>
 11/01/2018</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB14-AP"></a>[TB14-AP]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Testbed-14, Application Package Engineering Report,<br>
 OGC 18-049r1,<br>
 <a href="http://docs.opengeospatial.org/per/18-049r1.html" class="bare">http://docs.opengeospatial.org/per/18-049r1.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>18-049r1,<br>
 07/02/2019</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="TB14-ADES"></a>[TB14-ADES]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Testbed-14, ADES &amp; EMS Results and Best Practices Engineering Report,<br>
 OGC 18-050r1, <a href="http://docs.opengeospatial.org/per/18-050r1.html" class="bare">http://docs.opengeospatial.org/per/18-050r1.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>18-050r1,<br>
 08/02/2019</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OS-GEO-TIME"></a>[OS-GEO-TIME]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OpenSearch GEO: OpenSearch Geo and Time Extensions,<br>
 OGC 10-032r8,<br>
 <a href="http://www.opengeospatial.org/standards/opensearchgeo" class="bare">http://www.opengeospatial.org/standards/opensearchgeo</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>10-032r8,<br>
 14/04/2014</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OS-EO"></a>[OS-EO]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OpenSearch EO: OGC OpenSearch Extension for Earth Observation,<br>
 OGC 13-026r9,<br>
 <a href="http://docs.opengeospatial.org/is/13-026r8/13-026r8.html" class="bare">http://docs.opengeospatial.org/is/13-026r8/13-026r8.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>13-026r9,<br>
 16/12/2016</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="GEOJSON-LD"></a>[GEOJSON-LD]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC EO Dataset Metadata GeoJSON(-LD) Encoding Standard,<br>
 OGC 17-003r1/17-084</p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>17-003r1/17-084</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="GEOJSON-LD-RESP"></a>[GEOJSON-LD-RESP]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard,<br>
 OGC 17-047</p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>17-047</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="PCI-DSS"></a>[PCI-DSS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The Payment Card Industry Data Security Standard,<br>
 <a href="https://www.pcisecuritystandards.org/document_library?category=pcidss&amp;document=pci_dss" class="bare">https://www.pcisecuritystandards.org/document_library?category=pcidss&amp;document=pci_dss</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v3.2.1</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="CEOS-OS-BP"></a>[CEOS-OS-BP]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>CEOS OpenSearch Best Practise,<br>
 <a href="http://ceos.org/ourwork/workinggroups/wgiss/access/opensearch/" class="bare">http://ceos.org/ourwork/workinggroups/wgiss/access/opensearch/</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.2,<br>
 13/06/2017</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OIDC"></a>[OIDC]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OpenID Connect Core 1.0,<br>
 <a href="https://openid.net/specs/openid-connect-core-1_0.html" class="bare">https://openid.net/specs/openid-connect-core-1_0.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.0,<br>
 08/11/2014</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-CSW"></a>[OGC-CSW]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Catalogue Services 3.0 Specification - HTTP Protocol Binding (Catalogue Services for the Web),<br>
 OGC 12-176r7,<br>
 <a href="http://docs.opengeospatial.org/is/12-176r7/12-176r7.html" class="bare">http://docs.opengeospatial.org/is/12-176r7/12-176r7.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v3.0,<br>
 10/06/2016</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WMS"></a>[OGC-WMS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Web Map Server Implementation Specification,<br>
 OGC 06-042,<br>
 <a href="http://portal.opengeospatial.org/files/?artifact_id=14416" class="bare">http://portal.opengeospatial.org/files/?artifact_id=14416</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.3.0,<br>
 05/03/2006</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WMTS"></a>[OGC-WMTS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Web Map Tile Service Implementation Standard,<br>
 OGC 07-057r7,<br>
 <a href="http://portal.opengeospatial.org/files/?artifact_id=35326" class="bare">http://portal.opengeospatial.org/files/?artifact_id=35326</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.0.0,<br>
 06/04/2010</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WFS"></a>[OGC-WFS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>OGC® Web Feature Service 2.0 Interface Standard – With Corrigendum,<br>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OGC Web Feature Service 2.0 Interface Standard – With Corrigendum,<br>
 OGC 09-025r2,<br>
 <a href="http://docs.opengeospatial.org/is/09-025r2/09-025r2.html" class="bare">http://docs.opengeospatial.org/is/09-025r2/09-025r2.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v2.0.2,<br>
 10/07/2014</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WCS"></a>[OGC-WCS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>OGC Web Coverage Service (WCS) 2.1 Interface Standard - Core,<br>
 OGC 17-089r1,<br>
 <a href="http://docs.opengeospatial.org/is/17-089r1/17-089r1.html" class="bare">http://docs.opengeospatial.org/is/17-089r1/17-089r1.html</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v2.1,<br>
 16/08/2018</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="OGC-WCPS"></a>[OGC-WCPS]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Web Coverage Processing Service (WCPS) Language Interface Standard,<br>
 OGC 08-068r2,<br>
 <a href="http://portal.opengeospatial.org/files/?artifact_id=32319" class="bare">http://portal.opengeospatial.org/files/?artifact_id=32319</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>v1.0.0,<br>
 25/03/2009</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="AWS-S3"></a>[AWS-S3]</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Amazon Simple Storage Service REST API,<br>
 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API" class="bare">https://docs.aws.amazon.com/AmazonS3/latest/API</a></p>
-</div>
-</div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="openblock">
-<div class="content">
-<div class="paragraph">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>API Version 2006-03-01</p>
-</div>
-</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -968,7 +886,7 @@ OGC 08-068r2,<br>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AAI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication &amp; Authorisation Infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication &amp; Authorization Infrastructure</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ABAC</p></td>
@@ -977,6 +895,10 @@ OGC 08-068r2,<br>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application Deployment and Execution Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ALFA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Abbreviated Language For Authorization</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AOI</p></td>
@@ -1013,6 +935,10 @@ OGC 08-068r2,<br>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FUSE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Filesystem in Userspace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GeoXACML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Geo-specific extension to the XACML Policy Language</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IAM</p></td>
@@ -1071,6 +997,10 @@ OGC 08-068r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Time of Interest</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UMA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User-Managed Access</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VNC</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Network Computing</p></td>
 </tr>
@@ -1113,7 +1043,7 @@ OGC 08-068r2,<br>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_context">2. Context</h2>
+<h2 id="mainContext">2. Context</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Master System Design provides an EO Exploitation Platform architecture that meets the service needs of current and future systems, as defined by the use cases described in <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. These use cases must be explored under 'real world' conditions by engagement with existing deployments, initiatives, user groups, stakeholders and sponsors within the user community and within overlapping communities, in order to gain a fully representative understanding of the functional requirements.</p>
@@ -1122,7 +1052,7 @@ OGC 08-068r2,<br>
 <p>The system design takes into consideration existing precursor architectures (such as the Exploitation Platform Functional Model <a href="#EP-FM]">[EP-FM]]</a> and Thematic Exploitation Platform Open Architecture <a href="#TEP-OA">[TEP-OA]</a>), including consideration of state-of-the-art technologies and approaches used by current related projects. The master system design describes functional blocks linked together by agreed standardised interfaces.</p>
 </div>
 <div class="paragraph">
-<p>The importance of the OGC in these activities is recognised as a reference for the appropriate standards and in providing mechanisms to develop and evolve standards as required in the development of the architecture. In order to meet the design challenges we must apply the applicable existing OGC standards to the full set of federated use cases in order to expose deficiencies and identify needed evolution of the standards. Standards are equally important in all areas of the Exploitation Platform, including topics such as Authentication &amp; Authorisation Infrastructure (AAI), containerisation and provisioning of virtual cloud resources to ensure portability of compute between different providers of resource layer.</p>
+<p>The importance of the OGC in these activities is recognised as a reference for the appropriate standards and in providing mechanisms to develop and evolve standards as required in the development of the architecture. In order to meet the design challenges we must apply the applicable existing OGC standards to the full set of federated use cases in order to expose deficiencies and identify needed evolution of the standards. Standards are equally important in all areas of the Exploitation Platform, including topics such as Authentication &amp; Authorization Infrastructure (AAI), containerisation and provisioning of virtual cloud resources to ensure portability of compute between different providers of resource layer.</p>
 </div>
 <div class="paragraph">
 <p>Data and metadata are fundamental considerations for the creation of an architecture in order to ensure full semantic interoperability between services. In this regard, data modelling and the consideration of data standards are critical activities.</p>
@@ -1140,7 +1070,7 @@ OGC 08-068r2,<br>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_design_overview">3. Design Overview</h2>
+<h2 id="mainDesignOverview">3. Design Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The overall system design has been considered by taking the ‘Exploitation Platform – Functional Model’ <a href="#EP-FM">[EP-FM]</a> as a starting point and then evolving these ideas in the context of existing interface standards (with some emphasis on the OGC protocol suite) and the need for federated services.</p>
@@ -1168,7 +1098,7 @@ OGC 08-068r2,<br>
 <p><em>Responsible for all aspects related to the user’s account, profile, identity and access management in a federated system-of-systems environment.</em></p>
 </div>
 <div class="paragraph">
-<p>It provides authentication, authorisation and accounting services that are required to access other elements of the architecture, including the processing-oriented services and resource-oriented services. Individual resources may have an associated access and/or charging policy, but these have to be checked against the identity of the user. Resource consumption may also be controlled e.g. by credits and/or quotas associated with the user account. In the Network of EO Resources, a user should not need to create an account on multiple platforms. Therefore some interactions will be required between the User Management functions, whether directly or in directly via trusted third party.</p>
+<p>It provides authentication, authorization and accounting services that are required to access other elements of the architecture, including the processing-oriented services and resource-oriented services. Individual resources may have an associated access and/or charging policy, but these have to be checked against the identity of the user. Resource consumption may also be controlled e.g. by credits and/or quotas associated with the user account. In the Network of EO Resources, a user should not need to create an account on multiple platforms. Therefore some interactions will be required between the User Management functions, whether directly or in directly via trusted third party.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1180,7 +1110,7 @@ OGC 08-068r2,<br>
 <p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
 </div>
 <div class="paragraph">
-<p>The development and analysis environment provides a platform for the expert user to develop their own processing chains, experiments and workflows. It integrates with platform catalogue services (for data, processing servics and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
+<p>The development and analysis environment provides a platform for the expert user to develop their own processing chains, experiments and workflows. It integrates with platform catalogue services (for data, processing services and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1260,7 +1190,7 @@ OGC 08-068r2,<br>
 <p>Data Services based upon open standards serve the clients of the Exploitation Platform for data access and data visualisation. Access to the underlying data is made via the Data Access Gateway.</p>
 </div>
 <div class="paragraph">
-<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
 </div>
 <div class="paragraph">
 <p>The Exploitation Tier hosts the web clients with which the end-user interacts to conduct their analysis/exploitation activities. These clients would typically utilise the Client Library in their implementation. The Web IDE is an interactive web application that Experts use to perform interactive research and to develop algorithms. The Command-line Client builds upon the Client Library to provide a command-line tool that can be used, for example, to automate EP interactions through scripts.</p>
@@ -1326,7 +1256,7 @@ OGC 08-068r2,<br>
 <div class="sect2">
 <h3 id="IAM">4.1. Identity and Access Management (IAM)</h3>
 <div class="paragraph">
-<p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorisation decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sofisticated authorisations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
+<p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorization decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sophisticated authorizations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
 </div>
 <div class="paragraph">
 <p>In achieving this there are three main concerns:</p>
@@ -1355,7 +1285,7 @@ OGC 08-068r2,<br>
 </ul>
 </div>
 <div class="paragraph">
-<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms. Authorisation policy is enforced within the platform at point of access, but the access policy can be federated within the network of EO resources, leading to a system of <em>federated authorisation</em>.</p>
+<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms. Authorization policy is enforced within the platform at point of access, but the access policy can be federated within the network of EO resources, leading to a system of <em>federated authorization</em>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1369,6 +1299,9 @@ OGC 08-068r2,<br>
 <p>The administrative domain for an access policy should should not be tied to an exploitation platform, which facilitates the provision of federation and virtual organisations</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Federation of services between exploitation platforms is an important goal of the Common Architecture. Thus, the IAM design must offer an approach through which user access is managed between platforms, ensuring proper enforcement of access controls and billing.</p>
 </div>
 <div class="sect3">
 <h4 id="_iam_approach">4.1.1. IAM Approach</h4>
@@ -1388,7 +1321,7 @@ OGC 08-068r2,<br>
 <p>The Login Service is provided as a common component that is utilised by each PEP to perform the authentication flow with the external IdPs. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.</p>
 </div>
 <div class="paragraph">
-<p>The PEP interrogates the PDP for an authorisation decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:</p>
+<p>The PEP interrogates the PDP for an authorization decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1404,10 +1337,10 @@ OGC 08-068r2,<br>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Policy Decision Point (PDP) returns an authorisation decision based upon details provided in the request, and the applicable authorisation policy. The authorisation policy may delegate all or part of the decision to external PDP(s) within the federated network. This represents a Federated Authorisation model and facilitates a model of shared resources and virtual organisations.</p>
+<p>The Policy Decision Point (PDP) returns an authorization decision based upon details provided in the request, and the applicable authorization policy. The authorization policy may delegate all or part of the decision to external PDP(s) within the federated network. This represents a Federated Authorization model and facilitates a model of shared resources and virtual organisations.</p>
 </div>
 <div class="paragraph">
-<p>The authorisation policy defines a set of rules and how they should be evaluated to determine the policy decision. The rules are expressed through attributes. The policy is evaluated to determine what attributes are required, and what attributes the user possesses. This evaluation extends through external PDPs according to any federated authorisation defined in the policy.</p>
+<p>The authorization policy defines a set of rules and how they should be evaluated to determine the policy decision. The rules are expressed through attributes. The policy is evaluated to determine what attributes are required, and what attributes the user possesses. This evaluation extends through external PDPs according to any federated authorization defined in the policy.</p>
 </div>
 <div class="paragraph">
 <p>It should be additionally noted that the decision to allow the user access depends upon dynamic 'attributes', such as whether the user has enough credits to 'pay' for their usage, or whether they have accepted the necessary Terms &amp; Conditions for a given dataset or service. Thus, the PDP must interrogate other EP-services such as 'Accounting &amp; Billing' and 'User Profile' to answer such questions.</p>
@@ -1440,11 +1373,11 @@ OGC 08-068r2,<br>
 <dl>
 <dt class="hdlist1">User Agent &#8594; PEP</dt>
 <dd>
-<p>The PEP acts as a HTTP filter on the access request to the API of the Protected Resource. The PEP intercepts the incoming request in order to enforce the authorisation policy decision.</p>
+<p>The PEP acts as a HTTP filter on the access request to the API of the Protected Resource. The PEP intercepts the incoming request in order to enforce the authorization policy decision.</p>
 </dd>
 <dt class="hdlist1">PEP &#8594; Protected Resource</dt>
 <dd>
-<p>The Protected Resource exposes a public API for user consumption. The user&#8217;s access to the protected resource is only granted once the request has passed the authorisation decision, which may or may not require user authentication.</p>
+<p>The Protected Resource exposes a public API for user consumption. The user&#8217;s access to the protected resource is only granted once the request has passed the authorization decision, which may or may not require user authentication.</p>
 </dd>
 <dt class="hdlist1">PEP &#8594; Login Service</dt>
 <dd>
@@ -1456,13 +1389,13 @@ OGC 08-068r2,<br>
 </dd>
 <dt class="hdlist1">PEP &#8594; PDP</dt>
 <dd>
-<p>The PEP defers to the PDP to establish the authorisation status of the incoming access attempt.<br>
+<p>The PEP defers to the PDP to establish the authorization status of the incoming access attempt.<br>
 The request to the PDP carries the user identification, the URI of the resource, and the action requested.<br>
-The PDP-response returns the authorisation decision.</p>
+The PDP-response returns the authorization decision.</p>
 </dd>
 <dt class="hdlist1">PDP &#8594; Other PDP</dt>
 <dd>
-<p>This interface represents federated authorisation.<br>
+<p>This interface represents federated authorization.<br>
 It has the same interface characteristics as PEP&#8594;PDP.</p>
 </dd>
 </dl>
@@ -1549,7 +1482,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </dd>
 <dt class="hdlist1">userinfo_endpoint (/userinfo)</dt>
 <dd>
-<p>To obtain the user information ID token in accordance with the scopes requested in the authorisation request.</p>
+<p>To obtain the user information ID token in accordance with the scopes requested in the authorization request.</p>
 </dd>
 <dt class="hdlist1">jwks_uri (/keys)</dt>
 <dd>
@@ -1615,10 +1548,10 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>Clients are Relying Parties that act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
 </div>
 <div class="paragraph">
-<p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases, where possible, the Authorisation Code Flow would be preferred.</p>
+<p>In the case of a web application (browser hosted), the Implicit Flow would be used. In other cases, where possible, the Authorization Code Flow would be preferred.</p>
 </div>
 <div class="paragraph">
-<p>The OIDC flows are initiated with the appropriate response_type (‘id_token token’ for Implicit Flow, ‘code’ for Authorisation Code Flow) and scope of ‘oidc profile’.</p>
+<p>The OIDC flows are initiated with the appropriate response_type (‘id_token token’ for Implicit Flow, ‘code’ for Authorization Code Flow) and scope of ‘oidc profile’.</p>
 </div>
 <div class="paragraph">
 <p>At the successful conclusion of the flow the client receives the Access Token and ID Token. The Access Token is then used by the client as a Bearer token in its subsequent calls to access the EP resources.</p>
@@ -1638,7 +1571,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>The PEP checks with the PDP whether an authenticated user is required for access</p>
 </li>
 <li>
-<p>If no authenticated user is required then the request can continue (pending authorisation) as an 'anonymous' user</p>
+<p>If no authenticated user is required then the request can continue (pending authorization) as an 'anonymous' user</p>
 </li>
 <li>
 <p>If access requires an authenticated user then</p>
@@ -1651,7 +1584,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>If the access token is present, then it should be validated with the Login Service (direct call), as described below</p>
 </li>
 <li>
-<p>If the access token validation completes successfully then the request can continue (pending authorisation), with the user identity provided by the ID Token received during token validation</p>
+<p>If the access token validation completes successfully then the request can continue (pending authorization), with the user identity provided by the ID Token received during token validation</p>
 </li>
 <li>
 <p>If the token is invalid, then the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
@@ -1689,7 +1622,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The user pre-authorises the EP&#8594;EP access in advance of the operation</p>
+<p>The user pre-authorizes the EP&#8594;EP access in advance of the operation</p>
 </li>
 <li>
 <p>Use of OIDC JWKS for trusted federation of identity between platforms</p>
@@ -1697,19 +1630,19 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </ol>
 </div>
 <div class="sect4">
-<h5 id="_user_pre_authorisation">User Pre-authorisation</h5>
+<h5 id="_user_pre_authorization">4.2.7.1. User Pre-authorization</h5>
 <div class="paragraph">
-<p>Using the facilities of the Exploitation Platform, the user (perhaps via their User Profile management console) initiates the authorisation flow from one EP to another. The end result is that the originating EP obtains delegated access to another EP on behalf of the user - with the resulting access tokens being maintained within the user&#8217;s profile on the EP.</p>
+<p>Using the facilities of the Exploitation Platform, the user (perhaps via their User Profile management console) initiates the authorization flow from one EP to another. The end result is that the originating EP obtains delegated access to another EP on behalf of the user - with the resulting access tokens being maintained within the user&#8217;s profile on the EP.</p>
 </div>
 <div class="paragraph">
-<p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorisation is long-lived.</p>
+<p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorization is long-lived.</p>
 </div>
 <div class="paragraph">
-<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorisation by invalidating the refresh token. This would invole interface with the Login Service.</p>
+<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token. This would invole interface with the Login Service.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_possible_use_of_oidc_jwks_federation">Possible use of OIDC JWKS Federation</h5>
+<h5 id="_possible_use_of_oidc_jwks_federation">4.2.7.2. Possible use of OIDC JWKS Federation</h5>
 <div class="paragraph">
 <p>OIDC provides a distributed key-hierarchy that could be used to support federated user access between collaborating exploitation platforms. The concept is explored in this section.</p>
 </div>
@@ -1735,7 +1668,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>One possibility is to make use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.</p>
 </div>
 <div class="paragraph">
-<p>Thus, using the trusted ID Token, it may be possible follow an OIDC/OAuth flow from one EP to another, in which the user is deemed to have a-priori authorised the third-party access. At this point it is only the user’s identity that has been established, with the authorisation decision subject to the rules of the PDP/PEP of the remote system. The identified user must have appropriate a-priori permissions (attributes) on the target resources to be granted access, (ref. ‘Federated Attributes’).</p>
+<p>Thus, using the trusted ID Token, it may be possible follow an OIDC/OAuth flow from one EP to another, in which the user is deemed to have a-priori authorized the third-party access. At this point it is only the user’s identity that has been established, with the authorization decision subject to the rules of the PDP/PEP of the remote system. The identified user must have appropriate a-priori permissions (attributes) on the target resources to be granted access, (ref. ‘Federated Attributes’).</p>
 </div>
 <div class="paragraph">
 <p>Thus, it is the ID of the user that has been passed machine-to-machine to facilitate the service federation. This effectively achieves cross-EP single sign-on, without relying upon the user agent of the end-user providing cookies to the other EP.</p>
@@ -1748,7 +1681,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>OpenID Connect provides some additional functionalities that are of interest in the context of the Common Architecture.</p>
 </div>
 <div class="sect4">
-<h5 id="_oidc_discovery">OIDC Discovery</h5>
+<h5 id="_oidc_discovery">4.2.8.1. OIDC Discovery</h5>
 <div class="paragraph">
 <p>Reference: <a href="https://openid.net/specs/openid-connect-discovery-1_0.html" class="bare">https://openid.net/specs/openid-connect-discovery-1_0.html</a></p>
 </div>
@@ -1776,7 +1709,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_client_registration">Client Registration</h5>
+<h5 id="_client_registration">4.2.8.2. Client Registration</h5>
 <div class="paragraph">
 <p>Reference: <a href="https://openid.net/specs/openid-connect-registration-1_0.html" class="bare">https://openid.net/specs/openid-connect-registration-1_0.html</a></p>
 </div>
@@ -1798,15 +1731,157 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_authorization_policy_decision">4.3. Authorization (Policy Decision)</h3>
+<div class="paragraph">
+<p>The Authorization flow is relevant to the following interfaces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PEP &lt;&#8594; PDP<br>
+The PEP, acting as a filter for the access attempt on the resource, defers its authorization decision to the PDP.</p>
+</li>
+<li>
+<p>PDP &lt;&#8594; Other PDP<br>
+Aspects of the authorization policy can be delegated from one PDP to another, e.g. to govern resource access through an administrative domain represented by a <em>Virtual Organisation</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The approach (data model and protocol) for these two interfaces can be aligned. It is not yet defined - further design analysis is required. At this stage the candidate technologies to be investigated are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>XACML (eXtensible Access Control Markup Language)</p>
+</li>
+<li>
+<p>UMA (User-Managed Access)</p>
+</li>
+</ul>
+</div>
 <div class="sect3">
-<h4 id="_authorization_policy_decision">4.2.9. Authorization (Policy Decision)</h4>
+<h4 id="_xacml_extensible_access_control_markup_language">4.3.1. XACML (eXtensible Access Control Markup Language)</h4>
+<div class="paragraph">
+<p>XACML defines an architecture in which the access decision is separate from the point of use, and is thus consistent with the high-level IAM approach described in this design document. The XACML architecture framework describes a Request-Response protocol, and a policy language in which access policies are defined as rules comprising attributes. XACML additionally describes the process through which policies are evaluated, for example through <em>combining algorithms</em> that mediate competing rules.</p>
+</div>
+<div class="sect4">
+<h5 id="_xacml_3_0">4.3.1.1. XACML 3.0</h5>
+<div class="paragraph">
+<p>XACML 3.0 includes some additional aspects that are of interest to our proposed IAM approach. Namely:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Administrative delegation</dt>
+<dd>
+<p>The delegation mechanism is used to support decentralized administration of access policies. It allows an authority (delegator) to delegate all or parts of its own authority or someone else&#8217;s authority to another user (delegate) without any need to involve modification of the root policy.</p>
+</dd>
+<dt class="hdlist1">JSON Request/Response Profile</dt>
+<dd>
+<p>JSON bindings for the request/response messages between the PEP and the PDP - as an alternative to the core XML message definitions.</p>
+</dd>
+<dt class="hdlist1">REST Profile</dt>
+<dd>
+<p>Providing REST semantics for the PEP/PDP interface.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_geoxacml">4.3.1.2. GeoXACML</h5>
+<div class="paragraph">
+<p>GeoXACML is standardised by the OGC to provide a geo-specific extension to XACML 2.0. GeoXACML provides support for spatial data types and spatial authorization decision functions. Those data types and functions can be used to define additional spatial constraints for XACML based policies.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_alfa_abbreviated_language_for_authorization">4.3.1.3. ALFA (Abbreviated Language For Authorization)</h5>
+<div class="paragraph">
+<p>Authoring of XACML rules can be facilitated by the use of <a href="https://en.wikipedia.org/wiki/ALFA_(XACML)"><strong>ALFA (Abbreviated Language For Authorization)</strong></a>, which is a pseudocode language used in the formulation of access-control policies. ALFA policies can be directly converted to XACML 3.0 policies. ALFA can support GeoXACML through extensions, that supports definition of custom geometry functions.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_xacml_related_technologies">4.3.1.4. XACML Related Technologies</h5>
+<div class="paragraph">
+<p>The following items represent some interesting existing implementations that may be considered as a possible basis for a reference implementation of the Common Architecture.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">AuthzForce PDP</dt>
+<dd>
+<p>An authorization service providing authorization policy decision evaluation and policy administration.<br>
+Provides an API to get authorization decisions based on authorization policies, and authorization requests from PEPs. The API follows the REST architecture style, and complies with XACML v3.0.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project page: <a href="https://fimac.m-iti.org/6d.php" class="bare">https://fimac.m-iti.org/6d.php</a></p>
+</li>
+<li>
+<p>Documentation: <a href="https://authzforce-ce-fiware.readthedocs.io/en/latest/" class="bare">https://authzforce-ce-fiware.readthedocs.io/en/latest/</a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">geoPDP</dt>
+<dd>
+<p>GeoXACML for AuthzForce PDP - extends the AuthZForce PDP implementation with a Geometry data type and related functions as specified in the OGC Implementation Standard GeoXACML 1.0.1.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>GitHub page: <a href="https://github.com/securedimensions/authzforce-geoxacml-basic" class="bare">https://github.com/securedimensions/authzforce-geoxacml-basic</a></p>
+</li>
+<li>
+<p>geoPDP Docker: <a href="https://github.com/securedimensions/geopdp-docker" class="bare">https://github.com/securedimensions/geopdp-docker</a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">geoPEP</dt>
+<dd>
+<p>Related to the geoPDP is the geoPEP that delivers a PEP as an Apache2 reverse proxy - implemented as an Apache2 module - interfacing with the geoPDP for the authorization decisions.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>geoPEP Docker: <a href="https://github.com/securedimensions/geopep-apache2-reverse-proxy" class="bare">https://github.com/securedimensions/geopep-apache2-reverse-proxy</a></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</h4>
 <div class="paragraph">
 <p><mark>TBD</mark></p>
+</div>
+<div class="sect4">
+<h5 id="_uma_related_technologies">4.3.2.1. UMA Related Technologies</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Triple-A for Exploitation Platforms (Deimos)</dt>
+<dd>
+<p>Provides the Triple-As (Authentication, Authorization and Accounting) based on Oauth, OIDC and UMA.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Home page: <a href="https://triple-a-web.elecnor-deimos.com/" class="bare">https://triple-a-web.elecnor-deimos.com/</a></p>
+</li>
+<li>
+<p>Related products: identity4EO, archive4EO, monitor4eo</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mainBilling">4.3. Accounting and Billing</h3>
+<h3 id="mainBilling">4.4. Accounting and Billing</h3>
 <div class="paragraph">
 <p>The platform must account for resource use both within the platform and in other platforms via federation. In additional, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
 </div>
@@ -1836,7 +1911,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_billing_identities">4.3.1. Billing Identities</h4>
+<h4 id="_billing_identities">4.4.1. Billing Identities</h4>
 <div class="paragraph">
 <p>A billing identity is a user identity for a user who has established a billing relationship with the platform. A billing user may delegate chargeable service access to other users within the system, permitting that user to use resources billed to the billing identity.</p>
 </div>
@@ -1860,7 +1935,7 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_billing_service">4.3.2. Billing Service</h4>
+<h4 id="_billing_service">4.4.2. Billing Service</h4>
 <div class="paragraph">
 <p>A Billing Service will operate within the platform which receives reports of billing events from other components. These are recorded against the relevant billing identity. Billing events have arbitrary attributes defined in them, which the billing service does not interpret (but are sufficient for the pricing engine, see below), a transaction ID identifying the original user action which caused it, and enough additional information for display to the user. Some example billing events might be:</p>
 </div>
@@ -1897,7 +1972,7 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pricing_engine">4.3.3. Pricing Engine</h4>
+<h4 id="_pricing_engine">4.4.3. Pricing Engine</h4>
 <div class="paragraph">
 <p>To maximize reusability price calculation is separated in to a different service (but not necessarily a different address space). Given access to a price database describing current, future and past configured prices, a Pricing Engine is otherwise stateless and can:</p>
 </div>
@@ -1919,7 +1994,7 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_commercially_licensed_resources">4.3.4. Commercially Licensed Resources</h4>
+<h4 id="_commercially_licensed_resources">4.4.4. Commercially Licensed Resources</h4>
 <div class="paragraph">
 <p>Users may publish Resources which are licensed to others on commercial terms and use the platform to collect payments. There are two types of charges which require support within User Management: time-based and volume-based.</p>
 </div>
@@ -1934,13 +2009,13 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_budgets">4.3.5. Budgets</h4>
+<h4 id="_budgets">4.4.5. Budgets</h4>
 <div class="paragraph">
 <p><mark>TBD</mark></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_inter_platform_payments">4.3.6. Inter-platform Payments</h4>
+<h4 id="_inter_platform_payments">4.4.6. Inter-platform Payments</h4>
 <div class="paragraph">
 <p>Three different models for federated availability of commercial services are supported, two of which require support from the accounting and billing mechanisms of the platforms involved. This support comes in the form of inter-platform payments, allowing users to pay for executions or Resource licences which are located elsewhere in the federation.</p>
 </div>
@@ -1964,7 +2039,7 @@ Both the billing and user identities, and other information such as the location
 <p>Consider, for example, a processing chain invoked on the home platform which invokes a processing service running on the compute platform using a software container published by a Licenser registered on the host platform. Frequently, two or more of these platforms are the same. However, even if all three are the same the platform may wish to use the same process where payments to a Licenser are involved.</p>
 </div>
 <div class="sect4">
-<h5 id="_inter_platform_payment_model_and_process">Inter-platform Payment Model and Process</h5>
+<h5 id="_inter_platform_payment_model_and_process">4.4.6.1. Inter-platform Payment Model and Process</h5>
 <div class="paragraph">
 <p>An inter-platform payment supports a User of one platform paying for a service provided by either another platform or by a User of another platform. It&#8217;s important to repeat that a debt is only ever created between two entities which have a legal relationship and an opportunity for credit control. This requires that inter-platform payments involve two or three separate debts being: one from User to home platform, one from home platform to the host platform and the third from the host platform to the User providing the service (if any). The process must also cope with the price not being known in advance in all cases - processing costs in particular may be unpredictable. To support this, the following stages are involved:</p>
 </div>
@@ -1990,25 +2065,25 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_federated_commercial_services_without_inter_platform_payments_direct_payments">4.3.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</h4>
+<h4 id="_federated_commercial_services_without_inter_platform_payments_direct_payments">4.4.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</h4>
 <div class="paragraph">
 <p>If inter-platform payments are not available, for example because two platforms do not have a payment agreement, it may still be possible to provide services across multiple platforms providing the user has an account and billing relationship with each one directly. This requires that both platforms recognize both the user and the selected billing identity, and that the billing user has delegated access to the user in both platforms.</p>
 </div>
 <div class="paragraph">
-<p>To handle direct payments the user must authorize the home platform to act on its behalf when submitting requests to the host platform. This is done using oAuth. The home platform must redirect the user to the host platform which then returns an authorization token to the home platform. Federated platforms must run an oAuth endpoint for this purpose and certain restrictions must be put on its functioning (for example on refresh token lifetime).</p>
+<p>To handle direct payments the user must authorize the home platform to act on its behalf when submitting requests to the host platform. This is done using OAuth. The home platform must redirect the user to the host platform which then returns an authorization token to the home platform. Federated platforms must run an OAuth endpoint for this purpose and certain restrictions must be put on its functioning (for example on refresh token lifetime).</p>
 </div>
 <div class="paragraph">
 <p>Other system components must then use an access token when making requests to the host platform. The host platform should still report costs and identifiers to the home platform, which must be passed to the Billing Service to be recorded. This aids dispute resolution and the reporting of total costs for particular requests.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_estimating_inter_platform_costs">4.3.8. Estimating Inter-platform Costs</h4>
+<h4 id="_estimating_inter_platform_costs">4.4.8. Estimating Inter-platform Costs</h4>
 <div class="paragraph">
 <p><mark>TBD</mark></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_relationship_to_system_components">4.3.9. Relationship to System Components</h4>
+<h4 id="_relationship_to_system_components">4.4.9. Relationship to System Components</h4>
 <div class="paragraph">
 <p>The Billing Service handles inter-platform payments and supports direct payments in response to requests from other components, such as the EMS. The direct payment model is very different to inter-platform payments but knowledge of the distinction and when each should be used should be isolated in the Billing Service as much as possible.</p>
 </div>
@@ -2021,7 +2096,7 @@ Both the billing and user identities, and other information such as the location
 <p>Prior to federated resource use, a component must make a request to the Billing Service with the estimated cost (or a fixed value if not available) and the identity of the host platform. It must also include the transaction ID for the user action which resulted in the payment.</p>
 </li>
 <li>
-<p>The Billing Service determines what kind of payment handling is available, if any. It returns success or failure and, optionally, an oAuth URL to authorize direct payment.</p>
+<p>The Billing Service determines what kind of payment handling is available, if any. It returns success or failure and, optionally, an OAuth URL to authorize direct payment.</p>
 </li>
 <li>
 <p>The component proceeds with its activity, incurring charges. The activity occurs on the compute platform, which may also be the home or host platform.</p>
@@ -2064,14 +2139,14 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect3">
-<h4 id="_payment_processing_systems">4.3.10. Payment Processing Systems</h4>
+<h4 id="_payment_processing_systems">4.4.10. Payment Processing Systems</h4>
 <div class="paragraph">
 <p>Payment processing itself, in particular card payment processing, may be initiated by the Billing Service but should be strictly separate from it. <a href="#PCI-DSS">[PCI-DSS]</a> imposes many onerous requirements not just on the software and hardware used for payment processing, but also on the wider organization and its processes (for example, for formal change reviews and code reviews, the use of specialist cryptographic hardware security modules, the separation of duties between staff and requirements in recruitment and training). For these reasons some implementers will need to avoid card processing within the system entirely and redirect users to externally hosted payment servers. This may constrain them to an account credit-based model whilst other providers may be able to initiate an authorization or full payment on-demand.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_user_profile">4.4. User Profile</h3>
+<h3 id="_user_profile">4.5. User Profile</h3>
 <div class="paragraph">
 <p>The User Profile is a system resource that maintains a set of data for each user including:</p>
 </div>
@@ -2095,7 +2170,7 @@ Both the billing and user identities, and other information such as the location
 <p>The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process.</p>
 </div>
 <div class="sect3">
-<h4 id="_licence_and_tc_management">4.4.1. Licence and T&amp;C Management</h4>
+<h4 id="_licence_and_tc_management">4.5.1. Licence and T&amp;C Management</h4>
 <div class="paragraph">
 <p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degress off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
 </div>
@@ -2125,7 +2200,7 @@ Both the billing and user identities, and other information such as the location
 <p>Note that licencers must ensure that their licences are uniquely identified across the whole federation. That is, if they use the same licence on multiple platforms they must give it the same ID and must not otherwise reuse IDs.</p>
 </div>
 <div class="sect4">
-<h5 id="_licence_requirement_checks">Licence Requirement Checks</h5>
+<h5 id="_licence_requirement_checks">4.5.1.1. Licence Requirement Checks</h5>
 <div class="paragraph">
 <p>At the request planning stage the EMS determines the licences required (as far as is possible in advance). This results in a list of licence requirement specifications. These may vary in complexity, from simply identifying a dataset to specifying an AoI, ToI and additional attributes, depending on platform support and on any knowledge the EMS has about which request fields are licence-relevant. The licence manager, however, only performs matching of these against rules or configuration using no or limited knowledge of the specific meaning of fields.</p>
 </div>
@@ -2149,7 +2224,7 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect4">
-<h5 id="_licence_acquisition">Licence Acquisition</h5>
+<h5 id="_licence_acquisition">4.5.1.2. Licence Acquisition</h5>
 <div class="paragraph">
 <p>Unless managed by an external service, users must be able to view and accept terms and purchase licence grants using the licence manager. For licences where no licence grants must be bought this is very simple - for example, the licence manager may provide APIs enabling the UI to fetch licence text and submit acceptance. This can be done from a resource information display page or following a refused request.</p>
 </div>
@@ -2174,18 +2249,18 @@ Both the billing and user identities, and other information such as the location
 </div>
 </div>
 <div class="sect4">
-<h5 id="_licence_administration">Licence Administration</h5>
+<h5 id="_licence_administration">4.5.1.3. Licence Administration</h5>
 <div class="paragraph">
 <p>Resource owners must be able to configure licences. The UIs and APIs allowing them to do this must interact with the licence manager (and the pricing engine) to configure their licences. This includes only the licences themselves - assignment of licence requirements to resources is out of the licence manager&#8217;s scope.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_porting_licences_within_the_federation">Porting Licences Within the Federation</h5>
+<h5 id="_porting_licences_within_the_federation">4.5.1.4. Porting Licences Within the Federation</h5>
 <div class="paragraph">
 <p>In some cases users may have multiple home platforms, initiating some workloads from different locations. To ensure that users can use their licences for workloads initiated across all locations licence 'porting' may be used.</p>
 </div>
 <div class="paragraph">
-<p>A user 'ports' a licence from one platform to another by using oAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
+<p>A user 'ports' a licence from one platform to another by using OAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
 </div>
 <div class="paragraph">
 <p>This mechanism may be used for two purposes. In the first, a publisher a has publshed his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
@@ -2654,7 +2729,7 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Check the user is authorised to access the requested data</p>
+<p>Check the user is authorized to access the requested data</p>
 </li>
 <li>
 <p>Perform stage-in of data before execution</p>
@@ -2863,7 +2938,7 @@ See section <a href="#mainDataAccessGateway">Data Access Gateway</a>.</p>
 </dl>
 </div>
 <div class="sect3">
-<h4 id="_user_authorisation_context">5.6.1. User Authorisation Context</h4>
+<h4 id="_user_authorization_context">5.6.1. User Authorization Context</h4>
 <div class="paragraph">
 <p>The stage-in/out of data must operate within the context of the user’s ‘account’. Thus, the security context of the user must be passed through all aspects performed by the Processing Framework on behalf of the user. This is necessary to ensure that the user is only able to access data to which they are entitled and accounting &amp; billing considerations are properly maintained.</p>
 </div>
@@ -2882,10 +2957,10 @@ See section <a href="#mainDataAccessGateway">Data Access Gateway</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 41.6666%;">
-<col style="width: 8.3333%;">
-<col style="width: 41.6666%;">
-<col style="width: 8.3335%;">
+<col style="width: 42.4242%;">
+<col style="width: 12.1212%;">
+<col style="width: 30.303%;">
+<col style="width: 15.1516%;">
 </colgroup>
 <thead>
 <tr>
@@ -2900,133 +2975,151 @@ See section <a href="#mainDataAccessGateway">Data Access Gateway</a>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The landing page provides links to the API definition, the Conformance statements and the metadata about the processes offered by this API</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve available processes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GetCapabilities</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Get<br>
+Capabilities</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deploy a process</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeployProcess</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Deploy<br>
+Process</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve a process description</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DescribeProcess</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Describe<br>
+Process</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Undeploy a process</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UndeployProcess</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Undeploy<br>
+Process</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of jobs for a process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execute a process</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Execute</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Execute</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the status of a job</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GetStatus</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>GetStatus</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dismiss a job</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/jobs/{jobID}/result</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the result(s) of a job</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GetResult</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>GetResult</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of quotation ids for a given process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Request a quotation for a given process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations/{quotationID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve quotation information</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/quotations/{quotationID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execute a quoted process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/visibility</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the visibility status for a process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/processes/{id}/visibility</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Change the visibility status for a process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/quotations</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of all quotation ids</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/quotations/{quotationID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve quotation information</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/quotations/{quotationID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execute a quoted process</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/bills</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve the list of all bill identifiers</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/bills/{billID}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve bill information</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">/conformance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">list all requirements classes specified in the standard (WPS REST/JSON Binding Core) that the server conforms to</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 </tbody>
 </table>
@@ -3111,36 +3204,33 @@ See section <a href="#mainDataAccessGateway">Data Access Gateway</a>.</p>
 <div class="sect2">
 <h3 id="mainAppCatalogue">5.10. Application Catalogue</h3>
 <div class="paragraph">
-<p><mark>TBD - Ref. CEOS OpenSearch Best Practice</mark></p>
-</div>
-<div class="paragraph">
 <p>The Application Catalogue provides an inventory of applications/services that can be presented as a ‘Marketplace’ for users to discover and browse for processing services to use with EP data.</p>
 </div>
 <div class="paragraph">
 <p>The metadata for each application record describes what data an application can be applied to, and how it can be chained in a workflow.</p>
 </div>
 <div class="paragraph">
-<p>The current current OGC Testbed-15 (EOPAD)</p>
-</div>
-<div class="paragraph">
 <p>The Application Catalogue is the subject of the current OGC Testbed-15 EOPAD Thread, through which the Data Model and catalogue Service Interface are being explored:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <a href="#GEOJSON-LD">[GEOJSON-LD]</a></dt>
-<dd>
-<p>Explore the capabilities of OGC 17-084 to encode application metadata</p>
-</dd>
-<dt class="hdlist1">OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></dt>
-<dd>
-<p>Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)<br>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <a href="#GEOJSON-LD">[GEOJSON-LD]</a></strong><br>
+Explore the capabilities of OGC 17-084 to encode application metadata</p>
+</li>
+<li>
+<p><strong>OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></strong><br>
+Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)<br>
 Use of multi-step discovery and faceted search</p>
-</dd>
-<dt class="hdlist1">Registration</dt>
-<dd>
-<p>Explore transactional extension to OGC-CSW for application registration.</p>
-</dd>
-</dl>
+</li>
+<li>
+<p><strong>Registration</strong><br>
+Explore transactional extension to OGC-CSW for application registration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is anticipated that the outcome of the OGC Testbed-15 (EOPAD) will further inform the design of the Application Catalogue.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -3190,7 +3280,7 @@ Use of multi-step discovery and faceted search</p>
 <p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
 </div>
 <div class="paragraph">
-<p>Access to resources must be controlled according to the privileges afforded to the logged in user, and appropriate hooks must be established into the EPs accounting and billing subsystems. Thus, the Resource Management services must be implemented according to the approach defined by User Management for authorisation, accounting and billing.</p>
+<p>Access to resources must be controlled according to the privileges afforded to the logged in user, and appropriate hooks must be established into the EPs accounting and billing subsystems. Thus, the Resource Management services must be implemented according to the approach defined by User Management for authorization, accounting and billing.</p>
 </div>
 <div class="paragraph">
 <p>In addition to the resource holding of the underlying resource tier, the EP maintains a User Workspace in which each user is able to maintain specific data/services of interest to them, and also provides a place to hold results of processing operations. The User Workspace should be provided as a building block of the system that provides this personal inventory. Moreover, the concept can be extended to define Group Workspaces to create a place for sharing and collaboration.</p>
@@ -3246,8 +3336,8 @@ Use of multi-step discovery and faceted search</p>
 <dl>
 <dt class="hdlist1">Browse Metadata (collection)</dt>
 <dd>
-<p>Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial<strong>/temporal coverage, list of variables available, access rights, T&amp;Cs, etc.<br>
-</strong>For collections, the spatial coverage is often full-earth.</p>
+<p>Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial/temporal coverage, list of variables available, access rights, T&amp;Cs, etc.<br>
+(For collections, the spatial coverage is often full-earth).</p>
 </dd>
 <dt class="hdlist1">Discovery Metadata (product)</dt>
 <dd>
@@ -3285,10 +3375,7 @@ Use of multi-step discovery and faceted search</p>
 <div class="sect3">
 <h4 id="mainOpenSearch">6.1.3. OpenSearch</h4>
 <div class="paragraph">
-<p><mark>TBD - Ref. CEOS OpenSearch Best Practice</mark></p>
-</div>
-<div class="paragraph">
-<p>For the Exploitation Platform, OpenSearch is used with the OGC extensions and recommendations:</p>
+<p>The Common Architecture provision of OpenSearch should be based-upon the CEOS OpenSearch Best Practise <a href="#CEOS-OS-BP">[CEOS-OS-BP]</a> which provides a blueprint for dataset search and discovery. Within this context, the following OGC extensions and recommendations are applicable:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3298,6 +3385,13 @@ Use of multi-step discovery and faceted search</p>
 <li>
 <p>OpenSearch EO: OGC OpenSearch Extension for Earth Observation <a href="#OS-EO">[OS-EO]</a></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition, the possibility to use the JSON-LD processing model might be considered (further analysis required) through application of:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>OGC EO Dataset Metadata GeoJSON(-LD) Encoding Standard <a href="#GEOJSON-LD">[GEOJSON-LD]</a></p>
 </li>
@@ -3305,9 +3399,6 @@ Use of multi-step discovery and faceted search</p>
 <p>OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>The CEOS OpenSearch Best Practise <a href="#CEOS-OS-BP">[CEOS-OS-BP]</a> provides a blueprint – this is the approach adopted by the FedEO project.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3547,7 +3638,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="ulist">
 <ul>
 <li>
-<p>Authorisation check</p>
+<p>Authorization check</p>
 </li>
 <li>
 <p>Quota check</p>
@@ -3615,10 +3706,10 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <h2 id="mainPlatformApi">7. Platform API</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Platform API defines standard interfaces at both service and programmatic levels, with the goal of encouraging interroperation between platforms and providing a consistent and portable programming paradigm for expert users. The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
+<p>The Platform API defines standard interfaces at both service and programmatic levels, with the goal of encouraging interoperation between platforms and providing a consistent and portable programming paradigm for expert users. The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
 </div>
 <div class="paragraph">
-<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+<p>The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
 </div>
 <div id="img_clientPortability" class="imageblock text-center">
 <div class="content">
@@ -3911,7 +4002,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p>The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.</p>
 </div>
 <div class="paragraph">
-<p>The Client Library is a programmtic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
+<p>The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.</p>
 </div>
 <div id="img_clientLibServiceInterfaces" class="imageblock text-center">
 <div class="content">
@@ -4026,7 +4117,7 @@ print(result)</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_web_portal_2">8. Web Portal</h2>
+<h2 id="mainWebPortal">8. Web Portal</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform.</p>
@@ -4113,8 +4204,8 @@ print(result)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.5<br>
-Last updated 2019-07-09 15:09:52 UTC
+Version 0.6<br>
+Last updated 2019-07-18 12:30:13 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">

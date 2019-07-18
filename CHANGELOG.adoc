@@ -1,0 +1,52 @@
+= Changelog
+All notable changes to this project will be documented in this file.
+
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.5%2E%2E%2Ev0.6[v0.6] - 18.07.2019
+
+=== Added
+* Added some information regarding XACML and associated technologies
+
+=== Changed
+* Tweak document template for PDF generation
+
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.4%2E%2E%2Ev0.5[v0.5] - 09.07.2019
+
+=== Added
+* Billing and payments
+* Description of Client Library
+* Initial thoughts around licensing
+
+=== Changed
+* Update description of 'Data Access' layer
+* Minor re-work of IAM description for greater clarity
+
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.3%2E%2E%2Ev0.4[v0.4] - 21.06.2019
+
+=== Added
+* Initial 'Platform API' section
+* Initial description of Service API
+
+=== Changed
+* Re-organised 'Design Overview' section
+* Updated description of Data Access Library
+
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.2%2E%2E%2Ev0.3[v0.3] - 2019.05.13
+
+=== Added
+* Login Service
+* Content for Processing & Chaining
+* Content for Resource Management
+
+=== Changed
+* Updates to Glossary and Terminology
+* IAM: Federated authorization
+
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.1%2E%2E%2Ev0.2[v0.2] - 2019.04.25
+
+=== Changed
+* Re-work IAM approach
+
+== https://github.com/EOEPCA/master-system-design-src/releases/tag/v0.1[v0.1] - 2019.04.24
+
+=== Added
+* Initial in-progress draft
