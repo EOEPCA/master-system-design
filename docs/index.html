@@ -18,8 +18,8 @@
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version 0.6,</span>
-<span id="revdate">18.07.2019</span>
+<span id="revnumber">version 0.7-inprogress,</span>
+<span id="revdate">dd/mm/yyyy</span>
 <br><span id="revremark">In-Progress Draft</span>
 </div>
 <div id="toc" class="toc2">
@@ -90,7 +90,14 @@
 </li>
 <li><a href="#_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</a>
 <ul class="sectlevel4">
-<li><a href="#_uma_related_technologies">4.3.2.1. UMA Related Technologies</a></li>
+<li><a href="#_uma_main_actors">4.3.2.1. UMA Main Actors</a></li>
+<li><a href="#_uma_phases">4.3.2.2. UMA Phases</a></li>
+<li><a href="#_uma_terminology">4.3.2.3. UMA Terminology</a></li>
+<li><a href="#_resource_protection">4.3.2.4. Resource Protection</a></li>
+<li><a href="#_access_resource">4.3.2.5. Access Resource</a></li>
+<li><a href="#_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</a></li>
+<li><a href="#_client_request_authorization">4.3.2.7. Client Request Authorization</a></li>
+<li><a href="#_uma_related_technologies">4.3.2.8. UMA Related Technologies</a></li>
 </ul>
 </li>
 </ul>
@@ -1855,10 +1862,249 @@ Provides an API to get authorization decisions based on authorization policies, 
 <div class="sect3">
 <h4 id="_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</h4>
 <div class="paragraph">
-<p><mark>TBD</mark></p>
+<p>User-Managed Access (UMA) is a profile of OAuth 2.0. UMA defines how resource owners can control protected-resource access by clients operated by arbitrary requesting parties, where the resources reside on any number of resource servers, and where a centralized authorization server governs access based on resource owner policies. Resource owners configure authorization servers with access policies that serve as asynchronous authorization grants.</p>
 </div>
 <div class="sect4">
-<h5 id="_uma_related_technologies">4.3.2.1. UMA Related Technologies</h5>
+<h5 id="_uma_main_actors">4.3.2.1. UMA Main Actors</h5>
+<div class="paragraph">
+<p>The main UMA actors are briefly summarised as follows:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resource Owner (RO)</dt>
+<dd>
+<p>The "user" and the owner of the resource who defines the access authorization - typically the end-user, but it can also be a corporation or other legal person.</p>
+</dd>
+<dt class="hdlist1">Client</dt>
+<dd>
+<p>An application making protected resource requests with the Resource Owner&#8217;s authorization and on the Requesting Party&#8217;s behalf - typically a web or native application.</p>
+</dd>
+<dt class="hdlist1">Resource Server (RS)</dt>
+<dd>
+<p>The custodian of the resource - typically a service through which access to the resource is gained.</p>
+</dd>
+<dt class="hdlist1">Authorization Server (AS)</dt>
+<dd>
+<p>A server that issues <em>Authorization Data</em> and RPTs to a client and protects resources managed at a resource server. Authorization Data is associated with an RPT to enable some combination of the Authorization Server and Resource Server to determine the correct extent of access to allow to a Client.</p>
+</dd>
+<dt class="hdlist1">Requesting Party (RqP)</dt>
+<dd>
+<p>The entity that uses a Client to seek access to a protected resource. May be the Resource Owner, or can be some other third party entity requesting access to the resource.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The software components that fill the roles of UMA authorization servers, resource servers, and clients respectively are intended to work in an interoperable fashion when each is operated by an independent party (for example, different organizations).</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In a typical OAuth flow, a human resource owner (RO) operating a client application is redirected to an authorization server (AS) to log in and consent to the issuance of an access token so that the client application can gain access to the resource server (RS) on the RO’s behalf in future, likely in a scoped (limited) fashion. The RS and AS are in all likelihood operating within the same security domain, and any communication between them is not standardized by the main OAuth specification.</p>
+</div>
+<div class="paragraph">
+<p>UMA adds three main concepts and corresponding structures and flows. First, it defines a standardized API at the AS, called the protection API, that the RS speaks to; this enables multiple RS’s to communicate with one AS and vice versa, and because the API is itself secured with OAuth, allows for formal trust establishment between each pair. This also allows an AS to present an RO with a centralized user interface. Second, UMA defines a formal notion of a requesting party (RqP) that is autonomous from an RO, enabling party-to-party sharing and delegation of access authorization. An RO need not consent to token issuance at run time but can set policy at an AS, allowing an RqP to attempt access asynchronously. Third, UMA enables access attempts to result in successful issuance of tokens associated with authorization data based on a process of trust elevation in the RqP, for example, gathering identity claims or other claims from them.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Wikipedia<br>
+<cite>https://en.wikipedia.org/wiki/User-Managed_Access</cite>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_uma_phases">4.3.2.2. UMA Phases</h5>
+<div class="paragraph">
+<p>UMA describes three phases&#8230;&#8203;</p>
+</div>
+<div class="olist arabic strong">
+<ol class="arabic">
+<li>
+<p><strong>Protect Resource</strong><br>
+The Resource Owner, who manages online resources at the Resource Server, introduces it to the Authorization Server so that the latter can begin protecting the resources. To accomplish this, the Authorization Server presents a <strong><em>Protection API</em></strong> to the resource server. This API is protected by OAuth (or an OAuth-based authentication protocol) and requires a <strong><em>Protection API Token (PAT)</em></strong> for access. Out of band, the Resource Owner configures the Authorization Server with policies associated with the resource sets that the resource registers for protection.</p>
+</li>
+<li>
+<p><strong>Get Authorization</strong><br>
+The Client approaches the Resource Server seeking access to an UMA-protected resource. In order to access it successfully, the Client must first use the Authorization Server&#8217;s <strong><em>Authorization API</em></strong> to obtain authorization data and a <strong><em>Requesting Party token (RPT)</em></strong> on behalf of its Requesting Party, and the Requesting Party may need to undergo a process of trust elevation, for example, supplying identity claims. The API is protected by OAuth (or an OAuth-based authentication protocol) and requires an <strong><em>Authorization API Token (AAT)</em></strong> for access.</p>
+</li>
+<li>
+<p><strong>Access Resource</strong><br>
+The Client successfully presents to the Resource Server an RPT that has sufficient authorization data associated with it, gaining access to the desired resource.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_uma_terminology">4.3.2.3. UMA Terminology</h5>
+<div class="paragraph">
+<p>To elaborate the descriptions of these phases, UMA employs a set of terminology that is summarised below&#8230;&#8203;</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">TERMS</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Policy</strong><br>
+The configuration parameters of an authorization server that effect resource access management - typically defined is terms of "subjects", "verbs" and "objects". Policy configuration takes place between the resource owner and the authorization server.</p>
+</li>
+<li>
+<p><strong>Claim</strong><br>
+A statement of the value or values of one or more identity attributes of a Requesting Party. A Requesting Party may need to provide claims to an Authorization Server in order to gain permission for access to a protected resource.</p>
+</li>
+<li>
+<p><strong>Resource Set</strong><br>
+One or more protected resources that a resource server manages as a set - thus, a Resource Set is the "object" being protected.</p>
+</li>
+<li>
+<p><strong>Scope</strong><br>
+A bounded extent of access that is possible to perform on a Resource Set - a scope is one of the potentially many "verbs" that can logically apply to a Resource Set ("object").</p>
+</li>
+<li>
+<p><strong>Permission</strong><br>
+A scope of access over a particular Resource Set at a particular Resource Server that is being requested by, or granted to, a Requesting Party. Thus, a Permission is an entitlement that includes a "subject" (Requesting Party), "verbs" (one or more Scopes of access), and an "object" (Resource Set).</p>
+</li>
+<li>
+<p><strong>Permission Ticket</strong><br>
+A correlation handle that is conveyed from an Authorization Server to a Resource Server, from a Resource Server to a Client, and ultimately from a Client back to an Authorization Server, to enable the Authorization Server to assess the correct policies to apply to a request for Authorization Data.</p>
+</li>
+<li>
+<p><strong>Authorization Data</strong><br>
+Data (e.g. a Permission) associated with an RPT that enables some combination of the Authorization Server and Resource Server to determine the correct extent of access to allow to a Client.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">TOKENS</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Requesting Party Token (RPT)</strong><br>
+An UMA access token associated with a set of Authorization Data, used by the Client to gain access to protected resources at the Resource Server.</p>
+</li>
+<li>
+<p><strong>Authorization API Token (AAT)</strong><br>
+An OAuth access token with the scope <strong><em>uma_authorization</em></strong>, used by the Client at the Authorization API <em>'RPT Endpoint'</em>. An AAT binds a Requesting Party, a Client being used by that party, and an Authorization Server that protects resources this Client is seeking access to on this Requesting Party&#8217;s behalf. The issuance of an AAT represents the approval of this Requesting Party for this Client to engage with this Authorization Server to supply claims, ask for authorization, and perform any other tasks needed for obtaining authorization for access to resources at all Resource Servers that use this Authorization Server.</p>
+</li>
+<li>
+<p><strong>Protection API Token (PAT)</strong><br>
+An OAuth access token with the scope <strong><em>uma_protection</em></strong>, used by the Resource Server at the Protection API, consisting of the <em>'Resource Set Registration'</em>, <em>'Permission Registration'</em>, and <em>'Token Introspection'</em> endpoints. A PAT binds a Resource Owner, a Resource Server the owner uses for resource management, and an Authorization Server the owner uses for protection of resources at this Resource Server. The issuance of a PAT represents the approval of the Resource Owner for this Resource Server to use this Authorization Server for protecting some or all of the resources belonging to this Resource Owner.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">ENDPOINTS</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Authorization API</strong><br>
+Requires access token with <em>uma_authorization</em> scope (AAT). An entity that can acquire an access token with this scope is by definition a Client.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>RPT Endpoint</strong><br>
+An endpoint at the Authorization Server that issues RPTs and Authorization Data to the Client.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Protection API</strong><br>
+Requires access token with <em>uma_protection</em> scope (PAT). An entity that can acquire an access token with this scope is by definition a Resource Server.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Resource Set Registration Endpoint</strong><br>
+An endpoint at the Authorization Server that allows the Resource Server to register Resource Sets.</p>
+</li>
+<li>
+<p><strong>Permission Registration Endpoint</strong><br>
+An endpoint at the Authorization Server that allows the Resource Server to request Permission Tickets.</p>
+</li>
+<li>
+<p><strong>Token Introspection Endpoint</strong><br>
+An endpoint at the Authorization Server that allows the Resource Server to query the status of an RPT and its associated Authorization Data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_resource_protection">4.3.2.4. Resource Protection</h5>
+<div class="paragraph">
+<p>The resource owner, resource server, and authorization server perform the following high-level actions to put resources under protection:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The Authorization Server issues client credentials to the resource server, (either dynamically or statically)</p>
+</li>
+<li>
+<p>The Resource Server acquires a PAT from the Authorization Server</p>
+</li>
+<li>
+<p>The Resource Server registers any Resource Sets with the Authorization Server for which it intends to outsource protection, using the Resource Set Registration Endpoint of the Protection API</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_access_resource">4.3.2.5. Access Resource</h5>
+<div class="paragraph">
+<p>An Authorization Server orchestrates and controls Clients' access on their Requesting Parties' behalf to a Resource Owner&#8217;s protected resources at a Resource Server, under conditions specified by that Resource Owner through policy.</p>
+</div>
+<div class="paragraph">
+<p>The process of getting authorization and accessing a resource always begins with the Client attempting access at a protected resource endpoint at the Resource Server.</p>
+</div>
+<div class="paragraph">
+<p>If the Client&#8217;s attempt has a valid RPT with sufficient Authorization Data, the Resource Owner&#8217;s policies have been met for access to the protected resource, and hence access is granted - <a href="#img_umaAccessResource">Figure 7</a>.</p>
+</div>
+<div id="img_umaAccessResource" class="imageblock text-center">
+<div class="content">
+<img src="./images/uma-access-resource.png" alt="uma access resource" width="607" height="241">
+</div>
+<div class="title">Figure 7. UMA Access Resource (Success)</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</h5>
+<div class="paragraph">
+<p>If the Client&#8217;s request at the protected resource has no RPT, or has an invalid RPT or insufficient Authorization Data associated with the RPT as determined through RPT status checking, the Resource Server registers a requested permission with the relevant Authorization Server, and responds to the Client with the resulting Permission Ticket and the Authorization Server&#8217;s location. The extent of the requested permission MUST suffice for the extent of the Client&#8217;s access attempt at that resource. The PAT provided in the API request enables the Authorization Server to map the requested permission to the appropriate Resource Owner. The Authorization Server returns a Permission Ticket in its response for the Resource Server to give to the Client that represents the same extent of requested access that the Resource Server registered - <a href="#img_umaRegisterPermission">Figure 8</a>.</p>
+</div>
+<div id="img_umaRegisterPermission" class="imageblock text-center">
+<div class="content">
+<img src="./images/uma-register-permission.png" alt="uma register permission" width="747" height="369">
+</div>
+<div class="title">Figure 8. UMA Resource Server Register Permission</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_client_request_authorization">4.3.2.7. Client Request Authorization</h5>
+<div class="paragraph">
+<p>In order to access a protected resource successfully, a client needs to present a valid RPT with sufficient authorization data. The client uses the authorization API to acquire an RPT and to ask for authorization data, providing the permission ticket it received from the resource server.</p>
+</div>
+<div class="paragraph">
+<p>The authorization server uses the permission ticket to look up the details of the previously registered requested permission, maps the requested permission to operative resource owner policies based on the resource set identifier and scopes associated with it, potentially requests additional information and receives additional information such as claims, and ultimately responds positively or negatively to the request for authorization data. <strong>The authorization server bases the issuance of authorization data on resource owner policies. Thus, these policies function as authorization that has been granted ahead of time.</strong></p>
+</div>
+<div id="img_umaClientRequestAuthorization" class="imageblock text-center">
+<div class="content">
+<img src="./images/uma-get-authorization.png" alt="uma get authorization" width="1049" height="1012">
+</div>
+<div class="title">Figure 9. UMA Client Request Authorization</div>
+</div>
+<div class="paragraph">
+<p>Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_uma_related_technologies">4.3.2.8. UMA Related Technologies</h5>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Triple-A for Exploitation Platforms (Deimos)</dt>
@@ -2296,7 +2542,7 @@ Both the billing and user identities, and other information such as the location
 <div class="content">
 <img src="./images/use-cases-processing.png" alt="use cases processing" width="100%">
 </div>
-<div class="title">Figure 7. Processing &amp; Chaining Use Case</div>
+<div class="title">Figure 10. Processing &amp; Chaining Use Case</div>
 </div>
 <div class="paragraph">
 <p>In meeting these requirements the following key challenges are identified:</p>
@@ -2370,13 +2616,13 @@ Both the billing and user identities, and other information such as the location
 <p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should include an EMS.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procOverview">Figure 8</a> illustrates the main architecture components and their interfaces.</p>
+<p><a href="#img_procOverview">Figure 11</a> illustrates the main architecture components and their interfaces.</p>
 </div>
 <div id="img_procOverview" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-overview.png" alt="processing overview" width="100%">
 </div>
-<div class="title">Figure 8. Processing &amp; Chaining Overview</div>
+<div class="title">Figure 11. Processing &amp; Chaining Overview</div>
 </div>
 <div class="paragraph">
 <p>In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs &#8594; inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.</p>
@@ -2505,13 +2751,13 @@ The service/application is ported to use the services of the EP intrinsically - 
 </dl>
 </div>
 <div class="paragraph">
-<p><a href="#img_procAppDescriptor">Figure 9</a> provides an illustration of the Application Descriptor structure.</p>
+<p><a href="#img_procAppDescriptor">Figure 12</a> provides an illustration of the Application Descriptor structure.</p>
 </div>
 <div id="img_procAppDescriptor" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="70%">
 </div>
-<div class="title">Figure 9. Structure of Application Descriptor data model</div>
+<div class="title">Figure 12. Structure of Application Descriptor data model</div>
 </div>
 <div class="paragraph">
 <p>Thus, the WPS-T DeployDocument comprises the following parts:</p>
@@ -2663,13 +2909,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procEmsDeploy">Figure 10</a> illustrates the deployment of applications and workflows to the EMS.</p>
+<p><a href="#img_procEmsDeploy">Figure 13</a> illustrates the deployment of applications and workflows to the EMS.</p>
 </div>
 <div id="img_procEmsDeploy" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="90%">
 </div>
-<div class="title">Figure 10. EMS Deployment</div>
+<div class="title">Figure 13. EMS Deployment</div>
 </div>
 <div class="paragraph">
 <p>Applications are deployed to the EMS so that they are available for inclusion in workflows.</p>
@@ -2678,13 +2924,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.</p>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_procEmsExecute">Figure 11</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
+<p>As illustrated in <a href="#img_procEmsExecute">Figure 14</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
 </div>
 <div id="img_procEmsExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="100%">
 </div>
-<div class="title">Figure 11. EMS Workflow Execution</div>
+<div class="title">Figure 14. EMS Workflow Execution</div>
 </div>
 <div class="paragraph">
 <p>At time of <code>wps:Execute</code> the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:</p>
@@ -2752,13 +2998,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
 </div>
 <div class="paragraph">
-<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 12</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
+<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 15</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
 </div>
 <div id="img_procAdesExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="85%">
 </div>
-<div class="title">Figure 12. ADES Process Execution</div>
+<div class="title">Figure 15. ADES Process Execution</div>
 </div>
 <div class="paragraph">
 <p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling of the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
@@ -2776,13 +3022,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="sect2">
 <h3 id="procServiceDataAccess">5.6. Processing Service Data Access</h3>
 <div class="paragraph">
-<p>The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <a href="#img_procDataAccess">Figure 13</a> illustrates.</p>
+<p>The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <a href="#img_procDataAccess">Figure 16</a> illustrates.</p>
 </div>
 <div id="img_procDataAccess" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-data-access.png" alt="processing data access" width="50%">
 </div>
-<div class="title">Figure 13. Processing Framework Data Access</div>
+<div class="title">Figure 16. Processing Framework Data Access</div>
 </div>
 <div class="dlist">
 <dl>
@@ -2880,13 +3126,13 @@ The EMS orchestrates the outputs to the next workflow step, or makes available t
 </ul>
 </div>
 <div class="paragraph">
-<p>Building upon the work of OGC Testbed-14 (ref. <a href="#TB14-AP">[TB14-AP]</a>), the Application Descriptor described in section <a href="#mainAppPackage">Application Packaging</a> can be enhanced to include additional application capabilities, as illustrated in <a href="#img_procAppDescriptorUpdated">Figure 14</a>.</p>
+<p>Building upon the work of OGC Testbed-14 (ref. <a href="#TB14-AP">[TB14-AP]</a>), the Application Descriptor described in section <a href="#mainAppPackage">Application Packaging</a> can be enhanced to include additional application capabilities, as illustrated in <a href="#img_procAppDescriptorUpdated">Figure 17</a>.</p>
 </div>
 <div id="img_procAppDescriptorUpdated" class="imageblock text-center">
 <div class="content">
 <img src="./images/application-descriptor-updated.png" alt="application descriptor updated" width="70%">
 </div>
-<div class="title">Figure 14. Application Descriptor (Enhanced)</div>
+<div class="title">Figure 17. Application Descriptor (Enhanced)</div>
 </div>
 <div class="paragraph">
 <p>The Application Descriptor is enhanced with additional components:</p>
@@ -3133,7 +3379,7 @@ Process</p>
 <div class="content">
 <img src="./images/use-cases-applications.png" alt="use cases applications" width="100%">
 </div>
-<div class="title">Figure 15. Interactive Applications Use Case</div>
+<div class="title">Figure 18. Interactive Applications Use Case</div>
 </div>
 <div class="paragraph">
 <p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
@@ -3271,7 +3517,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/use-cases-data.png" alt="use cases data" width="100%">
 </div>
-<div class="title">Figure 16. Resource Management Use Case</div>
+<div class="title">Figure 19. Resource Management Use Case</div>
 </div>
 <div class="paragraph">
 <p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#mainAppCatalogue">Application Catalogue</a> for more details.</p>
@@ -3289,7 +3535,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
 </div>
 <div class="paragraph">
-<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 17</a>:</p>
+<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 20</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3317,7 +3563,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/resource-overview.png" alt="resource overview" width="85%">
 </div>
-<div class="title">Figure 17. Resource Management Overview</div>
+<div class="title">Figure 20. Resource Management Overview</div>
 </div>
 <div class="paragraph">
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
@@ -3428,7 +3674,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="100%">
 </div>
-<div class="title">Figure 18. Catalogue Aggregation</div>
+<div class="title">Figure 21. Catalogue Aggregation</div>
 </div>
 <div class="paragraph">
 <p>We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:</p>
@@ -3462,10 +3708,10 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/catalogue-federation.png" alt="catalogue federation" width="70%">
 </div>
-<div class="title">Figure 19. Catalogue Federation</div>
+<div class="title">Figure 22. Catalogue Federation</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_catalogueFederation">Figure 19</a> there are a number of possible approaches:</p>
+<p>As illustrated in <a href="#img_catalogueFederation">Figure 22</a> there are a number of possible approaches:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3715,10 +3961,10 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="content">
 <img src="./images/client-portability.png" alt="client portability" width="100%">
 </div>
-<div class="title">Figure 20. Client Portability</div>
+<div class="title">Figure 23. Client Portability</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_clientPortability">Figure 20</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. <strong>It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</strong></p>
+<p>As illustrated in <a href="#img_clientPortability">Figure 23</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. <strong>It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</strong></p>
 </div>
 <div class="sect2">
 <h3 id="mainServiceApi">7.1. Service API</h3>
@@ -4008,21 +4254,21 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="content">
 <img src="./images/client-lib-service-interfaces.png" alt="client lib service interfaces" width="100%">
 </div>
-<div class="title">Figure 21. Client Library Service Interfaces</div>
+<div class="title">Figure 24. Client Library Service Interfaces</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_clientLibServiceInterfaces">Figure 21</a>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).</p>
+<p>As illustrated in <a href="#img_clientLibServiceInterfaces">Figure 24</a>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).</p>
 </div>
 <div class="sect3">
 <h4 id="_client_library_concept_illustration">7.2.1. Client Library Concept Illustration</h4>
 <div class="paragraph">
-<p>The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<a href="#TB14-ADES">[TB14-ADES]</a>). The scenario is shown in <a href="#img_ndviStacker">Figure 22</a>.</p>
+<p>The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<a href="#TB14-ADES">[TB14-ADES]</a>). The scenario is shown in <a href="#img_ndviStacker">Figure 25</a>.</p>
 </div>
 <div id="img_ndviStacker" class="imageblock text-center">
 <div class="content">
 <img src="./images/ndvi-stacker.png" alt="ndvi stacker" width="80%">
 </div>
-<div class="title">Figure 22. OGC Testbed-14 Workflow Scenario (NDVI Stacker)</div>
+<div class="title">Figure 25. OGC Testbed-14 Workflow Scenario (NDVI Stacker)</div>
 </div>
 <div class="paragraph">
 <p>Four platforms are involved in the scenario:</p>
@@ -4163,13 +4409,13 @@ print(result)</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 23</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 26</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="90%">
 </div>
-<div class="title">Figure 23. Web Portal: Overview</div>
+<div class="title">Figure 26. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -4204,8 +4450,8 @@ print(result)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.6<br>
-Last updated 2019-07-18 12:30:13 UTC
+Version 0.7-inprogress<br>
+Last updated 2019-07-24 09:05:27 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">

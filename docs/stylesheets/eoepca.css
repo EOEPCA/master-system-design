@@ -10,6 +10,11 @@ pre.CodeRay code {
     font-size: 0.9em;
 }
 
+/* Bold font for the numbers in an ordered list */
+div.strong > ol {
+    font-weight: bold;
+}
+
 /*
  * EXAMPLE for custom code-block scaling...
  * Use an asciidoc source element like this '[source.src-scale05,python]' and then apply a custom style like below.
