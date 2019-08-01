@@ -1,6 +1,14 @@
 = Changelog
 All notable changes to this project will be documented in this file.
 
+== https://github.com/EOEPCA/master-system-design-src/compare/v0.6%2E%2E%2Ev1.0[v1.0] - 02.08.2019
+
+=== Added
+* Description of UMA
+
+=== Changed
+* Various tweaks around Resource Catalogue and management of 'resources'.
+
 == https://github.com/EOEPCA/master-system-design-src/compare/v0.5%2E%2E%2Ev0.6[v0.6] - 18.07.2019
 
 === Added

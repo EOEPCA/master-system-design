@@ -18,9 +18,9 @@
 <div class="details">
 <span id="author" class="author">TVUK System Team</span><br>
 <span id="email" class="email">&lt;<a href="mailto:Eoepca.SystemTeam@telespazio.com">Eoepca.SystemTeam@telespazio.com</a>&gt;</span><br>
-<span id="revnumber">version 0.7-inprogress,</span>
-<span id="revdate">dd/mm/yyyy</span>
-<br><span id="revremark">In-Progress Draft</span>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">02/08/2019</span>
+<br><span id="revremark"></span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Master System Design</div>
@@ -42,7 +42,8 @@
 <li><a href="#_user_management">3.1.1. User Management</a></li>
 <li><a href="#_processing_and_chaining">3.1.2. Processing and Chaining</a></li>
 <li><a href="#_resource_management">3.1.3. Resource Management</a></li>
-<li><a href="#_web_portal">3.1.4. Web Portal</a></li>
+<li><a href="#_platform_api">3.1.4. Platform API</a></li>
+<li><a href="#_web_portal">3.1.5. Web Portal</a></li>
 </ul>
 </li>
 <li><a href="#_architecture_layers">3.2. Architecture Layers</a></li>
@@ -97,7 +98,6 @@
 <li><a href="#_access_resource">4.3.2.5. Access Resource</a></li>
 <li><a href="#_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</a></li>
 <li><a href="#_client_request_authorization">4.3.2.7. Client Request Authorization</a></li>
-<li><a href="#_uma_related_technologies">4.3.2.8. UMA Related Technologies</a></li>
 </ul>
 </li>
 </ul>
@@ -149,20 +149,25 @@
 <li><a href="#_wps_t_restjson">5.7. WPS-T REST/JSON</a></li>
 <li><a href="#_interactive_graphical_applications">5.8. Interactive (Graphical) Applications</a></li>
 <li><a href="#_parallel_processing">5.9. Parallel Processing</a></li>
-<li><a href="#mainAppCatalogue">5.10. Application Catalogue</a></li>
+<li><a href="#_processor_development_environment_pde">5.10. Processor Development Environment (PDE)</a></li>
+<li><a href="#_interactive_analysis_tool">5.11. Interactive Analysis Tool</a></li>
 </ul>
 </li>
 <li><a href="#mainResourceManagement">6. Resource Management</a>
 <ul class="sectlevel2">
-<li><a href="#mainDataCatalogue">6.1. Data Catalogue</a>
+<li><a href="#mainResourceCatalogue">6.1. Resource Catalogue</a>
 <ul class="sectlevel3">
-<li><a href="#_metadata_organisation">6.1.1. Metadata Organisation</a></li>
-<li><a href="#_example_usage_with_opensearch">6.1.2. Example Usage with OpenSearch</a></li>
-<li><a href="#mainOpenSearch">6.1.3. OpenSearch</a></li>
-<li><a href="#_resource_types">6.1.4. Resource Types</a></li>
-<li><a href="#_data_access">6.1.5. Data Access</a></li>
-<li><a href="#_catalogue_compositionaggregation">6.1.6. Catalogue Composition/Aggregation</a></li>
-<li><a href="#_federated_discovery">6.1.7. Federated Discovery</a></li>
+<li><a href="#mainOpenSearch">6.1.1. CEOS OpenSearch Best Practise</a></li>
+<li><a href="#mainAppCatalogue">6.1.2. Application Catalogue</a></li>
+<li><a href="#mainDataCatalogue">6.1.3. Data Catalogue</a>
+<ul class="sectlevel4">
+<li><a href="#_metadata_organisation">6.1.3.1. Metadata Organisation</a></li>
+<li><a href="#_example_usage_with_opensearch">6.1.3.2. Example Usage with OpenSearch</a></li>
+<li><a href="#_data_access">6.1.3.3. Data Access</a></li>
+<li><a href="#_catalogue_compositionaggregation">6.1.3.4. Catalogue Composition/Aggregation</a></li>
+</ul>
+</li>
+<li><a href="#_federated_discovery">6.1.4. Federated Discovery</a></li>
 </ul>
 </li>
 <li><a href="#_data_access_services">6.2. Data Access Services</a></li>
@@ -256,6 +261,11 @@ The Amendment Record Sheet below records the history and issue status of this do
 </tr>
 </thead>
 <tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock">1.0</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock">02/08/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issue for domain expert ITT</p></td>
+</tr>
 <tr>
 <th class="tableblock halign-center valign-top"><p class="tableblock">0.6</p></th>
 <td class="tableblock halign-center valign-top"><p class="tableblock">18/07/2019</p></td>
@@ -367,8 +377,8 @@ EOEPCA.TN.005<br>
 <a href="https://eoepca.github.io/use-case-analysis" class="bare">https://eoepca.github.io/use-case-analysis</a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Issue <mark>TBD</mark>,<br>
-dd/mm/yyy</p>
+<p>Issue 1.0,<br>
+02/08/2019</p>
 </div></div></td>
 </tr>
 <tr>
@@ -684,10 +694,6 @@ OGC 08-068r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Comprises the <em>Application Descriptor</em> and the <em>Application Artefact</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Login Service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authenticated Login provision within the Exploitation Platform context. The Login Service is an Authorization Server (OAuth) that is used purely for authentication. It acts as a Relying Party in flows with external IdPs to obtain access to the user&#8217;s identity.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bulk Processing</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execution of a <em>Processing Service</em> on large amounts of data specified by AOI and TOI.</p></td>
 </tr>
@@ -726,6 +732,10 @@ OGC 08-068r2,<br>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Expert</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User developing and integrating added-value to the EP (Scientific Researcher or Service Developer)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exploitation Tier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Exploitation Tier represents the end-users who exploit the services of the platform to perform analysis, or using high-level applications built-in on top of the platform’s services</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">External Application</p></td>
@@ -772,6 +782,14 @@ OGC 08-068r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Container orchestration system for automating application deployment, scaling and management.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An encapsulation of Authenticated Login provision within the Exploitation Platform context. The Login Service is an OpenID Connect Provider that is used purely for authentication. It acts as a Relying Party in flows with external IdPs to obtain access to the user&#8217;s identity.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network of EO Resources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The coordinated collection of European EO resources (platforms, data sources, etc.).</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Object Store</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A computer data storage architecture that manages data as objects. Each object typically includes the data itself, a variable amount of metadata, and a globally unique identifier.</p></td>
 </tr>
@@ -782,6 +800,10 @@ OGC 08-068r2,<br>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Platform (EP)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An on-line collection of products, services and tools for exploitation of EO data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform Tier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Platform Tier represents the Exploitation Platform and the services it offers to end-users</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Processing</p></td>
@@ -802,6 +824,10 @@ OGC 08-068r2,<br>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Resource</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A entity, such as a Product, Processing Service or Interactive Application, which is of interest to a user, is indexed in a catalogue and can be returned as a single meaningful search result</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource Tier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Resource Tier represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation platform is deployed</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Research Object</p></td>
@@ -976,6 +1002,10 @@ OGC 08-068r2,<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Open Geospatial Consortium</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PDE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processor Development Environment</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PDP</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Policy Decision Point</p></td>
 </tr>
@@ -1056,7 +1086,7 @@ OGC 08-068r2,<br>
 <p>The Master System Design provides an EO Exploitation Platform architecture that meets the service needs of current and future systems, as defined by the use cases described in <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. These use cases must be explored under 'real world' conditions by engagement with existing deployments, initiatives, user groups, stakeholders and sponsors within the user community and within overlapping communities, in order to gain a fully representative understanding of the functional requirements.</p>
 </div>
 <div class="paragraph">
-<p>The system design takes into consideration existing precursor architectures (such as the Exploitation Platform Functional Model <a href="#EP-FM]">[EP-FM]]</a> and Thematic Exploitation Platform Open Architecture <a href="#TEP-OA">[TEP-OA]</a>), including consideration of state-of-the-art technologies and approaches used by current related projects. The master system design describes functional blocks linked together by agreed standardised interfaces.</p>
+<p>The system design takes into consideration existing precursor architectures (such as the Exploitation Platform Functional Model <a href="#EP-FM">[EP-FM]</a> and Thematic Exploitation Platform Open Architecture <a href="#TEP-OA">[TEP-OA]</a>), including consideration of state-of-the-art technologies and approaches used by current related projects. The master system design describes functional blocks linked together by agreed standardised interfaces.</p>
 </div>
 <div class="paragraph">
 <p>The importance of the OGC in these activities is recognised as a reference for the appropriate standards and in providing mechanisms to develop and evolve standards as required in the development of the architecture. In order to meet the design challenges we must apply the applicable existing OGC standards to the full set of federated use cases in order to expose deficiencies and identify needed evolution of the standards. Standards are equally important in all areas of the Exploitation Platform, including topics such as Authentication &amp; Authorization Infrastructure (AAI), containerisation and provisioning of virtual cloud resources to ensure portability of compute between different providers of resource layer.</p>
@@ -1102,7 +1132,7 @@ OGC 08-068r2,<br>
 <div class="sect3">
 <h4 id="_user_management">3.1.1. User Management</h4>
 <div class="paragraph">
-<p><em>Responsible for all aspects related to the user’s account, profile, identity and access management in a federated system-of-systems environment.</em></p>
+<p><em>Responsible for all aspects related to user identity, authentication, authorization, accounting and billing in a federated system-of-systems environment.</em></p>
 </div>
 <div class="paragraph">
 <p>It provides authentication, authorization and accounting services that are required to access other elements of the architecture, including the processing-oriented services and resource-oriented services. Individual resources may have an associated access and/or charging policy, but these have to be checked against the identity of the user. Resource consumption may also be controlled e.g. by credits and/or quotas associated with the user account. In the Network of EO Resources, a user should not need to create an account on multiple platforms. Therefore some interactions will be required between the User Management functions, whether directly or in directly via trusted third party.</p>
@@ -1114,7 +1144,7 @@ OGC 08-068r2,<br>
 <p><em>Provides access to a variety of processing functions, tools and applications, as well as execution environments in which to deploy them.</em></p>
 </div>
 <div class="paragraph">
-<p>Hosting and maintaining an inventory of all processing tasks, analysis tools and interactive applications. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
+<p>Provides a deployment and execution environment for processing tasks, analysis tools and interactive applications. Supports the chaining of processing tasks in workflows whose execution can include steps executed external to the origin exploitation platform. Handles and abstracts the low-level complexities of the different underlying compute technologies, and ensures the compute layer is scaled in accordance with current demand. Provides an integrated development environment to facilitate development of new processing algorithms and applications. Facilitating the network of EO resources by providing a federated interface to other processing services within the wider EO network.</p>
 </div>
 <div class="paragraph">
 <p>The development and analysis environment provides a platform for the expert user to develop their own processing chains, experiments and workflows. It integrates with platform catalogue services (for data, processing services and applications) for discovery of available published datasets and processing elements. Subject to appropriate controls and permissions, the user can publish their own processing services and results. Workflows can be executed within the context of the processing facility, with the possibility to execute steps ‘remotely’ in collaborating platforms, with the results being collected for the continuation of the workflow.</p>
@@ -1123,25 +1153,32 @@ OGC 08-068r2,<br>
 <div class="sect3">
 <h4 id="_resource_management">3.1.3. Resource Management</h4>
 <div class="paragraph">
-<p><em>Responsible for storing and cataloguing a variety of resources.</em></p>
+<p><em>Responsible for maintaining an inventory of platform and federated resources, and providing services for data access and visualisation.</em></p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Resource Management</dt>
-<dd>
+<div class="paragraph">
 <p>Storage and cataloguing of all persistent resources. First and foremost, this will contain multidimensional geo-spatial datasets. In addition it may include a variety of heterogeneous data and other resources, such as documentation, Docker images, processing workflows, etc. Handles and abstracts the low-level complexities of different underlying storage technologies and strategies. Facilitating the network of EO resources by providing a federated interface to other data services within the wider EO network.</p>
-</dd>
-</dl>
 </div>
 <div class="paragraph">
-<p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services. Access to services and resources is controlled according to an associated policy - ref <a href="#IAM">Identity and Access Management</a>. Similarly, the ingestion process is controlled, in order to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue. This component may interact with corresponding peer components on other platforms - for example to synchronise catalogue entries.</p>
+<p>The catalogue holds corresponding metadata for every published resource item in the local platform storage, as well as entries for resources that are located on remote collaborating platforms. Catalogue search and data access is provided through a range of standard interfaces, which are used by the local Web Portal and Processing &amp; Chaining elements and may be exposed externally as web services.</p>
 </div>
 <div class="paragraph">
-<p>The user has a personal workspace in which to upload files, organise links to resources of interest (services/application/data), and receive/manage results output from processing executions. Shared workspaces for collaboration can similarly be provisioned.</p>
+<p>Access to services and resources is controlled according to an associated authorization policy as defined by the IAM approach. This component may interact with corresponding peer components on other platforms - for example to synchronise catalogue entries.</p>
+</div>
+<div class="paragraph">
+<p>The user has a personal workspace in which to upload files, organise links to resources of interest (services/application/data), and receive/manage results output from processing executions. Shared workspaces for collaboration can be similarly provisioned. The ingestion of new data is controlled to ensure the quality of any published resource, including associated metadata, and to maintain the integrity of the catalogue.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_web_portal">3.1.4. Web Portal</h4>
+<h4 id="_platform_api">3.1.4. Platform API</h4>
+<div class="paragraph">
+<p><em>Defines standard interfaces at both service and programmatic levels.</em></p>
+</div>
+<div class="paragraph">
+<p>The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated. The Platform API encourages interoperation between platforms and provides a consistent and portable programming paradigm for expert users.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_web_portal">3.1.5. Web Portal</h4>
 <div class="paragraph">
 <p><em>Presents the platform user interface for interacting with the local resources and processing facilities, as well as the wider network of EO resources.</em></p>
 </div>
@@ -1188,10 +1225,10 @@ OGC 08-068r2,<br>
 <p>The EP&#8217;s services access the data resources through a Data Access Gateway that provides an abstraction of the data access interface provided by the resource tier. This abstraction provides a 'standard' data access semantic that can be relied upon by other EP services - thus isolating specific data access concerns of the resource tier to a single EP component.</p>
 </div>
 <div class="paragraph">
-<p>The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisiaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting Data Access Library.</p>
+<p>The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting Data Access Library.</p>
 </div>
 <div class="paragraph">
-<p>The EP provides a Data Catalogue, so that end-users can discover and browse the data available for inclusion in their analysis. Similarly an Application Catalogue provides this discovery service for processing services and applications available within the platform.</p>
+<p>The EP provides Catalogue services, so that end-users can discover and browse the resources available in the platform and its federated partners. Thus, end-users can discover available processing services and applications, and search for data available for inclusion in their analysis.</p>
 </div>
 <div class="paragraph">
 <p>Data Services based upon open standards serve the clients of the Exploitation Platform for data access and data visualisation. Access to the underlying data is made via the Data Access Gateway.</p>
@@ -1219,11 +1256,11 @@ OGC 08-068r2,<br>
 </dd>
 <dt class="hdlist1">Section <a href="#mainProcessingAndChaining">Processing and Chaining</a></dt>
 <dd>
-<p>This section covers service/application discovery (Application Catalogue), application packaging and the Processing Framework through which services/applications can be deployed in federated workflows.</p>
+<p>This section covers application packaging and the Processing Framework through which services/applications can be deployed in federated workflows.</p>
 </dd>
 <dt class="hdlist1">Section <a href="#mainResourceManagement">Resource Management</a></dt>
 <dd>
-<p>This section covers data discovery (Data Catalogue), provision (Gateway) of data access to the processing framework, and public data services to visualise and consume platform data.</p>
+<p>This section covers resource discovery through catalogues that act as a marketplace for data, services and applications. Resource Management ensures data is accessible through standard interfaces that serve the processing framework, and public data services to visualise and consume platform data.</p>
 </dd>
 <dt class="hdlist1">Section <a href="#mainPlatformApi">Platform API</a></dt>
 <dd>
@@ -1249,7 +1286,7 @@ OGC 08-068r2,<br>
 </dd>
 <dt class="hdlist1">Accounting and Billing</dt>
 <dd>
-<p>Maintaining an accounting record of all user accesses to data/services/applications, supported by appropriate systems of credits and billing.</p>
+<p>Maintaining an accounting record of all user accesses to data/compute/services/applications, supported by appropriate systems of credits and billing.</p>
 </dd>
 <dt class="hdlist1">User Profile</dt>
 <dd>
@@ -1262,6 +1299,9 @@ OGC 08-068r2,<br>
 </div>
 <div class="sect2">
 <h3 id="IAM">4.1. Identity and Access Management (IAM)</h3>
+<div class="paragraph">
+<p>The solution for IAM is driven by the need for Federated Identity and Authorization in the context of a network of collaborating exploitation platforms and connected services. This federated environment should facilitate an end-user experience in which they can use a single identity across collaborating platforms <strong>(Single Sign-On)</strong>, they can bring their own existing identity to the platforms <strong>('Login With' service)</strong>, and platforms can access the federated services of other platforms on behalf of the end-user <strong>(delegated access and authorization)</strong>.</p>
+</div>
 <div class="paragraph">
 <p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorization decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sophisticated authorizations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
 </div>
@@ -1372,7 +1412,7 @@ OGC 08-068r2,<br>
 </div>
 <div id="img_iamInterfaces" class="imageblock text-center">
 <div class="content">
-<img src="./images/iam-interfaces.png" alt="iam interfaces" width="80%">
+<img src="./images/iam-interfaces.png" alt="iam interfaces" width="847" height="671">
 </div>
 <div class="title">Figure 5. IAM Interfaces</div>
 </div>
@@ -1624,7 +1664,7 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <div class="sect3">
 <h4 id="_federated_user_access">4.2.7. Federated User Access</h4>
 <div class="paragraph">
-<p>Based upon the above authentication model, an EP could access the resources of another EP by obtaining an access token through OIDC flows. However, considering that these EP&#8594;EP invocations will typically be Machine-to-machine (M2M), then we need to consider how the end-user (resource owner) is able to compete their consent. Two possibilities are explored in the subsequent sections:</p>
+<p>Based upon the above authentication model, an EP could access the resources of another EP by obtaining an access token through OIDC flows. However, considering that these EP&#8594;EP invocations will typically be Machine-to-machine (M2M), then we need to consider how the end-user (resource owner) is able to complete their consent. Two possibilities are explored in the subsequent sections:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1757,7 +1797,7 @@ Aspects of the authorization policy can be delegated from one PDP to another, e.
 </ul>
 </div>
 <div class="paragraph">
-<p>The approach (data model and protocol) for these two interfaces can be aligned. It is not yet defined - further design analysis is required. At this stage the candidate technologies to be investigated are:</p>
+<p>The approach (data model and protocol) for these two interfaces can be aligned - but is not yet defined in the Common Architecture. At this stage the candidate technologies to be investigated are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1768,6 +1808,9 @@ Aspects of the authorization policy can be delegated from one PDP to another, e.
 <p>UMA (User-Managed Access)</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>XACML and UMA can possibly be used together in an overall solution in which <strong>XACML provides the policy language</strong> through which rules are configured and <strong>UMA provides the ‘protocol’ flows</strong>.</p>
 </div>
 <div class="sect3">
 <h4 id="_xacml_extensible_access_control_markup_language">4.3.1. XACML (eXtensible Access Control Markup Language)</h4>
@@ -1783,7 +1826,7 @@ Aspects of the authorization policy can be delegated from one PDP to another, e.
 <dl>
 <dt class="hdlist1">Administrative delegation</dt>
 <dd>
-<p>The delegation mechanism is used to support decentralized administration of access policies. It allows an authority (delegator) to delegate all or parts of its own authority or someone else&#8217;s authority to another user (delegate) without any need to involve modification of the root policy.</p>
+<p>The delegation mechanism is used to support decentralized administration of access policies. It allows an authority (delegator) to delegate all or parts of its own authority, (or someone else&#8217;s authority), to another user (delegate) without any need to involve modification of the root policy.</p>
 </dd>
 <dt class="hdlist1">JSON Request/Response Profile</dt>
 <dd>
@@ -2064,7 +2107,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <p>The process of getting authorization and accessing a resource always begins with the Client attempting access at a protected resource endpoint at the Resource Server.</p>
 </div>
 <div class="paragraph">
-<p>If the Client&#8217;s attempt has a valid RPT with sufficient Authorization Data, the Resource Owner&#8217;s policies have been met for access to the protected resource, and hence access is granted - <a href="#img_umaAccessResource">Figure 7</a>.</p>
+<p>If the Client&#8217;s attempt has a valid RPT with sufficient Authorization Data, the Resource Owner&#8217;s policies have been met for access to the protected resource, and hence access is granted. See <a href="#img_umaAccessResource">Figure 7</a>.</p>
 </div>
 <div id="img_umaAccessResource" class="imageblock text-center">
 <div class="content">
@@ -2076,7 +2119,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <div class="sect4">
 <h5 id="_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</h5>
 <div class="paragraph">
-<p>If the Client&#8217;s request at the protected resource has no RPT, or has an invalid RPT or insufficient Authorization Data associated with the RPT as determined through RPT status checking, the Resource Server registers a requested permission with the relevant Authorization Server, and responds to the Client with the resulting Permission Ticket and the Authorization Server&#8217;s location. The extent of the requested permission MUST suffice for the extent of the Client&#8217;s access attempt at that resource. The PAT provided in the API request enables the Authorization Server to map the requested permission to the appropriate Resource Owner. The Authorization Server returns a Permission Ticket in its response for the Resource Server to give to the Client that represents the same extent of requested access that the Resource Server registered - <a href="#img_umaRegisterPermission">Figure 8</a>.</p>
+<p>If the Client&#8217;s request at the protected resource has no RPT, or has an invalid RPT or insufficient Authorization Data associated with the RPT as determined through RPT status checking, the Resource Server registers a requested permission with the relevant Authorization Server, and responds to the Client with the resulting Permission Ticket and the Authorization Server&#8217;s location. The extent of the requested permission MUST suffice for the extent of the Client&#8217;s access attempt at that resource. The PAT provided in the API request enables the Authorization Server to map the requested permission to the appropriate Resource Owner. The Authorization Server returns a Permission Ticket in its response for the Resource Server to give to the Client that represents the same extent of requested access that the Resource Server registered. See <a href="#img_umaRegisterPermission">Figure 8</a>.</p>
 </div>
 <div id="img_umaRegisterPermission" class="imageblock text-center">
 <div class="content">
@@ -2091,11 +2134,11 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <p>In order to access a protected resource successfully, a client needs to present a valid RPT with sufficient authorization data. The client uses the authorization API to acquire an RPT and to ask for authorization data, providing the permission ticket it received from the resource server.</p>
 </div>
 <div class="paragraph">
-<p>The authorization server uses the permission ticket to look up the details of the previously registered requested permission, maps the requested permission to operative resource owner policies based on the resource set identifier and scopes associated with it, potentially requests additional information and receives additional information such as claims, and ultimately responds positively or negatively to the request for authorization data. <strong>The authorization server bases the issuance of authorization data on resource owner policies. Thus, these policies function as authorization that has been granted ahead of time.</strong></p>
+<p>The authorization server uses the permission ticket to look up the details of the previously registered requested permission, maps the requested permission to operative resource owner policies based on the resource set identifier and scopes associated with it, potentially requests additional information and receives additional information such as claims, and ultimately responds positively or negatively to the request for authorization data. <strong>The authorization server bases the issuance of authorization data on resource owner policies. Thus, these policies function as authorization that has been granted ahead of time.</strong> See <a href="#img_umaClientRequestAuthorization">Figure 9</a>.</p>
 </div>
 <div id="img_umaClientRequestAuthorization" class="imageblock text-center">
 <div class="content">
-<img src="./images/uma-get-authorization.png" alt="uma get authorization" width="1049" height="1012">
+<img src="./images/uma-client-request-authorization.png" alt="uma client request authorization" width="1049" height="1012">
 </div>
 <div class="title">Figure 9. UMA Client Request Authorization</div>
 </div>
@@ -2103,33 +2146,12 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <p>Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_uma_related_technologies">4.3.2.8. UMA Related Technologies</h5>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Triple-A for Exploitation Platforms (Deimos)</dt>
-<dd>
-<p>Provides the Triple-As (Authentication, Authorization and Accounting) based on Oauth, OIDC and UMA.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Home page: <a href="https://triple-a-web.elecnor-deimos.com/" class="bare">https://triple-a-web.elecnor-deimos.com/</a></p>
-</li>
-<li>
-<p>Related products: identity4EO, archive4EO, monitor4eo</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="mainBilling">4.4. Accounting and Billing</h3>
 <div class="paragraph">
-<p>The platform must account for resource use both within the platform and in other platforms via federation. In additional, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
+<p>The platform must account for resource use both within the platform and in other platforms via federation. In addition, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2418,7 +2440,7 @@ Both the billing and user identities, and other information such as the location
 <div class="sect3">
 <h4 id="_licence_and_tc_management">4.5.1. Licence and T&amp;C Management</h4>
 <div class="paragraph">
-<p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degress off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
+<p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degrees off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
 </div>
 <div class="paragraph">
 <p>Some concepts applicable within the licence manager must be established:</p>
@@ -2509,7 +2531,7 @@ Both the billing and user identities, and other information such as the location
 <p>A user 'ports' a licence from one platform to another by using OAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
 </div>
 <div class="paragraph">
-<p>This mechanism may be used for two purposes. In the first, a publisher a has publshed his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
+<p>This mechanism may be used for two purposes. In the first, a publisher has published his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2524,7 +2546,7 @@ Both the billing and user identities, and other information such as the location
 <p>The Processing &amp; Chaining domain area must provide an extensible repository of processing functions, tools and applications (referred here generically as ‘processing services’) that can be discovered by search query, invoked individually, and utilised in workflows.</p>
 </div>
 <div class="paragraph">
-<p>Processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery. Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation.</p>
+<p>The Resource Management domain area provides the facilities through which processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery, (see section <a href="#mainAppCatalogue">Application Catalogue</a>). Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation.</p>
 </div>
 <div class="paragraph">
 <p>Users must be able to define and execute workflows that chain processing steps, in which the input(s) of a step are provided by the output of preceding step(s). Users can publish workflows as new processing services, and so the possibility of workflow nesting.</p>
@@ -2606,7 +2628,7 @@ Both the billing and user identities, and other information such as the location
 <dd>
 <p>WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.</p>
 </dd>
-<dt class="hdlist1"><a href="#mainAppCatalogue">Application Catalogue</a></dt>
+<dt class="hdlist1"><a href="#mainAppCatalogue">Application Catalogue (ref. Resource Management domain)</a></dt>
 <dd>
 <p>An Application Catalogue provides an inventory of processing services that acts as a Marketplace for the discovery and browse for processing services. The Application Catalogue provides a service that can be searched by facet/keyword and provides supporting metadata and information.</p>
 </dd>
@@ -3082,7 +3104,7 @@ The EMS orchestrates the outputs to the next workflow step, or makes available t
 </ol>
 </div>
 <div class="paragraph">
-<p>In cases where the processing service does not natively support the data access protocols offered by the underlying platform, the processing framework must facilitate acces to platform data in a form that can be consumed by the processing service.</p>
+<p>In cases where the processing service does not natively support the data access protocols offered by the underlying platform, the processing framework must facilitate access to platform data in a form that can be consumed by the processing service.</p>
 </div>
 <div class="paragraph">
 <p>To support this, the service/application should declare the data access protocol that it requires. This declaration should be made in the Application Descriptor (ref. Application Package), and is selected from a standard set of protocols, including:</p>
@@ -3448,35 +3470,30 @@ Process</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mainAppCatalogue">5.10. Application Catalogue</h3>
+<h3 id="_processor_development_environment_pde">5.10. Processor Development Environment (PDE)</h3>
 <div class="paragraph">
-<p>The Application Catalogue provides an inventory of applications/services that can be presented as a ‘Marketplace’ for users to discover and browse for processing services to use with EP data.</p>
+<p>The Processor Development Environment provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.</p>
 </div>
 <div class="paragraph">
-<p>The metadata for each application record describes what data an application can be applied to, and how it can be chained in a workflow.</p>
+<p>The PDE supports the packaging of the user’s application in accordance with the Application Packaging format that is suitable for deployment at the EMS/ADES. It provides a sandboxed environment in which the user can test the deployment and execution of their packaged application, with access to suitable test data to perform the validation.</p>
 </div>
 <div class="paragraph">
-<p>The Application Catalogue is the subject of the current OGC Testbed-15 EOPAD Thread, through which the Data Model and catalogue Service Interface are being explored:</p>
+<p>The PDE provides the tools for the developer to fully specify the metadata for their validated application and then add it as a tool in their workspace and/or publish it to the Resource Catalogue for wider consumption.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <a href="#GEOJSON-LD">[GEOJSON-LD]</a></strong><br>
-Explore the capabilities of OGC 17-084 to encode application metadata</p>
-</li>
-<li>
-<p><strong>OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></strong><br>
-Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)<br>
-Use of multi-step discovery and faceted search</p>
-</li>
-<li>
-<p><strong>Registration</strong><br>
-Explore transactional extension to OGC-CSW for application registration.</p>
-</li>
-</ul>
+</div>
+<div class="sect2">
+<h3 id="_interactive_analysis_tool">5.11. Interactive Analysis Tool</h3>
+<div class="paragraph">
+<p>The Interactive Analysis Tool presents a hosted coding environment through which expert users can interact directly with the data and services of the platform. It should provide support for a variety of coding languages, including those most popular in the community – Python, R, Julia, Javascript.</p>
 </div>
 <div class="paragraph">
-<p>It is anticipated that the outcome of the OGC Testbed-15 (EOPAD) will further inform the design of the Application Catalogue.</p>
+<p>For example, the Interactive Analysis Tool can be provided as a Jupyter Notebook instance that is provisioned in the user’s context with a ‘platform integration’ layer that provides simple access to platform resources, including resources held within the user’s Workspace.</p>
+</div>
+<div class="paragraph">
+<p>It must be integrated with the platforms authentication and authorization scheme in accordance with the IAM approach described by the User Management domain.</p>
+</div>
+<div class="paragraph">
+<p>The Interactive Analysis Tool should support the user to save their interactive analysis sessions for future resumption and sharing with others for purposes of collaboration.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -3486,7 +3503,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <h2 id="mainResourceManagement">6. Resource Management</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets. The concerns of processing assets are addressed in the ‘Processing &amp; Chaining’ domain area. Thus, Resource Management focuses primarily on the provision of data within the EP.</p>
+<p>The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets.</p>
 </div>
 <div class="paragraph">
 <p>Storage is largely taken care of by the Resource Tier upon which the Exploitation Platform is hosted. The role of the Exploitation Platform is to ensure that the data can be accessed through common data access protocols based upon open standards.</p>
@@ -3511,19 +3528,19 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>To exploit the services of the Platform, users need to discover available data, obtain detailed collection/product information, including the ability to visualise the data in the platform. This applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.</p>
+<p>To exploit the services of the Platform, users need to discover available resources and obtain detailed resource information. For example, a user&#8217;s data discovery workflow should include the ability to view collection/product information and visualise the data in the platform - this applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.</p>
 </div>
 <div id="img_resourceUseCase" class="imageblock text-center">
 <div class="content">
-<img src="./images/use-cases-data.png" alt="use cases data" width="100%">
+<img src="./images/use-cases-resources.png" alt="use cases resources" width="100%">
 </div>
 <div class="title">Figure 19. Resource Management Use Case</div>
 </div>
 <div class="paragraph">
-<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the ‘Processing &amp; Chaining’ domain area by the provision of an Application Catalogue. See <a href="#mainAppCatalogue">Application Catalogue</a> for more details.</p>
+<p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the provision of an <a href="#mainAppCatalogue">Application Catalogue</a>.</p>
 </div>
 <div class="paragraph">
-<p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs.</p>
+<p>The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs. <strong>Thus a Resource Catalogue provides the inventory of data, processing services, applications in such a way as to create a Marketplace for resource discovery, and provide a launchpad for their use within the exploitation platform</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Access to resources must be controlled according to the privileges afforded to the logged in user, and appropriate hooks must be established into the EPs accounting and billing subsystems. Thus, the Resource Management services must be implemented according to the approach defined by User Management for authorization, accounting and billing.</p>
@@ -3540,7 +3557,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Data Catalogue</p>
+<p>Resource Catalogue</p>
 </li>
 <li>
 <p>Data Access Services</p>
@@ -3569,59 +3586,17 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
 </div>
 <div class="sect2">
-<h3 id="mainDataCatalogue">6.1. Data Catalogue</h3>
+<h3 id="mainResourceCatalogue">6.1. Resource Catalogue</h3>
 <div class="paragraph">
-<p>The Catalogue provides the user the capability to discover data/products by browse/search, and to obtain details on specific data/products discovered.</p>
+<p>The Catalogue provides the user the capability to discover resources, (including data/products/services/applications), by browse/search, and to obtain details on specific resources discovered. Resources of different type can be catalogued and delivered through the same service architecture and catalogue service interfaces - provided as a consolidated catalogue service, or through discrete services for each resource type. In each case the catalogue provides an inventory of resources that can be presented as a <em>Marketplace</em> for users to discover and browse.</p>
+</div>
+<div class="paragraph">
+<p>Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a correct match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.</p>
 </div>
 <div class="sect3">
-<h4 id="_metadata_organisation">6.1.1. Metadata Organisation</h4>
+<h4 id="mainOpenSearch">6.1.1. CEOS OpenSearch Best Practise</h4>
 <div class="paragraph">
-<p>The data is organised into Collections, typically representing a dataset. Each collection is composed of multiple granules as files. The catalogue metadata follows a similar organisation and allows the user to discover the data in natural sympathy with this data organisation. Hence, the metadata is presented at the following levels:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Browse Metadata (collection)</dt>
-<dd>
-<p>Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial/temporal coverage, list of variables available, access rights, T&amp;Cs, etc.<br>
-(For collections, the spatial coverage is often full-earth).</p>
-</dd>
-<dt class="hdlist1">Discovery Metadata (product)</dt>
-<dd>
-<p>Discovery metadata is defined for each granule (file) comprising the collection. This typically includes information such as file-type(s), spatial/temporal coverage, variable, data access (download) method(s). Much of this information can be obtained from the headers of the individual files – depending on file-type. Thus, the Discovery metadata can in-part be populated automatically from the underlying files.</p>
-</dd>
-<dt class="hdlist1">Archive Metadata (file)</dt>
-<dd>
-<p>Archive metadata refers to the information that is available in the file header. As described above this can be extracted and published into the Discovery metadata of the catalogue.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_usage_with_opensearch">6.1.2. Example Usage with OpenSearch</h4>
-<div class="paragraph">
-<p>This metadata model can be exploited, for example, using OpenSearch:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Initial search is made at the collection level to discover collections/dataset of interest.</p>
-</li>
-<li>
-<p>Subsequent OpenSearch requests can then be made to drill-down into a specific collection to discover and obtain details regarding the granules.</p>
-</li>
-<li>
-<p>Once discovered, the granules can then be exploited by the user, for example as input to a processing request, or downloaded.</p>
-</li>
-<li>
-<p>Facets can be applied to both the Browse and Discovery metadata, to supported facetted search at both levels.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="mainOpenSearch">6.1.3. OpenSearch</h4>
-<div class="paragraph">
-<p>The Common Architecture provision of OpenSearch should be based-upon the CEOS OpenSearch Best Practise <a href="#CEOS-OS-BP">[CEOS-OS-BP]</a> which provides a blueprint for dataset search and discovery. Within this context, the following OGC extensions and recommendations are applicable:</p>
+<p>The Common Architecture advocates standardisation on the use of OpenSearch based-upon the CEOS OpenSearch Best Practise <a href="#CEOS-OS-BP">[CEOS-OS-BP]</a> which provides a blueprint for catalogue search and discovery. Within this context, the following OGC extensions and recommendations are applicable:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3648,27 +3623,100 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_resource_types">6.1.4. Resource Types</h4>
+<h4 id="mainAppCatalogue">6.1.2. Application Catalogue</h4>
 <div class="paragraph">
-<p>Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a correct match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.</p>
+<p>Processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery. Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation. The metadata for each application record describes what data an application can be applied to, and how it can be chained in a workflow.</p>
+</div>
+<div class="paragraph">
+<p>The Application Catalogue is the subject of the current OGC Testbed-15 EOPAD Thread, through which the Data Model and catalogue Service Interface are being explored. Thus, in addition to the best practise identified above, the outcomes of the TB15 EOPAD thread should be taken into consideration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <a href="#GEOJSON-LD">[GEOJSON-LD]</a></strong><br>
+Explore the capabilities of OGC 17-084 to encode application metadata</p>
+</li>
+<li>
+<p><strong>OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <a href="#GEOJSON-LD-RESP">[GEOJSON-LD-RESP]</a></strong><br>
+Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)<br>
+Use of multi-step discovery and faceted search</p>
+</li>
+<li>
+<p><strong>Registration</strong><br>
+Explore transactional extension to OGC-CSW for application registration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is anticipated that the outcome of the OGC Testbed-15 (EOPAD) will further inform the design of the Application Catalogue.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_access">6.1.5. Data Access</h4>
+<h4 id="mainDataCatalogue">6.1.3. Data Catalogue</h4>
+<div class="paragraph">
+<p>The Catalogue provides the user the capability to discover data/products by browse/search, and to obtain details on specific data/products discovered. The Marketplace concept can be extended to embrace the discovery and access to data.</p>
+</div>
+<div class="sect4">
+<h5 id="_metadata_organisation">6.1.3.1. Metadata Organisation</h5>
+<div class="paragraph">
+<p>The data is organised into Collections, typically representing a dataset. Each collection is composed of multiple granules as files. The catalogue metadata follows a similar organisation and allows the user to discover the data in natural sympathy with this data organisation. Hence, the metadata is presented at the following levels:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Browse Metadata (collection)</dt>
+<dd>
+<p>Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial/temporal coverage, list of variables available, access rights, T&amp;Cs, etc.<br>
+(For collections, the spatial coverage is often full-earth).</p>
+</dd>
+<dt class="hdlist1">Discovery Metadata (product)</dt>
+<dd>
+<p>Discovery metadata is defined for each granule (file) comprising the collection. This typically includes information such as file-type(s), spatial/temporal coverage, variable, data access (download) method(s). Much of this information can be obtained from the headers of the individual files – depending on file-type. Thus, the Discovery metadata can in-part be populated automatically from the underlying files.</p>
+</dd>
+<dt class="hdlist1">Archive Metadata (file)</dt>
+<dd>
+<p>Archive metadata refers to the information that is available in the file header. As described above this can be extracted and published into the Discovery metadata of the catalogue.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_example_usage_with_opensearch">6.1.3.2. Example Usage with OpenSearch</h5>
+<div class="paragraph">
+<p>This metadata model can be exploited, for example, using OpenSearch:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial search is made at the collection level to discover collections/dataset of interest.</p>
+</li>
+<li>
+<p>Subsequent OpenSearch requests can then be made to drill-down into a specific collection to discover and obtain details regarding the granules.</p>
+</li>
+<li>
+<p>Once discovered, the granules can then be exploited by the user, for example as input to a processing request, or downloaded.</p>
+</li>
+<li>
+<p>Facets can be applied to both the Browse and Discovery metadata, to supported facetted search at both levels.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_data_access">6.1.3.3. Data Access</h5>
 <div class="paragraph">
 <p>There is a direct link between the way the data is described in the Catalogue and how it is accessed by the consumers of the data. This links to the Data Access Services (e.g. WMS. WCS, WFS, etc.) provided by the EP, and the way in which the access links are encoded into the Catalogue. These links must be usable by the data consumers which could be processing services, or users downloading the data.</p>
 </div>
 <div class="paragraph">
-<p>Hence the contents of the Catalogue reflects the data services offered by the platform, including the underlying resource tier services. Each data Collection is presented in the Catalogue as accessible through one or more data access services, as applicable to the specfic data. The Catalogue must present the data access URLs is such a way that the URL resolves correctly to the underlying data via the providing data access service.</p>
+<p>Hence the contents of the Catalogue reflects the data services offered by the platform, including the underlying resource tier services. Each data Collection is presented in the Catalogue as accessible through one or more data access services, as applicable to the specific data. The Catalogue must present the data access URLs in such a way that the URL resolves correctly to the underlying data via the providing data access service.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_catalogue_compositionaggregation">6.1.6. Catalogue Composition/Aggregation</h4>
+<div class="sect4">
+<h5 id="_catalogue_compositionaggregation">6.1.3.4. Catalogue Composition/Aggregation</h5>
 <div class="paragraph">
 <p>The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies. The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within.</p>
 </div>
 <div class="paragraph">
-<p>In order to ensure a coherent link between data discovery and access, the Exploitation Platform provides its own Catalogue that presents the data holding to be accessed through the available data access services. In doing so it must aggregate the catalogue records of the underlying resource tier, the records of other 'federated' platforms, and the value-added data that is contributed through the actions of users on the EP. Thus the EP provides a Catalgue that is tailored to its service offering to ensure a consistent data access interface that can be relied upon by other EP services, in particular by the executing user analysis functions running within the Processing &amp; Chaining context.</p>
+<p>In order to ensure a coherent link between data discovery and access, the Exploitation Platform provides its own Catalogue that presents the data holding to be accessed through the available data access services. In doing so it must aggregate the catalogue records of the underlying resource tier, the records of other 'federated' platforms, and the value-added data that is contributed through the actions of users on the EP. Thus the EP provides a Catalogue that is tailored to its service offering to ensure a consistent data access interface that can be relied upon by other EP services, in particular by the executing user analysis functions running within the Processing &amp; Chaining context.</p>
 </div>
 <div id="img_catalogueAggregation" class="imageblock text-center">
 <div class="content">
@@ -3699,8 +3747,9 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <p>The important point is to ensure that the EP presents interfaces that conform to its defined open standards, and is able to take measures to ensure this is the case. From the perspective of the user of the Exploitation Platform a single Data Catalogue end-point is most desirable. The EP web interface can present a consolidated user view in the case of multiple catalogue end-points. A similar consolidation approach can be applied by the EP programmatic API, which can present a single end-point on behalf of the back-end data catalogues.</p>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="_federated_discovery">6.1.7. Federated Discovery</h4>
+<h4 id="_federated_discovery">6.1.4. Federated Discovery</h4>
 <div class="paragraph">
 <p>In order that a user is able to discover data/services of interest in a federated network of Exploitation Platforms, an approach to Catalogue federation must be established between collaborating platforms.</p>
 </div>
@@ -3788,7 +3837,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The integration of these services into the data-layer of the hosting Resource Tier relies upon the Data Access Gateway providing an infrastructure agnostic interface for accessing the underlying data holding.</p>
+<p>Integration of these data access services with the data-layer of the hosting Resource Tier relies upon the Data Access Gateway providing an infrastructure agnostic interface for accessing the underlying data holding.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3833,7 +3882,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 </div>
 <div class="paragraph">
 <p>Through docker/kubernetes we can use mounted 'volumes' to present data through a local filesystem interface.<br>
-Through s3fs-fuse we can establish local filesytem mount points to S3 object stores.<br>
+Through s3fs-fuse we can establish local filesystem mount points to S3 object stores.<br>
 The Processing Framework makes use of these capabilities to ensure that data is presented to processing services/applications in a form that they can consume.</p>
 </div>
 <div class="paragraph">
@@ -3932,7 +3981,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p>This concept can be extended to create a Group Workspace for sharing and collaboration.</p>
 </div>
 <div class="paragraph">
-<p>It may be possible to model the Workspace as a Catalogue, in which the browse/discover access privilege is limited either to an individual user (personal workspace) or a group of collaborating users (group workspace):</p>
+<p>It may be possible to model the Workspace as a Catalogue, in which the browse/discover access privilege is limited to either an individual user (personal workspace) or a group of collaborating users (group workspace):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3940,7 +3989,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p>READ access: OpenSearch should provide a good fit for this interface</p>
 </li>
 <li>
-<p>CREATE/UPDATE/DELETE: Interface semantics must be defined</p>
+<p>CREATE/UPDATE/DELETE: Transactional extension to OGC-CSW (to be explored)</p>
 </li>
 </ul>
 </div>
@@ -4067,7 +4116,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <p><strong>/search</strong> (example)</p>
 </div>
 <div class="paragraph">
-<p>Implements an OpenSearch interface in accordance with section <a href="#mainOpenSearch">Open Search</a>.</p>
+<p>Implements an OpenSearch interface in accordance with section <a href="#mainResourceCatalogue">Resource Catalogue</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4450,8 +4499,8 @@ print(result)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.7-inprogress<br>
-Last updated 2019-07-24 09:05:27 UTC
+Version 1.0<br>
+Last updated 2019-08-01 17:05:21 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
