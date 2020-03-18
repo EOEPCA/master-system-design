@@ -19,14 +19,25 @@ else
 fi
 
 # Prepare output/ directory
+echo -n "Prepare output/ directory... "
 rm -rf output
 mkdir -p output
 cp -r images output
 cp -r stylesheets output
+echo "[done]"
 
 # Docuemnt Generation - using asciidoctor docker image
 #
 # HTML version
-docker run ${DOCKER_RM} -v $PWD:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -r asciidoctor-diagram -D /documents/output index.adoc
+echo -n "Generating HTML... "
+docker run ${DOCKER_RM} --user $(id -u):$(id -g) -v $PWD:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -r asciidoctor-diagram -D /documents/output index.adoc
+echo "[done]"
 # PDF version
-docker run ${DOCKER_RM} -v $PWD:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -r asciidoctor-diagram -D /documents/output index.adoc
+echo -n "Generating PDF... "
+docker run ${DOCKER_RM} --user $(id -u):$(id -g) -v $PWD:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -r asciidoctor-diagram -D /documents/output index.adoc
+echo "[done]"
+
+# Output summary
+echo "Summary of output files generated..."
+find output
+echo "[END of Summary]"
