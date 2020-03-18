@@ -1,0 +1,77 @@
+:doctype: book
+:author: TVUK System Team
+:email: <Eoepca.SystemTeam@telespazio.com>
+:project: EOEPCA
+:project-name: EO Exploitation Platform Common Architecture
+:doc-title: Master System Design Document
+:doc-num: {project}.SDD.001
+:revnumber: 1.0
+:revdate: 02/08/2019
+:revremark:
+:category: Design Document
+:copyrightYear: 2019
+// attributes
+:hardbreaks:
+:sectnums:
+:sectnumlevels: 5
+:toc: left
+:toclevels: 5
+:toc-title: Master System Design
+//:toc-title:
+:description: Master System Design for the Common Architecture
+:keywords: common architecture master system design
+:imagesdir: ./images
+:linkcss:
+:stylesdir: stylesheets
+:stylesheet: eoepca.css
+:icons: font
+:source-highlighter: coderay
+// pdf
+:pdf-stylesdir: resources/themes
+:pdf-style: eoepca
+:media: screen
+:title-logo-image: image::telespazio.png[top=5%, align=right, pdfwidth=6.5in]
+
+= {doc-title}: {doc-num}
+
+:leveloffset: +1
+
+include::preface.adoc[]
+
+<<<
+
+include::01.introduction/00.introduction.adoc[]
+
+<<<
+
+include::02.context/00.context.adoc[]
+
+<<<
+
+include::03.design-overview/00.design-overview.adoc[]
+
+<<<
+
+include::04.user-management/00.user-management.adoc[]
+
+<<<
+
+include::05.processing-chaining/00.processing-chaining.adoc[]
+
+<<<
+
+include::06.resource-management/00.resource-management.adoc[]
+
+<<<
+
+include::07.platform-api/00.platform-api.adoc[]
+
+<<<
+
+include::08.web-portal/00.web-portal.adoc[]
+
+'''
+
+include::end-of-document.adoc[]
+
+:leveloffset: -1

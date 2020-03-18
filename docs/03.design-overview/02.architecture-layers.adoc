@@ -1,0 +1,49 @@
+= Architecture Layers
+
+<<img_architectureLayers>> provides a simplified architectural view that illustrates the broad architecture layes of the Exploitation Platform, presented in the context of the infrastructure in which it is hosted and the end-users performing exploitation activities.
+
+[#img_architectureLayers,reftext='{figure-caption} {counter:figure-num}']
+.Architecture Layers
+image::architecture-layers.png[width=80%,pdfwidth=80%,align="center"]
+
+Resource Tier::
+The Resource Tier represents the hosting infrastructure and provides the EO data, storage and compute upon which the exploitation platform is deployed.
+
+Platform Tier::
+The Platform Tier represents the Exploitation Platform and the services it offers to end-users. The layers comprising the Platform Tier are further described below.
+
+Exploitation Tier::
+The Exploitation Tier represents the end-users who exploit the services of the platform to perform analysis, or using high-level applications built-in on top of the platform's services.
+
+The Exploitation Platform builds upon the services provided by the hosting infrastructure - specifically accessing its data holding and using its compute resources. The components providing the EP services are deployed within the compute offering, with additional compute resources being provisioned on-demand to support end-user analysis activities.
+
+The EP's services access the data resources through a Data Access Gateway that provides an abstraction of the data access interface provided by the resource tier. This abstraction provides a 'standard' data access semantic that can be relied upon by other EP services - thus isolating specific data access concerns of the resource tier to a single EP component.
+
+The Processing Framework provides the environment through which processing services and applications are executed in support of end-user analysis activities. It might be envisaged that some built-in (common) processing functions are provided, but the main focus of the processing framework is to support deployment and execution of bespoke end-user processing algorithms, and interactive analysis. Access to the underlying data from the executing processes is marshalled through the Data Access Gateway and its supporting Data Access Library.
+
+The EP provides Catalogue services, so that end-users can discover and browse the resources available in the platform and its federated partners. Thus, end-users can discover available processing services and applications, and search for data available for inclusion in their analysis.
+
+Data Services based upon open standards serve the clients of the Exploitation Platform for data access and data visualisation. Access to the underlying data is made via the Data Access Gateway.
+
+The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.
+
+The Exploitation Tier hosts the web clients with which the end-user interacts to conduct their analysis/exploitation activities. These clients would typically utilise the Client Library in their implementation. The Web IDE is an interactive web application that Experts use to perform interactive research and to develop algorithms. The Command-line Client builds upon the Client Library to provide a command-line tool that can be used, for example, to automate EP interactions through scripts.
+
+The Web Portal provides the main user interface for the Exploitation Platform. It would be expected that each platform would provide its own bespoke portal implementation, and so is beyond the scope of the Common Architecture. Nevertheless, the architecture and its service interface must meet the needs anticipated by future exploitation platform implementations. Similarly, the External Application represents web applications (external to the hosting environment of the exploitation platform) that use the services of the EP via its Service API and Client Library.
+
+All user interactions with the services of the EP are executed within the context of a given user and their rights to access resources, with associated resource usage billing. Thus, the Identity and Access Management component covers all tiers in this layered model.
+
+The focus of this design document is the Platform Tier, which is elaborated in subsequent sections of the document:
+
+Section <<mainUserManagement>>::
+This section adresses the main concerns of User Management which are user identity, access to resources and billing for resource usage.
+
+Section <<mainProcessingAndChaining>>::
+
+This section covers application packaging and the Processing Framework through which services/applications can be deployed in federated workflows.
+
+Section <<mainResourceManagement>>::
+This section covers resource discovery through catalogues that act as a marketplace for data, services and applications. Resource Management ensures data is accessible through standard interfaces that serve the processing framework, and public data services to visualise and consume platform data.
+
+Section <<mainPlatformApi>>::
+This section provides a consolidated decription of the service interface of the EP and its associated client library, which together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.

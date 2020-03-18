@@ -1,0 +1,35 @@
+
+= Introduction
+
+== Purpose and Scope
+
+This document presents the Master System Design for the Common Architecture.
+
+== Structure of the Document
+
+Section 2 - <<mainContext>>::
+Provides the context for Exploitation Platforms within the ecosystem of EO analysis.
+
+Section 3 - <<mainDesignOverview>>::
+Provides an overview of the Common Architecture and the domain areas.
+
+Section 4 - <<mainUserManagement>>::
+Describes the User Management domain area.
+
+Section 5 - <<mainProcessingAndChaining>>::
+Describes the Processing & Chaining domain area.
+
+Section 6 - <<mainResourceManagement>>::
+Describes the Resource Management domain area.
+
+Section 7 - <<mainPlatformApi>>::
+Describes the Platform API, covering all domain areas.
+
+Section 8 - <<mainWebPortal>>::
+Describes the Web Portal, covering all domain areas.
+
+include::03.reference-docs.adoc[leveloffset=+1]
+
+include::04.terminology.adoc[leveloffset=+1]
+
+include::05.glossary.adoc[leveloffset=+1]

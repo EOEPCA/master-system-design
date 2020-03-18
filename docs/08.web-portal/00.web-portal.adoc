@@ -1,0 +1,41 @@
+[[mainWebPortal]]
+= Web Portal
+
+The Web Portal represents the browser-based user interface through which the user interacts with the EO Exploitation Platform.
+
+The Web Portal is not a domain area in its own right – it is contributed to by the collaborative developments of the defined domain areas. The user’s view of the platform is consolidated through the browser-based user interface, and hence it is convenient to present all aspects of this view together. Thus, the Web Portal provides the user facing ‘front’ of the system and interfaces to the services provided by the domain areas identified in the system design.
+
+The Web Portal must provide a consistent and cohesive user experience that aggregates data and processing services of the EO Exploitation Platform. In doing so it must provide the following main functionalities:
+
+* User login
+* Marketplace, that provides a federated system search for discovery of data and processing capabilities
+* User workspace to support scientific analysis and collaboration
+* Data discovery and download of data
+* In-browser visualisation of data and processing/analysis results
+* Discovery, execution and monitoring of processing jobs
+* Definition of workflows from discovered data/processing resources
+* Hosting of user defined applications with interactive user interfaces
+* Hosting of rich media content that is linked to catalogued resources. Such content ranges from documents & manuals to tutorials and instructional media.
+* Hosting of community and collaboration tools such as Wikis, FAQs and forums
+
+These user-facing web components form part of other domain areas that together present a rich integrated user experience. <<img_webPortal>> presents these functional areas, organised within their respective domain areas.
+
+[#img_webPortal,reftext='{figure-caption} {counter:figure-num}']
+.Web Portal: Overview
+image::web-portal.png[width=90%,pdfwidth=90%,align="center"]
+
+The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.
+
+Optionally, a *Content Management System (CMS)* can provide a framework within which the platform’s web presence is hosted. It facilitates the creation of user content that can be linked to data and processing resources in the Resource Catalogue. In addition, the CMS provides out-of-the-box facilities for Wikis, FAQs, forums etc.
+
+The *Marketplace* builds a user experience on top of the Application & Data Catalogues that provides a consolidated inventory of all services, applications and data published within the federated system. The user is presented with the ability to browse and to perform rich search queries to discover items of specific interest. The Marketplace content for a data item can include interactive Data Visualisation, such as providing a WMS viewer that exploits the WMS service provided with the platform’s resource service. This *Data Visualisation* component is re-usable such that it can be used elsewhere in the user experience, for example from the user’s workspace to visualise some processing results.
+
+The *User Workspace* provides the environment where users are able to organise data and processing they are interested in, and to manage asynchronous ‘tasks’ they have submitted into the platform. Thus, they are able to monitor data retrieval and processing requests and obtain the outputs at completion. The facility is also provided for them to publish derived ‘added-value’ outcomes from their workspace into the Resource Catalogue, and so present them in the marketplace.
+
+Experts use the *Workflow Composition* interface to chain and combine multiple processing functions and input data into reusable workflows. The interface allows them to select these resources discovered via the Marketplace, architect and execute their workflow, and ultimately publish it as a reusable processing function that is available to others in the Marketplace.
+
+Experts are provided with an *Interactive Analysis Tool* that presents a hosted coding environment through which they can interact directly with the data and services of the platform. Additionally, Experts are able to develop and submit to the EO Exploitation Platform their own custom processing algorithms, tools and applications. The *Processor Development Environment* provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.
+
+*User Management* provides the functionality associated with user profiles. New users will have the ability to self-register and then manage all aspects of their profile interactively - noting that the intention in the Common Architecture is to delegate User Identity management to external IdPs.
+
+*Operators* will have access to management interfaces for system monitoring and administration.

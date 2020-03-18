@@ -1,0 +1,16 @@
+[[mainPlatformApi,Platform API]]
+= Platform API
+
+The Platform API defines standard interfaces at both service and programmatic levels, with the goal of encouraging interoperation between platforms and providing a consistent and portable programming paradigm for expert users. The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.
+
+The Service API represents the public service interfaces exposed by the Exploitation Platform for consumption by its clients. Covering all aspects of the EP (authentication, data/processing discovery, processing etc.), these interfaces are based upon open standards and are designed to offer a consistent EP service access semantic within the network of EO resources. Use of the network (HTTP) interfaces of the Service API is facilitated by the Client Library that provides bindings for common languages (Python, R, Javascript). The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.
+
+[#img_clientPortability,reftext='{figure-caption} {counter:figure-num}']
+.Client Portability
+image::client-portability.png[width=100%,pdfwidth=100%,align="center"]
+
+As illustrated in <<img_clientPortability>>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. *It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.*
+
+include::01.service-api.adoc[leveloffset=+1]
+
+include::02.client-library.adoc[leveloffset=+1]
