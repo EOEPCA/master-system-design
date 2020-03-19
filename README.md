@@ -66,21 +66,19 @@ The document source is in the `master` branch.
 The published document is in the `gh-pages` branch.
 
 The `gh-pages` branch contains:
-* existing published versions, under path `published/vX.X`
-* he current in-progress version (tip of master), under path `current/`
-* a landing page with links to the above
+- existing published versions, under path `published/vX.X`
+- the current in-progress version (tip of master), under path `current/`
+- a landing page with links to the above
 
-The travis automated build generates the HTML/PDF from the master branch Asciidoc, and publishes this to `current/` in the `gh-pages` branch.
+The Travis automated build generates the HTML/PDF from the Asciidoc in the `master` branch, and publishes this to `current/` in the `gh-pages` branch.
 
 ## Published Documentation
 
 The published document is at https://eoepca.github.io/master-system-design/.
 
-<!-- USAGE EXAMPLES -->
-
 ## Development
 
-During document authoring the scripts used by the travis automation pipeline can be executed locally.
+During document authoring, the scripts used by the Travis automation pipeline can be executed locally.
 
 In particular the document generation step...
 
@@ -88,7 +86,7 @@ In particular the document generation step...
 ./docs/bin/generate-docs.sh
 ```
 
-The document generation relies upon docker to execute the asciidoctor command as a container, avoiding the need to install asciidoctor locally.
+The document generation relies upon docker to execute the `asciidoctor` command as a container, avoiding the need to install asciidoctor locally, (ref https://hub.docker.com/r/asciidoctor/docker-asciidoctor).
 
 Thus, you need to have installed docker locally in your development platform to support this.
 
