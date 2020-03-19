@@ -46,8 +46,8 @@
 ## Table of Contents
 
 - [Repository Organisation](#repository-organisation)
-- [Published Documentation](#published-documentation)
 - [Development](#development)
+- [Published Documentation](#published-documentation)
 - [Acknowledgements](#acknowledgements)
 
 ## Repository Organisation
@@ -63,10 +63,6 @@ The `gh-pages` branch contains:
 
 The Travis automated build generates the HTML/PDF from the Asciidoc in the `master` branch, and publishes this to `current/` in the `gh-pages` branch.
 
-## Published Documentation
-
-The published document is at https://eoepca.github.io/master-system-design/.
-
 ## Development
 
 During document authoring, the scripts used by the Travis automation pipeline can be executed locally.
@@ -80,6 +76,10 @@ In particular the document generation step...
 The document generation relies upon docker to execute the `asciidoctor` command as a container, avoiding the need to install asciidoctor locally, (ref https://hub.docker.com/r/asciidoctor/docker-asciidoctor).
 
 Thus, you need to have installed docker locally in your development platform to support this.
+
+## Published Documentation
+
+The published document is at https://eoepca.github.io/master-system-design/.
 
 ## Acknowledgements
 
