@@ -1,0 +1,151 @@
+
+[[mainServiceApi,Service API]]
+= Service API
+
+The Service API presented by the Exploitation Platform is largely defined and met by the fundamental data/processing services it offers. There are some additional meta-services that support the clients in the discovery and usage of these core services. The Service API defined in this section seeks to define a standard set of interfaces against which the Client Library can be developed and that can be relied upon for platform-to-platform interoperability.
+
+[[platformCapabilities]]
+== Platform Capabilities
+
+Provides a single well-known 'bootstrap' URL through which the service capabilities and their endpoints can be discovered:
+
+* Declare platform capabilities
+* Discover service endpoints
+* Core platform data/processing services
+* Additional meta-services to support clients
+* Used by <<mainClientLibrary>> to initialise its platform interfaces
+* Used by <<mainProcEMS, EMS>> to match service/application dependencies with platform capabilities
+* Used by other platforms to establish interoperability
+
+*/.well-known/eoepca-platform*
+
+[source,json]
+.Example Platform Capabilities
+----
+include::src/eoepca-platform-example.json[]
+----
+
+*The endpoints referenced in eoepca-platform are described in the following sections.*
+
+== authentication
+
+The URL of the OpenID Connect Provider that implements the <<mainLoginService>> for user authentication.
+
+*/connect* (example)
+
+Implements the OpenID Connect protocol as described in <<OIDC>>.
+
+== billing
+
+The URL of the endpoint of the Billing service in the platform.
+
+*/billing* (example)
+
+The Billing service provides a cenrtralised point of contact within the platform responsible for tracking and billing for usage of resources and services. The approach to billing is currently not defined, but will be documented in section <<mainBilling>>.
+
+== data_search
+
+The URL of the OpenSearch interface to the <<mainDataCatalogue>>.
+
+*/search* (example)
+
+Implements an OpenSearch interface in accordance with section <<mainResourceCatalogue>>.
+
+== data_catalogue
+
+The URL of the OGC CSW (Catalogue Services for the Web) interface to the <<mainDataCatalogue>>.
+
+*/catalogue* (example)
+
+Implements an OGC CSW catalogue in accordance with standard *OGC Catalogue Services 3.0 Specification - HTTP Protocol Binding* as defined in <<OGC-CSW>>.
+
+== app_search
+
+The URL of the OpenSearch interface to the <<mainAppCatalogue>>.
+
+*/applications* (example)
+
+Implements an OpenSearch interface in accordance with section <<mainAppCatalogue>>.
+
+== map
+
+The URL of the OGC WMS (Web Map Service) interface that supports the data maintained in the <<mainDataCatalogue>>.
+
+*/map* (example)
+
+Implements an OGC WMS service in accordance with standard *OGC Web Map Server Implementation Specification* as defined in <<OGC-WMS>>.
+
+== tile
+
+The URL of the OGC WMTS (Web Map Tile Service) interface that supports the data maintained in the <<mainDataCatalogue>>.
+
+*/tile* (example)
+
+Implements an OGC WMTS service in accordance with standard *OGC Web Map Tile Service Implementation Standard* as defined in <<OGC-WMTS>>.
+
+== feature
+
+The URL of the OGC WFS (Web Feature Service) interface that provides a _Feature-oriented_ access to the underlying data holding of the platform.
+
+*/feature* (example)
+
+Implements an OGC WFS service in accordance with standard *OGC Web Feature Service 2.0 Interface Standard – With Corrigendum* as defined in <<OGC-WFS>>.
+
+== coverage
+
+The URL of the OGC WCS (Web Coverage Service) interface that provides a _Coverage-oriented_ access to the underlying data holding of the platform.
+
+*/coverage* (example)
+
+Implements an OGC WCS service in accordance with standard *OGC Web Coverage Service (WCS) 2.1 Interface Standard - Core* as defined in <<OGC-WCS>>.
+
+== datacube
+
+The URL of the OGC WCPS (Web Coverage Processing Service) interface that provides a queryable 'data cube' interface to multi-dimensional coverage data.
+
+*/datacube* (example)
+
+Implements an OGC WCPS service in accordance with standard *Web Coverage Processing Service (WCPS) Language Interface Standard* as defined in <<OGC-WCPS>>.
+
+== object_store
+
+The URL of the _Amazon S3_ interface that provides object storage access to the underlying data holding of the platform.
+
+*/object_store* (example)
+
+Implements an Amazon S3 service in accordance with *Amazon Simple Storage Service REST API* as defined in <<AWS-S3>>.
+
+[NOTE]
+.Amazon S3 Compatibility Subset
+====
+For the purposes of this interface, a subset of the full Amazon S3 REST API will be defined as mandatory. The motivation is to define a consistent interface that is supported by third-party object storage implementations that provide an S3-compatible API, such as:
+
+* Ceph (https://ceph.com/ceph-storage/)
+** CEPH OBJECT GATEWAY S3 API (http://docs.ceph.com/docs/mimic/radosgw/s3/)
+* OpenStack Swift (https://docs.openstack.org/swift)
+** S3/Swift REST API Comparison Matrix (https://docs.openstack.org/swift/latest/s3_compat.html)
+====
+
+== ems
+
+The URL of the <<mainProcEMS>> service.
+
+*/ems* (example)
+
+Implements an *EMS service* as described in section <<mainProcEMS>>.
+
+== ades
+
+The URL of the <<mainProcADES>> service.
+
+*/ades* (example)
+
+Implements an *ADES service* as described in section <<mainProcADES>>.
+
+== workspace
+
+The URL of the 'user workspace' service as described in section <<mainWorkspace>>.
+
+*/workspace* (example)
+
+The interface for the workspace is currently #TBD#.

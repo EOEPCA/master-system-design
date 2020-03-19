@@ -1,0 +1,50 @@
+@startuml "IAM Interfaces"
+
+actor User
+
+component "User Agent" as UAgent
+() https <<redirect>> as UAredirect
+UAgent -right- UAredirect
+
+component "External IdPs" as ExtIdP
+
+component "Login Service" as Login
+() AuthN
+Login -down- AuthN
+
+component "Policy Enforcement Point (PEP)" as PEP
+() "API Filter" as Filter
+Filter -down- PEP
+
+component "Protected Resource" as ProtRes
+() API
+API -down- ProtRes
+
+component "Other EP" as OtherEP
+
+component "Policy Desision Point (PDP)" as PDP
+() AuthZ
+PDP -left- AuthZ
+
+component PDP <<external>> as ExtPDP
+() AuthZ as ExtAuthZ
+ExtPDP -left- ExtAuthZ
+
+component "Attribute Authority" as AA
+() "Attribute Query" as AQ
+AA -up- AQ
+
+User .down.> UAgent
+UAgent .down.> Filter : access resource
+PEP .down.> API
+
+UAredirect .up.> ExtIdP : Delegated AuthN
+Login .left.> UAredirect : Delegated AuthN
+OtherEP -0)- Login : OIDC
+PEP .up.> AuthN
+
+PEP .right.> AuthZ
+PDP .right.> ExtAuthZ
+PDP .down.> AQ
+
+@enduml

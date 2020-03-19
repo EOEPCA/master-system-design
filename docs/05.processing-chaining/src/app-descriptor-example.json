@@ -1,0 +1,70 @@
+{
+  "processDescription": {
+    "process": {
+      "id": "EoepcaProcessor",
+      "title": "EOEPCA Processor",
+      "owsContext": {
+        "offering": {
+          "code": "http://www.opengis.net/eoc/applicationContext/cwl",
+          "content": {
+            "href": "https://eoepca.github.io/processor/cwl/EOEPCAProcessor.cwl"
+          }
+        }
+      },
+      "abstract": "",
+      "keywords": [],
+      "inputs": [
+        {
+          "id": "images",
+          "title": "Input Images",
+          "formats": [
+            {
+              "mimeType": "application/zip",
+              "default": true
+            }
+          ],
+          "minOccurs": 1,
+          "maxOccurs": "unbounded",
+          "additionalParameters": [
+            {
+              "role": "http://www.opengis.net/eoc/applicationContext/inputMetadata",
+              "parameters": [
+                {
+                  "name": "EOImage",
+                  "values": [
+                    "true"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "output",
+          "title": "Stacked Image",
+          "formats": [
+            {
+              "mimeType": "image/tiff",
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    "processVersion": "1.0.0",
+    "jobControlOptions": [
+      "async-execute"
+    ],
+    "outputTransmission": [
+      "reference"
+    ]
+  },
+  "executionUnit": [
+    {
+      "href": "hub.docker.com/eoepca/processor:latest"
+    }
+  ],
+  "deploymentProfileName": "http://www.opengis.net/profiles/eoc/dockerizedApplication"
+}

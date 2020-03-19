@@ -1,0 +1,23 @@
+
+'''
+
+AMENDMENT HISTORY::
+This document shall be amended by releasing a new edition of the document in its entirety. +
+The Amendment Record Sheet below records the history and issue status of this document.
++
+.Amendment Record Sheet
+[cols="^1h,^2,<5"]
+|===
+| ISSUE | DATE | REASON
+
+| 1.1 | InProgress | Updates during development of Reference Implementation
+| 1.0 | 02/08/2019 | Issue for domain expert ITT
+| 0.6 | 18/07/2019 | Added XACML description + PDF template modifications
+| 0.5 | 09/07/2019 | Added Client Library + Billing
+| 0.4 | 21/06/2019 | Added Platform API
+| 0.3 | 13/05/2019 | Added content for Processing & Chaining and Resource Management
+| 0.2 | 25/04/2019 | Re-work IAM approach
+| 0.1 | 24/04/2019 | Initial in-progress draft
+|===
+
+'''

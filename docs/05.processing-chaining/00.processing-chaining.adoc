@@ -1,0 +1,399 @@
+[[mainProcessingAndChaining,Processing and Chaining]]
+= Processing and Chaining
+
+The Processing & Chaining domain area must provide an extensible repository of processing functions, tools and applications (referred here generically as ‘processing services’) that can be discovered by search query, invoked individually, and utilised in workflows.
+
+The Resource Management domain area provides the facilities through which processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery, (see section <<mainAppCatalogue>>). Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation.
+
+Users must be able to define and execute workflows that chain processing steps, in which the input(s) of a step are provided by the output of preceding step(s). Users can publish workflows as new processing services, and so the possibility of workflow nesting.
+
+A workflow comprises multiple steps (processing service invocations), each of which can be executed on the platform that is closest to the data. Thus, the workflow must be orchestrated to invoke the steps on the appropriate platform and stage in/out the data between platforms along the execution pipeline. Thus, processing services should be relocatable between federated EO platforms, such that they can be deployed and instantiated for execution ‘close to the data’. This implies that applications are packaged in a way that is self-contained, standardised and agnostic of the underlying hosting technology.
+
+Users must be able to develop and integrate their own processing services into the platform. Once integrated the user can publish their processing service so that it is discoverable by search query and available in the federated marketplace – and hence available for exploitation by other users, including use in workflows. In support of this, an integrated development environment should be provided that allows users to develop, test and debug their applications before submission.
+
+The interface between the Processing Framework and the compute resource should be abstract so that the solution is not tied to any particular provider (cloud, DIAS, etc.). 
+
+[#img_processingUseCase,reftext='{figure-caption} {counter:figure-num}']
+.Processing & Chaining Use Case
+image::use-cases-processing.png[width=100%,pdfwidth=100%,align="center"]
+
+In meeting these requirements the following key challenges are identified:
+
+* Processing and data interoperability must be established through clear and consistent metadata definitions, to ensure that type mismatches are avoided. This is particularly challenging across federated systems where it becomes more difficult to enforce use of common profiles and vocabularies
+
+* Defining an application packaging approach whose paradigm is easy to work with, whilst providing a rich environment that allows expert users to exploit the full compute capability of the platform
+
+* Federation of processing services across the network of EO resources, such that processing implementations can be made available ‘on-demand’ amongst federated platforms, to facilitate the movement of the “processing to the data”. Use of a common packaging format that is agnostic of underlying host characteristics is key to this challenge
+
+* Enforcement of access controls to processing and data resources through multi-step federated workflows requires the user’s ‘request context’ to be carried through all layers of the request fulfilment. At each point of resource access, the user’s identify and access rights must be asserted. The service interface standards, (such as WPS, CSW, WCS, etc.), must be evaluated and necessary enhancements identified to ensure that the user’s access envelope is respected
+
+== Solution Overview
+
+The Processing & Chaining solution is based upon the work performed in the OGC Testbeds, described by the following Engineering Reports:
+
+* OGC 17-023 - OGC Testbed-13, EP Application Package ER <<TB13-AP>>
+* OGC 17-024 - OGC Testbed-13, Application Deployment and Execution Service ER <<TB13-ADES>>
+* OGC 18-049r1 – OGC Testbed-14, Application Package Engineering Report <<TB14-AP>>
+* OGC 18-050r1 - ADES & EMS Results and Best Practices Engineering Report <<TB14-ADES>>
+
+Additionally, the current OGC Testbed-15 Thread-2 Earth Observation Process and Application Discovery (EOPAD).
+
+Processing-services are packaged as Docker images, which can then be deployed as self-contained applications within the Exploitation Platform’s processing framework. OGC-WPS provides a standard interface to expose all processing services (and workflows) for invocation by WPS clients.
+
+Each processing service is described by an Application Descriptor, which is a file that accompanies its deployment to the processing framework of the EP. The Application Descriptor provides all the metadata required to accommodate the processor within the WPS service and make it available for execution.
+
+The architecture is defined by the following main components:
+
+<<mainProcEMS, Execution Management Service (EMS)>>::
+WPS-T (REST/JSON) service that provides an umbrella orchestration service to deploy/invoke processing services within the ADES of the appropriate (close to data) Exploitation Platform. Thus, the EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.
+
+<<mainProcADES, Application Deployment and Execution Service (ADES)>>::
+WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.
+
+<<mainAppCatalogue, Application Catalogue (ref. Resource Management domain)>>::
+An Application Catalogue provides an inventory of processing services that acts as a Marketplace for the discovery and browse for processing services. The Application Catalogue provides a service that can be searched by facet/keyword and provides supporting metadata and information.
+
+Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should include an EMS.
+
+<<img_procOverview>> illustrates the main architecture components and their interfaces.
+
+[#img_procOverview,reftext='{figure-caption} {counter:figure-num}']
+.Processing & Chaining Overview
+image::processing-overview.png[width=100%,pdfwidth=100%,align="center"]
+
+In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs -> inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.
+
+The Application Catalogue is the subject of the current Testbed-15 through which the Data Model and catalogue Service Interface are being explored.
+
+For the Expert User with a service/application to execute in the EP, we might consider three levels of integration:
+
+* *Importing* +
+The service/application is packaged (unchanged) as a black-box. +
+Relies upon the stage-in/out of data to the applications existing data access expectations by the Processing Framework.
+
+* *Adapting* +
+The service/application is adapted (modified) to use the data access interfaces offered by the Common Architecture.
+
+* *Porting* +
+The service/application is ported to use the services of the EP intrinsically - typically by use of the <<mainClientLibrary>> defined by the common architecture.
+
+*_Section <<procServiceDataAccess>> provides further discussion regarding the data stage-in/out approach for processing services._*
+
+[[procK8s]]
+== Resource Layer (Infrastructure) Interface
+
+The Processing & Chaining has significant points of interface with the hosting infrastructure for provision of scalable compute resource and access to data for input/output. The definition of this interface should be agnostic of the infrastructure provider onto which the Exploitation Platform is deployed.
+
+Kubernetes provides an infrastructure abstraction layer that allows the EP to be architected in a way that is agnostic to the underlying hosting infrastructure – the only requirement being the existence of a K8s cluster in which to deploy and run the platform. This abstraction provides points of interface for:
+
+* System deployment
+* Access to back-end data
+* Execution of processing services and applications
+
+Thus, the Processing & Chaining solution is designed to utilise a Kubernetes Cluster, whose API provides the means to invoke the WPS processing services as docker containers, and also provides the means to support stage-in/out of data for the process execution.
+
+This has particular impact on the ADES, as described in <<ADES>>.
+
+[[mainAppPackage]]
+== Application Packaging
+
+The Application Package provides a platform independent and self-contained representation of a software item, providing executable, metadata and dependencies such that it can be deployed to and executed within an Exploitation Platform. Typically, in the context of the exploitation platform, the application is an EO data processing algorithm or a workflow.
+
+The Application Package allows the application to be exchanged in an interoperable way on any platform within the EP ecosystem. Additionally, the developer of the package need only concern themselves with conformance to the package specification and need not concern themselves with the infrastructure details of any particular EP.
+
+The Application Package comprises two main parts:
+
+* Application Descriptor - metadata descriptor file
+* Application Artefact – i.e. the ‘software’ component that represents to the execution unit
+
+In accordance with the approach advocated in OGC Testbed-14 (ref. <<TB14-ADES>>), the Application Descriptor is encoded in accordance with the WPS-T DeployProcess document defined by WPS-T JSON encodings (ref. <<WPS-REST-JSON>>). In this way, the Application Descriptor broadly provides the following details:
+
+* A link to the application execution unit
+* A description of the application’s inputs and outputs
+* Other auxiliary information
+
+Currently supported are two types of application execution unit:
+
+. Docker container
+. Workflow, expressed in CWL
+
+…but the design of the application package should be extensible to support future types.
+
+The Application Descriptor must address the needs of at least two types of users:
+
+Application Developers:: Who may not be IT experts (such as scientists), requiring an encoding that is simple enough for them to create for themselves
+
+Machine-To-Machine (M2M):: Requiring all the information to ensure that the application is fully portable and will behave the same on all supporting platforms
+
+<<img_procAppDescriptor>> provides an illustration of the Application Descriptor structure.
+
+[#img_procAppDescriptor,reftext='{figure-caption} {counter:figure-num}']
+.Structure of Application Descriptor data model
+image::processing-application-descriptor.png[width=70%,pdfwidth=70%,align="center"]
+
+Thus, the WPS-T DeployDocument comprises the following parts:
+
+processDescription (WPS Process Description (WPD))::
+Corresponds to a WPS Process Description document encoded in JSON, including details such as process ID, name, title, etc. as well as options to describe the job invocation and the output handling. +
+Additional points of note:
+* cwlDescriptor +
+The cwlDescriptor provides a CWL formatted (YAML) workflow definition of the application. This aids the stage-in/out of data by providing a CWL definition of the input/outputs of the application, and is given in addition to the inputs/outputs included in the body of the WPD. This entry is included as an extension to the WPD via an owsContext offering. +
+_Note that this is not required for the Execution Unit type of ‘workflow’ which already carries its CWL file in its executionUnit parameter._
+* inputs/outputs +
+Specifies the number and types of the data input/outputs. Provided as part of the WPD, and in addition to the contents of cwlDescriptor. +
+The inputs can be provided as references to data, accessible through data access service endpoints, or can be specified as query parameters collection/AOI/TOI.
+
+executionUnit::
+Specifies the ‘software’ item to be executed, within the context of the deploymentProfileName, as follows:
+* dockerizedApplication +
+executionUnit specifies the URL of the docker image to run.
+* workflow +
+executionUnit specfies the URL of the CWL file that defines the workflow.
+
+deploymentProfileName::
+Enumerates the type of the executionUnit. Currently supported:
+* Docker image (http://www.opengis.net/profiles/eoc/dockerizedApplication)
+* CWL Workflow (http://www.opengis.net/profiles/eoc/workflow)
+
+[source,json]
+.Example Application Descriptor
+----
+include::src/app-descriptor-example.json[]
+----
+
+[[mainProcEMS, Execution Management Service]]
+== Execution Management Service (EMS)
+
+The EMS provides a Transaction WPS 2.0 (WPS-T) interface, with REST/JSON encodings, as described in section <<WPS-T REST/JSON>>.
+
+WPS-T extends standard WPS by adding DeployProcess and UndeployProcess operations. Once a process has been deployed to a WPS then the existing wps:Execute operation remains applicable for execution in the standard way.
+
+The EMS provides a WPS-T (REST/JSON) interface that provides an umbrella orchestration service to deploy/invoke processing services within the ADES of the appropriate (close to data) Exploitation Platform. Thus, the EMS is responsible for the orchestration of workflows, including the possibility of steps running on other (remote) platforms, and the on-demand deployment of processors to local/remote ADES as required.
+
+The description in this section refers to the WPS operations: GetCapabilities, DescribeProcess, Execute, GetStatus, GetResult, DeployProcess, UndeployProcess. See <<WPS-T REST/JSON>> for a mapping of these operations into the REST/JSON encoding.
+
+The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.
+
+<<img_procEmsDeploy>> illustrates the deployment of applications and workflows to the EMS.
+
+[#img_procEmsDeploy,reftext='{figure-caption} {counter:figure-num}']
+.EMS Deployment
+image::processing-EMS-deploy.png[width=90%,pdfwidth=90%,align="center"]
+
+Applications are deployed to the EMS so that they are available for inclusion in workflows.
+
+Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.
+
+As illustrated in <<img_procEmsExecute>>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.
+
+[#img_procEmsExecute,reftext='{figure-caption} {counter:figure-num}']
+.EMS Workflow Execution
+image::processing-EMS-execute.png[width=100%,pdfwidth=100%,align="center"]
+
+At time of `wps:Execute` the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:
+
+. Direct URL references to specific data products, accessible through data access service endpoints (such as WCS, WFS, etc.)
+. OpenSearch query parameters that identify the data characteristics as a combination of Collection/AOI/TOI
+
+In case 1) the EMS can simply pass-through the input arguments to the ADES WPS-T.
+
+In case 2) the EMS must resolve the input data by OpenSearch catalogue queries with the provided parameters. The OpenSearch catalogue end-point can either be defined by the application (in its Application Descriptor), or defined as a parameter of the `wps:Execute`.
+
+In either case, the end result is that the EMS resolves the input specification to a set of data products URLs that can be passed on to the ADES for execution.
+
+The EMS requires a means to determine the target platform (ADES) for the execution, i.e. typically the one closest to the data. In the case of the OGC Testbeds, this determination was made as a one-to-one mapping from the collection identified in the input data specification. If collections are identified to be globally unique, e.g. with a namespace prefix that identifies the hosting platform, then this assertion can be reliably made and the target ADES can be derived from the collection ID. Otherwise, the `wps:Execute` must be parameterised suitably to identify the target ADES.
+
+Performing the orchestration between steps, the EMS must handle the stage-in and stage-out of data. In the simple case, the result URL returned from a step can be directly used as an input URL for the subsequent step. Use of CWL and the accompanying `cwl-runner` tool should facilitate this orchestration.
+
+The end result of the successful execution is to present the output result to the invoking user. The EMS establishes the location of the results within the storage provision of the Exploitation Platform, and interfaces with the EP Workspace component (<<mainWorkspace>>) to register the result in the user’s workspace. At this point the WPS execution is complete as reported by the `wps:GetStatus` and `wps:GetResult`.
+
+[[mainProcADES, Application Deployment and Execution Service]]
+== Application Deployment and Execution Service (ADES)
+
+The ADES provides a WPS-T (REST/JSON) service that incorporates the Docker execution engine, and is responsible for the execution of the processing service (as a WPS request) within the ‘target’ Exploitation Platform (i.e. one that is close to the data). The ADES relies upon the EMS to ensure that the processor is deployed as a WPS service before it is invoked.
+
+The main responsibilities of the ADES are:
+
+* Check the user is authorized to access the requested data
+* Perform stage-in of data before execution
+* Invoke the container from the Docker image in accordance with the ApplicationDescriptor and the `wps:Execute` request
+* Monitor the status of the job and obtain the results
+* Perform stage-out of results at execution conclusion
+
+<<procK8s>> introduces the use of Kubernetes (K8s) as the provider agnostic interface to the Resource Layer. The ADES has touch-points with the Resource Layer for access to data and compute resource. The following sub-sections elaborate the approach.
+
+The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.
+
+This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <<img_procAdesExecute>>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.
+
+[#img_procAdesExecute,reftext='{figure-caption} {counter:figure-num}']
+.ADES Process Execution
+image::processing-ADES-execute.png[width=85%,pdfwidth=85%,align="center"]
+
+A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling of the pods across the Nodes in the cluster. The Master's automatic scheduling takes into account the available resources on each Node.
+
+Pods are the atomic unit on the Kubernetes platform. A Pod is a Kubernetes abstraction that represents a group of one or more application containers. A Pod always runs on a Node. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.
+
+Each WPS processing task will be constructed as a Pod and invoked as a dedicated K8s Job. A Job creates one or more Pods to perform a given task. The Job object takes the responsibility of Pod failures. It makes sure that the given task is completed successfully. Once the task is over, all the Pods are terminated automatically.
+
+Kubernetes provides Namespaces, which are an abstraction that supports multiple virtual clusters on the same physical cluster. It may be interesting to explore the use of K8s Namespaces for the purpose of establishing a sandboxed execution environment for each task execution.
+
+[[procServiceDataAccess]]
+== Processing Service Data Access
+
+The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <<img_procDataAccess>> illustrates.
+
+[#img_procDataAccess,reftext='{figure-caption} {counter:figure-num}']
+.Processing Framework Data Access
+image::processing-data-access.png[width=50%,pdfwidth=50%,align="center"]
+
+Data Input Sources::
+The data input sources may be the local exploitation platform, or output from a previous workflow step (local or other platform).
+
+Data Input Protocol::
+The data input protocol may be natively supported by the processing service - otherwise it will need to be staged-in by the Processing Framework.
+
+Data Stage-in::
+In order to stage-in the data, the Processing Framework must support the data access protocol through which the input data is provided, and it must know the capabilities of the processing service to be invoked. *This represents a two-way contract between the Platform (on behalf of the Processing Framework) and the service/application being executed.* Options for staging-in the data include local file-system access (e.g. via s3fs-fuse mount), or it may be more optimal for the service to access the data directly via HTTP-based interfaces, e.g. to exploit the efficiencies offered by cloud-optimised file formats.
+
+Data Stage-out::
+The ADES stages-out the results from the service/application. +
+The EMS orchestrates the outputs to the next workflow step, or makes available the results to the end-user.
+
+Data Output Protocol::
+The data output protocol must be supported by the data destination. The retrieval of the output data is facilitated by use of simple approaches that can be encoded in an HTTP-base URL, such as HTTP GET/KVP or Object Store.
+
+Data Output Destination::
+The data output destination is either the EMS/next-process for a workflow, or the end-user receiving their results. The two-way Platform (Processing Framework) <-> Service/Application contract informs this data flow, with the workflow construction/orchestration taking into account the respective capabilities of the service/application and the platform in which it is being invoked.
+
+The work carried out in the OGC Testbeds 13/14 relied upon use of mounted volumes within the processing task docker container. These mounted volumes present the input data, and receive the output data, as ‘local’ file system access from the point of view of the running container and the processor running within. Use of mounted volumes is equivalently supported by K8s, and is an approach that is relied upon for many (existing) applications that are capable only of accessing data through POSIX file-system interfaces.
+
+Thus, for Mounted Volumes, the approach is to use standard container volumes that present as well-identified directories within the container. The input data is provided in a read-only input directory that mounts into the container hosting infrastructure. Similarly, an empty writable directory is presented for the processing to write is outputs, to be collected by the Processing Framework.
+
+Nevertheless, we might envisage that access to the underlying data will be provided by the hosting platform through a variety of data access protocols, including: Object Store (S3/Swift), OGC (WMS, WMTS, WFS, WCS, WCPS), OPeNDAP, plus local file-system as mentioned above.
+
+The processing framework must establish an environment in which the data access capabilities of the processing service are matched to the data access offering of the platform. There are two possibilities that need to be handled by the Processing Framework:
+
+. The processing service / application natively supports the data access protocol, in which case there is no need to stage-in the data. Nevertheless, the Processing Framework must support the pass-through of input data as URL, and the reception of the output(s) as URL. This is facilitated by the utilisation of a <<procDataAccessLib>> as described below. Also, it must be ensured that any outputs, e.g. to object store, are appropriately directed.
+. The processing service / application does not natively support the data access protocol(s) offered by the underlying platform storage, e.g. the processing service only supports local storage (mounted volume), in which case the Processing Framework must facilitate access to the data on behalf of the processing service.
+
+In cases where the processing service does not natively support the data access protocols offered by the underlying platform, the processing framework must facilitate access to platform data in a form that can be consumed by the processing service.
+
+To support this, the service/application should declare the data access protocol that it requires. This declaration should be made in the Application Descriptor (ref. Application Package), and is selected from a standard set of protocols, including:
+
+* AWS S3 Object Store
+* Swift Object Store (OpenStack)
+* OGC data access services:
+** Web Map Service (WMS)
+** Web Map Tile Service (WMTS)
+** Web Feature Service (WFS)
+** Web Coverage Service (WCS)
+** Web Coverage Processing Service (WCPS)
+* OPeNDAP
+* Mounted Volume (local storage)
+
+Building upon the work of OGC Testbed-14 (ref. <<TB14-AP>>), the Application Descriptor described in section <<mainAppPackage>> can be enhanced to include additional application capabilities, as illustrated in <<img_procAppDescriptorUpdated>>.
+
+[#img_procAppDescriptorUpdated,reftext='{figure-caption} {counter:figure-num}']
+.Application Descriptor (Enhanced)
+image::application-descriptor-updated.png[width=70%,pdfwidth=70%,align="center"]
+
+The Application Descriptor is enhanced with additional components:
+
+* *Capabilities* +
+Containing, for example, data access protocols supported, (implicitly 'local filesystem' for OGC Testbeds 13/14).
+
+* *Dependencies* +
+Specifying, for example, required interfaces to a specific processing, such as dask/Spark etc.
+
+*_The 'Platform Capabilities' are elaborated in section <<platformCapabilities>>._*
+
+The platform implementation must then ensure that the data interface is presented to the processing container in accordance with its descriptor. It is the job of the platform implementation to translate from the back-end data access protocol to that required by the container. There are a number of techniques that can be employed by the processing framework to facilitate this data access mediation:
+
+Local File-system Stage-in/out::
+The processing framework must perform the data retrieval to stage-in the data for presentation through a mounted volume as local file-system access. At the conclusion of the processing the outputs must be marshalled into the appropriate platform storage for further consumption, e.g. push to object store. +
+The approach can be facilitated by use of a FUSE file-system driver to achieve the mediation.
+
+Use of Filesystem in Userspace (FUSE)::
+Access to the back-end data storage (e.g. HTTP-based) is provided through a user-space driver that presents the remote data as if it were a local directory. For example, using s3fs-fuse (https://github.com/s3fs-fuse/s3fs-fuse), access to data in an S3 object store is provided through a FUSE mounted directory. Thus, from the perspective of the processing task, inputs (read) and outputs (write) are accessed through the local file-system interface – satisfying the constraints of the processor.
+
+[[procDataAccessLib,Data Access Library]]
+Use of Data Access Library::
+A Data Access Library (DAL) provides an abstraction of the interface to the data. The library provides bindings for common languages (including python, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase. Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The Processing Framework must support the ability to 'plugin' an alternative implementation of the DAL at processor execution time.
+See section <<mainDataAccessLib>>.
+
+Data Access Gateway::
+Access to the underlying platform data is provided through a common service layer that provides standard data access interfaces that are translated (gateway) to those of the underlying data tier. +
+For example, to satisfy a processing service that requires an S3 interface, but is executed in an environment where the data is available through a POSIX file system. Minio (https://github.com/minio/minio) is an open source object store implementation that overlays an S3 interface over a POSIX file system. +
+See section <<mainDataAccessGateway>>.
+
+=== User Authorization Context
+
+The stage-in/out of data must operate within the context of the user’s ‘account’. Thus, the security context of the user must be passed through all aspects performed by the Processing Framework on behalf of the user. This is necessary to ensure that the user is only able to access data to which they are entitled and accounting & billing considerations are properly maintained.
+
+== WPS-T REST/JSON
+
+This interface specification is used for both the Client <-> EMS, and the EMS <-> ADES interfaces.
+
+WPS-T extends standard WPS by adding _DeployProcess_ and _UndeployProcess_ operations. Once a process has been deployed to a WPS then the existing `wps:Execute` operation remains applicable for execution in the standard way.
+
+The following table is reproduced from <<TB14-ADES>>.
+
+include::include/wps-t-rest-interface.adoc[]
+
+== Interactive (Graphical) Applications
+
+The work carried out in the OGC Testbeds focused on non-graphical applications, i.e. non-interactive processing functions executing algorithms without intervention. It is also noted that WPS does not facilitate the invocation of GUI-based interactive applications which offer a synchronous experience to the end-user.
+
+[#img_applicationsUseCase,reftext='{figure-caption} {counter:figure-num}']
+.Interactive Applications Use Case
+image::use-cases-applications.png[width=100%,pdfwidth=100%,align="center"]
+
+That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:
+
+Native applications::
+A remote desktop (RDP) approach is used to present the interface to the user, typically rendered through a web page presented in the user’s browser
+
+Web applications::
+The web application is delivered through the portal interface of the hosting exploitation platform.
+
+In both cases, docker containers offer a good solution to package and deploy the application. At execution time it is necessary to ensure that the appropriate ports are exposed from the running container.
+
+The Application Descriptor needs to be extended to:
+
+* Introduce additional `deploymentProfileNames` and `executionUnit` types
+* Provide parameterisation to support the delivery of the GUI to the end-user
+* Ensure that data access is presented within the container in a way that is compatible with the GUI application (the mechanisms provided for non-interactive applications may be sufficient).
+
+== Parallel Processing
+
+The OGC Testbeds 13/14 only consider serial processing jobs running in a single Docker container. Here we consider how this approach can be extended to accommodate job requiring parallelisation.
+
+One possible approach, is to invoke the processing task as a docker container (as described above), but then within the implementation of this task it makes subordinate invocations that exploit some specific data processing clustering infrastructure available within the platform. For example, the invoked process executes some Python code that then invokes a dask or SLURM cluster to perform the processing work.
+
+In this case, the processing task would have a dependency that the Exploitation Platform provides the required data processing technology. In order to resolve this capability dependency the following approach can be made:
+
+* The processing service declares within its Application Deployment Package, that it ‘requires’ a particular service
+* The Exploitation Platform declares within the capabilities document output from its WPS endpoint, that it ‘provides’ particular services
+* The EMS must ensure that the target EP provides the required service of the processing task to be invoked
+* The parameterisation for the ‘required’ service are passed to the processing task at invocation
+
+A consistent vocabulary of services must be defined to unambiguously express the ‘required’ and ‘provides’ declarations.
+
+== Processor Development Environment (PDE)
+
+The Processor Development Environment provides a rich, interactive environment in which processing algorithms and services can be developed, tested, debugged and ultimately packaged so that they can be deployed to the platform and published via the marketplace.
+
+The PDE supports the packaging of the user’s application in accordance with the Application Packaging format that is suitable for deployment at the EMS/ADES. It provides a sandboxed environment in which the user can test the deployment and execution of their packaged application, with access to suitable test data to perform the validation.
+
+The PDE provides the tools for the developer to fully specify the metadata for their validated application and then add it as a tool in their workspace and/or publish it to the Resource Catalogue for wider consumption.
+
+== Interactive Analysis Tool
+
+The Interactive Analysis Tool presents a hosted coding environment through which expert users can interact directly with the data and services of the platform. It should provide support for a variety of coding languages, including those most popular in the community – Python, R, Julia, Javascript.
+
+For example, the Interactive Analysis Tool can be provided as a Jupyter Notebook instance that is provisioned in the user’s context with a ‘platform integration’ layer that provides simple access to platform resources, including resources held within the user’s Workspace.
+
+It must be integrated with the platforms authentication and authorization scheme in accordance with the IAM approach described by the User Management domain.
+
+The Interactive Analysis Tool should support the user to save their interactive analysis sessions for future resumption and sharing with others for purposes of collaboration.

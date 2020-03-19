@@ -1,0 +1,17 @@
+sudo: required
+install: skip
+
+services:
+  - docker
+
+import:
+  - docs/.travis.yml
+
+notifications:
+  slack: eoepca:Msk9hjQKAbwSYcVWiepenPim
+  email:
+    recipients:
+      - a.person@acme.com
+      - a.n.other@acme.com
+    on_success: never # default: change
+    on_failure: never # default: always
