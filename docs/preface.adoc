@@ -6,7 +6,7 @@ _{doc-title}_
 [cols="^1,^1"]
 |===
 | *COMMENTS and ISSUES* +
-If you would like to raise comments or issues on this document, please do so by raising an Issue at the following URL https://github.com/EOEPCA/master-system-design/issues.
+If you would like to raise comments or issues on this document, please do so by raising an Issue at the following URL https://github.com/EOEPCA/master-system-design/issues[https://github.com/EOEPCA/master-system-design/issues^].
 | *PDF* +
 This document is available in PDF format link:EOEPCA-master-system-design.pdf[here^].
 | *EUROPEAN SPACE AGENCY CONTRACT REPORT* +
