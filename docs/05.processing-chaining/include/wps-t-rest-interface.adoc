@@ -1,0 +1,120 @@
+
+[cols="70,20,50,25a"]
+|===
+| Resource | HTTP Method | Description | WPS operation
+
+| /
+| GET
+| The landing page provides links to the API definition, the Conformance statements and the metadata about the processes offered by this API
+|
+
+| /processes
+| GET
+| Retrieve available processes
+| Get +
+Capabilities
+
+| /processes
+| POST
+| Deploy a process
+| Deploy +
+Process
+
+| /processes/{id}
+| GET
+| Retrieve a process description
+| Describe +
+Process
+
+| /processes/{id}
+| DELETE
+| Undeploy a process
+| Undeploy +
+Process
+
+| /processes/{id}/jobs
+| GET
+| Retrieve the list of jobs for a process
+|
+
+| /processes/{id}/jobs
+| POST
+| Execute a process
+| Execute
+
+| /processes/{id}/jobs/{jobID}
+| GET
+| Retrieve the status of a job
+| GetStatus
+
+| /processes/{id}/jobs/{jobID}
+| DELETE
+| Dismiss a job
+|
+
+| /processes/{id}/jobs/{jobID}/result
+| GET
+| Retrieve the result(s) of a job
+| GetResult
+
+| /processes/{id}/quotations
+| GET
+| Retrieve the list of quotation ids for a given process
+|
+
+| /processes/{id}/quotations
+| POST
+| Request a quotation for a given process
+|
+
+| /processes/{id}/quotations/{quotationID}
+| GET
+| Retrieve quotation information
+|
+
+| /processes/{id}/quotations/{quotationID}
+| POST
+| Execute a quoted process
+|
+
+| /processes/{id}/visibility
+| GET
+| Retrieve the visibility status for a process
+|
+
+| /processes/{id}/visibility
+| PUT
+| Change the visibility status for a process
+|
+
+| /quotations
+| GET
+| Retrieve the list of all quotation ids
+|
+
+| /quotations/{quotationID}
+| GET
+| Retrieve quotation information
+|
+
+| /quotations/{quotationID}
+| POST
+| Execute a quoted process
+|
+
+| /bills
+| GET
+| Retrieve the list of all bill identifiers
+|
+
+| /bills/{billID}
+| GET
+| Retrieve bill information
+|
+
+| /conformance
+| GET
+| list all requirements classes specified in the standard (WPS REST/JSON Binding Core) that the server conforms to
+|
+
+|===

@@ -1,0 +1,47 @@
+
+[[mainClientLibrary,Client Library]]
+= Client Library
+
+The Service API and its associated Client Library together present a standard platform interface against which analysis and exploitation activities may be developed, and through which platform services can be federated.
+
+The Client Library is a programmatic representation of the Service API which acts as an abstraction of the Exploitation Platform and so facilitates the development of portable client implementations.
+
+[#img_clientLibServiceInterfaces,reftext='{figure-caption} {counter:figure-num}']
+.Client Library Service Interfaces
+image::client-lib-service-interfaces.png[width=100%,pdfwidth=100%,align="center"]
+
+As illustrated in <<img_clientLibServiceInterfaces>>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).
+
+== Client Library Concept Illustration
+
+The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<<TB14-ADES>>). The scenario is shown in <<img_ndviStacker>>.
+
+[#img_ndviStacker,reftext='{figure-caption} {counter:figure-num}']
+.OGC Testbed-14 Workflow Scenario (NDVI Stacker)
+image::ndvi-stacker.png[width=80%,pdfwidth=80%,align="center"]
+
+Four platforms are involved in the scenario:
+
+Platforms A/B/C::
+These platforms perform the local execution (ADES) of the MultiSensorNDVI processor on a collection in their local data holding. These executions are managed under the orchestration (EMS) of the Primary Platform.
+
+Primary Platform::
+The Primary Platform is in charge of the workflow. Thus, the orchestration (EMS) is conducted from this platform, which interfaces to the 'subordinate' platforms (A/B/C) for the execution of the steps 'close-to-the-data', and then completes the workflow by execution (ADES) of the NDVIStacker processor to produce the final result.
+
+In response to this scenario we might envisage a client application implemented against the Client Library as follows...
+
+[source,python]
+.Example python program using Client Library
+----
+include::src/MultiSensorNDVIStackGenerator/main.py[]
+----
+
+<1> When each platform object is initialised, its endpoint <<platformCapabilities, `${platform-url}/.well-known/eoepca-platform`>> is interrogated, to understand its capabilities and learn its service endpoints.
+<2> The user must authenticate to the primary platform (that 'executes' the workflow), using their API key.
+<3> In the case where the client is *running on the primary platform* then the platform URL is not required in the initialisation (implying 'local' platform). Examples of this case include: code running in a hosted Jupyter notebook, or a deployed processing service that chooses to use the Client Library.
+<4> Subordinate platforms are initialised (for capabilities) without authentication, on the basis that the primary platform authentication can be carried through the workflow 'call-stack' through delegated/federated IAM solution - ref. section <<IAM>>.
+<5> At each platform the collection is selected through its unique collection identifier, and a data coverage subset is specified through a definition of the required spatial/temporal extent.
+<6> At each platform the processing task to be exectued against the selected coverage is specified.
+<7> The workflow is defined by requesting the parallel execution of the `MultiSensorNDVI` processor on each of the three platforms, with these results providing input to the `NDVIStacker` process executed on the primary platform.
+<8> The call to `retrieve` the outcome of the workflow initiates its *'lazy' execution*. Prior to this point the Client Library has been operating on *'proxy'* objects that record the *specification of the workflow* requested by the code. At this point the Client Library converts the workflow specification into a CWL definition suitable for deployment and execution at the <<mainProcEMS, EMS>> of the primary platform. In response the EMS will interface with the <<mainProcADES, ADES>> of each subordinate platform to ensure the `MultiSensorNDVI` is deployed and executed against the requested coverage. Subsequently the EMS interfaces with the ADES of the local platform to ensure the `NDVIStacker` is deployed and executed against the outputs of the three `MultiSensorNDVI` process executions.
+

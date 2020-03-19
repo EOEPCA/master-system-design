@@ -1,0 +1,14 @@
+@startuml "UMA Access Resource"
+autonumber
+autoactivate on
+participant Client
+participant "Resource Server" as RS
+box "Authorization Server"
+participant "Authorization API" as AuthzAPI
+participant "Protection API" as ProtAPI
+end box
+Client -> RS : GET resource (RPT)
+RS -> ProtAPI : Check RPT status (PAT,RPT)
+return RPT status = (OK,scopes)
+return resource
+@enduml

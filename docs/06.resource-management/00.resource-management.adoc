@@ -1,0 +1,254 @@
+[[mainResourceManagement,Resource Management]]
+= Resource Management
+
+The role of the Resource Management domain is the storage, discovery and access to resources in the Exploitation Platform. In this context, resources primarily refers to data and processing assets.
+
+Storage is largely taken care of by the Resource Tier upon which the Exploitation Platform is hosted. The role of the Exploitation Platform is to ensure that the data can be accessed through common data access protocols based upon open standards.
+
+This is important for:
+
+* the end-user wishing to access data directly, and accessing their results after processing
+* processing services accessing data for input/output
+* processing workflow steps accessing intermediate outputs from prior steps
+* other federated Exploitation Platforms accessing each other’s data and services through well understood interfaces
+
+To exploit the services of the Platform, users need to discover available resources and obtain detailed resource information. For example, a user's data discovery workflow should include the ability to view collection/product information and visualise the data in the platform - this applies to data held within the platform, data added by end-users and data produced as the result of processing operations within the platform.
+
+[#img_resourceUseCase,reftext='{figure-caption} {counter:figure-num}']
+.Resource Management Use Case
+image::use-cases-resources.png[width=100%,pdfwidth=100%,align="center"]
+
+Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the provision of an <<mainAppCatalogue, Application Catalogue>>.
+
+The inventory and presentation of resources to users must be organised in such a way as to facilitate the discovery and usage of resources in other federated Exploitation Platforms. For example, users must be able to discover data and services in other EPs in order to construct and execute workflows that span multiple federated EPs. *Thus a Resource Catalogue provides the inventory of data, processing services, applications in such a way as to create a Marketplace for resource discovery, and provide a launchpad for their use within the exploitation platform*.
+
+Access to resources must be controlled according to the privileges afforded to the logged in user, and appropriate hooks must be established into the EPs accounting and billing subsystems. Thus, the Resource Management services must be implemented according to the approach defined by User Management for authorization, accounting and billing.
+
+In addition to the resource holding of the underlying resource tier, the EP maintains a User Workspace in which each user is able to maintain specific data/services of interest to them, and also provides a place to hold results of processing operations. The User Workspace should be provided as a building block of the system that provides this personal inventory. Moreover, the concept can be extended to define Group Workspaces to create a place for sharing and collaboration.
+
+A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.
+
+The main components comprising the Resource Management domain are illustrated in <<img_resourceOverview>>:
+
+* Resource Catalogue
+* Data Access Services
+* Data Access Gateway
+* Data Access Library
+* Data Ingestion
+* Workspace
+
+[#img_resourceOverview,reftext='{figure-caption} {counter:figure-num}']
+.Resource Management Overview
+image::resource-overview.png[width=85%,pdfwidth=85%,align="center"]
+
+To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.
+
+
+[[mainResourceCatalogue,Resource Catalogue]]
+== Resource Catalogue
+
+The Catalogue provides the user the capability to discover resources, (including data/products/services/applications), by browse/search, and to obtain details on specific resources discovered. Resources of different type can be catalogued and delivered through the same service architecture and catalogue service interfaces - provided as a consolidated catalogue service, or through discrete services for each resource type. In each case the catalogue provides an inventory of resources that can be presented as a _Marketplace_ for users to discover and browse.
+
+Perhaps the most challenging aspect of this is that the Catalogues for both Data and Processing-Services must facilitate the proper construction of processing tasks, to ensure there is a correct match of the data types expected as input to the processing. This extends into the construction of workflows where the data types output by a processing task must match the supported inputs of the next task in the chain. The Catalogue must have a rich and consistent metadata model for both Data and Processing-Services in order to achieve these goals.
+
+[[mainOpenSearch,Open Search]]
+=== CEOS OpenSearch Best Practise
+
+The Common Architecture advocates standardisation on the use of OpenSearch based-upon the CEOS OpenSearch Best Practise <<CEOS-OS-BP>> which provides a blueprint for catalogue search and discovery. Within this context, the following OGC extensions and recommendations are applicable:
+
+* OpenSearch GEO: OpenSearch Geo and Time Extensions <<OS-GEO-TIME>>
+* OpenSearch EO: OGC OpenSearch Extension for Earth Observation <<OS-EO>>
+
+In addition, the possibility to use the JSON-LD processing model might be considered (further analysis required) through application of:
+
+* OGC EO Dataset Metadata GeoJSON(-LD) Encoding Standard <<GEOJSON-LD>>
+* OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard <<GEOJSON-LD-RESP>>
+
+[[mainAppCatalogue,Application Catalogue]]
+=== Application Catalogue
+
+Processing services are published in an Application Catalogue that acts as a Marketplace and facilitates their discovery. Via the Marketplace users have a single point of access to all processing services that are published across the federated system. In order to invoke processing services and workflows, users must specify the data inputs and parameterisation. The metadata for each application record describes what data an application can be applied to, and how it can be chained in a workflow.
+
+The Application Catalogue is the subject of the current OGC Testbed-15 EOPAD Thread, through which the Data Model and catalogue Service Interface are being explored. Thus, in addition to the best practise identified above, the outcomes of the TB15 EOPAD thread should be taken into consideration:
+
+* *OGC 17-084 (GeoJSON(-LD) metadata encoding for EO collections) <<GEOJSON-LD>>* +
+Explore the capabilities of OGC 17-084 to encode application metadata
+
+* *OGC 17-047 (OGC OpenSearch-EO GeoJSON(-LD) Response Encoding Standard) <<GEOJSON-LD-RESP>>* +
+Explore the capabilities of OGC 17-047 to encode OpenSearch responses in GeoJSON(-LD)
+Use of multi-step discovery and faceted search
+
+* *Registration* +
+Explore transactional extension to OGC-CSW for application registration.
+
+It is anticipated that the outcome of the OGC Testbed-15 (EOPAD) will further inform the design of the Application Catalogue.
+
+[[mainDataCatalogue,Data Catalogue]]
+=== Data Catalogue
+
+The Catalogue provides the user the capability to discover data/products by browse/search, and to obtain details on specific data/products discovered. The Marketplace concept can be extended to embrace the discovery and access to data.
+
+==== Metadata Organisation
+
+The data is organised into Collections, typically representing a dataset. Each collection is composed of multiple granules as files. The catalogue metadata follows a similar organisation and allows the user to discover the data in natural sympathy with this data organisation. Hence, the metadata is presented at the following levels:
+
+Browse Metadata (collection)::
+Browse metadata is defined at the collection/dataset level. It typically uses ISO19115 records to describe the high-level collection information, such as title, description, spatial/temporal coverage, list of variables available, access rights, T&Cs, etc. +
+(For collections, the spatial coverage is often full-earth).
+
+Discovery Metadata (product)::
+Discovery metadata is defined for each granule (file) comprising the collection. This typically includes information such as file-type(s), spatial/temporal coverage, variable, data access (download) method(s). Much of this information can be obtained from the headers of the individual files – depending on file-type. Thus, the Discovery metadata can in-part be populated automatically from the underlying files.
+
+Archive Metadata (file)::
+Archive metadata refers to the information that is available in the file header. As described above this can be extracted and published into the Discovery metadata of the catalogue.
+
+==== Example Usage with OpenSearch
+
+This metadata model can be exploited, for example, using OpenSearch:
+
+* Initial search is made at the collection level to discover collections/dataset of interest.
+* Subsequent OpenSearch requests can then be made to drill-down into a specific collection to discover and obtain details regarding the granules.
+* Once discovered, the granules can then be exploited by the user, for example as input to a processing request, or downloaded.
+* Facets can be applied to both the Browse and Discovery metadata, to supported facetted search at both levels.
+
+==== Data Access
+There is a direct link between the way the data is described in the Catalogue and how it is accessed by the consumers of the data. This links to the Data Access Services (e.g. WMS. WCS, WFS, etc.) provided by the EP, and the way in which the access links are encoded into the Catalogue. These links must be usable by the data consumers which could be processing services, or users downloading the data.
+
+Hence the contents of the Catalogue reflects the data services offered by the platform, including the underlying resource tier services. Each data Collection is presented in the Catalogue as accessible through one or more data access services, as applicable to the specific data. The Catalogue must present the data access URLs in such a way that the URL resolves correctly to the underlying data via the providing data access service.
+
+==== Catalogue Composition/Aggregation
+
+The Exploitation Platform is designed to be hosted in a compute environment that is close to the data of interest. This means that the typical deployment is made to the likes of DIAS, Public Cloud (such as AWS), or National Research Infrastructure (such as CEDA/JASMIN) – that provide the Resources-tier/infrastructure upon which the EP relies. The Resources-tier provides virtual ICT-infrastructure and data. It is common that the Resources-tier provides their own Catalogue to support the data hosted within.
+
+In order to ensure a coherent link between data discovery and access, the Exploitation Platform provides its own Catalogue that presents the data holding to be accessed through the available data access services. In doing so it must aggregate the catalogue records of the underlying resource tier, the records of other 'federated' platforms, and the value-added data that is contributed through the actions of users on the EP. Thus the EP provides a Catalogue that is tailored to its service offering to ensure a consistent data access interface that can be relied upon by other EP services, in particular by the executing user analysis functions running within the Processing & Chaining context.
+
+[#img_catalogueAggregation,reftext='{figure-caption} {counter:figure-num}']
+.Catalogue Aggregation
+image::catalogue-aggregation.png[width=100%,pdfwidth=100%,align="center"]
+
+We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:
+
+* In the case where the Resource-tier provides these in a way that is conformant with the architecture then these can be relied upon directly for the exploitation platform
+* In the case where the Resource-tier provides only a suitable Product catalogue, then the Collection catalogue must be provided by the EP, with the granule queries being directed to the back-end catalogue. Alternatively, this could be achieved by harvesting the Resource-tier product catalogue into the EP catalogue.
+* Alternatively, the EP may provide a Catalogue-shim to ensure that an existing Resource-tier catalogue conforms to the interface demands of the open architecture
+* Otherwise, the EP must provide all catalogue aspects.
+
+The important point is to ensure that the EP presents interfaces that conform to its defined open standards, and is able to take measures to ensure this is the case. From the perspective of the user of the Exploitation Platform a single Data Catalogue end-point is most desirable. The EP web interface can present a consolidated user view in the case of multiple catalogue end-points. A similar consolidation approach can be applied by the EP programmatic API, which can present a single end-point on behalf of the back-end data catalogues.
+
+=== Federated Discovery
+
+In order that a user is able to discover data/services of interest in a federated network of Exploitation Platforms, an approach to Catalogue federation must be established between collaborating platforms.
+
+[#img_catalogueFederation,reftext='{figure-caption} {counter:figure-num}']
+.Catalogue Federation
+image::catalogue-federation.png[width=70%,pdfwidth=70%,align="center"]
+
+As illustrated in <<img_catalogueFederation>> there are a number of possible approaches:
+
+* Gateway – A central proxy
+* Centralised – Central mirror
+* Distributed - Catalogues mirror each other
+
+Further analysis is required to understand these options, their applicability and impact on the Common Architecture.
+
+== Data Access Services
+
+The Exploitation Platform provides access to data through public services based upon Open Standards, for the consumption by end-users and other federated platforms.
+
+The primary services provided by an Exploitation Platform should include:
+
+* OGC Web Map Service (WMS)
+* OGC Web Map Tile Service (WMTS)
+* OGC Web Feature Service (WFS)
+* OGC Web Coverage Service (WCS)
+* OGC Web Coverage Processing Service (WCPS)
+* Services provided by Resource Tier:
+** AWS S3 Object Store
+** Swift Object Store (OpenStack)
+
+Other services that may also be considered include:
+
+* WebDAV
+* FTP
+* CDMI
+
+Integration of these data access services with the data-layer of the hosting Resource Tier relies upon the Data Access Gateway providing an infrastructure agnostic interface for accessing the underlying data holding.
+
+[[mainDataAccessGateway,Data Access Gateway]]
+== Data Access Gateway
+
+The EO datasets are stored according to the underlying storage technology of the infrastructure Resource Tier. The storage interface presented is not under the control of the Exploitation Platform.
+
+The role of the Data Access Gateway is to provide an abstraction layer on top of the underlying storage to present a well-defined storage interface to the other components of the Exploitation Platform.
+
+The main EP components that require data access are:
+
+* Processing services and applications: stage-in/out of data/results
+* Platform Data Access Services (WMS,WCS,etc.): access to datasets
+* Ingestion: storage of ingested data
+
+In the EP system design, these services are designed to be deployed as containers through Kubernetes. This presents the possibility that some aspects of the Data Access Gateway can be met by the facilities offered by Kubernetes volumes. Access to underlying data is provided through volumes that are mounted into the container. Kubernetes volumes have native support for a number of common storage technologies (such as AWS EBS, Cinder), however these tend to be block rather than object storage.
+
+The Gateway must provide a data bridge between the EP components and the Resource Tier. It fills the gap in the data access capabilities of a given a given service/application, and provides a common data access interface that such components can target in their implementation. We might regard the lowest-common-denominator for data access to be a combination of:
+
+* Local filesystem access
+* AWS S3 Object Store
+
+Through docker/kubernetes we can use mounted 'volumes' to present data through a local filesystem interface.
+Through s3fs-fuse we can establish local filesystem mount points to S3 object stores.
+The Processing Framework makes use of these capabilities to ensure that data is presented to processing services/applications in a form that they can consume.
+
+Thus, the Data Access Gateway presents an S3 interface as an internal data access abstraction, whilst implementing the data access interface to the infrastructure Resource Tier storage.
+
+[[mainDataAccessLib,Data Access Library]]
+== Data Access Library (DAL)
+
+In addition to the Data Access Gateway, which operates as an internal service, the Data Access Library (DAL) is provided specifically as a point of integration for processing services and applications. The Data Access Library provides an abstraction of the interface to the data, with bindings for common languages (including python. R, Javascript) and presents a standard programmatic semantic for accessing the data from within the processing service codebase.
+
+*_The Data Access Library can be seen as a subset of the facilities offered by the <<mainClientLibrary>>._*
+
+The Data Access Library can provide an abstraction at two levels:
+
+Protocol abstraction::
+Standard programmatic semantics are provided for accessing the data (i.e. CRUD operations on data granules), that is agnostic of the underlying platform storage data access protocols. This is a lower level interface that should be applicable to all use cases.
+
+Data Model abstraction::
+A common object model is defined with programmatic semantics, which provides a higher-level abstraction of the data that hides the details of the underlying storage, files and file-formats. The abstraction accesses and parses the underlying data to present data structure representations within the language bindings. Such an object model would likely be applicable to some, but not all, use cases. In cases where this approach is not applicable, then protocol abstraction provides the fall-back option.
+
+Thus, processing services and applications can be implemented in a ‘portable’ way that is agnostic to the platform resource-tier storage technology.
+
+Specific implementations of the DAL can be made to abstract the data access layer for a given Exploitation Platform. The library offered to the processing service at runtime must implement the specific data access interface to the resource-tier storage. Hence, the library should not be ‘hard-coded’ into the processor application package (Docker image). The Processing Framework must support the ability to 'plugin' an alternative (platform-specific) implementation of the DAL dynamically at processor execution time. It may be possible to develop a 'generic' Data Access Library by implementation against the standard (internal) interface provided by the Data Access Gateway. In this case, the platform-specifics regarding data access are borne entirely by the Data Access Gateway.
+
+*See also section <<procServiceDataAccess>> which provides a discussion of data access approaches for processing services and the stage-in/out of data.*
+
+== Data Ingestion
+
+Data Ingestion presents a standard interface to the EP components, whilst transparently interfacing with the infrastructure Resource Tier.
+
+During data ingestion the following steps may be performed:
+
+* Authorization check
+* Quota check
+* Metadata extraction
+* Preview generation
+* Format conversion
+* Storage PUT
+* Catalogue PUT
+* Trigger notifications
+
+Ingestion raises notifications for the following events:
+
+•	Raise indicators to users (visual, emails, etc.)
+•	Trigger systematic actions in other EP services (e.g. systematic processing)
+
+[[mainWorkspace]]
+== Workspace
+
+The Workspace provides a service to users through which they can organise data/processing-services that are of current interest to them, they are currently working on, and to organise results of processing executed, Research Objects, etc.
+
+This concept can be extended to create a Group Workspace for sharing and collaboration.
+
+It may be possible to model the Workspace as a Catalogue, in which the browse/discover access privilege is limited to either an individual user (personal workspace) or a group of collaborating users (group workspace):
+
+* READ access: OpenSearch should provide a good fit for this interface
+* CREATE/UPDATE/DELETE: Transactional extension to OGC-CSW (to be explored)
