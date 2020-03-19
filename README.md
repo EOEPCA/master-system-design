@@ -45,18 +45,9 @@
 
 ## Table of Contents
 
-- [About the Project](#about-the-project)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Testing](#testing)
-- [Documentation](#documentation)
-- [Usage](#usage)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Repository Organisation](#repository-organisation)
+- [Published Documentation](#published-documentation)
+- [Development](#development)
 - [Acknowledgements](#acknowledgements)
 
 ## Repository Organisation
