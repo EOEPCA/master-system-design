@@ -9,6 +9,12 @@ trap "cd '${ORIG_DIR}'" EXIT
 # Work in the docs/ directory
 cd "${BIN_DIR}/.."
 
+# Deduce the name of the repository
+if [ -z "${GH_REPOS_NAME}" ]
+then
+  export GH_REPOS_NAME="$(basename $(dirname $PWD))"
+fi
+
 # Set context dependant on whether this script has been invoked by Travis or not
 if [ "${TRAVIS}" = "true" ]
 then
@@ -35,6 +41,7 @@ echo "[done]"
 # PDF version
 echo -n "Generating PDF... "
 docker run ${DOCKER_RM} --user $(id -u):$(id -g) -v $PWD:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -r asciidoctor-diagram -D /documents/output index.adoc
+mv output/index.pdf output/EOEPCA-${GH_REPOS_NAME}.pdf
 echo "[done]"
 
 # Output summary

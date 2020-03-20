@@ -57,6 +57,7 @@ The document source is in the `master` branch.
 The published document is in the `gh-pages` branch.
 
 The `gh-pages` branch contains:
+
 - existing published versions, under path `published/vX.X`
 - the current in-progress version (tip of master), under path `current/`
 - a landing page with links to the above
@@ -76,6 +77,12 @@ In particular the document generation step...
 The document generation relies upon docker to execute the `asciidoctor` command as a container, avoiding the need to install asciidoctor locally, (ref https://hub.docker.com/r/asciidoctor/docker-asciidoctor).
 
 Thus, you need to have installed docker locally in your development platform to support this.
+
+There is also a helper script to present the generated document through a local HTTP server...
+
+```bash
+./docs/bin/serve.sh
+```
 
 ## Published Documentation
 
