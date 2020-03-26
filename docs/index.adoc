@@ -52,7 +52,7 @@ include::03.design-overview/00.design-overview.adoc[]
 
 <<<
 
-include::04.user-management/00.user-management.adoc[]
+include::04.user-management/00.user-management-index.adoc[]
 
 <<<
 
