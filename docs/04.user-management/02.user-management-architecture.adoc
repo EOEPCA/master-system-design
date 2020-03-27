@@ -147,12 +147,9 @@ Providing REST semantics for the PEP/PDP interface.
 
 GeoXACML is standardised by the OGC to provide a geo-specific extension to XACML 2.0. GeoXACML provides support for spatial data types and spatial authorization decision functions. Those data types and functions can be used to define additional spatial constraints for XACML based policies.
 
-*ALFA (Abbreviated Language For Authorization)*
-
-Authoring of XACML rules can be facilitated by the use of https://en.wikipedia.org/wiki/ALFA_(XACML)[*ALFA (Abbreviated Language For Authorization)*], which is a pseudocode language used in the formulation of access-control policies. ALFA policies can be directly converted to XACML 3.0 policies. ALFA can support GeoXACML through extensions, that supports definition of custom geometry functions.
-
-*XACML Related Technologies*
-
+[NOTE]
+.XACML Related Technologies
+===============================================
 The following items represent some interesting existing implementations that may be considered as a possible basis for a reference implementation of the Common Architecture.
 
 AuthzForce PDP::
@@ -169,6 +166,7 @@ GeoXACML for AuthzForce PDP - extends the AuthZForce PDP implementation with a G
 geoPEP::
 Related to the geoPDP is the geoPEP that delivers a PEP as an Apache2 reverse proxy - implemented as an Apache2 module - interfacing with the geoPDP for the authorization decisions.
 * geoPEP Docker: https://github.com/securedimensions/geopep-apache2-reverse-proxy
+===============================================
 
 ==== UMA (User-Managed Access)
 
@@ -204,7 +202,7 @@ ____
 
 *UMA Phases*
 
-UMA describes three phases...
+UMA describes three main phases:
 
 [.strong]
 . *Protect Resource* +
@@ -375,69 +373,23 @@ To maximize reusability price calculation is separated in to a different service
 * Given a commercial licence billing event, calculate the charge to the user, the credit to the Licenser and the platform fee.
 
 === License Manager
-A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degrees off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.
 
-Some concepts applicable within the licence manager must be established:
-
-* A licence consist of the legal text itself, a name and version, a description of pricing where appropiate and other metadata.
-* A licence terms acceptance is the acceptance by a particular user (and organization) of the licence terms and conditions.
-* A licence grant grants a users access to particular parts of a resource or for particular purposes. This is only applicable to commercial licensed resources. A licence grant is signed by the licenser.
-* The licence manager does not know which resources require which licences. It only knows data about identified licences and about which users have which acceptances and grants.
-
-The licence manager does not formally know how to calculate the price of a commercial licence grant. Instead, it produces an identifier for a particular type of grant and a quantity. The billing engine turns this in to a price, which may involve applying any user-specific or volume-based discounts. The quantity may be in, for example, square kilometres. Alternatively, the licences may be priced at €1/unit, effectively transferring responsibility to the licence manager's configuration.
-
-Note that licencers must ensure that their licences are uniquely identified across the whole federation. That is, if they use the same licence on multiple platforms they must give it the same ID and must not otherwise reuse IDs.
-
-==== Licence Requirement Checks
-
-At the request planning stage the EMS determines the licences required (as far as is possible in advance). This results in a list of licence requirement specifications. These may vary in complexity, from simply identifying a dataset to specifying an AoI, ToI and additional attributes, depending on platform support and on any knowledge the EMS has about which request fields are licence-relevant. The licence manager, however, only performs matching of these against rules or configuration using no or limited knowledge of the specific meaning of fields.
-
-On receiving licence requirement specifications, the licence manager must compare them against the licences and grants possessed by the user and determine what licences, if any, must be obtained by the user before the action is permitted. On failure, the result should contain something the user can act on, such as a URL for viewing and agreeing to dataset terms or for buying licences. On success, the licence manager may return information on which fields were used so that the EMS can avoid repeated checks.
-
-The licence manager should also be able to determine when additional commercial licence grants should be added (and charged for) automatically. The user must have previously agreed to the license terms and pricing. When a new licence grant is added it should record it and issue a billing event.
-
-Licence grants may also be managed by an external service operated by the licenser. This communication is managed entirely by the licence manager.
-
-Processing may cross platform boundaries within the federation. A platform executing processing or supplying a resource must be able to determine that the processing is running in a context in which any required licences are available. To support this, the context must include enough information to identify the licence manager of the originating platform. When a licence manager receives a licence requirement specification which can't be satisfied locally it should use this endpoint to perform a licence requirement check. The originating platform may fail this request, may accept it based on existing data (returning signed licence grants if appropriate) or may perform an automated licence grant acquisition. The host/compute platform may then store these licence grants against the user ID for use in future checks.
-
-Note that cross-platform executions may involve running, for example, a processing chain initiated from platform A with a component involving a commercially licenced compute service from platform B running on platform C. In these cases platform B may check that the user has accepted its platform acceptable use policy by contacting platform A, fetch the compute service from platform C which will then also directly contact platform A to ensure that licences are available before returning the container ot platform B.
-
-TODO: Diagrams!
-
-
-==== Licence Acquisition
-
-Unless managed by an external service, users must be able to view and accept terms and purchase licence grants using the licence manager. For licences where no licence grants must be bought this is very simple - for example, the licence manager may provide APIs enabling the UI to fetch licence text and submit acceptance. This can be done from a resource information display page or following a refused request.
-
-Where a licence grant must be bought the flow for the user is managed by other components. A user interface may be used to choose licence attributes or particular subsets of data, for example, or a user may have the option to allow automatic purchases as data is accessed. This licence manager must support this functionality in the following ways:
-
-* A human-readable description of the pricing model and prices is included with the licence metadata. This should be displayed to the user.
-* The licence manager can accept a licence requirement specification and turn it in to either a product code and quantity (which the caller can then pass to the pricing engine) or information on which additional fields are required. The field names, types and UI information is supplied by other services as part of the resource definition.
-* The licence manager can accept a command to buy a specified licence. It will then emit a billing event. This may happen synchronously or asynchronously depending on the needs of the platform's billing model.
-
-When federated access is involved, such as when a processing chain runs some components on another platform or when data or processing services are transferred to run locally, a user may need to accept licence terms or acquire a licence grant for a resource which is not published via the home platform. This must always be initiated from the home platform, either in advance of the execution or in response to an event returned by a host platform. For terms acceptance the licence manager must contact the host platform and transfer the necessary T&C data. For a (commercial) licence grant, the licence manager must ask the billing manager to authorize a payment to the host platform and then make a request to the host licence manager to buy the licence (specifying the payment ID). The host licence manager must verify the price before asking its own billing manager to clear the payment. It should then record the licence grant as well as returning it to the home platform.
-
-
-==== Licence Administration
-
-Resource owners must be able to configure licences. The UIs and APIs allowing them to do this must interact with the licence manager (and the pricing engine) to configure their licences. This includes only the licences themselves - assignment of licence requirements to resources is out of the licence manager's scope.
-
-==== Porting Licences Within the Federation
-
-In some cases users may have multiple home platforms, initiating some workloads from different locations. To ensure that users can use their licences for workloads initiated across all locations licence 'porting' may be used.
-
-A user 'ports' a licence from one platform to another by using OAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.
-
-
-This mechanism may be used for two purposes. In the first, a publisher has published his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser's public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).
+[NOTE]
+.Work In Progress
+===============================================
+TBD: Approach to License Manager Building Block 
+* Used Technologies and Standards
+* Interactions with other building blocks
+* Exposed Endpoints
+===============================================
 
 === User Profile
 
-The User Profile is a system resource that maintains a set of data for each user including:
-
-* User details
-* Terms and conditions accepted by the user
-* Licence keys held by the user
-* User API key management
-
-The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process.
+[NOTE]
+.Work In Progress
+===============================================
+TBD: Approach to User Profile Building Block 
+* Used Technologies and Standards
+* Interactions with other building blocks
+* Exposed Endpoints
+===============================================
