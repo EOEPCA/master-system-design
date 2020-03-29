@@ -110,6 +110,31 @@ This may be of interest in a couple of cases:
 * The case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Login Service in another EP – in which case auto-client-registration might be of interest.
 * The case where a common Login Service is deployed outside of the context of a given Exploitation Platform, acting as an IdP Proxy. In this case, the local Login Service deployed in each EP would register as an OIDC Client of the IdP Proxy.
 
+==== SCIM Endpoints
+
+[NOTE]
+.Work In Progress
+===============================================
+This section will contain a description of SCIM and its the usage within the architecture.
+===============================================
+
+==== Interaction with other components
+
+While the external interactions of the Login Service with client applications and End-Users are clearly stated (see figure <<img_iamOverviewFlow>>), this Building Block exposes several endpoints, mostly for their usage within the platform:
+
+* SCIM Provider, allowing access to the back-end schema that stores information required to provide platform functionality.
+* OIDC Provider, allowing authentication of SW components as trusted SCIM Clients.
+
+*Interal usage of Endpoints*
+
+Most of the other building blocks described in the User Management section will utilize the SCIM Endpoint for various purposes. In order to do so, they will be authenticated as trusted SCIM Clients, therefore requiring interaction with the exposed OIDC and UMA Endpoints.
+
+[NOTE]
+.Work In Progress
+===============================================
+Add image for client authentication
+===============================================
+
 === Policy Decision Point
 The Authorization flow is relevant to the following interfaces:
 
@@ -320,6 +345,22 @@ include::include/uma-client-request-authorization.wsd[]
 
 Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.
 
+==== Interaction with other components
+
+While the external interactions of the Policy Decision Point with client applications and End-Users follow the UMA Flow described above, this Building Block also interacts directly with other Building Blocks for serveral purposes.
+
+*Interal usage of Endpoints*
+
+Interaction with other Building Blocks can be found in the following list:
+
+* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens. 
+
+* PDP to external PDP requests: external policy resolution. Whenever a policy decision requires external checks, the PDP will perform queries against these external PDP Services and integrate the response within the overall policy resolution procedure.
+
+* PDP to License Manager requests: license-based policies. In the case that a defined policy contains restrictions based on license agreement or licence limits of use, the PDP will perform checks against the License Management API, to ensure that corresponding criteria are met. 
+
+* PDP to Billing Service requests: bugdets and inter-platform payments. If a requests contains a billing-based policy that imposes restrictions based on billing identity or requires accounting of usage for potential inter-platform payments, the PDP will utilize the Billing Service to perform policy checks.
+
 === Policy Enforcement Point
 ==== Overview
 
@@ -344,6 +385,21 @@ The PEP validates the access token by using it as a Bearer token in a request to
 
 The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.
 
+==== Interaction with other components
+
+The Policy Enforcemnt Point mainly interacts with both Client Applications and Services and its meant to ensure that the proper policies are enforced during access. This not only requires interaction with both Client and Services, but also requires interaction with internal components. 
+
+*Interal usage of Endpoints*
+
+The Policy Enforcement point requires two interactions with other Building Blocks: 
+
+* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens. 
+
+* PEP to Login Service requests: Authentication as Resource Server. Given that the Policy Enforcement Point acts as the facade of any given service, it is necessary for the PEP to act as a Resource Server:
+
+** Interaction with OIDC Endpoints in order to authenticate as a client application and acquire Resource Server priviledges.
+** Interaction with UMA Endpoints in order to perform ticket generation and token instrospection requests
+
 === Billing Service
 
 A Billing Service will operate within the platform which receives reports of billing events from other components. These are recorded against the relevant billing identity. Billing events have arbitrary attributes defined in them, which the billing service does not interpret (but are sufficient for the pricing engine, see below), a transaction ID identifying the original user action which caused it, and enough additional information for display to the user. Some example billing events might be:
@@ -363,9 +419,30 @@ To support the PDP and other services, the Billing Service may be required to pe
 
 Where billing events are reported in another currency, as may happen with federated resource use, the Billing Service must determine the time and rate for currency exchange.
 
+
+==== Interaction with other components
+
+The Billing Service mainly exposes endpoints in order to ingest Billing Events and to generate Billing Window Reports. These requests are expected to originate from Platform Services.
+
+*Interal usage of Endpoints*
+
+On the other hand, the Billing Service requires three main interactions with other Building Blocks: 
+
+* PDP to Billing Service requests: billing-based policies. 
+* Billing Service to Login Service/User Profile requests: handling of billing Identities. The Billing Service may require access to specific billing attributes that reside in the User Profile back-end. These interactions require:
+
+** Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.
+** Interaction with SCIM Endpoints in order to perform simple billing identity checks and changes on potential credit attributes. 
+
+* Billing Service to Pricing Engine: on-demand price rate calculations. Whenever a the Billing Service requires calculation of costs (either for Policy resolution or Billing Window Report generation), it is possible to query the Pricing Engine endpoints in order to acquire this information.
+
 === Pricing Engine
 
-To maximize reusability price calculation is separated in to a different service (but not necessarily a different address space). Given access to a price database describing current, future and past configured prices, a Pricing Engine is otherwise stateless and can:
+To maximize reusability price calculation is separated in to a different service (but not necessarily a different address space). Given access to a price database describing current, future and past configured prices, a Pricing Engine is otherwise stateless.
+
+==== Interaction with other components
+
+The Pricing Engine mainly supports Billing Service functionality: 
 
 * Given a list of billing events or consolidated line items within a pricing window return calculated rates and prices for each one. For some pricing models this may involve multiple charges for each item or may contain blended rates/prices.
 * Return estimated prices for estimated resource use.
@@ -374,14 +451,17 @@ To maximize reusability price calculation is separated in to a different service
 
 === License Manager
 
-[NOTE]
-.Work In Progress
-===============================================
-TBD: Approach to License Manager Building Block 
-* Used Technologies and Standards
-* Interactions with other building blocks
-* Exposed Endpoints
-===============================================
+==== Interaction with other components
+
+The License Manager exposes a License Management API that could potentially be utilized by agents outside of the Platform, but its main purpose is to enhance the functionality of the rest of the Building Blocks. It has also the potential to genrate Billing Events that can be pushed to Billing Service endpoints. 
+
+*Interal usage of Endpoints*
+
+* License Manager to Billing Service: generation of license-based billing events. Whenever usage of a License takes place, the License Manager can generate a billing event that will be pushed to the Billing Service API. 
+* License Manager to Login Service/User Profile requests: handling of license information. The License Manager may require access to specific end-user attributes that reside in the User Profile back-end. These interactions require:
+
+** Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.
+** Interaction with SCIM Endpoints in order to perform simple license checks and extend end-user information with references to Service Licenses. 
 
 === User Profile
 
