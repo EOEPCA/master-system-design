@@ -1,0 +1,28 @@
+@startuml
+participant "Client"
+box PEP #LightRed
+participant Proxy
+participant "Filter Plugin"
+end box
+
+box PDP #LightBlue
+participant "XACML"
+end box
+participant WPS
+
+autonumber
+
+== Process Listing ==
+Client -> Proxy: GET /secure/wps3/processes
+Proxy -> "Filter Plugin": Access Check
+"Filter Plugin" -> XACML: /access_check [/wps3/processes/*]
+XACML --> "Filter Plugin": return response
+"Filter Plugin" -> "Filter Plugin": Parse and store locally with <check_id>
+"Filter Plugin" --> Proxy: return check_id
+Proxy-> WPS: GET /wps3/processes (+JWT, +[/plugin/{check_id}])
+WPS-> "Filter Plugin": GET /plugin/{check_id}
+"Filter Plugin" --> WPS: return access_result
+WPS -> WPS: Parse Result
+WPS --> Proxy: return process_list
+Proxy --> Client: return process_list
+@enduml

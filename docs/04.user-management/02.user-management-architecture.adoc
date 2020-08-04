@@ -345,19 +345,40 @@ include::include/uma-client-request-authorization.wsd[]
 
 Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.
 
+
+[[resourceAPI]]
+==== Policy API
+
+The PDP exposes a REST API that allows to register, remove and update policy documents within the Authorization architecture. These policy documents are utilized during policy decision checks (using XACML compliant requests and responses).
+
+Any Resource Server can dynamically interact with the API to assign specific policies to resources during the execution of their internal processes, or they can delegate this functionality to Resource Owners, and let them consume the API as they see fit.
+
+The following example showcases how a Resource Owner can have its process deployed, dynamically registered and protected by an ADES component:
+
+[.text-center]
+[#img_resourceAPI,reftext='{figure-caption} {counter:figure-num}']
+.Dynamic Resource Protection through a Policy API
+[plantuml, policy-management, png]
+....
+include::include/policy-management.wsd[]
+....
+
+
 ==== Interaction with other components
 
-While the external interactions of the Policy Decision Point with client applications and End-Users follow the UMA Flow described above, this Building Block also interacts directly with other Building Blocks for serveral purposes.
+While the external interactions of the Policy Decision Point with client applications and End-Users follow the UMA Flow described above, this Building Block also interacts directly with other Building Blocks for several purposes.
 
-*Interal usage of Endpoints*
+*Internal usage of Endpoints*
 
 Interaction with other Building Blocks can be found in the following list:
 
-* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens. 
+* PDP to Resource Server (i.e ADES): Dynamic Protection of Resources through Policy Management. Any new resource within the Platform can be dynamically protected by any component through M2M interactions.
+
+* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens.
 
 * PDP to external PDP requests: external policy resolution. Whenever a policy decision requires external checks, the PDP will perform queries against these external PDP Services and integrate the response within the overall policy resolution procedure.
 
-* PDP to License Manager requests: license-based policies. In the case that a defined policy contains restrictions based on license agreement or licence limits of use, the PDP will perform checks against the License Management API, to ensure that corresponding criteria are met. 
+* PDP to License Manager requests: license-based policies. In the case that a defined policy contains restrictions based on license agreement or licence limits of use, the PDP will perform checks against the License Management API, to ensure that corresponding criteria are met.
 
 * PDP to Billing Service requests: bugdets and inter-platform payments. If a requests contains a billing-based policy that imposes restrictions based on billing identity or requires accounting of usage for potential inter-platform payments, the PDP will utilize the Billing Service to perform policy checks.
 
@@ -366,7 +387,10 @@ Interaction with other Building Blocks can be found in the following list:
 
 The PEP (acting on behalf of the resource server) receives the client request to access the protected resource. In the case that the access requires an authenticated user, then the PEP expects that the request includes a valid access token.
 
-Thus, the PEP follows the logic:
+
+==== Reverse Proxy Functionality
+
+The PEP follows the logic:
 
 * The PEP checks with the PDP whether an authenticated user is required for access
 * If no authenticated user is required then the request can continue (pending authorization) as an 'anonymous' user
@@ -375,6 +399,21 @@ Thus, the PEP follows the logic:
 ** If the access token is present, then it should be validated with the Login Service (direct call), as described below
 ** If the access token validation completes successfully then the request can continue (pending authorization), with the user identity provided by the ID Token received during token validation
 ** If the token is invalid, then the request should be redirected to the /authorize endpoint (HTTP redirect)
+
+In addition to this, the PEP also encodes two sets of key information as part of request headers, when propagating the request to the underlying Resource Server:
+
+* End-User Context: an Authorization Bearer header containing the ID Token generated during the access request.
+* Policy Context: a reference to a temporal, local repository of policy check results associated to the on-going request. The following image showcases the interactions with an hypothetical ADES component:
+
+
+[.text-center]
+[#img_policyContext,reftext='{figure-caption} {counter:figure-num}']
+.Policy Context Propagation through PEP protected requests.
+[plantuml, policy-context-propagation, png]
+....
+include::include/policy-context-propagation.wsd[]
+....
+
 
 ==== Access Token Validation
 
@@ -385,15 +424,35 @@ The PEP validates the access token by using it as a Bearer token in a request to
 
 The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.
 
+[[resourceAPI]]
+==== Resource API
+
+The PEP exposes a REST API that allows to register, remove and update resource references within the Authorization architecture. These resource references are used to perform the Proxying functionality (enforcing authorization) when generating access tickets and enable Policy Decisions to take place on the Policy Decision Points.
+
+Any Resource Server can dynamically interact with the API to register resources during the execution of their internal processes, or they can delegate protection of resources directly to Resource Owners, and let them consume the API as they see fit.
+
+The following example showcases how a Resource Owner can have its process deployed and dynamically registered by an ADES component:
+
+[.text-center]
+[#img_resourceAPI,reftext='{figure-caption} {counter:figure-num}']
+.Dynamic Resource Registration through a Resource API
+[plantuml, resource-protection, png]
+....
+include::include/resource-protection.wsd[]
+....
+
+
 ==== Interaction with other components
 
-The Policy Enforcemnt Point mainly interacts with both Client Applications and Services and its meant to ensure that the proper policies are enforced during access. This not only requires interaction with both Client and Services, but also requires interaction with internal components. 
+The Policy Enforcemnt Point mainly interacts with both Client Applications and Services and its meant to ensure that the proper policies are enforced during access. This not only requires interaction with both Client and Services, but also requires interaction with internal components.
 
-*Interal usage of Endpoints*
+*Internal usage of Endpoints*
 
-The Policy Enforcement point requires two interactions with other Building Blocks: 
+The Policy Enforcement point requires two interactions with other Building Blocks:
 
-* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens. 
+* PEP to Resource Server (i.e ADES): Dynamic Registration of Resources. If a new resource is generated by interacting with a Resource Server (such as a processing environment), the resulting asset can be registered dynamically as a resource.
+
+* PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens.
 
 * PEP to Login Service requests: Authentication as Resource Server. Given that the Policy Enforcement Point acts as the facade of any given service, it is necessary for the PEP to act as a Resource Server:
 
@@ -426,13 +485,13 @@ The Billing Service mainly exposes endpoints in order to ingest Billing Events a
 
 *Interal usage of Endpoints*
 
-On the other hand, the Billing Service requires three main interactions with other Building Blocks: 
+On the other hand, the Billing Service requires three main interactions with other Building Blocks:
 
-* PDP to Billing Service requests: billing-based policies. 
+* PDP to Billing Service requests: billing-based policies.
 * Billing Service to Login Service/User Profile requests: handling of billing Identities. The Billing Service may require access to specific billing attributes that reside in the User Profile back-end. These interactions require:
 
 ** Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.
-** Interaction with SCIM Endpoints in order to perform simple billing identity checks and changes on potential credit attributes. 
+** Interaction with SCIM Endpoints in order to perform simple billing identity checks and changes on potential credit attributes.
 
 * Billing Service to Pricing Engine: on-demand price rate calculations. Whenever a the Billing Service requires calculation of costs (either for Policy resolution or Billing Window Report generation), it is possible to query the Pricing Engine endpoints in order to acquire this information.
 
@@ -442,7 +501,7 @@ To maximize reusability price calculation is separated in to a different service
 
 ==== Interaction with other components
 
-The Pricing Engine mainly supports Billing Service functionality: 
+The Pricing Engine mainly supports Billing Service functionality:
 
 * Given a list of billing events or consolidated line items within a pricing window return calculated rates and prices for each one. For some pricing models this may involve multiple charges for each item or may contain blended rates/prices.
 * Return estimated prices for estimated resource use.
@@ -453,22 +512,22 @@ The Pricing Engine mainly supports Billing Service functionality:
 
 ==== Interaction with other components
 
-The License Manager exposes a License Management API that could potentially be utilized by agents outside of the Platform, but its main purpose is to enhance the functionality of the rest of the Building Blocks. It has also the potential to genrate Billing Events that can be pushed to Billing Service endpoints. 
+The License Manager exposes a License Management API that could potentially be utilized by agents outside of the Platform, but its main purpose is to enhance the functionality of the rest of the Building Blocks. It has also the potential to genrate Billing Events that can be pushed to Billing Service endpoints.
 
 *Interal usage of Endpoints*
 
-* License Manager to Billing Service: generation of license-based billing events. Whenever usage of a License takes place, the License Manager can generate a billing event that will be pushed to the Billing Service API. 
+* License Manager to Billing Service: generation of license-based billing events. Whenever usage of a License takes place, the License Manager can generate a billing event that will be pushed to the Billing Service API.
 * License Manager to Login Service/User Profile requests: handling of license information. The License Manager may require access to specific end-user attributes that reside in the User Profile back-end. These interactions require:
 
 ** Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.
-** Interaction with SCIM Endpoints in order to perform simple license checks and extend end-user information with references to Service Licenses. 
+** Interaction with SCIM Endpoints in order to perform simple license checks and extend end-user information with references to Service Licenses.
 
 === User Profile
 
 [NOTE]
 .Work In Progress
 ===============================================
-TBD: Approach to User Profile Building Block 
+TBD: Approach to User Profile Building Block
 * Used Technologies and Standards
 * Interactions with other building blocks
 * Exposed Endpoints

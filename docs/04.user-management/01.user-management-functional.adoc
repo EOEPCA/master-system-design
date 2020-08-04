@@ -60,7 +60,7 @@ Each protected resource is fronted by its Policy Enforcement Point (PEP), which 
 ===============================================
 This section of text regarding PEP<->PDP interactions does not comply entirely with the approach stated by the UMA Flow
 ===============================================
- 
+
 The Login Service is provided as a common component that is utilised by each client application to perform the authentication flow with the external IdPs, as a step prior to resource access. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.
 
 The PEP interrogates the PDP for an authorization decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:
@@ -117,7 +117,7 @@ Using the facilities of the Exploitation Platform, the user (perhaps via their U
 
 At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user's profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorization is long-lived.
 
-Conversly, the user's profile at a given EP also provides the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token. 
+Conversly, the user's profile at a given EP also provides the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token.
 
 *Possible use of OIDC JWKS Federation*
 
@@ -129,7 +129,7 @@ Thus, through this mechanism public keys can be shared to underpin the signing a
 
 Within an EP, when a resource server is executing a user’s request, it may need to invoke a resource in another EP with which it is collaborating. The resource access to the other EP must be made on behalf of the originating user.
 
-The nominal solution is for the originating EP to act as an OIDC Client to interface with the Login Service of the other EP, and so obtain the access token required to access the other resource. In this case, it is possible that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent. 
+The nominal solution is for the originating EP to act as an OIDC Client to interface with the Login Service of the other EP, and so obtain the access token required to access the other resource. In this case, it is possible that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent.
 
 OpenID Connect allows the use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.
 
@@ -147,6 +147,51 @@ The Authorization aspects of the User Management Task should be fleshed out. Mai
 * Expected Authorization Flow
 * Types of Authorizations to support (i.e.: attribute-based, cost-based, license-based)
 * Authorization across platforms
+===============================================
+
+
+The Authorization capabilities of an Exploitation Platform allow the End-Users and Resource Owners to interact with the various Resource Servers deployed within the realm of the Platform. The Exploitation Platform provides several capabilities to protect resources and authorize access attempts directed at them
+
+==== Access Policy Checks
+
+At any point during the consumption of Platform resources, components or End-Users might require to perform Policy Checks to verify access rights to a specific resource. The platform provides an endpoint where requests can be made, referencing which End-User (if any) is accessing the resource, and the resource unique identifier.
+
+The platform performs all the policy checks associated with the uniquely identified resource, and answers back with a "Permit" or "Deny" response.
+
+==== Resource Protection Management
+
+The Platform provides Resource Owners with the capability to define their own resource references, which can later be assigned specific access policies on demand. Resource definition, deletion and update operations allow the Platform to uniquely identify which resource is being accessed and allow both accounting operations and the ability to pull all relevant policies to be checked during an access attempt.
+
+Resource Protection Management is achieved through the Resource API, as defined in section <<resourceAPI>>.
+
+==== Access Policy Management
+
+Resource Owners can utilize Platform management endpoints to declare specific access policies in the form of Policy Documents. These documents are stored in the Platform and contain references to uniquely identified resources. Policies enable the usage of a wide variety of access constraint types:
+
+* Based on Ownership: Only the Resource Owner can access the resource being protected.
+* Based on Access List: Only a pre-defined list of Platform users can access the resource.
+* Based on Attributes: Only users with an attribute set to an specific value or set of values can access the resource.
+* Based on Time Windows: Only requests within the specified time window can be executed
+* Etc.
+
+==== End-User Context Propagation
+
+After successful authorization of an End-User access request to a resource, Resource Servers can choose to extract a minimal set of End-User information that provides context to the request. This serves the purpose of enabling propagation of secondary requests necessary to correctly execute the original one, allowing authorization enforcement of these secondary requests, and tracing them back to the End-User as original "driver" of these.
+
+[NOTE]
+.Example
+===============================================
+An End-User might execute a processing request that in turn requires the processing environment to pull a remote dataset. This secondary action of retrieving data happens behind the scenes but also requires user authorization. The processing environment can choose to pull the End-User context from the original request and propagate it to this required dataset request for authorization purposes.
+===============================================
+
+==== Policy Context Propagation
+
+After successful authorization of an End-User access request to a resource, Resource Servers can choose to extract a minimal set of Policy information that provides context for the request made within the Platform. This allows the Resource Server to perform fine-grained access control on its own, down to the actual contents of the response.
+
+[NOTE]
+.Example
+===============================================
+An End-User might execute a GetCapabilities request which the Resource Server wants to adapt to the visibility rights associated to each Process. The Resource Server can choose to pull Policy Context from the original request and use it to filter out specific processes from the resulting list. 
 ===============================================
 
 

@@ -1,0 +1,24 @@
+@startuml
+participant "Client"
+box "PEP" #LightBlue
+participant Proxy
+participant "Resource API"
+end box
+participant ADES
+
+participant "Login Service"
+
+== Component Authentication ==
+ADES -> "Login Service": Client Credentials Authentication
+"Login Service" --> ADES: API Access Token
+
+
+autonumber
+
+== Deployment Process ==
+Client -> Proxy: Deploy Process
+Proxy -> ADES: Deploy Process (+JWT)
+activate ADES
+ADES -> "Resource API": POST /resource {"uri": "/wps3/processes/<process>", "scope": "protected_access"}
+"Resource API" --> ADES: return resource_id
+@enduml
