@@ -61,7 +61,7 @@ Each protected resource is fronted by its Policy Enforcement Point (PEP), which 
 This section of text regarding PEP<->PDP interactions does not comply entirely with the approach stated by the UMA Flow
 ===============================================
 
-The Login Service is provided as a common component that is utilised by each client application to perform the authentication flow with the external IdPs, as a step prior to resource access. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.
+The Login Service is provided as a common component that is utilised by each client application to perform the authentication flow with the external IdPs, as a step prior to resource access. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. [yellow-background]#An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User. *[COMMENT(RAC): The current PEP implementation is acting as a reverse-proxy]*#
 
 The PEP interrogates the PDP for an authorization decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:
 
@@ -117,7 +117,7 @@ Using the facilities of the Exploitation Platform, the user (perhaps via their U
 
 At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user's profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorization is long-lived.
 
-Conversly, the user's profile at a given EP also provides the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token.
+Conversly, the user's profile at a given EP also provides the ability to manage any inward authorizations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token.
 
 *Possible use of OIDC JWKS Federation*
 
@@ -194,6 +194,28 @@ After successful authorization of an End-User access request to a resource, Reso
 An End-User might execute a GetCapabilities request which the Resource Server wants to adapt to the visibility rights associated to each Process. The Resource Server can choose to pull Policy Context from the original request and use it to filter out specific processes from the resulting list. 
 ===============================================
 
+#*[COMMENT(RAC): There is a design choice to be made here. In the absence of 'Policy Context Propagation', an alternative approach is for the Resource Server to directly interact with the Policy API to query information from the policy database in order to prepare an appropriately filtered response. In this case there is no need for the PEP to propagate policy information to the resource server. Further discussion required.]*#
+
+===== NOTES from recent discussions
+
+#*[COMMENT(RAC): This section includes some notes from recent discussions on this topic...]*#
+
+There are two cases for resource requests hitting the PEP (protecting the resource server (e.g. ADES)):
+
+* Case 1: Simple - The resource can be fully protected by the PEP based on the URL
+* Case 2: Complex - The resource server behaviour and/or response relies upon policy information, (e.g. ADES GetProcesses repsonse filtered according to requesting user's access rights)
+
+For Case 2) the question is how the resource server (e.g. ADES) obtains the required 'additional information' needed to fulfil the request. Options include...
+
+* Option A: The PEP provides the 'additional information' by augmenting the request passed to the resource server, e.g. additional http header params
+* Option B: The resource server initiates external queries to obtain the additional policy information required
+* Option C: The PEP modifies the response from the resource server to ensure it is in accordance with the defined policy
+
+Options A) & C) have the problem that the PEP requires to have knowledge regarding the function and behaviour of the resource server - i.e. to know which 'additional information' to provide, or to know when/how to modify the response. A PEP plugin approach could facilitate this.
+
+Option C) has the additional limitation that it is only able to impact the response, and would not trigger any 'policy-based-behaviour' that might be important within the resource server.
+
+*Option B) seems like the most robust choice as it relies upon a more generic PEP. The downside being the need for the resource server to implement the interactions required to query the policy database.* This query could be made directly to the policy database (PDP?) directly, or may also consider the PEP providing a simplified policy query endpoint.
 
 [[mainBilling,Accounting and Billing]]
 === Accounting and Billing

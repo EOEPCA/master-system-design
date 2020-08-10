@@ -301,6 +301,8 @@ The resource owner, resource server, and authorization server perform the follow
 . The Resource Server acquires a PAT from the Authorization Server
 . The Resource Server registers any Resource Sets with the Authorization Server for which it intends to outsource protection, using the Resource Set Registration Endpoint of the Protection API
 
+[yellow-background]#*[COMMENT(RAC): What is the relationship between this and the Resource API (/resources) offered by the PEP?]*#
+
 *Access Resource*
 
 An Authorization Server orchestrates and controls Clients' access on their Requesting Parties' behalf to a Resource Owner's protected resources at a Resource Server, under conditions specified by that Resource Owner through policy.
@@ -346,7 +348,7 @@ include::include/uma-client-request-authorization.wsd[]
 Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.
 
 
-[[resourceAPI]]
+[[policyAPI]]
 ==== Policy API
 
 The PDP exposes a REST API that allows to register, remove and update policy documents within the Authorization architecture. These policy documents are utilized during policy decision checks (using XACML compliant requests and responses).
@@ -356,7 +358,7 @@ Any Resource Server can dynamically interact with the API to assign specific pol
 The following example showcases how a Resource Owner can have its process deployed, dynamically registered and protected by an ADES component:
 
 [.text-center]
-[#img_resourceAPI,reftext='{figure-caption} {counter:figure-num}']
+[#img_policyAPI,reftext='{figure-caption} {counter:figure-num}']
 .Dynamic Resource Protection through a Policy API
 [plantuml, policy-management, png]
 ....
@@ -414,6 +416,7 @@ In addition to this, the PEP also encodes two sets of key information as part of
 include::include/policy-context-propagation.wsd[]
 ....
 
+[yellow-background]#*[COMMENT(RAC): Is this an example of 'Policy Context Propagation' previously mentioned?]*#
 
 ==== Access Token Validation
 
@@ -441,6 +444,7 @@ The following example showcases how a Resource Owner can have its process deploy
 include::include/resource-protection.wsd[]
 ....
 
+[yellow-background]#*[COMMENT(RAC): Is this equivalent to the UMA 'Resource Protection' API?]*#
 
 ==== Interaction with other components
 
