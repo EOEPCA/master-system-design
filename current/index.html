@@ -51,85 +51,68 @@
 </li>
 <li><a href="#mainUserManagement">4. User Management</a>
 <ul class="sectlevel2">
-<li><a href="#IAM">4.1. Identity and Access Management (IAM)</a>
+<li><a href="#_functional_overview">4.1. Functional Overview</a>
 <ul class="sectlevel3">
-<li><a href="#_iam_approach">4.1.1. IAM Approach</a></li>
-<li><a href="#_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</a></li>
+<li><a href="#IAM">4.1.1. Identity and Access Management (IAM)</a></li>
+<li><a href="#mainAuthenticatedIdentity">4.1.2. Authentication</a></li>
+<li><a href="#_authorization">4.1.3. Authorization</a>
+<ul class="sectlevel4">
+<li><a href="#_access_policy_checks">4.1.3.1. Access Policy Checks</a></li>
+<li><a href="#_resource_protection_management">4.1.3.2. Resource Protection Management</a></li>
+<li><a href="#_access_policy_management">4.1.3.3. Access Policy Management</a></li>
+<li><a href="#_end_user_context_propagation">4.1.3.4. End-User Context Propagation</a></li>
+<li><a href="#_policy_context_propagation">4.1.3.5. Policy Context Propagation</a></li>
 </ul>
 </li>
-<li><a href="#mainAuthenticatedIdentity">4.2. Authenticated Identity</a>
+<li><a href="#mainBilling">4.1.4. Accounting and Billing</a></li>
+<li><a href="#_user_management_2">4.1.5. User Management</a></li>
+<li><a href="#_licence_and_tc_management">4.1.6. Licence and T&amp;C Management</a></li>
+</ul>
+</li>
+<li><a href="#_architecture_overview">4.2. Architecture Overview</a>
 <ul class="sectlevel3">
-<li><a href="#_overview">4.2.1. Overview</a></li>
-<li><a href="#mainLoginService">4.2.2. Login Service</a></li>
-<li><a href="#_oidc_id_token">4.2.3. OIDC ID Token</a></li>
-<li><a href="#_oidc_clients">4.2.4. OIDC Clients</a></li>
-<li><a href="#_pep_resource_server_filter">4.2.5. PEP (Resource Server filter)</a></li>
-<li><a href="#_access_token_validation">4.2.6. Access Token Validation</a></li>
-<li><a href="#_federated_user_access">4.2.7. Federated User Access</a>
+<li><a href="#_login_service">4.2.1. Login Service</a>
 <ul class="sectlevel4">
-<li><a href="#_user_pre_authorization">4.2.7.1. User Pre-authorization</a></li>
-<li><a href="#_possible_use_of_oidc_jwks_federation">4.2.7.2. Possible use of OIDC JWKS Federation</a></li>
+<li><a href="#_oidc_id_token">4.2.1.1. OIDC ID Token</a></li>
+<li><a href="#_oidc_clients">4.2.1.2. OIDC Clients</a></li>
+<li><a href="#_additional_oidc_capabilities">4.2.1.3. Additional OIDC Capabilities</a></li>
+<li><a href="#_scim_endpoints">4.2.1.4. SCIM Endpoints</a></li>
+<li><a href="#_interaction_with_other_components">4.2.1.5. Interaction with other components</a></li>
 </ul>
 </li>
-<li><a href="#_additional_oidc_capabilities">4.2.8. Additional OIDC Capabilities</a>
+<li><a href="#_policy_decision_point">4.2.2. Policy Decision Point</a>
 <ul class="sectlevel4">
-<li><a href="#_oidc_discovery">4.2.8.1. OIDC Discovery</a></li>
-<li><a href="#_client_registration">4.2.8.2. Client Registration</a></li>
+<li><a href="#_xacml_extensible_access_control_markup_language">4.2.2.1. XACML (eXtensible Access Control Markup Language)</a></li>
+<li><a href="#_uma_user_managed_access">4.2.2.2. UMA (User-Managed Access)</a></li>
+<li><a href="#resourceAPI">4.2.2.3. Policy API</a></li>
+<li><a href="#_interaction_with_other_components_2">4.2.2.4. Interaction with other components</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_authorization_policy_decision">4.3. Authorization (Policy Decision)</a>
-<ul class="sectlevel3">
-<li><a href="#_xacml_extensible_access_control_markup_language">4.3.1. XACML (eXtensible Access Control Markup Language)</a>
+<li><a href="#_policy_enforcement_point">4.2.3. Policy Enforcement Point</a>
 <ul class="sectlevel4">
-<li><a href="#_xacml_3_0">4.3.1.1. XACML 3.0</a></li>
-<li><a href="#_geoxacml">4.3.1.2. GeoXACML</a></li>
-<li><a href="#_alfa_abbreviated_language_for_authorization">4.3.1.3. ALFA (Abbreviated Language For Authorization)</a></li>
-<li><a href="#_xacml_related_technologies">4.3.1.4. XACML Related Technologies</a></li>
+<li><a href="#_overview">4.2.3.1. Overview</a></li>
+<li><a href="#_reverse_proxy_functionality">4.2.3.2. Reverse Proxy Functionality</a></li>
+<li><a href="#_access_token_validation">4.2.3.3. Access Token Validation</a></li>
+<li><a href="#resourceAPI">4.2.3.4. Resource API</a></li>
+<li><a href="#_interaction_with_other_components_3">4.2.3.5. Interaction with other components</a></li>
 </ul>
 </li>
-<li><a href="#_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</a>
+<li><a href="#_billing_service">4.2.4. Billing Service</a>
 <ul class="sectlevel4">
-<li><a href="#_uma_main_actors">4.3.2.1. UMA Main Actors</a></li>
-<li><a href="#_uma_phases">4.3.2.2. UMA Phases</a></li>
-<li><a href="#_uma_terminology">4.3.2.3. UMA Terminology</a></li>
-<li><a href="#_resource_protection">4.3.2.4. Resource Protection</a></li>
-<li><a href="#_access_resource">4.3.2.5. Access Resource</a></li>
-<li><a href="#_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</a></li>
-<li><a href="#_client_request_authorization">4.3.2.7. Client Request Authorization</a></li>
+<li><a href="#_interaction_with_other_components_4">4.2.4.1. Interaction with other components</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#mainBilling">4.4. Accounting and Billing</a>
-<ul class="sectlevel3">
-<li><a href="#_billing_identities">4.4.1. Billing Identities</a></li>
-<li><a href="#_billing_service">4.4.2. Billing Service</a></li>
-<li><a href="#_pricing_engine">4.4.3. Pricing Engine</a></li>
-<li><a href="#_commercially_licensed_resources">4.4.4. Commercially Licensed Resources</a></li>
-<li><a href="#_budgets">4.4.5. Budgets</a></li>
-<li><a href="#_inter_platform_payments">4.4.6. Inter-platform Payments</a>
+<li><a href="#_pricing_engine">4.2.5. Pricing Engine</a>
 <ul class="sectlevel4">
-<li><a href="#_inter_platform_payment_model_and_process">4.4.6.1. Inter-platform Payment Model and Process</a></li>
+<li><a href="#_interaction_with_other_components_5">4.2.5.1. Interaction with other components</a></li>
 </ul>
 </li>
-<li><a href="#_federated_commercial_services_without_inter_platform_payments_direct_payments">4.4.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</a></li>
-<li><a href="#_estimating_inter_platform_costs">4.4.8. Estimating Inter-platform Costs</a></li>
-<li><a href="#_relationship_to_system_components">4.4.9. Relationship to System Components</a></li>
-<li><a href="#_payment_processing_systems">4.4.10. Payment Processing Systems</a></li>
-</ul>
-</li>
-<li><a href="#_user_profile">4.5. User Profile</a>
-<ul class="sectlevel3">
-<li><a href="#_licence_and_tc_management">4.5.1. Licence and T&amp;C Management</a>
+<li><a href="#_license_manager">4.2.6. License Manager</a>
 <ul class="sectlevel4">
-<li><a href="#_licence_requirement_checks">4.5.1.1. Licence Requirement Checks</a></li>
-<li><a href="#_licence_acquisition">4.5.1.2. Licence Acquisition</a></li>
-<li><a href="#_licence_administration">4.5.1.3. Licence Administration</a></li>
-<li><a href="#_porting_licences_within_the_federation">4.5.1.4. Porting Licences Within the Federation</a></li>
+<li><a href="#_interaction_with_other_components_6">4.2.6.1. Interaction with other components</a></li>
 </ul>
 </li>
+<li><a href="#_user_profile">4.2.7. User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1280,6 +1263,8 @@ OGC 08-068r2,<br>
 <div class="sect1">
 <h2 id="mainUserManagement">4. User Management</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_functional_overview">4.1. Functional Overview</h3>
 <div class="paragraph">
 <p>In the context of the Common Architecture, User Management covers the following main functional areas:</p>
 </div>
@@ -1302,8 +1287,37 @@ OGC 08-068r2,<br>
 <div class="paragraph">
 <p>These are explored in the following sub-sections.</p>
 </div>
-<div class="sect2">
-<h3 id="IAM">4.1. Identity and Access Management (IAM)</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>This section focuses on the WHAT functionality the design is meant to enable (tells the story)<br>
+Each subsection:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Focuses on specific areas of functionality</p>
+</li>
+<li>
+<p>Contains sequence and use case diagrams that support the interactions from the point of view of third parties.</p>
+</li>
+<li>
+<p>Lists the related Building Blocks</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="IAM">4.1.1. Identity and Access Management (IAM)</h4>
 <div class="paragraph">
 <p>The solution for IAM is driven by the need for Federated Identity and Authorization in the context of a network of collaborating exploitation platforms and connected services. This federated environment should facilitate an end-user experience in which they can use a single identity across collaborating platforms <strong>(Single Sign-On)</strong>, they can bring their own existing identity to the platforms <strong>('Login With' service)</strong>, and platforms can access the federated services of other platforms on behalf of the end-user <strong>(delegated access and authorization)</strong>.</p>
 </div>
@@ -1311,7 +1325,7 @@ OGC 08-068r2,<br>
 <p>The goal of IAM is to uniquely identify the user and limit access to protected resources to those having suitable access rights. We assume an Attribute Based Access Control (ABAC) approach in which authorization decisions are made based upon access policies/rules that define attributes required by resources and possessed (as claims) by users. ABAC is is seen as a more flexible approach than Role Base Access Control (RBAC), affording the ability to express more sophisticated authorizations rules beyond the role(s) of the user - and noting the fact that a role-based ruleset could be implemented within an attribute based approach, (i.e. RBAC is a subset/specialisation of ABAC).</p>
 </div>
 <div class="paragraph">
-<p>In achieving this there are three main concerns:</p>
+<p>User Management achieves this through:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1319,14 +1333,14 @@ OGC 08-068r2,<br>
 <p>Unique user identification</p>
 </li>
 <li>
-<p>Determine the access policy applicable to the resource</p>
+<p>Access policy assignment to any given resource</p>
 </li>
 <li>
-<p>From the access policy determine:</p>
+<p>Using the access policy, determine:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>what attributes are required to access the protected resource</p>
+<p>The set of attributes required to access the protected resource</p>
 </li>
 <li>
 <p>whether the user has the required attributes</p>
@@ -1337,7 +1351,7 @@ OGC 08-068r2,<br>
 </ul>
 </div>
 <div class="paragraph">
-<p>For the Common Architecture, we establish separation of User Identification from Access Management. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms. Authorization policy is enforced within the platform at point of access, but the access policy can be federated within the network of EO resources, leading to a system of <em>federated authorization</em>.</p>
+<p>For the Common Architecture, a separation of User Identification from Access Management is established. User identity is federated and handled external to the platform. Within the Network of EO Resources, resources held within an exploitation platform are made available to federated partner platforms. Authorization policy is enforced within the platform at point of access, but the access policy can be federated within the network of EO resources, leading to a system of <em>federated authorization</em>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1353,10 +1367,8 @@ OGC 08-068r2,<br>
 </ul>
 </div>
 <div class="paragraph">
-<p>Federation of services between exploitation platforms is an important goal of the Common Architecture. Thus, the IAM design must offer an approach through which user access is managed between platforms, ensuring proper enforcement of access controls and billing.</p>
+<p>Federation of services between exploitation platforms is an important goal of the Common Architecture. Thus, the IAM design offers an approach through which user access is managed between platforms, ensuring proper enforcement of access controls and billing.</p>
 </div>
-<div class="sect3">
-<h4 id="_iam_approach">4.1.1. IAM Approach</h4>
 <div class="paragraph">
 <p><a href="#img_iamOverview">Figure 3</a> presents the basic approach. At this stage it does not consider the case in which an exploitation platform accesses resources in another platform on behalf of a user, (for example a workflow step that is invoked on another platform). This is addressed in a later section. Users are authenticated by redirection to an external identity provider, (their ‘home’ IdP). This returns the authentication decision and some basic user information as required (such as name, email, etc.).</p>
 </div>
@@ -1369,8 +1381,23 @@ OGC 08-068r2,<br>
 <div class="paragraph">
 <p>Each protected resource is fronted by its Policy Enforcement Point (PEP), which acts as filter that will only permit access if the appropriate conditions are met. This decision is made according to a set of rules that are under the control of and configured within the exploitation platform.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">UMA Compliance</div>
 <div class="paragraph">
-<p>The Login Service is provided as a common component that is utilised by each PEP to perform the authentication flow with the external IdPs. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.</p>
+<p>This section of text regarding PEP&lt;&#8594;PDP interactions does not comply entirely with the approach stated by the UMA Flow</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Login Service is provided as a common component that is utilised by each client application to perform the authentication flow with the external IdPs, as a step prior to resource access. In the case of an unauthenticated request that requires authentication, the PEP will initiate the Login Service by redirection of the User’s originating request. The successful flow ultimately redirects back to the PEP and so maintains the direct connection between the end-user agent and the resource server. An alternative approach would be the use of an API Gateway to perform the role of the PEP, acting as an intermediary between the end-user agent and the resource server. However, this would have the effect of proxying the connection which can have an impact on data transfer performance, which is of particular importance in the case of significant data volumes being returned to the User.</p>
 </div>
 <div class="paragraph">
 <p>The PEP interrogates the PDP for an authorization decision. The PEP sends a request that indicates the pertinent details of the attempted access, including:</p>
@@ -1407,60 +1434,17 @@ OGC 08-068r2,<br>
 <div class="title">Figure 4. IAM Overview Flow</div>
 </div>
 <div class="paragraph">
-<p><strong>Flows marked &lt;&lt;redirect&gt;&gt; should be interpreted as flows between services that are made by redirection through the User Agent.</strong> For brevity, the interface between the Login Service, the User Agent and the External IdPs is simplified in <a href="#img_iamOverviewFlow">Figure 4</a> - they are expanded in section <a href="#mainAuthenticatedIdentity">Authenticated Identity</a>. It should also be noted that the flows with the External IdP will vary according to the protocol required by the External IdP, (e.g. OAuth, SAML, etc.).</p>
+<p><strong>Flows marked &lt;&lt;redirect&gt;&gt; should be interpreted as flows between services that are made by redirection through the User Agent.</strong> For brevity, the interface between the Login Service, the User Agent and the External IdPs is simplified in <a href="#img_iamOverviewFlow">Figure 4</a> - they are expanded in section <a href="#mainAuthenticatedIdentity">Authentication</a>. It should also be noted that the flows with the External IdP will vary according to the protocol required by the External IdP, (e.g. OAuth, SAML, etc.).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_iam_top_level_interfaces">4.1.2. IAM Top-level Interfaces</h4>
-<div class="paragraph">
-<p><a href="#img_iamInterfaces">Figure 5</a> illustrates the interfaces of the IAM architecture.</p>
-</div>
-<div id="img_iamInterfaces" class="imageblock text-center">
-<div class="content">
-<img src="./images/iam-interfaces.png" alt="iam interfaces" width="807" height="679">
-</div>
-<div class="title">Figure 5. IAM Interfaces</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">User Agent &#8594; PEP</dt>
-<dd>
-<p>The PEP acts as a HTTP filter on the access request to the API of the Protected Resource. The PEP intercepts the incoming request in order to enforce the authorization policy decision.</p>
-</dd>
-<dt class="hdlist1">PEP &#8594; Protected Resource</dt>
-<dd>
-<p>The Protected Resource exposes a public API for user consumption. The user&#8217;s access to the protected resource is only granted once the request has passed the authorization decision, which may or may not require user authentication.</p>
-</dd>
-<dt class="hdlist1">PEP &#8594; Login Service</dt>
-<dd>
-<p>The PEP uses a redirect to delegate the authentication flow to the Login Service.</p>
-</dd>
-<dt class="hdlist1">Login Service &#8594; User Agent &#8594; External IdP</dt>
-<dd>
-<p>The Login Service and External IdP interface via redirects through the User Agent. In order to support multiple external identity suppliers, the Login Service must act as a client to multiple external IdPs, and so must establish individual trust relationships with each of these. Alternatively, the Login Service can instead interface to a single external IdP Proxy, that interfaces to the external IdPs on behalf of the EP. The IdP Proxy can provide this service to multiple EPs.</p>
-</dd>
-<dt class="hdlist1">PEP &#8594; PDP</dt>
-<dd>
-<p>The PEP defers to the PDP to establish the authorization status of the incoming access attempt.<br>
-The request to the PDP carries the user identification, the URI of the resource, and the action requested.<br>
-The PDP-response returns the authorization decision.</p>
-</dd>
-<dt class="hdlist1">PDP &#8594; Other PDP</dt>
-<dd>
-<p>This interface represents federated authorization.<br>
-It has the same interface characteristics as PEP&#8594;PDP.</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mainAuthenticatedIdentity">4.2. Authenticated Identity</h3>
+<h4 id="mainAuthenticatedIdentity">4.1.2. Authentication</h4>
 <div class="paragraph">
 <p>The approach to user identity and authentication centres around the use of OpenID Connect. Each Exploitation Platform maintains their own OIDC Provider through which tokens can be issued to permit access to protected resources within the EP. The authentication itself is delegated to external Identity Providers at the preference of the end-user wishing to reuse their existing identity provision.</p>
 </div>
-<div class="sect3">
-<h4 id="_overview">4.2.1. Overview</h4>
+<div class="paragraph">
+<p><strong>Authenticated Identity</strong></p>
+</div>
 <div class="paragraph">
 <p>The Login Service is an OpenID Connect Provider that provides a ‘Login With’ service that allows the platform to support multiple external identity providers. The Login Service acts as a Relying Party in its interactions with the external IdPs to establish the authenticated identity of the user through delegated authentication.</p>
 </div>
@@ -1468,23 +1452,601 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>The Login Service presents an OIDC Provider interface to its clients, through which the OIDC clients can obtain Access Tokens to resources. The access tokens are presented by the clients in their requests to resource servers (intercepted by PEP). The PEP (acting on behalf of the resource server) relies upon the access token to establish the authenticated identity of the users making the requests. Once the user identity is established, then the PEP can continue with its policy decision (deferred to the PDP).</p>
 </div>
 <div class="paragraph">
-<p>Thus, clients of the EP must act as OIDC Clients in order to authenticate their users to the platform, before invoking its services. Clients include the web applications that provide the UI of the exploitation platform, as well as other external applications/systems (including other exploitation platforms) wishing to use the services of the EP.</p>
+<p>Thus, clients of the EP act as OIDC Clients in order to authenticate their users to the platform, before invoking its services. Clients include the web applications that provide the UI of the exploitation platform, as well as other external applications/systems (including other exploitation platforms) wishing to use the services of the EP.</p>
 </div>
 <div class="paragraph">
-<p>The Login Service must act as client (Relying Party) to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Login Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represents the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Login Service to issue the requested access tokens (depending on the flow used).</p>
+<p>The Login Service acts as client (Relying Party) to each of the External IdPs to be supported and offered as a ‘Login With’ option. The interface/flow with the External IdP is integrated into the OIDC flow implemented by the Login Service. This includes prompting the user to discover their ‘home’ Identity provider. The interactions with the external IdP represent the ‘user authentication step’ within the OIDC flows. Completion of a successful authentication with the external IdP allows the Login Service to issue the requested access tokens (depending on the flow used).</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_iamAuthenticationFlow">Figure 6</a> illustrates the basic user access flow, invoked through a web browser.</p>
+<p><a href="#img_iamAuthenticationFlow">Figure 5</a> illustrates the basic user access flow, invoked through a web browser.</p>
 </div>
 <div id="img_iamAuthenticationFlow" class="imageblock text-center">
 <div class="content">
 <img src="./images/iam-authentication-flow.png" alt="iam authentication flow" width="100%">
 </div>
-<div class="title">Figure 6. IAM Authentication Flow (Browser)</div>
+<div class="title">Figure 5. IAM Authentication Flow (Browser)</div>
+</div>
+<div class="paragraph">
+<p><strong>Federated User Access</strong></p>
+</div>
+<div class="paragraph">
+<p>Based upon the above authentication model, an EP could access the resources of another EP by obtaining an access token through OIDC flows. However, considering that these EP&#8594;EP invocations will typically be Machine-to-machine (M2M), then we need to consider how the end-user (resource owner) is able to complete their consent. The User Management provides two possibilities:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user pre-authorizes the EP&#8594;EP access in advance of the operation</p>
+</li>
+<li>
+<p>Use of OIDC JWKS for trusted federation of identity between platforms</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>User Pre-authorization</strong></p>
+</div>
+<div class="paragraph">
+<p>Using the facilities of the Exploitation Platform, the user (perhaps via their User Profile management console) initiates the authorization flow from one EP to another. The end result is that the originating EP obtains delegated access to another EP on behalf of the user - with the resulting access tokens being maintained within the user&#8217;s profile on the EP.</p>
+</div>
+<div class="paragraph">
+<p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorization is long-lived.</p>
+</div>
+<div class="paragraph">
+<p>Conversly, the user&#8217;s profile at a given EP also provides the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token.</p>
+</div>
+<div class="paragraph">
+<p><strong>Possible use of OIDC JWKS Federation</strong></p>
+</div>
+<div class="paragraph">
+<p>OIDC provides a framework in which RPs and OPs can dynamically establish verifiable trust chains, and so share keys to support signing and validation of JWTs.</p>
+</div>
+<div class="paragraph">
+<p>Dedicated ‘federation’ endpoints are defined that allow an entity (such as RP or OP) to publish their own Entity Statements, and to obtain Statements for other entities that are issued by trusted third-parties within the federation. The metadata/signatures within the Entity Statements establish a chain of trust that can be followed to known (trusted) Trust Anchors, and so the Entity Statements and the included entity public keys can be trusted.</p>
+</div>
+<div class="paragraph">
+<p>Thus, through this mechanism public keys can be shared to underpin the signing and validation of JWTs.</p>
+</div>
+<div class="paragraph">
+<p>Within an EP, when a resource server is executing a user’s request, it may need to invoke a resource in another EP with which it is collaborating. The resource access to the other EP must be made on behalf of the originating user.</p>
+</div>
+<div class="paragraph">
+<p>The nominal solution is for the originating EP to act as an OIDC Client to interface with the Login Service of the other EP, and so obtain the access token required to access the other resource. In this case, it is possible that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent.</p>
+</div>
+<div class="paragraph">
+<p>OpenID Connect allows the use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>Thus, using the trusted ID Token, it may be possible follow an OIDC/OAuth flow from one EP to another, in which the user is deemed to have a-priori authorized the third-party access. At this point it is only the user’s identity that has been established, with the authorization decision subject to the rules of the PDP/PEP of the remote system. The identified user could have appropriate a-priori permissions (attributes) on the target resources to be granted access, (ref. ‘Federated Attributes’) but, in case these are not considered sensible information, they can be provided within the ID Token statement, therefore facilitating Authorization.</p>
+</div>
+<div class="paragraph">
+<p>Thus, it is the ID of the user that has been passed machine-to-machine to facilitate the service federation. This effectively achieves cross-EP single sign-on, without relying upon the user agent of the end-user providing cookies to the other EP.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="mainLoginService">4.2.2. Login Service</h4>
+<h4 id="_authorization">4.1.3. Authorization</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>The Authorization aspects of the User Management Task should be fleshed out. Main topics include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Expected Authorization Flow</p>
+</li>
+<li>
+<p>Types of Authorizations to support (i.e.: attribute-based, cost-based, license-based)</p>
+</li>
+<li>
+<p>Authorization across platforms</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Authorization capabilities of an Exploitation Platform allow the End-Users and Resource Owners to interact with the various Resource Servers deployed within the realm of the Platform. The Exploitation Platform provides several capabilities to protect resources and authorize access attempts directed at them</p>
+</div>
+<div class="sect4">
+<h5 id="_access_policy_checks">4.1.3.1. Access Policy Checks</h5>
+<div class="paragraph">
+<p>At any point during the consumption of Platform resources, components or End-Users might require to perform Policy Checks to verify access rights to a specific resource. The platform provides an endpoint where requests can be made, referencing which End-User (if any) is accessing the resource, and the resource unique identifier.</p>
+</div>
+<div class="paragraph">
+<p>The platform performs all the policy checks associated with the uniquely identified resource, and answers back with a "Permit" or "Deny" response.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_resource_protection_management">4.1.3.2. Resource Protection Management</h5>
+<div class="paragraph">
+<p>The Platform provides Resource Owners with the capability to define their own resource references, which can later be assigned specific access policies on demand. Resource definition, deletion and update operations allow the Platform to uniquely identify which resource is being accessed and allow both accounting operations and the ability to pull all relevant policies to be checked during an access attempt.</p>
+</div>
+<div class="paragraph">
+<p>Resource Protection Management is achieved through the Resource API, as defined in section <a href="#resourceAPI">Policy API</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_access_policy_management">4.1.3.3. Access Policy Management</h5>
+<div class="paragraph">
+<p>Resource Owners can utilize Platform management endpoints to declare specific access policies in the form of Policy Documents. These documents are stored in the Platform and contain references to uniquely identified resources. Policies enable the usage of a wide variety of access constraint types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Based on Ownership: Only the Resource Owner can access the resource being protected.</p>
+</li>
+<li>
+<p>Based on Access List: Only a pre-defined list of Platform users can access the resource.</p>
+</li>
+<li>
+<p>Based on Attributes: Only users with an attribute set to an specific value or set of values can access the resource.</p>
+</li>
+<li>
+<p>Based on Time Windows: Only requests within the specified time window can be executed</p>
+</li>
+<li>
+<p>Etc.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_end_user_context_propagation">4.1.3.4. End-User Context Propagation</h5>
+<div class="paragraph">
+<p>After successful authorization of an End-User access request to a resource, Resource Servers can choose to extract a minimal set of End-User information that provides context to the request. This serves the purpose of enabling propagation of secondary requests necessary to correctly execute the original one, allowing authorization enforcement of these secondary requests, and tracing them back to the End-User as original "driver" of these.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Example</div>
+<div class="paragraph">
+<p>An End-User might execute a processing request that in turn requires the processing environment to pull a remote dataset. This secondary action of retrieving data happens behind the scenes but also requires user authorization. The processing environment can choose to pull the End-User context from the original request and propagate it to this required dataset request for authorization purposes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_policy_context_propagation">4.1.3.5. Policy Context Propagation</h5>
+<div class="paragraph">
+<p>After successful authorization of an End-User access request to a resource, Resource Servers can choose to extract a minimal set of Policy information that provides context for the request made within the Platform. This allows the Resource Server to perform fine-grained access control on its own, down to the actual contents of the response.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Example</div>
+<div class="paragraph">
+<p>An End-User might execute a GetCapabilities request which the Resource Server wants to adapt to the visibility rights associated to each Process. The Resource Server can choose to pull Policy Context from the original request and use it to filter out specific processes from the resulting list.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mainBilling">4.1.4. Accounting and Billing</h4>
+<div class="paragraph">
+<p>The platform accounts for resource use both within the platform and in other platforms via federation. In addition, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Actions are performed within the context of a 'billing identity', which may be different to the user&#8217;s identity.</p>
+</li>
+<li>
+<p>Charges are the result of discrete 'billing events' occuring within a particular 'billing window'. Pricing must consider all events within the window, not events individually (to support, for example, tiered pricing).</p>
+</li>
+<li>
+<p>Different platforms may follow completely different pricing and billing models. The architecture and federation messaging cannot assume any particular method of calculation or for describing prices.</p>
+</li>
+<li>
+<p>Only the platform hosting it can accurately price the use of a licensed Resource or compute resource.</p>
+</li>
+<li>
+<p>Costs may be estimated but the estimate is not required to be binding. Federated access can never rely on binding estimates.</p>
+</li>
+<li>
+<p>Debts can only be created where there is a direct contractual relationship and opportunity for credit control. A user can never owe money directly to another platform unless he has an account with it.</p>
+</li>
+<li>
+<p>A platform prices in a single currency (but could choose to allow a user to settle a bill with another currency). Different federated platforms may choose different currencies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Billing Identities</strong></p>
+</div>
+<div class="paragraph">
+<p>A billing identity is a user identity for a user who has established a billing relationship with the platform. A billing user may delegate chargeable service access to other users within the system, permitting that user to use resources billed to the billing identity.</p>
+</div>
+<div class="paragraph">
+<p>Individual platforms may choose models with varying complexity. For example, one platform may require that the billing and user identity are always the same, whilst another may permit a user working on multiple cross-organizational projects to choose the billing identity to use. Identities may be related to organizations, projects, etc, for access control and credit control purposes - but these relationships are not required by the architecture.</p>
+</div>
+<div class="paragraph">
+<p>As required by their purpose, cross-platform messaging will include both the user id and the relevant billing identity.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Combined usage of user and billing identities</div>
+<div class="paragraph">
+<p>Both the billing and user identities, and other information such as the location of each one and the type of organization involved, may be relevant to determining prices. This is because the place of supply for VAT purposes must be determined, plus any discounts for, for example, academic use. Note that 'location' means more than 'country' (eg, the Canary Islands have lower VAT than Madrid). Also, some organizations may be treated differently such as international organizations exempt from all tax.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Commercially Licensed Resources</strong></p>
+</div>
+<div class="paragraph">
+<p>Users may publish Resources which are licensed to others on commercial terms and use the platform to collect payments. There are two types of charges which require support within User Management: time-based and volume-based.</p>
+</div>
+<div class="paragraph">
+<p>Time-based charges occur when a user requests a licence which costs a fixed price for a fixed time (or is permanent), regardless of the accesses made to the Resource. The Data Access Services and Execution Management Services determine when such a licence is required and the licence manager manages the process for buying one, including emitting a billing event. This typically will happen in advance of a request. The licence manager may give the billing service an opportunity to reject the request, if applicable to the platform&#8217;s billing model.</p>
+</div>
+<div class="paragraph">
+<p>Volume-based charges occur as access to a licensed Resource proceeds or completes (for example, on first access to a specific satellite image or for each input image passed to a commercial machine learning model). Again, the licence manager reports these as billing events when a licence requirements check is made.</p>
+</div>
+<div class="paragraph">
+<p>Pricing is specified by the Licenser (in a particular form supported by the platform) and stored by the pricing engine (quantity to price mapping) and licence manager (method for determining which licences and 'quantity'). The licence manager must emit three billing events when license grants are bought: a charge to the user, a credit to the Licenser and a charge to the Licenser representing the platform fee for handling payment processing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Budgets</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>The Budget aspects of the User Management Task are not addressed on this document for the time being.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Inter-platform Payments</strong></p>
+</div>
+<div class="paragraph">
+<p>Three different models for federated availability of commercial services are supported, two of which require support from the accounting and billing mechanisms of the platforms involved. This support comes in the form of inter-platform payments, allowing users to pay for executions or Resource licences which are located elsewhere in the federation.</p>
+</div>
+<div class="paragraph">
+<p>Note that <em>three</em> platforms may be involved in providing a chargeable federated commercial service:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The home platform where the user is registered and the action is initiated.</p>
+</li>
+<li>
+<p>The host platform where the licenced Resource or chargeable compute resource is located.</p>
+</li>
+<li>
+<p>The compute platform where processing occurs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Consider, for example, a processing chain invoked on the home platform which invokes a processing service running on the compute platform using a software container published by a Licenser registered on the host platform. Frequently, two or more of these platforms are the same. However, even if all three are the same the platform may wish to use the same process where payments to a Licenser are involved.</p>
+</div>
+<div class="paragraph">
+<p><strong>Inter-platform Payment Model and Process</strong></p>
+</div>
+<div class="paragraph">
+<p>An inter-platform payment supports a User of one platform paying for a service provided by either another platform or by a User of another platform. It&#8217;s important to repeat that a debt is only ever created between two entities which have a legal relationship and an opportunity for credit control. This requires that inter-platform payments involve two or three separate debts being: one from User to home platform, one from home platform to the host platform and the third from the host platform to the User providing the service (if any). The process must also cope with the price not being known in advance in all cases - processing costs in particular may be unpredictable. To support this, the following stages are involved:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Authorization stage</strong>: This provides an opportunity for credit control decisions in advance of debts being incurred. This establishes a maximum amount of debt before a new authorization must be sought or the operation aborted but will not necessarily ever be owed in full. Both home and host platform must agree to authorize an inter-platform payment (the host platform may reject if it doesn&#8217;t believe the home platform will pay). The home platform may 'hold' some account credit from its user or authorize a credit card payment if appropriate in its billing model.</p>
+</li>
+<li>
+<p><strong>Clearing stage</strong>: This occurs after a debt is legally incurred, such as after (some of) the computation or data access is completed. The platform on which the service is provided, the host platform, reports to the home platform how much debt has actually been incurred. It may happen in stages - for example a large authorization may occur, followed by the clearing of smaller amounts after every hour of compute time. It cannot exceed the amount authorized.</p>
+</li>
+<li>
+<p><strong>Settlement stage</strong>: This involves a batch of multiple payments, such as a day or a month of payments. The platforms with payment processing contracts in place must reconcile their records and calculate a net amount owed (potentially in multiple currencies). They must then settle the net debt by making a payment using the banking system.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Two different commercial models are supported: bilateral clearing and central clearing. In bilateral clearing every platform must negotiate a contract with every other platform (or as far as possible - incomplete coverage will limit what users can do). This has certain commercial downsides, such as a need for every-pair auditing for accurate reporting of resource use and a danger of incumbents excluding new entrants. In central clearing a clearing house must exist and all platforms form a relationship with the clearing house. The clearing house technical functionality is not further explored here, nor is the management of counterparty risk. The messaging and process is intended to be the same in both models.</p>
+</div>
+<div class="paragraph">
+<p>Where inter-platform payments are used the host platform is acting a subcontractor to the home platform. Should the host platform fail to perform, a dispute resolution process must be used. This is considered out of scope of the architecture, except that payments may be marked as disputed, refunded or charged back. This must be accounted for during reconciliation between platforms.</p>
+</div>
+<div class="paragraph">
+<p><strong>Federated Commercial Services Without Inter-platform Payments: Direct Payments</strong></p>
+</div>
+<div class="paragraph">
+<p>If inter-platform payments are not available, for example because two platforms do not have a payment agreement, it may still be possible to provide services across multiple platforms providing the user has an account and billing relationship with each one directly. This requires that both platforms recognize both the user and the selected billing identity, and that the billing user has delegated access to the user in both platforms.</p>
+</div>
+<div class="paragraph">
+<p>To handle direct payments the user must authorize the home platform to act on its behalf when submitting requests to the host platform. This is done using OAuth. The home platform must redirect the user to the host platform which then returns an authorization token to the home platform. Federated platforms must run an OAuth endpoint for this purpose and certain restrictions must be put on its functioning (for example on refresh token lifetime).</p>
+</div>
+<div class="paragraph">
+<p>Other system components must then use an access token when making requests to the host platform. The host platform should still report costs and identifiers to the home platform, which must be passed to the Billing Service to be recorded. This aids dispute resolution and the reporting of total costs for particular requests.</p>
+</div>
+<div class="paragraph">
+<p><strong>Estimating Inter-platform Costs</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>Estimation of Inter-platform costs is not addressed in this document for the time being.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Relationship to System Components</strong></p>
+</div>
+<div class="paragraph">
+<p>The Billing Service handles inter-platform payments and supports direct payments in response to requests from other components, such as the EMS. The direct payment model is very different to inter-platform payments but knowledge of the distinction and when each should be used should be isolated in the Billing Service as much as possible.</p>
+</div>
+<div class="paragraph">
+<p>To support this for volume-based charges, interaction between other system components and the Billing Service proceeds as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Prior to federated resource use, a component must make a request to the Billing Service with the estimated cost (or a fixed value if not available) and the identity of the host platform. It must also include the transaction ID for the user action which resulted in the payment.</p>
+</li>
+<li>
+<p>The Billing Service determines what kind of payment handling is available, if any. It returns success or failure and, optionally, an OAuth URL to authorize direct payment.</p>
+</li>
+<li>
+<p>The component proceeds with its activity, incurring charges. The activity occurs on the compute platform, which may also be the home or host platform.</p>
+</li>
+<li>
+<p>The compute platform seeks authorization from the host platform before charges are incurred. The host platform checks that an authorized payment exist (directly between the home and host platform). If the charge is for compute resources then these are the same platform and may be a no-op, but this may not be the case for computation using licensed data or software.</p>
+</li>
+<li>
+<p>If the compute platform seeks access from a host platform which has no authorized payment in place then it must report this to the home platform. The home platform may then request authorization or abort the processing. This may happen if the home platform cannot fully predict the accesses made during computation.</p>
+</li>
+<li>
+<p>The compute platform computes, incurring charges. The compute platform may also access the host platform to retrieve data or software but this may also be cached. The resource use is reported by the compute platform to the host platform - for example, a list of images accessed or processed. This happens in multiple chunks when charges are incurred over time.</p>
+</li>
+<li>
+<p>The host platform clears pieces of the original inter-platform authorization by sending a clearing request directly to the home platform. Note that only the host platform is considered authoritative for calculating the true cost (which is returned here).</p>
+</li>
+<li>
+<p>If the original authorization is exhausted then the home platform may pre-emptively extend it by creating a new payment (with the same transaction ID). Otherwise the host platform must reply to a charge report from the compute platform with a response prohibiting further charges.</p>
+</li>
+<li>
+<p>On receiving such a message the compute platform must suspend further processing and forward the response to the home platform. The home platform must then either seek a new authorization or send an abort message to the compute platform.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For time-based licences the flow can be simpler:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The component requests payment authorization from the Billing Service, specifying an exact price.</p>
+</li>
+<li>
+<p>The component communicates with the host platform to acquire the licence.</p>
+</li>
+<li>
+<p>The host platform sends a payment clearing message to the home platform Billing Service to clear the entire authorization.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Payment Processing Systems</strong></p>
+</div>
+<div class="paragraph">
+<p>Payment processing itself, in particular card payment processing, may be initiated by the Billing Service but should be strictly separate from it. <a href="#PCI-DSS">[PCI-DSS]</a> imposes many onerous requirements not just on the software and hardware used for payment processing, but also on the wider organization and its processes (for example, for formal change reviews and code reviews, the use of specialist cryptographic hardware security modules, the separation of duties between staff and requirements in recruitment and training). For these reasons some implementers will need to avoid card processing within the system entirely and redirect users to externally hosted payment servers. This may constrain them to an account credit-based model whilst other providers may be able to initiate an authorization or full payment on-demand.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_user_management_2">4.1.5. User Management</h4>
+<div class="paragraph">
+<p>The User Profile is a system resource that maintains a set of data for each user including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>User details</p>
+</li>
+<li>
+<p>Terms and conditions accepted by the user</p>
+</li>
+<li>
+<p>Licence keys held by the user</p>
+</li>
+<li>
+<p>User API key management</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process. A front-end solution is put in place to facilitate User Profile edition and the ability yo exercise GDPR related rights (i.e. right to be forgotten).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_licence_and_tc_management">4.1.6. Licence and T&amp;C Management</h4>
+<div class="paragraph">
+<p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degrees off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
+</div>
+<div class="paragraph">
+<p>Some concepts applicable within the licence manager must be established:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A licence consist of the legal text itself, a name and version, a description of pricing where appropiate and other metadata.</p>
+</li>
+<li>
+<p>A licence terms acceptance is the acceptance by a particular user (and organization) of the licence terms and conditions.</p>
+</li>
+<li>
+<p>A licence grant grants a users access to particular parts of a resource or for particular purposes. This is only applicable to commercial licensed resources. A licence grant is signed by the licenser.</p>
+</li>
+<li>
+<p>The licence manager does not know which resources require which licences. It only knows data about identified licences and about which users have which acceptances and grants.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The licence manager does not formally know how to calculate the price of a commercial licence grant. Instead, it produces an identifier for a particular type of grant and a quantity. The billing engine turns this in to a price, which may involve applying any user-specific or volume-based discounts. The quantity may be in, for example, square kilometres. Alternatively, the licences may be priced at €1/unit, effectively transferring responsibility to the licence manager&#8217;s configuration.</p>
+</div>
+<div class="paragraph">
+<p>Note that licencers must ensure that their licences are uniquely identified across the whole federation. That is, if they use the same licence on multiple platforms they must give it the same ID and must not otherwise reuse IDs.</p>
+</div>
+<div class="paragraph">
+<p><strong>Licence Requirement Checks</strong></p>
+</div>
+<div class="paragraph">
+<p>At the request planning stage the EMS determines the licences required (as far as is possible in advance). This results in a list of licence requirement specifications. These may vary in complexity, from simply identifying a dataset to specifying an AoI, ToI and additional attributes, depending on platform support and on any knowledge the EMS has about which request fields are licence-relevant. The licence manager, however, only performs matching of these against rules or configuration using no or limited knowledge of the specific meaning of fields.</p>
+</div>
+<div class="paragraph">
+<p>On receiving licence requirement specifications, the licence manager must compare them against the licences and grants possessed by the user and determine what licences, if any, must be obtained by the user before the action is permitted. On failure, the result should contain something the user can act on, such as a URL for viewing and agreeing to dataset terms or for buying licences. On success, the licence manager may return information on which fields were used so that the EMS can avoid repeated checks.</p>
+</div>
+<div class="paragraph">
+<p>The licence manager is also able to determine when additional commercial licence grants should be added (and charged for) automatically. The user must have previously agreed to the license terms and pricing. When a new licence grant is added it should record it and issue a billing event.</p>
+</div>
+<div class="paragraph">
+<p>Licence grants may also be managed by an external service operated by the licenser. This communication is managed entirely by the licence manager.</p>
+</div>
+<div class="paragraph">
+<p>Processing may cross platform boundaries within the federation. A platform executing processing or supplying a resource must be able to determine that the processing is running in a context in which any required licences are available. To support this, the context must include enough information to identify the licence manager of the originating platform. When a licence manager receives a licence requirement specification which can&#8217;t be satisfied locally it should use this endpoint to perform a licence requirement check. The originating platform may fail this request, may accept it based on existing data (returning signed licence grants if appropriate) or may perform an automated licence grant acquisition. The host/compute platform may then store these licence grants against the user ID for use in future checks.</p>
+</div>
+<div class="paragraph">
+<p>Note that cross-platform executions may involve running, for example, a processing chain initiated from platform A with a component involving a commercially licenced compute service from platform B running on platform C. In these cases platform B may check that the user has accepted its platform acceptable use policy by contacting platform A, fetch the compute service from platform C which will then also directly contact platform A to ensure that licences are available before returning the container ot platform B.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>Sequence diagrams that represent these interactions will be provided within this section.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Licence Acquisition</strong></p>
+</div>
+<div class="paragraph">
+<p>Unless managed by an external service, users must be able to view and accept terms and purchase licence grants using the licence manager. For licences where no licence grants must be bought this is very simple - for example, the licence manager may provide APIs enabling the UI to fetch licence text and submit acceptance. This can be done from a resource information display page or following a refused request.</p>
+</div>
+<div class="paragraph">
+<p>Where a licence grant must be bought the flow for the user is managed by other components. A user interface may be used to choose licence attributes or particular subsets of data, for example, or a user may have the option to allow automatic purchases as data is accessed. This licence manager must support this functionality in the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A human-readable description of the pricing model and prices is included with the licence metadata. This should be displayed to the user.</p>
+</li>
+<li>
+<p>The licence manager can accept a licence requirement specification and turn it in to either a product code and quantity (which the caller can then pass to the pricing engine) or information on which additional fields are required. The field names, types and UI information is supplied by other services as part of the resource definition.</p>
+</li>
+<li>
+<p>The licence manager can accept a command to buy a specified licence. It will then emit a billing event. This may happen synchronously or asynchronously depending on the needs of the platform&#8217;s billing model.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When federated access is involved, such as when a processing chain runs some components on another platform or when data or processing services are transferred to run locally, a user may need to accept licence terms or acquire a licence grant for a resource which is not published via the home platform. This must always be initiated from the home platform, either in advance of the execution or in response to an event returned by a host platform. For terms acceptance the licence manager must contact the host platform and transfer the necessary T&amp;C data. For a (commercial) licence grant, the licence manager must ask the billing manager to authorize a payment to the host platform and then make a request to the host licence manager to buy the licence (specifying the payment ID). The host licence manager must verify the price before asking its own billing manager to clear the payment. It should then record the licence grant as well as returning it to the home platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>Licence Administration</strong></p>
+</div>
+<div class="paragraph">
+<p>Resource owners must be able to configure licences. The UIs and APIs allowing them to do this must interact with the licence manager (and the pricing engine) to configure their licences. This includes only the licences themselves - assignment of licence requirements to resources is out of the licence manager&#8217;s scope.</p>
+</div>
+<div class="paragraph">
+<p><strong>Porting Licences Within the Federation</strong></p>
+</div>
+<div class="paragraph">
+<p>In some cases users may have multiple home platforms, initiating some workloads from different locations. To ensure that users can use their licences for workloads initiated across all locations licence 'porting' may be used.</p>
+</div>
+<div class="paragraph">
+<p>A user 'ports' a licence from one platform to another by using OAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
+</div>
+<div class="paragraph">
+<p>This mechanism may be used for two purposes. In the first, a publisher has published his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_architecture_overview">4.2. Architecture Overview</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>This section focuses on HOW the functionality is provisioned, and how the building blocks are connected to each other.<br>
+Each building block contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Description of functionality</p>
+</li>
+<li>
+<p>Used technologies and Standards</p>
+</li>
+<li>
+<p>List of interactions with other Building Blocks</p>
+</li>
+<li>
+<p>List of exposed endpoints (indicating which are exposed at API Platform level)</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_login_service">4.2.1. Login Service</h4>
 <div class="paragraph">
 <p>The Login Service is an OIDC Provider that provides a ‘Login With’ service that allows the end-user to select their Identity Provider for purposes of authentication.</p>
 </div>
@@ -1587,15 +2149,14 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </dd>
 </dl>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_oidc_id_token">4.2.3. OIDC ID Token</h4>
+<div class="sect4">
+<h5 id="_oidc_id_token">4.2.1.1. OIDC ID Token</h5>
 <div class="paragraph">
 <p>The ID Token is a JWT that is returned to from the /userinfo endpoint of the Login Service. The returned OIDC ID Token has been signed (JWS) by the Login Service and thus results in a token that asserts a user’s authenticated identity with integrity, and non-repudiation.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_oidc_clients">4.2.4. OIDC Clients</h4>
+<div class="sect4">
+<h5 id="_oidc_clients">4.2.1.2. OIDC Clients</h5>
 <div class="paragraph">
 <p>Clients are Relying Parties that act on behalf of users accessing the services of the Exploitation Platform. They will either pre-emptively obtain their access token for required resources, or will attempt resource access and be redirected by exception to the OIDC Provider authentication flow.</p>
 </div>
@@ -1609,131 +2170,14 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <p>At the successful conclusion of the flow the client receives the Access Token and ID Token. The Access Token is then used by the client as a Bearer token in its subsequent calls to access the EP resources.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_pep_resource_server_filter">4.2.5. PEP (Resource Server filter)</h4>
-<div class="paragraph">
-<p>The PEP (acting on behalf of the resource server) receives the client request to access the protected resource. In the case that the access requires an authenticated user, then the PEP expects that the request includes a valid access token.</p>
-</div>
-<div class="paragraph">
-<p>Thus, the PEP follows the logic:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The PEP checks with the PDP whether an authenticated user is required for access</p>
-</li>
-<li>
-<p>If no authenticated user is required then the request can continue (pending authorization) as an 'anonymous' user</p>
-</li>
-<li>
-<p>If access requires an authenticated user then</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the access token is not present then no user is logged in, so the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
-</li>
-<li>
-<p>If the access token is present, then it should be validated with the Login Service (direct call), as described below</p>
-</li>
-<li>
-<p>If the access token validation completes successfully then the request can continue (pending authorization), with the user identity provided by the ID Token received during token validation</p>
-</li>
-<li>
-<p>If the token is invalid, then the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_access_token_validation">4.2.6. Access Token Validation</h4>
-<div class="paragraph">
-<p>The PEP validates the access token by using it as a Bearer token in a request to the Login Service’s /userinfo endpoint. A successful response has two outcomes:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Confirms the validity of the access token from the point-of-view of the Login Service that issued it</p>
-</li>
-<li>
-<p>Provides an ID Token for the user that provides the information required to uniquely identify the user within the EP and utilise this identity within the subsequent policy decision made by the PDP</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_federated_user_access">4.2.7. Federated User Access</h4>
-<div class="paragraph">
-<p>Based upon the above authentication model, an EP could access the resources of another EP by obtaining an access token through OIDC flows. However, considering that these EP&#8594;EP invocations will typically be Machine-to-machine (M2M), then we need to consider how the end-user (resource owner) is able to complete their consent. Two possibilities are explored in the subsequent sections:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The user pre-authorizes the EP&#8594;EP access in advance of the operation</p>
-</li>
-<li>
-<p>Use of OIDC JWKS for trusted federation of identity between platforms</p>
-</li>
-</ol>
-</div>
 <div class="sect4">
-<h5 id="_user_pre_authorization">4.2.7.1. User Pre-authorization</h5>
-<div class="paragraph">
-<p>Using the facilities of the Exploitation Platform, the user (perhaps via their User Profile management console) initiates the authorization flow from one EP to another. The end result is that the originating EP obtains delegated access to another EP on behalf of the user - with the resulting access tokens being maintained within the user&#8217;s profile on the EP.</p>
-</div>
-<div class="paragraph">
-<p>At the point where the EP needs to access a resource on another EP, then the access tokens are obtained from the user&#8217;s profile and used as Bearer token in the resource request to the other EP. Refresh tokens can be used to ensure that authorization is long-lived.</p>
-</div>
-<div class="paragraph">
-<p>Conversly, the user&#8217;s profile at a given EP should also provide the ability to manage any inward authrosations they have granted to other EPs, i.e. ability to revoke a previous authorization by invalidating the refresh token. This would invole interface with the Login Service.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_possible_use_of_oidc_jwks_federation">4.2.7.2. Possible use of OIDC JWKS Federation</h5>
-<div class="paragraph">
-<p>OIDC provides a distributed key-hierarchy that could be used to support federated user access between collaborating exploitation platforms. The concept is explored in this section.</p>
-</div>
-<div class="paragraph">
-<p>Reference: <a href="https://openid.net/specs/openid-connect-federation-1_0.html" class="bare">https://openid.net/specs/openid-connect-federation-1_0.html</a></p>
-</div>
-<div class="paragraph">
-<p>OIDC provides a framework in which RPs and OPs can dynamically establish verifiable trust chains, and so share keys to support signing and validation of JWTs.</p>
-</div>
-<div class="paragraph">
-<p>Dedicated ‘federation’ endpoints are defined that allow an entity (such as RP or OP) to publish their own Entity Statements, and to obtain Statements for other entities that are issued by trusted third-parties within the federation. The metadata/signatures within the Entity Statements establish a chain of trust that can be followed to known (trusted) Trust Anchors, and so the Entity Statements and the included entity public keys can be trusted.</p>
-</div>
-<div class="paragraph">
-<p>Thus, through this mechanism public keys can be shared to underpin the signing and validation of JWTs.</p>
-</div>
-<div class="paragraph">
-<p>Within an EP, when a resource server is executing a user’s request, it may need to invoke a resource in another EP with which it is collaborating. The resource access to the other EP must be made on behalf of the originating user.</p>
-</div>
-<div class="paragraph">
-<p>The nominal solution is for the originating EP to act as an OIDC Client to interface with the Login Service of the other EP, and so obtain the access token required to access the other resource. In this case, we should consider the fact that the resource access may be asynchronous to the end-user request and is not made within the context of the end-user’s user agent. Therefore, we should explore possibilities (flows) provided by OIDC/OAuth that support this type of access.</p>
-</div>
-<div class="paragraph">
-<p>One possibility is to make use of the signed-JWT ID Token that can be carried through the calls into and across resource servers. Through the facilities provided by JSON Web Key Set (JWKS), ID Tokens can be verified and trusted by other platforms operating within the same JWKS key hierarchy.</p>
-</div>
-<div class="paragraph">
-<p>Thus, using the trusted ID Token, it may be possible follow an OIDC/OAuth flow from one EP to another, in which the user is deemed to have a-priori authorized the third-party access. At this point it is only the user’s identity that has been established, with the authorization decision subject to the rules of the PDP/PEP of the remote system. The identified user must have appropriate a-priori permissions (attributes) on the target resources to be granted access, (ref. ‘Federated Attributes’).</p>
-</div>
-<div class="paragraph">
-<p>Thus, it is the ID of the user that has been passed machine-to-machine to facilitate the service federation. This effectively achieves cross-EP single sign-on, without relying upon the user agent of the end-user providing cookies to the other EP.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_additional_oidc_capabilities">4.2.8. Additional OIDC Capabilities</h4>
+<h5 id="_additional_oidc_capabilities">4.2.1.3. Additional OIDC Capabilities</h5>
 <div class="paragraph">
 <p>OpenID Connect provides some additional functionalities that are of interest in the context of the Common Architecture.</p>
 </div>
-<div class="sect4">
-<h5 id="_oidc_discovery">4.2.8.1. OIDC Discovery</h5>
+<div class="paragraph">
+<p><strong>OIDC Discovery</strong></p>
+</div>
 <div class="paragraph">
 <p>Reference: <a href="https://openid.net/specs/openid-connect-discovery-1_0.html" class="bare">https://openid.net/specs/openid-connect-discovery-1_0.html</a></p>
 </div>
@@ -1759,9 +2203,9 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 <div class="paragraph">
 <p>This is of most interest in the case of access to federated resources in other EPs, where a resource server in one EP may be acting as an OIDC client of the Login Service in another EP – in which case auto-discovery might be more attractive.</p>
 </div>
+<div class="paragraph">
+<p><strong>Client Registration</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_client_registration">4.2.8.2. Client Registration</h5>
 <div class="paragraph">
 <p>Reference: <a href="https://openid.net/specs/openid-connect-registration-1_0.html" class="bare">https://openid.net/specs/openid-connect-registration-1_0.html</a></p>
 </div>
@@ -1782,10 +2226,64 @@ It has the same interface characteristics as PEP&#8594;PDP.</p>
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_scim_endpoints">4.2.1.4. SCIM Endpoints</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>This section will contain a description of SCIM and its the usage within the architecture.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_authorization_policy_decision">4.3. Authorization (Policy Decision)</h3>
+<div class="sect4">
+<h5 id="_interaction_with_other_components">4.2.1.5. Interaction with other components</h5>
+<div class="paragraph">
+<p>While the external interactions of the Login Service with client applications and End-Users are clearly stated (see figure <a href="#img_iamOverviewFlow">Figure 4</a>), this Building Block exposes several endpoints, mostly for their usage within the platform:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SCIM Provider, allowing access to the back-end schema that stores information required to provide platform functionality.</p>
+</li>
+<li>
+<p>OIDC Provider, allowing authentication of SW components as trusted SCIM Clients.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Interal usage of Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>Most of the other building blocks described in the User Management section will utilize the SCIM Endpoint for various purposes. In order to do so, they will be authenticated as trusted SCIM Clients, therefore requiring interaction with the exposed OIDC and UMA Endpoints.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
+<div class="paragraph">
+<p>Add image for client authentication</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_policy_decision_point">4.2.2. Policy Decision Point</h4>
 <div class="paragraph">
 <p>The Authorization flow is relevant to the following interfaces:</p>
 </div>
@@ -1817,13 +2315,14 @@ Aspects of the authorization policy can be delegated from one PDP to another, e.
 <div class="paragraph">
 <p>XACML and UMA can possibly be used together in an overall solution in which <strong>XACML provides the policy language</strong> through which rules are configured and <strong>UMA provides the ‘protocol’ flows</strong>.</p>
 </div>
-<div class="sect3">
-<h4 id="_xacml_extensible_access_control_markup_language">4.3.1. XACML (eXtensible Access Control Markup Language)</h4>
+<div class="sect4">
+<h5 id="_xacml_extensible_access_control_markup_language">4.2.2.1. XACML (eXtensible Access Control Markup Language)</h5>
 <div class="paragraph">
 <p>XACML defines an architecture in which the access decision is separate from the point of use, and is thus consistent with the high-level IAM approach described in this design document. The XACML architecture framework describes a Request-Response protocol, and a policy language in which access policies are defined as rules comprising attributes. XACML additionally describes the process through which policies are evaluated, for example through <em>combining algorithms</em> that mediate competing rules.</p>
 </div>
-<div class="sect4">
-<h5 id="_xacml_3_0">4.3.1.1. XACML 3.0</h5>
+<div class="paragraph">
+<p><strong>XACML 3.0</strong></p>
+</div>
 <div class="paragraph">
 <p>XACML 3.0 includes some additional aspects that are of interest to our proposed IAM approach. Namely:</p>
 </div>
@@ -1843,21 +2342,20 @@ Aspects of the authorization policy can be delegated from one PDP to another, e.
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p><strong>GeoXACML</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_geoxacml">4.3.1.2. GeoXACML</h5>
 <div class="paragraph">
 <p>GeoXACML is standardised by the OGC to provide a geo-specific extension to XACML 2.0. GeoXACML provides support for spatial data types and spatial authorization decision functions. Those data types and functions can be used to define additional spatial constraints for XACML based policies.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_alfa_abbreviated_language_for_authorization">4.3.1.3. ALFA (Abbreviated Language For Authorization)</h5>
-<div class="paragraph">
-<p>Authoring of XACML rules can be facilitated by the use of <a href="https://en.wikipedia.org/wiki/ALFA_(XACML)"><strong>ALFA (Abbreviated Language For Authorization)</strong></a>, which is a pseudocode language used in the formulation of access-control policies. ALFA policies can be directly converted to XACML 3.0 policies. ALFA can support GeoXACML through extensions, that supports definition of custom geometry functions.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_xacml_related_technologies">4.3.1.4. XACML Related Technologies</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">XACML Related Technologies</div>
 <div class="paragraph">
 <p>The following items represent some interesting existing implementations that may be considered as a possible basis for a reference implementation of the Common Architecture.</p>
 </div>
@@ -1905,15 +2403,19 @@ Provides an API to get authorization decisions based on authorization policies, 
 </dd>
 </dl>
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_uma_user_managed_access">4.3.2. UMA (User-Managed Access)</h4>
+<div class="sect4">
+<h5 id="_uma_user_managed_access">4.2.2.2. UMA (User-Managed Access)</h5>
 <div class="paragraph">
 <p>User-Managed Access (UMA) is a profile of OAuth 2.0. UMA defines how resource owners can control protected-resource access by clients operated by arbitrary requesting parties, where the resources reside on any number of resource servers, and where a centralized authorization server governs access based on resource owner policies. Resource owners configure authorization servers with access policies that serve as asynchronous authorization grants.</p>
 </div>
-<div class="sect4">
-<h5 id="_uma_main_actors">4.3.2.1. UMA Main Actors</h5>
+<div class="paragraph">
+<p><strong>UMA Main Actors</strong></p>
+</div>
 <div class="paragraph">
 <p>The main UMA actors are briefly summarised as follows:</p>
 </div>
@@ -1958,11 +2460,11 @@ Provides an API to get authorization decisions based on authorization policies, 
 <cite>https://en.wikipedia.org/wiki/User-Managed_Access</cite>
 </div>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_uma_phases">4.3.2.2. UMA Phases</h5>
 <div class="paragraph">
-<p>UMA describes three phases&#8230;&#8203;</p>
+<p><strong>UMA Phases</strong></p>
+</div>
+<div class="paragraph">
+<p>UMA describes three main phases:</p>
 </div>
 <div class="olist arabic strong">
 <ol class="arabic">
@@ -1980,9 +2482,9 @@ The Client successfully presents to the Resource Server an RPT that has sufficie
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>UMA Terminology</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_uma_terminology">4.3.2.3. UMA Terminology</h5>
 <div class="paragraph">
 <p>To elaborate the descriptions of these phases, UMA employs a set of terminology that is summarised below&#8230;&#8203;</p>
 </div>
@@ -2083,9 +2585,9 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p><strong>Resource Protection</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_resource_protection">4.3.2.4. Resource Protection</h5>
 <div class="paragraph">
 <p>The resource owner, resource server, and authorization server perform the following high-level actions to put resources under protection:</p>
 </div>
@@ -2102,9 +2604,9 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>Access Resource</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_access_resource">4.3.2.5. Access Resource</h5>
 <div class="paragraph">
 <p>An Authorization Server orchestrates and controls Clients' access on their Requesting Parties' behalf to a Resource Owner&#8217;s protected resources at a Resource Server, under conditions specified by that Resource Owner through policy.</p>
 </div>
@@ -2112,103 +2614,232 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <p>The process of getting authorization and accessing a resource always begins with the Client attempting access at a protected resource endpoint at the Resource Server.</p>
 </div>
 <div class="paragraph">
-<p>If the Client&#8217;s attempt has a valid RPT with sufficient Authorization Data, the Resource Owner&#8217;s policies have been met for access to the protected resource, and hence access is granted. See <a href="#img_umaAccessResource">Figure 7</a>.</p>
+<p>If the Client&#8217;s attempt has a valid RPT with sufficient Authorization Data, the Resource Owner&#8217;s policies have been met for access to the protected resource, and hence access is granted. See <a href="#img_umaAccessResource">Figure 6</a>.</p>
 </div>
 <div id="img_umaAccessResource" class="imageblock text-center">
 <div class="content">
 <img src="./images/uma-access-resource.png" alt="uma access resource" width="544" height="243">
 </div>
-<div class="title">Figure 7. UMA Access Resource (Success)</div>
+<div class="title">Figure 6. UMA Access Resource (Success)</div>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_resource_server_register_permission">4.3.2.6. Resource Server Register Permission</h5>
 <div class="paragraph">
-<p>If the Client&#8217;s request at the protected resource has no RPT, or has an invalid RPT or insufficient Authorization Data associated with the RPT as determined through RPT status checking, the Resource Server registers a requested permission with the relevant Authorization Server, and responds to the Client with the resulting Permission Ticket and the Authorization Server&#8217;s location. The extent of the requested permission MUST suffice for the extent of the Client&#8217;s access attempt at that resource. The PAT provided in the API request enables the Authorization Server to map the requested permission to the appropriate Resource Owner. The Authorization Server returns a Permission Ticket in its response for the Resource Server to give to the Client that represents the same extent of requested access that the Resource Server registered. See <a href="#img_umaRegisterPermission">Figure 8</a>.</p>
+<p><strong>Resource Server Register Permission</strong></p>
+</div>
+<div class="paragraph">
+<p>If the Client&#8217;s request at the protected resource has no RPT, or has an invalid RPT or insufficient Authorization Data associated with the RPT as determined through RPT status checking, the Resource Server registers a requested permission with the relevant Authorization Server, and responds to the Client with the resulting Permission Ticket and the Authorization Server&#8217;s location. The extent of the requested permission MUST suffice for the extent of the Client&#8217;s access attempt at that resource. The PAT provided in the API request enables the Authorization Server to map the requested permission to the appropriate Resource Owner. The Authorization Server returns a Permission Ticket in its response for the Resource Server to give to the Client that represents the same extent of requested access that the Resource Server registered. See <a href="#img_umaRegisterPermission">Figure 7</a>.</p>
 </div>
 <div id="img_umaRegisterPermission" class="imageblock text-center">
 <div class="content">
 <img src="./images/uma-register-permission.png" alt="uma register permission" width="650" height="371">
 </div>
-<div class="title">Figure 8. UMA Resource Server Register Permission</div>
+<div class="title">Figure 7. UMA Resource Server Register Permission</div>
 </div>
+<div class="paragraph">
+<p><strong>Client Request Authorization</strong></p>
 </div>
-<div class="sect4">
-<h5 id="_client_request_authorization">4.3.2.7. Client Request Authorization</h5>
 <div class="paragraph">
 <p>In order to access a protected resource successfully, a client needs to present a valid RPT with sufficient authorization data. The client uses the authorization API to acquire an RPT and to ask for authorization data, providing the permission ticket it received from the resource server.</p>
 </div>
 <div class="paragraph">
-<p>The authorization server uses the permission ticket to look up the details of the previously registered requested permission, maps the requested permission to operative resource owner policies based on the resource set identifier and scopes associated with it, potentially requests additional information and receives additional information such as claims, and ultimately responds positively or negatively to the request for authorization data. <strong>The authorization server bases the issuance of authorization data on resource owner policies. Thus, these policies function as authorization that has been granted ahead of time.</strong> See <a href="#img_umaClientRequestAuthorization">Figure 9</a>.</p>
+<p>The authorization server uses the permission ticket to look up the details of the previously registered requested permission, maps the requested permission to operative resource owner policies based on the resource set identifier and scopes associated with it, potentially requests additional information and receives additional information such as claims, and ultimately responds positively or negatively to the request for authorization data. <strong>The authorization server bases the issuance of authorization data on resource owner policies. Thus, these policies function as authorization that has been granted ahead of time.</strong> See <a href="#img_umaClientRequestAuthorization">Figure 8</a>.</p>
 </div>
 <div id="img_umaClientRequestAuthorization" class="imageblock text-center">
 <div class="content">
 <img src="./images/uma-client-request-authorization.png" alt="uma client request authorization" width="936" height="1019">
 </div>
-<div class="title">Figure 9. UMA Client Request Authorization</div>
+<div class="title">Figure 8. UMA Client Request Authorization</div>
 </div>
 <div class="paragraph">
 <p>Optionally, the Authorization Server may need additional information in order to determine whether the Client is authorized to have this authorization data. The Authorization Server response indicates "need_info" including one or more sub-properties with hints about the nature of further required information. The Client then has the opportunity to continue seeking authorization by engaging in follow-on flows with the authorization server, either directly or through redirection of an end-user Requesting Party.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mainBilling">4.4. Accounting and Billing</h3>
+<div class="sect4">
+<h5 id="resourceAPI">4.2.2.3. Policy API</h5>
 <div class="paragraph">
-<p>The platform must account for resource use both within the platform and in other platforms via federation. In addition, several inter-platform billing models are supported as defined in the use cases, <a href="#EOEPCA-UC">[EOEPCA-UC]</a>. A number of principles must first be established:</p>
+<p>The PDP exposes a REST API that allows to register, remove and update policy documents within the Authorization architecture. These policy documents are utilized during policy decision checks (using XACML compliant requests and responses).</p>
+</div>
+<div class="paragraph">
+<p>Any Resource Server can dynamically interact with the API to assign specific policies to resources during the execution of their internal processes, or they can delegate this functionality to Resource Owners, and let them consume the API as they see fit.</p>
+</div>
+<div class="paragraph">
+<p>The following example showcases how a Resource Owner can have its process deployed, dynamically registered and protected by an ADES component:</p>
+</div>
+<div id="img_resourceAPI" class="imageblock text-center">
+<div class="content">
+<img src="./images/policy-management.png" alt="policy management" width="1358" height="546">
+</div>
+<div class="title">Figure 9. Dynamic Resource Protection through a Policy API</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interaction_with_other_components_2">4.2.2.4. Interaction with other components</h5>
+<div class="paragraph">
+<p>While the external interactions of the Policy Decision Point with client applications and End-Users follow the UMA Flow described above, this Building Block also interacts directly with other Building Blocks for several purposes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Internal usage of Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>Interaction with other Building Blocks can be found in the following list:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Actions are performed within the context of a 'billing identity', which may be different to the user&#8217;s identity.</p>
+<p>PDP to Resource Server (i.e ADES): Dynamic Protection of Resources through Policy Management. Any new resource within the Platform can be dynamically protected by any component through M2M interactions.</p>
 </li>
 <li>
-<p>Charges are the result of discrete 'billing events' occuring within a particular 'billing window'. Pricing must consider all events within the window, not events individually (to support, for example, tiered pricing).</p>
+<p>PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens.</p>
 </li>
 <li>
-<p>Different platforms may follow completely different pricing and billing models. The architecture and federation messaging cannot assume any particular method of calculation or for describing prices.</p>
+<p>PDP to external PDP requests: external policy resolution. Whenever a policy decision requires external checks, the PDP will perform queries against these external PDP Services and integrate the response within the overall policy resolution procedure.</p>
 </li>
 <li>
-<p>Only the platform hosting it can accurately price the use of a licensed Resource or compute resource.</p>
+<p>PDP to License Manager requests: license-based policies. In the case that a defined policy contains restrictions based on license agreement or licence limits of use, the PDP will perform checks against the License Management API, to ensure that corresponding criteria are met.</p>
 </li>
 <li>
-<p>Costs may be estimated but the estimate is not required to be binding. Federated access can never rely on binding estimates.</p>
-</li>
-<li>
-<p>Debts can only be created where there is a direct contractual relationship and opportunity for credit control. A user can never owe money directly to another platform unless he has an account with it.</p>
-</li>
-<li>
-<p>A platform prices in a single currency (but could choose to allow a user to settle a bill with another currency). Different federated platforms may choose different currencies.</p>
+<p>PDP to Billing Service requests: bugdets and inter-platform payments. If a requests contains a billing-based policy that imposes restrictions based on billing identity or requires accounting of usage for potential inter-platform payments, the PDP will utilize the Billing Service to perform policy checks.</p>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="_billing_identities">4.4.1. Billing Identities</h4>
-<div class="paragraph">
-<p>A billing identity is a user identity for a user who has established a billing relationship with the platform. A billing user may delegate chargeable service access to other users within the system, permitting that user to use resources billed to the billing identity.</p>
-</div>
-<div class="paragraph">
-<p>Individual platforms may choose models with varying complexity. For example, one platform may require that the billing and user identity are always the same, whilst another may permit a user working on multiple cross-organizational projects to choose the billing identity to use. Identities may be related to organizations, projects, etc, for access control and credit control purposes - but these relationships are not required by the architecture.</p>
-</div>
-<div class="paragraph">
-<p>As required by their purpose, cross-platform messaging will include both the user id and the relevant billing identity.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Both the billing and user identities, and other information such as the location of each one and the type of organization involved, may be relevant to determining prices. This is because the place of supply for VAT purposes must be determined, plus any discounts for, for example, academic use. Note that 'location' means more than 'country' (eg, the Canary Islands have lower VAT than Madrid). Also, some organizations may be treated differently such as international organizations exempt from all tax.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_billing_service">4.4.2. Billing Service</h4>
+<h4 id="_policy_enforcement_point">4.2.3. Policy Enforcement Point</h4>
+<div class="sect4">
+<h5 id="_overview">4.2.3.1. Overview</h5>
+<div class="paragraph">
+<p>The PEP (acting on behalf of the resource server) receives the client request to access the protected resource. In the case that the access requires an authenticated user, then the PEP expects that the request includes a valid access token.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_reverse_proxy_functionality">4.2.3.2. Reverse Proxy Functionality</h5>
+<div class="paragraph">
+<p>The PEP follows the logic:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The PEP checks with the PDP whether an authenticated user is required for access</p>
+</li>
+<li>
+<p>If no authenticated user is required then the request can continue (pending authorization) as an 'anonymous' user</p>
+</li>
+<li>
+<p>If access requires an authenticated user then</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the access token is not present then no user is logged in, so the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
+</li>
+<li>
+<p>If the access token is present, then it should be validated with the Login Service (direct call), as described below</p>
+</li>
+<li>
+<p>If the access token validation completes successfully then the request can continue (pending authorization), with the user identity provided by the ID Token received during token validation</p>
+</li>
+<li>
+<p>If the token is invalid, then the request should be redirected to the /authorize endpoint (HTTP redirect)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition to this, the PEP also encodes two sets of key information as part of request headers, when propagating the request to the underlying Resource Server:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>End-User Context: an Authorization Bearer header containing the ID Token generated during the access request.</p>
+</li>
+<li>
+<p>Policy Context: a reference to a temporal, local repository of policy check results associated to the on-going request. The following image showcases the interactions with an hypothetical ADES component:</p>
+</li>
+</ul>
+</div>
+<div id="img_policyContext" class="imageblock text-center">
+<div class="content">
+<img src="./images/policy-context-propagation.png" alt="policy context propagation" width="863" height="545">
+</div>
+<div class="title">Figure 10. Policy Context Propagation through PEP protected requests.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_access_token_validation">4.2.3.3. Access Token Validation</h5>
+<div class="paragraph">
+<p>The PEP validates the access token by using it as a Bearer token in a request to the Login Service’s /userinfo endpoint. A successful response has two outcomes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Confirms the validity of the access token from the point-of-view of the Login Service that issued it</p>
+</li>
+<li>
+<p>Provides an ID Token for the user that provides the information required to uniquely identify the user within the EP and utilise this identity within the subsequent policy decision made by the PDP</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="resourceAPI">4.2.3.4. Resource API</h5>
+<div class="paragraph">
+<p>The PEP exposes a REST API that allows to register, remove and update resource references within the Authorization architecture. These resource references are used to perform the Proxying functionality (enforcing authorization) when generating access tickets and enable Policy Decisions to take place on the Policy Decision Points.</p>
+</div>
+<div class="paragraph">
+<p>Any Resource Server can dynamically interact with the API to register resources during the execution of their internal processes, or they can delegate protection of resources directly to Resource Owners, and let them consume the API as they see fit.</p>
+</div>
+<div class="paragraph">
+<p>The following example showcases how a Resource Owner can have its process deployed and dynamically registered by an ADES component:</p>
+</div>
+<div id="img_resourceAPI" class="imageblock text-center">
+<div class="content">
+<img src="./images/resource-protection.png" alt="resource protection" width="1139" height="387">
+</div>
+<div class="title">Figure 11. Dynamic Resource Registration through a Resource API</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interaction_with_other_components_3">4.2.3.5. Interaction with other components</h5>
+<div class="paragraph">
+<p>The Policy Enforcemnt Point mainly interacts with both Client Applications and Services and its meant to ensure that the proper policies are enforced during access. This not only requires interaction with both Client and Services, but also requires interaction with internal components.</p>
+</div>
+<div class="paragraph">
+<p><strong>Internal usage of Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>The Policy Enforcement point requires two interactions with other Building Blocks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PEP to Resource Server (i.e ADES): Dynamic Registration of Resources. If a new resource is generated by interacting with a Resource Server (such as a processing environment), the resulting asset can be registered dynamically as a resource.</p>
+</li>
+<li>
+<p>PEP to PDP requests: Resource ID resolution. If a request for access is performed against the Policy Enforcement Point, the PEP queries the PDP for a unique resource identification and generates an access request ticket that Client Applications will be able to use to generate the corresponding access tokens.</p>
+</li>
+<li>
+<p>PEP to Login Service requests: Authentication as Resource Server. Given that the Policy Enforcement Point acts as the facade of any given service, it is necessary for the PEP to act as a Resource Server:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Interaction with OIDC Endpoints in order to authenticate as a client application and acquire Resource Server priviledges.</p>
+</li>
+<li>
+<p>Interaction with UMA Endpoints in order to perform ticket generation and token instrospection requests</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_billing_service">4.2.4. Billing Service</h4>
 <div class="paragraph">
 <p>A Billing Service will operate within the platform which receives reports of billing events from other components. These are recorded against the relevant billing identity. Billing events have arbitrary attributes defined in them, which the billing service does not interpret (but are sufficient for the pricing engine, see below), a transaction ID identifying the original user action which caused it, and enough additional information for display to the user. Some example billing events might be:</p>
 </div>
@@ -2238,16 +2869,56 @@ Both the billing and user identities, and other information such as the location
 <p>The Billing Service will generate bills for each billing window by pricing complete windows. Fixed prices are assigned and recorded at this point. It may also keep track of and, where supported by the platform, initiate payments.</p>
 </div>
 <div class="paragraph">
-<p>To support the PDP and other services, the Billing Service may be required to periodically assess the account&#8217;s standing and make decisions on the acceptibility of resource use. This depends on the billing model in use but could involve checking that credits are not exhausted, checking that a reasonable credit limit has not been reached and the detection of potentially fraudulent behaviour. An account which is no longer in good standing may result in API requests for resource use being denied, or it may result in termination messages being sent in response to billing events.</p>
+<p>To support the PDP and other services, the Billing Service may be required to periodically assess the account’s standing and make decisions on the acceptibility of resource use. This depends on the billing model in use but could involve checking that credits are not exhausted, checking that a reasonable credit limit has not been reached and the detection of potentially fraudulent behaviour. An account which is no longer in good standing may result in API requests for resource use being denied, or it may result in termination messages being sent in response to billing events.</p>
 </div>
 <div class="paragraph">
 <p>Where billing events are reported in another currency, as may happen with federated resource use, the Billing Service must determine the time and rate for currency exchange.</p>
 </div>
+<div class="sect4">
+<h5 id="_interaction_with_other_components_4">4.2.4.1. Interaction with other components</h5>
+<div class="paragraph">
+<p>The Billing Service mainly exposes endpoints in order to ingest Billing Events and to generate Billing Window Reports. These requests are expected to originate from Platform Services.</p>
+</div>
+<div class="paragraph">
+<p><strong>Interal usage of Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>On the other hand, the Billing Service requires three main interactions with other Building Blocks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PDP to Billing Service requests: billing-based policies.</p>
+</li>
+<li>
+<p>Billing Service to Login Service/User Profile requests: handling of billing Identities. The Billing Service may require access to specific billing attributes that reside in the User Profile back-end. These interactions require:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.</p>
+</li>
+<li>
+<p>Interaction with SCIM Endpoints in order to perform simple billing identity checks and changes on potential credit attributes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Billing Service to Pricing Engine: on-demand price rate calculations. Whenever a the Billing Service requires calculation of costs (either for Policy resolution or Billing Window Report generation), it is possible to query the Pricing Engine endpoints in order to acquire this information.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_pricing_engine">4.4.3. Pricing Engine</h4>
+<h4 id="_pricing_engine">4.2.5. Pricing Engine</h4>
 <div class="paragraph">
-<p>To maximize reusability price calculation is separated in to a different service (but not necessarily a different address space). Given access to a price database describing current, future and past configured prices, a Pricing Engine is otherwise stateless and can:</p>
+<p>To maximize reusability price calculation is separated in to a different service (but not necessarily a different address space). Given access to a price database describing current, future and past configured prices, a Pricing Engine is otherwise stateless.</p>
+</div>
+<div class="sect4">
+<h5 id="_interaction_with_other_components_5">4.2.5.1. Interaction with other components</h5>
+<div class="paragraph">
+<p>The Pricing Engine mainly supports Billing Service functionality:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2266,280 +2937,60 @@ Both the billing and user identities, and other information such as the location
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_commercially_licensed_resources">4.4.4. Commercially Licensed Resources</h4>
-<div class="paragraph">
-<p>Users may publish Resources which are licensed to others on commercial terms and use the platform to collect payments. There are two types of charges which require support within User Management: time-based and volume-based.</p>
-</div>
-<div class="paragraph">
-<p>Time-based charges occur when a user requests a licence which costs a fixed price for a fixed time (or is permanent), regardless of the accesses made to the Resource. The Data Access Services and Execution Management Services determine when such a licence is required and the licence manager manages the process for buying one, including emitting a billing event. This typically will happen in advance of a request. The licence manager may give the billing service an opportunity to reject the request, if applicable to the platform&#8217;s billing model.</p>
-</div>
-<div class="paragraph">
-<p>Volume-based charges occur as access to a licensed Resource proceeds or completes (for example, on first access to a specific satellite image or for each input image passed to a commercial machine learning model). Again, the licence manager reports these as billing events when a licence requirements check is made.</p>
-</div>
-<div class="paragraph">
-<p>Pricing is specified by the Licenser (in a particular form supported by the platform) and stored by the pricing engine (quantity to price mapping) and licence manager (method for determining which licences and 'quantity'). The licence manager must emit three billing events when license grants are bought: a charge to the user, a credit to the Licenser and a charge to the Licenser representing the platform fee for handling payment processing.</p>
-</div>
 </div>
 <div class="sect3">
-<h4 id="_budgets">4.4.5. Budgets</h4>
-<div class="paragraph">
-<p><mark>TBD</mark></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_inter_platform_payments">4.4.6. Inter-platform Payments</h4>
-<div class="paragraph">
-<p>Three different models for federated availability of commercial services are supported, two of which require support from the accounting and billing mechanisms of the platforms involved. This support comes in the form of inter-platform payments, allowing users to pay for executions or Resource licences which are located elsewhere in the federation.</p>
-</div>
-<div class="paragraph">
-<p>Note that <em>three</em> platforms may be involved in providing a chargeable federated commercial service:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The home platform where the user is registered and the action is initiated.</p>
-</li>
-<li>
-<p>The host platform where the licenced Resource or chargeable compute resource is located.</p>
-</li>
-<li>
-<p>The compute platform where processing occurs.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Consider, for example, a processing chain invoked on the home platform which invokes a processing service running on the compute platform using a software container published by a Licenser registered on the host platform. Frequently, two or more of these platforms are the same. However, even if all three are the same the platform may wish to use the same process where payments to a Licenser are involved.</p>
-</div>
+<h4 id="_license_manager">4.2.6. License Manager</h4>
 <div class="sect4">
-<h5 id="_inter_platform_payment_model_and_process">4.4.6.1. Inter-platform Payment Model and Process</h5>
+<h5 id="_interaction_with_other_components_6">4.2.6.1. Interaction with other components</h5>
 <div class="paragraph">
-<p>An inter-platform payment supports a User of one platform paying for a service provided by either another platform or by a User of another platform. It&#8217;s important to repeat that a debt is only ever created between two entities which have a legal relationship and an opportunity for credit control. This requires that inter-platform payments involve two or three separate debts being: one from User to home platform, one from home platform to the host platform and the third from the host platform to the User providing the service (if any). The process must also cope with the price not being known in advance in all cases - processing costs in particular may be unpredictable. To support this, the following stages are involved:</p>
+<p>The License Manager exposes a License Management API that could potentially be utilized by agents outside of the Platform, but its main purpose is to enhance the functionality of the rest of the Building Blocks. It has also the potential to genrate Billing Events that can be pushed to Billing Service endpoints.</p>
+</div>
+<div class="paragraph">
+<p><strong>Interal usage of Endpoints</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Authorization stage</strong>: This provides an opportunity for credit control decisions in advance of debts being incurred. This establishes a maximum amount of debt before a new authorization must be sought or the operation aborted but will not necessarily ever be owed in full. Both home and host platform must agree to authorize an inter-platform payment (the host platform may reject if it doesn&#8217;t believe the home platform will pay). The home platform may 'hold' some account credit from its user or authorize a credit card payment if appropriate in its billing model.</p>
+<p>License Manager to Billing Service: generation of license-based billing events. Whenever usage of a License takes place, the License Manager can generate a billing event that will be pushed to the Billing Service API.</p>
 </li>
 <li>
-<p><strong>Clearing stage</strong>: This occurs after a debt is legally incurred, such as after (some of) the computation or data access is completed. The platform on which the service is provided, the host platform, reports to the home platform how much debt has actually been incurred. It may happen in stages - for example a large authorization may occur, followed by the clearing of smaller amounts after every hour of compute time. It cannot exceed the amount authorized.</p>
+<p>License Manager to Login Service/User Profile requests: handling of license information. The License Manager may require access to specific end-user attributes that reside in the User Profile back-end. These interactions require:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Usage of OIDC Endpoints in order to authenticate as a client application and acquire the necessary priviledges to interact, using SCIM, with the back-end storing user information.</p>
 </li>
 <li>
-<p><strong>Settlement stage</strong>: This involves a batch of multiple payments, such as a day or a month of payments. The platforms with payment processing contracts in place must reconcile their records and calculate a net amount owed (potentially in multiple currencies). They must then settle the net debt by making a payment using the banking system.</p>
+<p>Interaction with SCIM Endpoints in order to perform simple license checks and extend end-user information with references to Service Licenses.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Two different commercial models are supported: bilateral clearing and central clearing. In bilateral clearing every platform must negotiate a contract with every other platform (or as far as possible - incomplete coverage will limit what users can do). This has certain commercial downsides, such as a need for every-pair auditing for accurate reporting of resource use and a danger of incumbents excluding new entrants. In central clearing a clearing house must exist and all platforms form a relationship with the clearing house. The clearing house technical functionality is not further explored here, nor is the management of counterparty risk. The messaging and process is intended to be the same in both models.</p>
-</div>
-<div class="paragraph">
-<p>Where inter-platform payments are used the host platform is acting a subcontractor to the home platform. Should the host platform fail to perform, a dispute resolution process must be used. This is considered out of scope of the architecture, except that payments may be marked as disputed, refunded or charged back. This must be accounted for during reconciliation between platforms.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_federated_commercial_services_without_inter_platform_payments_direct_payments">4.4.7. Federated Commercial Services Without Inter-platform Payments: Direct Payments</h4>
+<h4 id="_user_profile">4.2.7. User Profile</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Work In Progress</div>
 <div class="paragraph">
-<p>If inter-platform payments are not available, for example because two platforms do not have a payment agreement, it may still be possible to provide services across multiple platforms providing the user has an account and billing relationship with each one directly. This requires that both platforms recognize both the user and the selected billing identity, and that the billing user has delegated access to the user in both platforms.</p>
+<p>TBD: Approach to User Profile Building Block<br>
+* Used Technologies and Standards<br>
+* Interactions with other building blocks<br>
+* Exposed Endpoints</p>
 </div>
-<div class="paragraph">
-<p>To handle direct payments the user must authorize the home platform to act on its behalf when submitting requests to the host platform. This is done using OAuth. The home platform must redirect the user to the host platform which then returns an authorization token to the home platform. Federated platforms must run an OAuth endpoint for this purpose and certain restrictions must be put on its functioning (for example on refresh token lifetime).</p>
-</div>
-<div class="paragraph">
-<p>Other system components must then use an access token when making requests to the host platform. The host platform should still report costs and identifiers to the home platform, which must be passed to the Billing Service to be recorded. This aids dispute resolution and the reporting of total costs for particular requests.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_estimating_inter_platform_costs">4.4.8. Estimating Inter-platform Costs</h4>
-<div class="paragraph">
-<p><mark>TBD</mark></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_relationship_to_system_components">4.4.9. Relationship to System Components</h4>
-<div class="paragraph">
-<p>The Billing Service handles inter-platform payments and supports direct payments in response to requests from other components, such as the EMS. The direct payment model is very different to inter-platform payments but knowledge of the distinction and when each should be used should be isolated in the Billing Service as much as possible.</p>
-</div>
-<div class="paragraph">
-<p>To support this for volume-based charges, interaction between other system components and the Billing Service proceeds as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Prior to federated resource use, a component must make a request to the Billing Service with the estimated cost (or a fixed value if not available) and the identity of the host platform. It must also include the transaction ID for the user action which resulted in the payment.</p>
-</li>
-<li>
-<p>The Billing Service determines what kind of payment handling is available, if any. It returns success or failure and, optionally, an OAuth URL to authorize direct payment.</p>
-</li>
-<li>
-<p>The component proceeds with its activity, incurring charges. The activity occurs on the compute platform, which may also be the home or host platform.</p>
-</li>
-<li>
-<p>The compute platform seeks authorization from the host platform before charges are incurred. The host platform checks that an authorized payment exist (directly between the home and host platform). If the charge is for compute resources then these are the same platform and may be a no-op, but this may not be the case for computation using licensed data or software.</p>
-</li>
-<li>
-<p>If the compute platform seeks access from a host platform which has no authorized payment in place then it must report this to the home platform. The home platform may then request authorization or abort the processing. This may happen if the home platform cannot fully predict the accesses made during computation.</p>
-</li>
-<li>
-<p>The compute platform computes, incurring charges. The compute platform may also access the host platform to retrieve data or software but this may also be cached. The resource use is reported by the compute platform to the host platform - for example, a list of images accessed or processed. This happens in multiple chunks when charges are incurred over time.</p>
-</li>
-<li>
-<p>The host platform clears pieces of the original inter-platform authorization by sending a clearing request directly to the home platform. Note that only the host platform is considered authoritative for calculating the true cost (which is returned here).</p>
-</li>
-<li>
-<p>If the original authorization is exhausted then the home platform may pre-emptively extend it by creating a new payment (with the same transaction ID). Otherwise the host platform must reply to a charge report from the compute platform with a response prohibiting further charges.</p>
-</li>
-<li>
-<p>On receiving such a message the compute platform must suspend further processing and forward the response to the home platform. The home platform must then either seek a new authorization or send an abort message to the compute platform.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For time-based licences the flow can be simpler:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The component requests payment authorization from the Billing Service, specifying an exact price.</p>
-</li>
-<li>
-<p>The component communicates with the host platform to acquire the licence.</p>
-</li>
-<li>
-<p>The host platform sends a payment clearing message to the home platform Billing Service to clear the entire authorization.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_payment_processing_systems">4.4.10. Payment Processing Systems</h4>
-<div class="paragraph">
-<p>Payment processing itself, in particular card payment processing, may be initiated by the Billing Service but should be strictly separate from it. <a href="#PCI-DSS">[PCI-DSS]</a> imposes many onerous requirements not just on the software and hardware used for payment processing, but also on the wider organization and its processes (for example, for formal change reviews and code reviews, the use of specialist cryptographic hardware security modules, the separation of duties between staff and requirements in recruitment and training). For these reasons some implementers will need to avoid card processing within the system entirely and redirect users to externally hosted payment servers. This may constrain them to an account credit-based model whilst other providers may be able to initiate an authorization or full payment on-demand.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_user_profile">4.5. User Profile</h3>
-<div class="paragraph">
-<p>The User Profile is a system resource that maintains a set of data for each user including:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>User details</p>
-</li>
-<li>
-<p>Terms and conditions accepted by the user</p>
-</li>
-<li>
-<p>Licence keys held by the user</p>
-</li>
-<li>
-<p>User API key management</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The User Profile for a given user is tied to the unique identifier provided by their Home-IdP through the authentication process.</p>
-</div>
-<div class="sect3">
-<h4 id="_licence_and_tc_management">4.5.1. Licence and T&amp;C Management</h4>
-<div class="paragraph">
-<p>A licence manager must determine whether or not licence requirements permit certain actions by a certain user. For freely available resources simple acceptance of the licence may be necessary. For commercially licensed resources it may be much more complicated. For example, a licence may have been bought for non-educational use by up to 5 users for satellite images with a certain resolution and area, with an extra charge made for images less than 15 degrees off nadir. Alternatively, a commercially licensed processing service may be charged by the CPU-hour or user-month. This is handled by the pricing and billing services, but acceptance of these terms must still be made first.</p>
-</div>
-<div class="paragraph">
-<p>Some concepts applicable within the licence manager must be established:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A licence consist of the legal text itself, a name and version, a description of pricing where appropiate and other metadata.</p>
-</li>
-<li>
-<p>A licence terms acceptance is the acceptance by a particular user (and organization) of the licence terms and conditions.</p>
-</li>
-<li>
-<p>A licence grant grants a users access to particular parts of a resource or for particular purposes. This is only applicable to commercial licensed resources. A licence grant is signed by the licenser.</p>
-</li>
-<li>
-<p>The licence manager does not know which resources require which licences. It only knows data about identified licences and about which users have which acceptances and grants.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The licence manager does not formally know how to calculate the price of a commercial licence grant. Instead, it produces an identifier for a particular type of grant and a quantity. The billing engine turns this in to a price, which may involve applying any user-specific or volume-based discounts. The quantity may be in, for example, square kilometres. Alternatively, the licences may be priced at €1/unit, effectively transferring responsibility to the licence manager&#8217;s configuration.</p>
-</div>
-<div class="paragraph">
-<p>Note that licencers must ensure that their licences are uniquely identified across the whole federation. That is, if they use the same licence on multiple platforms they must give it the same ID and must not otherwise reuse IDs.</p>
-</div>
-<div class="sect4">
-<h5 id="_licence_requirement_checks">4.5.1.1. Licence Requirement Checks</h5>
-<div class="paragraph">
-<p>At the request planning stage the EMS determines the licences required (as far as is possible in advance). This results in a list of licence requirement specifications. These may vary in complexity, from simply identifying a dataset to specifying an AoI, ToI and additional attributes, depending on platform support and on any knowledge the EMS has about which request fields are licence-relevant. The licence manager, however, only performs matching of these against rules or configuration using no or limited knowledge of the specific meaning of fields.</p>
-</div>
-<div class="paragraph">
-<p>On receiving licence requirement specifications, the licence manager must compare them against the licences and grants possessed by the user and determine what licences, if any, must be obtained by the user before the action is permitted. On failure, the result should contain something the user can act on, such as a URL for viewing and agreeing to dataset terms or for buying licences. On success, the licence manager may return information on which fields were used so that the EMS can avoid repeated checks.</p>
-</div>
-<div class="paragraph">
-<p>The licence manager should also be able to determine when additional commercial licence grants should be added (and charged for) automatically. The user must have previously agreed to the license terms and pricing. When a new licence grant is added it should record it and issue a billing event.</p>
-</div>
-<div class="paragraph">
-<p>Licence grants may also be managed by an external service operated by the licenser. This communication is managed entirely by the licence manager.</p>
-</div>
-<div class="paragraph">
-<p>Processing may cross platform boundaries within the federation. A platform executing processing or supplying a resource must be able to determine that the processing is running in a context in which any required licences are available. To support this, the context must include enough information to identify the licence manager of the originating platform. When a licence manager receives a licence requirement specification which can&#8217;t be satisfied locally it should use this endpoint to perform a licence requirement check. The originating platform may fail this request, may accept it based on existing data (returning signed licence grants if appropriate) or may perform an automated licence grant acquisition. The host/compute platform may then store these licence grants against the user ID for use in future checks.</p>
-</div>
-<div class="paragraph">
-<p>Note that cross-platform executions may involve running, for example, a processing chain initiated from platform A with a component involving a commercially licenced compute service from platform B running on platform C. In these cases platform B may check that the user has accepted its platform acceptable use policy by contacting platform A, fetch the compute service from platform C which will then also directly contact platform A to ensure that licences are available before returning the container ot platform B.</p>
-</div>
-<div class="paragraph">
-<p>TODO: Diagrams!</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_licence_acquisition">4.5.1.2. Licence Acquisition</h5>
-<div class="paragraph">
-<p>Unless managed by an external service, users must be able to view and accept terms and purchase licence grants using the licence manager. For licences where no licence grants must be bought this is very simple - for example, the licence manager may provide APIs enabling the UI to fetch licence text and submit acceptance. This can be done from a resource information display page or following a refused request.</p>
-</div>
-<div class="paragraph">
-<p>Where a licence grant must be bought the flow for the user is managed by other components. A user interface may be used to choose licence attributes or particular subsets of data, for example, or a user may have the option to allow automatic purchases as data is accessed. This licence manager must support this functionality in the following ways:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A human-readable description of the pricing model and prices is included with the licence metadata. This should be displayed to the user.</p>
-</li>
-<li>
-<p>The licence manager can accept a licence requirement specification and turn it in to either a product code and quantity (which the caller can then pass to the pricing engine) or information on which additional fields are required. The field names, types and UI information is supplied by other services as part of the resource definition.</p>
-</li>
-<li>
-<p>The licence manager can accept a command to buy a specified licence. It will then emit a billing event. This may happen synchronously or asynchronously depending on the needs of the platform&#8217;s billing model.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When federated access is involved, such as when a processing chain runs some components on another platform or when data or processing services are transferred to run locally, a user may need to accept licence terms or acquire a licence grant for a resource which is not published via the home platform. This must always be initiated from the home platform, either in advance of the execution or in response to an event returned by a host platform. For terms acceptance the licence manager must contact the host platform and transfer the necessary T&amp;C data. For a (commercial) licence grant, the licence manager must ask the billing manager to authorize a payment to the host platform and then make a request to the host licence manager to buy the licence (specifying the payment ID). The host licence manager must verify the price before asking its own billing manager to clear the payment. It should then record the licence grant as well as returning it to the home platform.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_licence_administration">4.5.1.3. Licence Administration</h5>
-<div class="paragraph">
-<p>Resource owners must be able to configure licences. The UIs and APIs allowing them to do this must interact with the licence manager (and the pricing engine) to configure their licences. This includes only the licences themselves - assignment of licence requirements to resources is out of the licence manager&#8217;s scope.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_porting_licences_within_the_federation">4.5.1.4. Porting Licences Within the Federation</h5>
-<div class="paragraph">
-<p>In some cases users may have multiple home platforms, initiating some workloads from different locations. To ensure that users can use their licences for workloads initiated across all locations licence 'porting' may be used.</p>
-</div>
-<div class="paragraph">
-<p>A user 'ports' a licence from one platform to another by using OAuth to authorize the licence manager on the local platform to access his licences on another. This is only permitted if the licences have been marked as 'portable' by the licenser.</p>
-</div>
-<div class="paragraph">
-<p>This mechanism may be used for two purposes. In the first, a publisher has published his Resource in both platforms (which may be done to permit lower processing latencies, lower payment processing costs or the use of proprietary features). The platform receiving the licence must verify its signature using the licenser&#8217;s public key before accepting it. In the second case the Resource is not available on the receiving platform but may still be used in cross-platform workflows (including the case when a processing service is transferred from a remote host platform to execute locally).</p>
+</td>
+</tr>
+</table>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
@@ -2569,7 +3020,7 @@ Both the billing and user identities, and other information such as the location
 <div class="content">
 <img src="./images/use-cases-processing.png" alt="use cases processing" width="100%">
 </div>
-<div class="title">Figure 10. Processing &amp; Chaining Use Case</div>
+<div class="title">Figure 12. Processing &amp; Chaining Use Case</div>
 </div>
 <div class="paragraph">
 <p>In meeting these requirements the following key challenges are identified:</p>
@@ -2643,13 +3094,13 @@ Both the billing and user identities, and other information such as the location
 <p>Thus, each platform that supports processing should include an ADES, and each platform that supports workflow orchestration should include an EMS.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procOverview">Figure 11</a> illustrates the main architecture components and their interfaces.</p>
+<p><a href="#img_procOverview">Figure 13</a> illustrates the main architecture components and their interfaces.</p>
 </div>
 <div id="img_procOverview" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-overview.png" alt="processing overview" width="100%">
 </div>
-<div class="title">Figure 11. Processing &amp; Chaining Overview</div>
+<div class="title">Figure 13. Processing &amp; Chaining Overview</div>
 </div>
 <div class="paragraph">
 <p>In order for processing services and their data input/outputs to be aligned a formalism is required to describe the data types for M2M consumption. This is required to ensure that a processor is invoked with compatible data inputs, its outputs are understood, and that coherent workflows can be constructed in which the outputs &#8594; inputs are aligned. For this purpose, Common Workflow Language (CWL) is used in the Application Package Description to describe the processor input/ouputs.</p>
@@ -2778,13 +3229,13 @@ The service/application is ported to use the services of the EP intrinsically - 
 </dl>
 </div>
 <div class="paragraph">
-<p><a href="#img_procAppDescriptor">Figure 12</a> provides an illustration of the Application Descriptor structure.</p>
+<p><a href="#img_procAppDescriptor">Figure 14</a> provides an illustration of the Application Descriptor structure.</p>
 </div>
 <div id="img_procAppDescriptor" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-application-descriptor.png" alt="processing application descriptor" width="70%">
 </div>
-<div class="title">Figure 12. Structure of Application Descriptor data model</div>
+<div class="title">Figure 14. Structure of Application Descriptor data model</div>
 </div>
 <div class="paragraph">
 <p>Thus, the WPS-T DeployDocument comprises the following parts:</p>
@@ -2936,13 +3387,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The EMS provides the endpoint for the user’s web client, through which applications and workflows are deployed to the EMS to make them available for execution.</p>
 </div>
 <div class="paragraph">
-<p><a href="#img_procEmsDeploy">Figure 13</a> illustrates the deployment of applications and workflows to the EMS.</p>
+<p><a href="#img_procEmsDeploy">Figure 15</a> illustrates the deployment of applications and workflows to the EMS.</p>
 </div>
 <div id="img_procEmsDeploy" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-deploy.png" alt="processing EMS deploy" width="90%">
 </div>
-<div class="title">Figure 13. EMS Deployment</div>
+<div class="title">Figure 15. EMS Deployment</div>
 </div>
 <div class="paragraph">
 <p>Applications are deployed to the EMS so that they are available for inclusion in workflows.</p>
@@ -2951,13 +3402,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>Workflows are deployed to the EMS where the steps of the workflow reference applications that are known to the EMS.</p>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_procEmsExecute">Figure 14</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
+<p>As illustrated in <a href="#img_procEmsExecute">Figure 16</a>, the EMS orchestrates the workflow execution by invoking the steps as subordinate invocations of wps:Execute at the ADES identified at time of task invocation. The EMS uses wps-t:DeployProcess on the target ADES to ensure that the process is registered before execution.</p>
 </div>
 <div id="img_procEmsExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-EMS-execute.png" alt="processing EMS execute" width="100%">
 </div>
-<div class="title">Figure 14. EMS Workflow Execution</div>
+<div class="title">Figure 16. EMS Workflow Execution</div>
 </div>
 <div class="paragraph">
 <p>At time of <code>wps:Execute</code> the input data must be specified by the invoking user. Two possibilities are currently identified, both of which should be supported by EMS:</p>
@@ -3025,13 +3476,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <p>The work carried out in the OGC Testbeds 13/14, performed the execution of the ‘packaged’ processing service by invoking the ‘run’ of a docker container in the machine that hosts the WPS-T service. The Common Architecture design builds upon this, by instead invoking the container as a K8s Job that is deployed for execution in the K8s cluster.</p>
 </div>
 <div class="paragraph">
-<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 15</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
+<p>This approach is consistent with the current Application Package / ADES definition that specifies a docker image for the processing service. As illustrated in <a href="#img_procAdesExecute">Figure 17</a>, the ADES provides a K8s-aware Execution Engine that handles the complexities of constructing the jobs and interfacing with the K8s cluster.</p>
 </div>
 <div id="img_procAdesExecute" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-ADES-execute.png" alt="processing ADES execute" width="85%">
 </div>
-<div class="title">Figure 15. ADES Process Execution</div>
+<div class="title">Figure 17. ADES Process Execution</div>
 </div>
 <div class="paragraph">
 <p>A Kubernetes cluster comprises a set of Nodes. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling of the pods across the Nodes in the cluster. The Master&#8217;s automatic scheduling takes into account the available resources on each Node.</p>
@@ -3049,13 +3500,13 @@ executionUnit specfies the URL of the CWL file that defines the workflow.</p>
 <div class="sect2">
 <h3 id="procServiceDataAccess">5.6. Processing Service Data Access</h3>
 <div class="paragraph">
-<p>The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <a href="#img_procDataAccess">Figure 16</a> illustrates.</p>
+<p>The Processing Framework (EMS/ADES) provides the environment through which processing services and workflows access input/output data. The EMS must ensure that the outputs of one step are marshalled to the next, and the ADES must prepare the inputs before job invocation, and collect the outputs at the job conclusion. The processing task is invoked as a Docker container. In doing so, the container execution environment must be provisioned with the input data for the task, and with the means to ‘export’ its outputs to the processing orchestration. Figure <a href="#img_procDataAccess">Figure 18</a> illustrates.</p>
 </div>
 <div id="img_procDataAccess" class="imageblock text-center">
 <div class="content">
 <img src="./images/processing-data-access.png" alt="processing data access" width="50%">
 </div>
-<div class="title">Figure 16. Processing Framework Data Access</div>
+<div class="title">Figure 18. Processing Framework Data Access</div>
 </div>
 <div class="dlist">
 <dl>
@@ -3153,13 +3604,13 @@ The EMS orchestrates the outputs to the next workflow step, or makes available t
 </ul>
 </div>
 <div class="paragraph">
-<p>Building upon the work of OGC Testbed-14 (ref. <a href="#TB14-AP">[TB14-AP]</a>), the Application Descriptor described in section <a href="#mainAppPackage">Application Packaging</a> can be enhanced to include additional application capabilities, as illustrated in <a href="#img_procAppDescriptorUpdated">Figure 17</a>.</p>
+<p>Building upon the work of OGC Testbed-14 (ref. <a href="#TB14-AP">[TB14-AP]</a>), the Application Descriptor described in section <a href="#mainAppPackage">Application Packaging</a> can be enhanced to include additional application capabilities, as illustrated in <a href="#img_procAppDescriptorUpdated">Figure 19</a>.</p>
 </div>
 <div id="img_procAppDescriptorUpdated" class="imageblock text-center">
 <div class="content">
 <img src="./images/application-descriptor-updated.png" alt="application descriptor updated" width="70%">
 </div>
-<div class="title">Figure 17. Application Descriptor (Enhanced)</div>
+<div class="title">Figure 19. Application Descriptor (Enhanced)</div>
 </div>
 <div class="paragraph">
 <p>The Application Descriptor is enhanced with additional components:</p>
@@ -3406,7 +3857,7 @@ Process</p>
 <div class="content">
 <img src="./images/use-cases-applications.png" alt="use cases applications" width="100%">
 </div>
-<div class="title">Figure 18. Interactive Applications Use Case</div>
+<div class="title">Figure 20. Interactive Applications Use Case</div>
 </div>
 <div class="paragraph">
 <p>That said, the approach to application packaging undertaken in the testbeds does lend itself to the packaging of GUI-based applications, which can be packaged, deployed and executed as docker containers, including:</p>
@@ -3539,7 +3990,7 @@ Process</p>
 <div class="content">
 <img src="./images/use-cases-resources.png" alt="use cases resources" width="100%">
 </div>
-<div class="title">Figure 19. Resource Management Use Case</div>
+<div class="title">Figure 21. Resource Management Use Case</div>
 </div>
 <div class="paragraph">
 <p>Processing services and applications are also platform resources that are stored in artefact repositories and must be discoverable by users, including the information required by users to exploit the service. It is assumed that users will store their software artefacts in external public repositories such as DockerHub, GitHub, etc. In the future, it may be necessary for an Exploitation Platform to provide such repository services to its users. Discovery of processing services and applications is met though the provision of an <a href="#mainAppCatalogue">Application Catalogue</a>.</p>
@@ -3557,7 +4008,7 @@ Process</p>
 <p>A Data Ingestion component abstracts the interface to the underlying Resource Tier storage, ensures that incoming data is formatted in accordance with defined standards, is supported by appropriate metadata and directed towards the appropriate dataset collection.</p>
 </div>
 <div class="paragraph">
-<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 20</a>:</p>
+<p>The main components comprising the Resource Management domain are illustrated in <a href="#img_resourceOverview">Figure 22</a>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3585,7 +4036,7 @@ Process</p>
 <div class="content">
 <img src="./images/resource-overview.png" alt="resource overview" width="85%">
 </div>
-<div class="title">Figure 20. Resource Management Overview</div>
+<div class="title">Figure 22. Resource Management Overview</div>
 </div>
 <div class="paragraph">
 <p>To some degree, the role of these components is to provide an integration of the Exploitation Platform to the Resource Tier, by providing public services that bridge to the underlying data supply.</p>
@@ -3727,7 +4178,7 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/catalogue-aggregation.png" alt="catalogue aggregation" width="100%">
 </div>
-<div class="title">Figure 21. Catalogue Aggregation</div>
+<div class="title">Figure 23. Catalogue Aggregation</div>
 </div>
 <div class="paragraph">
 <p>We wish the exploitation platform to expose a public catalogue that provides both the Browse (collection) and Discovery (product) views:</p>
@@ -3762,10 +4213,10 @@ Explore transactional extension to OGC-CSW for application registration.</p>
 <div class="content">
 <img src="./images/catalogue-federation.png" alt="catalogue federation" width="70%">
 </div>
-<div class="title">Figure 22. Catalogue Federation</div>
+<div class="title">Figure 24. Catalogue Federation</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_catalogueFederation">Figure 22</a> there are a number of possible approaches:</p>
+<p>As illustrated in <a href="#img_catalogueFederation">Figure 24</a> there are a number of possible approaches:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4015,10 +4466,10 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="content">
 <img src="./images/client-portability.png" alt="client portability" width="100%">
 </div>
-<div class="title">Figure 23. Client Portability</div>
+<div class="title">Figure 25. Client Portability</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_clientPortability">Figure 23</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. <strong>It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</strong></p>
+<p>As illustrated in <a href="#img_clientPortability">Figure 25</a>, code implemented against the Client Library is not tied to a particular Exploitation Platform, but instead can be initialised and executed against any EP that supports the corresponding Service API. The User Service/Application shown in the figure can either be a process running external to the platform (e.g. on the users local platform), or running as a deployed process within the Processing Framework of the platform. <strong>It should be noted that the use of the Client Library is not mandatory - instead the application can be developed against the Service API directly.</strong></p>
 </div>
 <div class="sect2">
 <h3 id="mainServiceApi">7.1. Service API</h3>
@@ -4091,7 +4542,7 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="sect3">
 <h4 id="_authentication">7.1.2. authentication</h4>
 <div class="paragraph">
-<p>The URL of the OpenID Connect Provider that implements the <a href="#mainLoginService">Login Service</a> for user authentication.</p>
+<p>The URL of the OpenID Connect Provider that implements the <a href="#mainLoginService">[mainLoginService]</a> for user authentication.</p>
 </div>
 <div class="paragraph">
 <p><strong>/connect</strong> (example)</p>
@@ -4308,21 +4759,21 @@ The Processing Framework makes use of these capabilities to ensure that data is 
 <div class="content">
 <img src="./images/client-lib-service-interfaces.png" alt="client lib service interfaces" width="100%">
 </div>
-<div class="title">Figure 24. Client Library Service Interfaces</div>
+<div class="title">Figure 26. Client Library Service Interfaces</div>
 </div>
 <div class="paragraph">
-<p>As illustrated in <a href="#img_clientLibServiceInterfaces">Figure 24</a>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).</p>
+<p>As illustrated in <a href="#img_clientLibServiceInterfaces">Figure 26</a>, the Client Library provides bindings for common languages (Python, R, Javascript) that utilise the network (HTTP) interfaces of the Service API, covering all aspects of the Exploitation Platform functionality (authentication, data/processing discovery, processing etc.).</p>
 </div>
 <div class="sect3">
 <h4 id="_client_library_concept_illustration">7.2.1. Client Library Concept Illustration</h4>
 <div class="paragraph">
-<p>The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<a href="#TB14-ADES">[TB14-ADES]</a>). The scenario is shown in <a href="#img_ndviStacker">Figure 25</a>.</p>
+<p>The design of the Client Library is not yet established. To illustrate its concept we present an example based upon the workflow scenario that was used to demonstrate the EMS/ADES best practice in OGC Testbed-14 (<a href="#TB14-ADES">[TB14-ADES]</a>). The scenario is shown in <a href="#img_ndviStacker">Figure 27</a>.</p>
 </div>
 <div id="img_ndviStacker" class="imageblock text-center">
 <div class="content">
 <img src="./images/ndvi-stacker.png" alt="ndvi stacker" width="80%">
 </div>
-<div class="title">Figure 25. OGC Testbed-14 Workflow Scenario (NDVI Stacker)</div>
+<div class="title">Figure 27. OGC Testbed-14 Workflow Scenario (NDVI Stacker)</div>
 </div>
 <div class="paragraph">
 <p>Four platforms are involved in the scenario:</p>
@@ -4463,13 +4914,13 @@ print(result)</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 26</a> presents these functional areas, organised within their respective domain areas.</p>
+<p>These user-facing web components form part of other domain areas that together present a rich integrated user experience. <a href="#img_webPortal">Figure 28</a> presents these functional areas, organised within their respective domain areas.</p>
 </div>
 <div id="img_webPortal" class="imageblock text-center">
 <div class="content">
 <img src="./images/web-portal.png" alt="web portal" width="90%">
 </div>
-<div class="title">Figure 26. Web Portal: Overview</div>
+<div class="title">Figure 28. Web Portal: Overview</div>
 </div>
 <div class="paragraph">
 <p>The platform should support provision of limited access to unauthenticated (guest) users, in which they can search the marketplace to discover the services and data available, and browse supporting materials. Access to the full capabilities of the platform requires registered users to identify and authenticate.</p>
@@ -4505,7 +4956,7 @@ print(result)</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version Draft for 1.1<br>
-Last updated 2020-03-20 14:42:40 UTC
+Last updated 2020-09-21 11:22:14 UTC
 </div>
 </div>
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
