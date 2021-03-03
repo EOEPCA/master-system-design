@@ -356,7 +356,7 @@ Any Resource Server can dynamically interact with the API to assign specific pol
 The following example showcases how a Resource Owner can have its process deployed, dynamically registered and protected by an ADES component:
 
 [.text-center]
-[#img_resourceAPI,reftext='{figure-caption} {counter:figure-num}']
+[#img_resourceAP_2,reftext='{figure-caption} {counter:figure-num}']
 .Dynamic Resource Protection through a Policy API
 [plantuml, policy-management, png]
 ....
@@ -424,7 +424,7 @@ The PEP validates the access token by using it as a Bearer token in a request to
 
 The ID Token is a JWT that has been signed by the Login Service. Using the jwks (see section ‘OIDC Federation’) endpoint of the Login Service, the PEP is able to obtain the necessary keys to validate the signature of the ID Token. This provides the full user context for the resource access.
 
-[[resourceAPI]]
+[[resourceAPIUM]]
 ==== Resource API
 
 The PEP exposes a REST API that allows to register, remove and update resource references within the Authorization architecture. These resource references are used to perform the Proxying functionality (enforcing authorization) when generating access tickets and enable Policy Decisions to take place on the Policy Decision Points.

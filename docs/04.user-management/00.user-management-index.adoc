@@ -6,3 +6,7 @@ include::01.user-management-functional.adoc[]
 <<<
 
 include::02.user-management-architecture.adoc[]
+
+<<<
+
+include::03.user-management-traceability.adoc[]

@@ -1,0 +1,44 @@
+[[umTraceability]]
+== Use Case Traceability
+
+The following use cases are subject of the design and can be traced against specific related building blocks and Test Procedures. Use cases currently not supported are marked as Release v2.0 target. 
+
+
+[cols="<.^15,.^40,.^15,.^23"]
+|===
+| Identifier | Description | Building Block | Related Test Procedures 
+
+| EOEPCA-UC-0101 | Each user uniquely identified | Login Service | EOEPCAUM-TP-LOG-0030
+| EOEPCA-UC-0102 | User identification/authentication using external Identity Provider | Login Service | EOEPCAUM-TP-LOG-0010 EOEPCAUM-TP-LOG-0040
+| EOEPCA-UC-0103 | User assigned access privileges to platform resources (data/services) | Login Service | EOEPCAUM-TP-LOG-0050
+| EOEPCA-UC-0104 | Unidentified / unauthorised user is regarded as a Guest with limited access | PEP | EOEPCAUM-TP-PEP-0020
+| EOEPCA-UC-0105 | EP enforces authorisation when user accesses platform resources (data/services) | PEP | EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0060
+| EOEPCA-UC-0106 | EP accesses resources of other platform on behalf of a user (delegated) | PEP, PDP | EOEPCAUM-TP-PEP-0060
+| EOEPCA-UC-0107 | EP enforces authorisation when an external platform attempts delegated access on behalf of a user | PEP, PDP | EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0060
+| EOEPCA-UC-0108 | EP customises platform resources based on user identity and data | PEP, PDP | EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0
+| EOEPCA-UC-0109 | EP can ban users identified by administrators | Login Service, PEP | EOEPCAUM-TP-LOG-0020 EOEPCAUM-TP-PEP-0040
+| EOEPCA-UC-0110 | User deletes their account and their personal data is removed | User Profile | EOEPCAUM-TP-USP-0010
+| EOEPCA-UC-0111 | User registers | Login Service | EOEPCAUM-TP-LOG-0010
+| EOEPCA-UC-0112 | User updates account details | User Profile | EOEPCAUM-TS-USP-0030
+| EOEPCA-UC-0206 | The EP can filter or mark Resource search results and information display based on user account data (eg, licences purchased, academic vs commercial user) and Resource access rules / ownership | Login Service, PEP, PDP | EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0
+| EOEPCA-UC-0207 | The EP can refuse access to some or all aspects of a Resource based on the User and Resource (eg, show summary or search result but not allow data access, documentation access or visualization) | Login Service, PEP, PDP | EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0
+| EOEPCA-UC-0212 | The EP can request, record and display acceptance of identified T&Cs by a User (noting that a User may have to accept T&Cs more than once if he represents multiple organizations) | License Manager | Planned for Release 2.0
+| EOEPCA-UC-0213 | The EP can prevent access to Resources when T&C acceptance is required and not completed and can prompt the user to do this (note: this access may happen inside a UI, API or executing processing service) | License Manager| Planned for Release 2.0
+| EOEPCA-UC-0221 | Use of Resources (including search, metadata display, costing, download and execution, but not modification of resources) still functions in as high-performance and uniform a way as possible even when the Resources are located on other platforms within the federation (and access and ownership rules are still enforced) | All | EOEPCAUM-TP-PEP-0010 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0
+| EOEPCA-UC-0405 | The EP can establish federation with remote peer platforms for the purpose of invoking processing platform->platform | Login Service, PDP | EOEPCAUM-TP-LOG-0010 EOEPCAUM-TS-PDP-0060
+| EOEPCA-UC-0507 | An interactive application can access the platform APIs (eg to run Processing Services) under the delegated credentials of the Consumer | Login Service, PEP, PDP | Planned for Release 2.0
+| EOEPCA-UC-1002 | The API is programming-language agnostic and accessible to non-professional programmers and scientists | Login Service, PDP, PEP| EOEPCAUM-TP-PEP-0050 EOEPCAUM-TP-PDP-0040
+| EOEPCA-UC-1003 | API clients are provided for popular programming languages within the EO domain, eg Python | um-common-libraries | N/A
+| EOEPCA-UC-1004 | An API authentication method suitable for use with external applications (such as mobile apps and web apps) is provided, eg oAuth | Login Service, PEP, PDP | EOEPCAUM-TP-PEP-0050 EOEPCAUM-TP-PDP-0040
+| EOEPCA-UC-1005 | An API authentication method suitable for use with scientist-written ad-hoc scripts is provided, eg API keys | Login Service, PEP, PDP, License Manager | Planned for Release 2.0
+| EOEPCA-UC-1303 | An Expert User can create Interactive Applications which are implemented using server-side infastructure which is not managed as dedicated resources within an application session - for example, an Interactive Development Environment consisting of JupyterHub and Kubernetes cluster all shared between all users. The application will still be able to use delegated credentials for data access. | Login Service, PEP, PDP | Planned for Release 2.0
+| EOEPCA-UC-1506 | Access to platform facilities (which may include remote platforms) by the code under development will use the user's credentials and be subject to normal access constraints (eg, T&Cs) | Login Service, PEP, PDP | Planned for Release 2.0
+| EOEPCA-UC-1701 | A Licenser who has published Resources in the catalogue on a commercial basis can specify an API endpoint which will be contacted to authorize access to those Resources or can specify a list of permitted user IDs | Login Service, PEP, PDP | Planned for Release 2.0
+| EOEPCA-UC-1702 | The platform can restrict use of a Resource based on this API endpoint, including time or volume limits after which access must be re-authorized | Login Service, PEP, PDP | Planned for Release 2.0
+| EOEPCA-UC-1705 | The Licenser's sales site can use an authentication protocol (such as OpenID Connect) to authenticate buyers using their EP credentials, and also to avoid a need to log in for users already logged in to the EP | License Manager | Planned for Release 2.0
+| EOEPCA-UC-1707 | A User submitting processing to run on another EP must authorize the home platform to access his host platform account's compute resources (eg using oAuth) | Login Service | Planned for Release 2.0
+| EOEPCA-UC-1810 | A User can agree to the T&Cs and prices and, if platform payment is fully authorized, will be granted access | Login Service, License Manager, Billing Service, Pricing Engine | Planned for Release 2.0
+| EOEPCA-UC-1817 | The home platform can 'hold' some of the credit in the User's account following platform payment authorization, if required by its billing model | Billing Service, Pricing Engine | Planned for Release 2.0
+
+
+|===
