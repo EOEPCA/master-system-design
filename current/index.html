@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="description" content="Master System Design for the Common Architecture">
 <meta name="keywords" content="common architecture master system design">
 <meta name="author" content="TVUK System Team">
 <title>Master System Design Document: EOEPCA.SDD.001</title>
 <link rel="stylesheet" href="stylesheets/eoepca.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
@@ -93,7 +94,7 @@
 <li><a href="#_overview">4.2.3.1. Overview</a></li>
 <li><a href="#_reverse_proxy_functionality">4.2.3.2. Reverse Proxy Functionality</a></li>
 <li><a href="#_access_token_validation">4.2.3.3. Access Token Validation</a></li>
-<li><a href="#resourceAPI">4.2.3.4. Resource API</a></li>
+<li><a href="#resourceAPIUM">4.2.3.4. Resource API</a></li>
 <li><a href="#_interaction_with_other_components_3">4.2.3.5. Interaction with other components</a></li>
 </ul>
 </li>
@@ -115,6 +116,7 @@
 <li><a href="#_user_profile">4.2.7. User Profile</a></li>
 </ul>
 </li>
+<li><a href="#umTraceability">4.3. Use Case Traceability</a></li>
 </ul>
 </li>
 <li><a href="#mainProcessingAndChaining">5. Processing and Chaining</a>
@@ -2618,7 +2620,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div id="img_umaAccessResource" class="imageblock text-center">
 <div class="content">
-<img src="./images/uma-access-resource.png" alt="uma access resource" width="544" height="243">
+<img src="./images/uma-access-resource.png" alt="uma access resource" width="536" height="240">
 </div>
 <div class="title">Figure 6. UMA Access Resource (Success)</div>
 </div>
@@ -2630,7 +2632,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div id="img_umaRegisterPermission" class="imageblock text-center">
 <div class="content">
-<img src="./images/uma-register-permission.png" alt="uma register permission" width="650" height="371">
+<img src="./images/uma-register-permission.png" alt="uma register permission" width="650" height="368">
 </div>
 <div class="title">Figure 7. UMA Resource Server Register Permission</div>
 </div>
@@ -2645,7 +2647,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div id="img_umaClientRequestAuthorization" class="imageblock text-center">
 <div class="content">
-<img src="./images/uma-client-request-authorization.png" alt="uma client request authorization" width="936" height="1019">
+<img src="./images/uma-client-request-authorization.png" alt="uma client request authorization" width="928" height="1016">
 </div>
 <div class="title">Figure 8. UMA Client Request Authorization</div>
 </div>
@@ -2664,9 +2666,9 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 <div class="paragraph">
 <p>The following example showcases how a Resource Owner can have its process deployed, dynamically registered and protected by an ADES component:</p>
 </div>
-<div id="img_resourceAPI" class="imageblock text-center">
+<div id="img_resourceAP_2" class="imageblock text-center">
 <div class="content">
-<img src="./images/policy-management.png" alt="policy management" width="1358" height="546">
+<img src="./images/policy-management.png" alt="policy management" width="1350" height="543">
 </div>
 <div class="title">Figure 9. Dynamic Resource Protection through a Policy API</div>
 </div>
@@ -2760,7 +2762,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div id="img_policyContext" class="imageblock text-center">
 <div class="content">
-<img src="./images/policy-context-propagation.png" alt="policy context propagation" width="863" height="545">
+<img src="./images/policy-context-propagation.png" alt="policy context propagation" width="855" height="542">
 </div>
 <div class="title">Figure 10. Policy Context Propagation through PEP protected requests.</div>
 </div>
@@ -2785,7 +2787,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 </div>
 <div class="sect4">
-<h5 id="resourceAPI">4.2.3.4. Resource API</h5>
+<h5 id="resourceAPIUM">4.2.3.4. Resource API</h5>
 <div class="paragraph">
 <p>The PEP exposes a REST API that allows to register, remove and update resource references within the Authorization architecture. These resource references are used to perform the Proxying functionality (enforcing authorization) when generating access tickets and enable Policy Decisions to take place on the Policy Decision Points.</p>
 </div>
@@ -2797,7 +2799,7 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div id="img_resourceAPI" class="imageblock text-center">
 <div class="content">
-<img src="./images/resource-protection.png" alt="resource protection" width="1139" height="387">
+<img src="./images/resource-protection.png" alt="resource protection" width="1131" height="384">
 </div>
 <div class="title">Figure 11. Dynamic Resource Registration through a Resource API</div>
 </div>
@@ -2992,6 +2994,217 @@ An endpoint at the Authorization Server that allows the Resource Server to query
 </div>
 <div style="page-break-after: always;"></div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="umTraceability">4.3. Use Case Traceability</h3>
+<div class="paragraph">
+<p>The following use cases are subject of the design and can be traced against specific related building blocks and Test Procedures. Use cases currently not supported are marked as Release v2.0 target.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.129%;">
+<col style="width: 43.0107%;">
+<col style="width: 16.129%;">
+<col style="width: 24.7313%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Identifier</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Building Block</th>
+<th class="tableblock halign-left valign-middle">Related Test Procedures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0101</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Each user uniquely identified</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0030</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0102</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User identification/authentication using external Identity Provider</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0010 EOEPCAUM-TP-LOG-0040</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0103</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User assigned access privileges to platform resources (data/services)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0050</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0104</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unidentified / unauthorised user is regarded as a Guest with limited access</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">PEP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0020</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0105</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EP enforces authorisation when user accesses platform resources (data/services)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">PEP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0060</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0106</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EP accesses resources of other platform on behalf of a user (delegated)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0060</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0107</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EP enforces authorisation when an external platform attempts delegated access on behalf of a user</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0060</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0108</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EP customises platform resources based on user identity and data</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0109</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EP can ban users identified by administrators</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0020 EOEPCAUM-TP-PEP-0040</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0110</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User deletes their account and their personal data is removed</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User Profile</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-USP-0010</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0111</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User registers</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0010</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0112</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User updates account details</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User Profile</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TS-USP-0030</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0206</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The EP can filter or mark Resource search results and information display based on user account data (eg, licences purchased, academic vs commercial user) and Resource access rules / ownership</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0207</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The EP can refuse access to some or all aspects of a Resource based on the User and Resource (eg, show summary or search result but not allow data access, documentation access or visualization)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0050 EOEPCAUM-TP-PEP-0020 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0212</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The EP can request, record and display acceptance of identified T&amp;Cs by a User (noting that a User may have to accept T&amp;Cs more than once if he represents multiple organizations)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">License Manager</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0213</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The EP can prevent access to Resources when T&amp;C acceptance is required and not completed and can prompt the user to do this (note: this access may happen inside a UI, API or executing processing service)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">License Manager</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0221</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Use of Resources (including search, metadata display, costing, download and execution, but not modification of resources) still functions in as high-performance and uniform a way as possible even when the Resources are located on other platforms within the federation (and access and ownership rules are still enforced)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">All</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0010 EOEPCAUM-TP-PEP-0040 EOEPCAUM-TP-PDP-00X0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0405</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The EP can establish federation with remote peer platforms for the purpose of invoking processing platform&#8594;platform</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-LOG-0010 EOEPCAUM-TS-PDP-0060</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-0507</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An interactive application can access the platform APIs (eg to run Processing Services) under the delegated credentials of the Consumer</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1002</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The API is programming-language agnostic and accessible to non-professional programmers and scientists</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PDP, PEP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0050 EOEPCAUM-TP-PDP-0040</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1003</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">API clients are provided for popular programming languages within the EO domain, eg Python</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">um-common-libraries</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1004</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An API authentication method suitable for use with external applications (such as mobile apps and web apps) is provided, eg oAuth</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCAUM-TP-PEP-0050 EOEPCAUM-TP-PDP-0040</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1005</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An API authentication method suitable for use with scientist-written ad-hoc scripts is provided, eg API keys</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP, License Manager</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1303</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An Expert User can create Interactive Applications which are implemented using server-side infastructure which is not managed as dedicated resources within an application session - for example, an Interactive Development Environment consisting of JupyterHub and Kubernetes cluster all shared between all users. The application will still be able to use delegated credentials for data access.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1506</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Access to platform facilities (which may include remote platforms) by the code under development will use the user&#8217;s credentials and be subject to normal access constraints (eg, T&amp;Cs)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1701</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A Licenser who has published Resources in the catalogue on a commercial basis can specify an API endpoint which will be contacted to authorize access to those Resources or can specify a list of permitted user IDs</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1702</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The platform can restrict use of a Resource based on this API endpoint, including time or volume limits after which access must be re-authorized</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, PEP, PDP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1705</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The Licenser&#8217;s sales site can use an authentication protocol (such as OpenID Connect) to authenticate buyers using their EP credentials, and also to avoid a need to log in for users already logged in to the EP</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">License Manager</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1707</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A User submitting processing to run on another EP must authorize the home platform to access his host platform account&#8217;s compute resources (eg using oAuth)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1810</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A User can agree to the T&amp;Cs and prices and, if platform payment is fully authorized, will be granted access</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Login Service, License Manager, Billing Service, Pricing Engine</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">EOEPCA-UC-1817</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The home platform can 'hold' some of the credit in the User&#8217;s account following platform payment authorization, if required by its billing model</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Billing Service, Pricing Engine</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Planned for Release 2.0</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -4956,9 +5169,8 @@ print(result)</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version Draft for 1.1<br>
-Last updated 2020-09-21 11:22:14 UTC
+Last updated 2021-03-03 16:17:49 UTC
 </div>
 </div>
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
 </body>
 </html>
